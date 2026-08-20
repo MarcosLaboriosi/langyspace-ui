@@ -27,6 +27,10 @@
 - FR-15: uma superfície por produto deve usar o componente publicado, não um path/file link local.
 - FR-16: cada integração deve preservar copy, handlers, semântica e estado existentes.
 - FR-17: o deploy de cada app deve continuar pelo workflow Firebase já versionado.
+- FR-18: `variant` e `size` devem ser a fonte única de altura, padding, tipografia, raio e tons
+  neutros do Button nos consumidores.
+- FR-19: consumidores devem usar `fullWidth` para largura de container e podem usar `className` ou
+  `styled(Button)` apenas para composição externa ou estado contextual não representado pela API.
 
 ## Non-functional requirements
 
@@ -53,6 +57,10 @@
 - Ações destrutivas permanecem nos componentes locais até um contrato próprio ser planejado.
 - Navegação continua a usar link; o v1 não faz Button fingir ser `<a>`.
 - Variação nova exige caso real em dois produtos ou uma necessidade transversal explícita.
+- Uma diferença histórica sutil não é uma especificidade de produto; deve convergir para o
+  `variant`/`size` canônico.
+- Um estado pressionado sobre superfície inversa é uma especificidade contextual válida, desde que
+  a classe local não replique a geometria e a tipografia do Button.
 
 ## Edge cases
 
@@ -76,3 +84,11 @@
 - AC-07: os cinco workflows de produção concluem com o commit esperado.
 - AC-08: diffs finais não incluem as alterações locais pré-existentes de admin ou teacher.
 - AC-09: README documenta instalação, import de CSS, API, versionamento, release e limites do v1.
+- AC-10: README documenta `fullWidth`, `className` e `styled(Button)` e delimita quais estilos podem
+  permanecer locais.
+- AC-11: `AuthSubmitButton` conserva somente layout externo local e herda a aparência/altura `lg`
+  compartilhada.
+- AC-12: o seletor de período do Cupom conserva largura uniforme e estado invertido pressionado,
+  mas herda altura, padding, tipografia, raio e interação do `size="sm"` compartilhado.
+- AC-13: gates completos e screenshots de Teacher `/login` e Cupom `/relatorio/:id` passam em 390,
+  1281 e 2048 px antes do deploy dos dois produtos.

@@ -46,18 +46,29 @@ export function Actions() {
 | `iconPosition` | `start`, `end`                                      | `end`     |
 | `isLoading`    | keeps label, sets busy/disabled and renders spinner | `false`   |
 
-Todas as props nativas de `<button>` e refs são preservadas. O `type` default é `button`, nunca
-`submit` implícito.
+Todas as props nativas de `<button>`, `className` e refs são preservadas. O `type` default é
+`button`, nunca `submit` implícito. Para ocupar o container, prefira a prop explícita:
 
-O CSS usa seletores `:where(...)` com especificidade zero. Uma classe local pode ajustar uma
-composição específica sem `!important`:
-
-```css
-.campaign-range-button {
-  color: #ffffff;
-  background: transparent;
-}
+```tsx
+<Button fullWidth>Continuar</Button>
 ```
+
+O CSS usa seletores `:where(...)` com especificidade zero. Quando a composição precisar de largura
+específica, margem ou posicionamento, `className` e `styled(Button)` funcionam sem `!important`:
+
+```tsx
+import styled from 'styled-components'
+import { Button } from '@langyspace/ui'
+
+const CheckoutButton = styled(Button)`
+  width: 12rem;
+`
+```
+
+Altura, padding, tipografia, raio e os tons neutros pertencem a `size` e `variant`; não replique
+essas propriedades no consumidor para conservar diferenças sutis. Estilos locais ficam reservados
+para layout externo ou estados realmente contextuais, como `aria-pressed` sobre uma superfície
+inversa. Uma necessidade visual repetida em dois produtos deve voltar para decisão da biblioteca.
 
 ### Deliberate limits
 

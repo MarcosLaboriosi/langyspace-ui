@@ -35,6 +35,22 @@ Esses eixos já existem em mais de um produto e evitam wrappers locais apenas pa
 básico. Variações destrutivas, brand tones, icon-only e polymorphism ficam locais até haver evidência
 de reutilização em pelo menos dois produtos.
 
+### Composition refinement — 2026-08-20
+
+Diferenças sutis de altura, tipografia, raio ou tom neutro não criam novas variantes e não devem ser
+reaplicadas por consumidores. `variant` e `size` são a fonte única da aparência e geometria interna.
+
+Necessidades reais de composição permanecem pequenas e explícitas:
+
+- `fullWidth` quando a ação ocupa todo o container;
+- `className` ou `styled(Button)` para layout externo, como largura específica, margem ou posição;
+- uma classe local para um estado contextual que o primitive não possui, como `aria-pressed` em um
+  seletor sobre fundo inverso.
+
+O consumidor não deve sobrescrever altura, padding, tipografia, raio ou tons de uma variante apenas
+para preservar uma diferença histórica. Se a mesma necessidade visual aparecer em dois produtos,
+ela volta para decisão de produto antes de ampliar o componente.
+
 ## Scope
 
 - Criar o repositório público `MarcosLaboriosi/langyspace-ui` e o pacote `@langyspace/ui`.
@@ -107,3 +123,13 @@ tarball with checksum, the same artifact is locked in all five products, and one
 Button surface is live in each production Firebase Hosting site. All library and consumer gates
 passed, representative screenshots were inspected, and production HTTP/assets were verified
 without authentication or product-data access.
+
+The epic was reopened on 2026-08-20 for Task 10: normalize the two remaining consumer compositions
+that duplicated subtle Button metrics, document the extension boundary, revalidate Teacher and
+Cupom, and promote only those consumer changes to production. The package runtime contract remains
+`0.1.0`; no mutable release artifact will be changed.
+
+Task 10 is complete. Teacher and Cupom now inherit the canonical `lg`/`sm` geometry and typography,
+retain only external layout/contextual selection locally, and are live at commits `6d910f6` and
+`02024fb`. The full visual gates and representative screenshot reviews passed, both Hosting
+workflows succeeded, and the deployed assets were verified directly.

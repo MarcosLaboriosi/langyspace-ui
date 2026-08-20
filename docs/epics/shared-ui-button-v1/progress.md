@@ -2,7 +2,8 @@
 
 ## Status
 
-Complete — `@langyspace/ui@0.1.0` and all five consumer integrations are live in production.
+Complete — `@langyspace/ui@0.1.0` remains live across all five products, and Teacher/Cupom now use
+the documented composition boundary without duplicated subtle Button metrics.
 
 ## Visual impact
 
@@ -33,6 +34,8 @@ are defined in `epic.md` and `technical-plan.md`.
 - Task 09 — Landing `32393691284`, Admin `32394417756`, Student `32397183049`, Teacher
   `32399347546` and Cupom `32399833309` deployed successfully; every production probe returned 200
   and served `lsui-button` assets.
+- Task 10 — composition contract documented; Teacher `6d910f6` and Cupom `02024fb` normalized,
+  visually validated and deployed through successful runs `32401579654` and `32401574690`.
 
 ## In progress
 
@@ -75,3 +78,12 @@ None.
 - Unrelated Teacher auth run `32393492196` partially updated Functions but failed on multiple Cloud
   Run health-check/readiness deadlines. This did not block the independently scoped, successful
   Hosting run `32399347546` and remains outside this UI epic.
+- The shared component already combines consumer `className`, forwards refs/native props and exposes
+  `fullWidth`; the new requirement needs no package runtime or release change.
+- Teacher duplicates the canonical palette but raises `lg` from 48 px to 52/56 px and changes mobile
+  typography. Cupom's range class raises `sm` through padding and duplicates compact typography.
+- Existing Teacher `/login` and Cupom sanitized report audits cover every affected state and the
+  required 390/1281/2048 widths, so no new fixture or layout-audit case is needed.
+- Task 10 final visual gate passed: Teacher 162 default plus 18 compact scenarios and Cupom 36
+  scenarios, with all required screenshots inspected. Public probes returned HTTP 200 and exact
+  deployed assets matched the local production builds.

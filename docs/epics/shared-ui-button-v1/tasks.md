@@ -9,5 +9,6 @@
 - [x] [07 — Integrate langyspace-teacher](tasks/07-integrate-teacher.md)
 - [x] [08 — Integrate langyspace-cupom](tasks/08-integrate-cupom.md)
 - [x] [09 — Complete cross-repository release and production rollout](tasks/09-production-rollout.md)
+- [x] [10 — Normalize Button composition and redeploy affected consumers](tasks/10-normalize-composition.md)
 
 Only one task may be in progress. Each task file owns its subtask checklist and validation evidence.

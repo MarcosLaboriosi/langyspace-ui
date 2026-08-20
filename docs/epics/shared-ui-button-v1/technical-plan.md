@@ -43,6 +43,18 @@ existing Firebase Hosting workflows
 - `prefers-reduced-motion` disables translate/spinner motion where appropriate while preserving a
   static busy indicator.
 
+### Consumer composition boundary
+
+- `fullWidth` é a primeira escolha para `width: 100%` porque expressa a necessidade sem CSS local.
+- `className` já é combinado com `lsui-button`, e `forwardRef` mantém o componente compatível com
+  `styled(Button)`; nenhuma nova prop ou versão do pacote é necessária.
+- CSS local pode controlar apenas layout externo (`width` específica, `margin`, posição no owner) e
+  estados contextuais ausentes da API (`aria-pressed` sobre fundo inverso).
+- CSS local não deve reaplicar `min-height`, padding, font-size/weight, radius, border ou tons
+  primary/secondary/tertiary. Essas propriedades pertencem ao par `variant`/`size`.
+- Uma exceção recorrente em dois produtos exige nova revisão de produto; ela não vira uma sequência
+  de overrides por consumidor.
+
 ## Validation strategy
 
 ### Unit and package
@@ -107,6 +119,41 @@ npmjs while retaining publication-age verification for every registry dependency
 - Add dependency and stylesheet import.
 - Render period range controls with shared tertiary Button plus the existing local class. Local CSS
   remains authoritative due to higher specificity.
+
+## Task 10 implementation refinement
+
+### Affected files
+
+- Library: `README.md` and this epic only; `src/Button.tsx`/`button.css` remain unchanged.
+- Teacher: `src/components/layout/AuthSubmitButton/styles.ts` only. Keep responsive external
+  `margin-top`; remove duplicated geometry, tones, borders, typography and states. The wrapper keeps
+  `fullWidth size="lg"` in JSX.
+- Cupom: `src/pages/CouponMetricsPage/styles.css` only. Keep equal `min-width` and the inverse
+  pressed/unpressed colors; remove duplicated padding, border, radius, cursor and typography.
+
+### Validation and rollout
+
+- Library documentation: Prettier plus existing CI; no tag/release because runtime files and public
+  API do not change.
+- Teacher: focused `AuthSubmitButton` tests, build and full `pnpm run validate:ui`; inspect `/login`
+  stress at 390, 1281 and 2048 plus compact-height 390x667.
+- Cupom: focused tests/build through full `pnpm run validate:ui`; inspect sanitized report stress at
+  390, 1281 and 2048 with pressed/unpressed controls.
+- Push only fast-forward commits from clean isolated branches, monitor the two Hosting workflows and
+  verify the production bundles still contain `lsui-button`.
+
+### Critical plan review
+
+- Product Manager: normalization reduces arbitrary visual vocabulary without hiding real width or
+  selected-state requirements; no new variant or migration of unrelated buttons is justified.
+- Tech Lead: the current native-prop/ref/className contract already supports styled-components and
+  plain CSS. Releasing `0.1.1` would add operational risk without a runtime change.
+- Senior Engineer: declarations are removed only where the shared `lg`/`sm` values already own the
+  same responsibility. Teacher's external rhythm and Cupom's contextual inverse state remain local.
+- QA: both changed surfaces already have deterministic offline fixtures at all required widths. The
+  existing audit needs no new route/state; current cases cover loading and the selected range.
+- Security/operations: no Firebase, auth, data, package URL or lockfile changes. Deploy scope is only
+  Teacher and Cupom Hosting.
 
 ## Release and versioning
 
