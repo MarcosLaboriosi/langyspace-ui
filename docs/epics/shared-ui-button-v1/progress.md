@@ -53,3 +53,5 @@ None.
 - TypeScript 6 needs a `types` condition for the CSS export and test files excluded from declaration
   emit; the clean-consumer smoke test now protects both contracts.
 - Task 02 visual evidence: `.local/layout-audit/2026-08-20T15-18-57.555Z`, 18 scenarios, 0 issues.
+- The student edit-profile loading test asserted the old Lucide spinner class; Task 06 now checks
+  the shared spinner plus semantic disabled/`aria-busy` behavior while preserving the visible label.
