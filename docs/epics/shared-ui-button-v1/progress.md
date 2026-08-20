@@ -18,14 +18,16 @@ are defined in `epic.md` and `technical-plan.md`.
 - Dependency-ordered task breakdown completed.
 - Task 01 — repository/package foundation (`7e3c672`), public GitHub repository and frozen lockfile.
 - Task 02 — Button v1, 5 unit tests, clean-consumer package smoke and 18-scenario visual audit.
+- Task 03.3 — CI/release automation committed and pushed; GitHub CI run `32385834404` passed.
 
 ## In progress
 
-Task 03.2 — tag release workflow with version verification, package and checksum.
+Task 03.4 — tag `v0.1.0`, monitor the workflow and verify assets/metadata.
 
 ## Next subtask
 
-Task 03.3 — commit and push reviewed library automation to main.
+Task 03.5 — download the public asset without authentication, verify SHA-256 and rerun package
+smoke.
 
 ## Blockers
 

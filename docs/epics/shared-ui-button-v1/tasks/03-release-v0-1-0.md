@@ -8,7 +8,7 @@ Create CI/release automation and publish the first immutable installable artifac
 
 - [x] 03.1 Add CI for pull requests and main.
 - [x] 03.2 Add tag release workflow with version verification, full validation, pack and SHA-256.
-- [ ] 03.3 Commit/push the reviewed library to main.
+- [x] 03.3 Commit/push the reviewed library to main.
 - [ ] 03.4 Tag `v0.1.0`, monitor the workflow and verify release assets/metadata.
 - [ ] 03.5 Download/install the public asset without auth and rerun package smoke build.
 - [ ] 03.6 Update progress and mark the immutable consumer URL.
@@ -30,3 +30,8 @@ Create CI/release automation and publish the first immutable installable artifac
 
 `Visual gate review: passed` must be inherited from the exact commit/tag validated by the release
 workflow; inspect the workflow artifact if local evidence differs.
+
+## Evidence
+
+- GitHub CI run `32385834404`: passed in 1m09s with Node 24 and v6 action runtimes.
+- Release checksum records the public asset basename so a downloaded `.sha256` verifies directly.

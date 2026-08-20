@@ -65,7 +65,10 @@ jobs:
           mkdir -p release
           pnpm pack --pack-destination release
           asset="langyspace-ui-${{ steps.version.outputs.version }}.tgz"
-          sha256sum "release/${asset}" > "release/${asset}.sha256"
+          (
+            cd release
+            sha256sum "${asset}" > "${asset}.sha256"
+          )
           echo "asset=${asset}" >> "${GITHUB_OUTPUT}"
 
       - name: Create GitHub Release
