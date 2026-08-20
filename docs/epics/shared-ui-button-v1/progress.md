@@ -20,14 +20,16 @@ are defined in `epic.md` and `technical-plan.md`.
 - Task 02 — Button v1, 5 unit tests, clean-consumer package smoke and 18-scenario visual audit.
 - Task 03.3 — CI/release automation committed and pushed; GitHub CI run `32385834404` passed.
 - Task 03 — `v0.1.0` published, checksum verified anonymously and public package smoke passed.
+- Task 04 — landing integration committed as `272633a`; 198 layout scenarios and visual review
+  passed.
 
 ## In progress
 
-Task 04.1 — create an isolated `langyspace` integration branch/worktree from `origin/main`.
+Task 05.1 — create an isolated `langyspace-admin` integration branch/worktree from `origin/main`.
 
 ## Next subtask
 
-Task 04.2 — install the immutable package and route the landing Button adapter to it.
+Task 05.2 — install the immutable package and replace only the `/login` CTA.
 
 ## Blockers
 
