@@ -1,6 +1,6 @@
 # Tasks
 
-- [ ] [01 — Establish repository and package foundation](tasks/01-repository-foundation.md)
+- [x] [01 — Establish repository and package foundation](tasks/01-repository-foundation.md)
 - [ ] [02 — Implement and validate Button v1](tasks/02-button-v1.md)
 - [ ] [03 — Automate and publish release v0.1.0](tasks/03-release-v0-1-0.md)
 - [ ] [04 — Integrate langyspace landing](tasks/04-integrate-landing.md)

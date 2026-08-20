@@ -16,14 +16,15 @@ are defined in `epic.md` and `technical-plan.md`.
 - Existing Button APIs, theme metrics and audit routes mapped.
 - Product plan, requirements, product review, technical plan and technical review completed.
 - Dependency-ordered task breakdown completed.
+- Task 01 — repository/package foundation (`7e3c672`), public GitHub repository and frozen lockfile.
 
 ## In progress
 
-Task 01.1 — minimal repository/package configuration.
+None.
 
 ## Next subtask
 
-Task 01.2 — install dependencies and commit a frozen pnpm lockfile.
+Task 02.1 — implement the typed native Button behavior and exports.
 
 ## Blockers
 

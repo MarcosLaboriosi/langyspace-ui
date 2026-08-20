@@ -6,13 +6,23 @@ Create a minimal, reproducible public library repository before component implem
 
 ## Subtasks
 
-- [ ] 01.1 Add package metadata, Node/pnpm contract, TypeScript/Vite/test/lint/format configuration,
+- [x] 01.1 Add package metadata, Node/pnpm contract, TypeScript/Vite/test/lint/format configuration,
       ignore rules and README skeleton.
-- [ ] 01.2 Install dependencies and commit a frozen pnpm lockfile.
-- [ ] 01.3 Create `MarcosLaboriosi/langyspace-ui` as a public GitHub repository, add origin and verify
+- [x] 01.2 Install dependencies and commit a frozen pnpm lockfile.
+- [x] 01.3 Create `MarcosLaboriosi/langyspace-ui` as a public GitHub repository, add origin and verify
       visibility/default branch.
-- [ ] 01.4 Run config-level lint/type/build smoke checks and review the diff.
-- [ ] 01.5 Update epic progress/evidence and mark Task 01 complete.
+- [x] 01.4 Run config-level lint/type/build smoke checks and review the diff.
+- [x] 01.5 Update epic progress/evidence and mark Task 01 complete.
+
+## Evidence
+
+- Foundation commit: `7e3c672`.
+- `pnpm run lint`: passed.
+- `pnpm run build`: passed after adding the TypeScript 6 `rootDir` requirement.
+- `pnpm exec prettier --check .`: passed.
+- GitHub repository: public, default branch `main`.
+- Local Node 26 exposed an unnecessary upper engine bound; the supported contract is now Node 24+
+  while release CI remains pinned to Node 24.
 
 ## Completion conditions
 
@@ -30,5 +40,5 @@ Create a minimal, reproducible public library repository before component implem
 
 ## Visual gate
 
-Not yet applicable inside this task because no rendered component exists. The epic remains `direct`
-and Task 02 owns the first visual gate.
+Visual gate review: not applicable — this task introduced repository/package configuration only;
+no rendered component exists yet. The epic remains `direct` and Task 02 owns the first visual gate.
