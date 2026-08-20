@@ -12,7 +12,8 @@ Install the release and use the shared Button for the audited edit-profile actio
       the focused loading assertion from the local Lucide implementation to the shared spinner and
       `aria-busy` contract.
 - [ ] 06.4 Run focused profile tests/build and full UI validation.
-- [ ] 06.5 Inspect edit-profile screenshots at 390, 1281 and 2048 in normal/stress modes.
+- [ ] 06.5 Audit edit-profile geometry in normal/stress modes and inspect the repository's stable
+      representative stress screenshots at 390, 1281 and 2048.
 - [ ] 06.6 Review/stage explicit diff and commit.
 
 ## Completion conditions
