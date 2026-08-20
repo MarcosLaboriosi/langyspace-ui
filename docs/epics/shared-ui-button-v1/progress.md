@@ -17,6 +17,7 @@ are defined in `epic.md` and `technical-plan.md`.
 - Product plan, requirements, product review, technical plan and technical review completed.
 - Dependency-ordered task breakdown completed.
 - Task 01 — repository/package foundation (`7e3c672`), public GitHub repository and frozen lockfile.
+- Task 02 — Button v1, 5 unit tests, clean-consumer package smoke and 18-scenario visual audit.
 
 ## In progress
 
@@ -24,7 +25,7 @@ None.
 
 ## Next subtask
 
-Task 02.1 — implement the typed native Button behavior and exports.
+Task 03.1 — add CI for pull requests and main.
 
 ## Blockers
 
@@ -43,3 +44,6 @@ None.
 - Four theme files already share the same primary/secondary sizes and base palette.
 - GitHub CLI is authenticated; npm CLI is not.
 - GitHub Packages npm installs require auth even when public, so v1 uses a public release tarball.
+- TypeScript 6 needs a `types` condition for the CSS export and test files excluded from declaration
+  emit; the clean-consumer smoke test now protects both contracts.
+- Task 02 visual evidence: `.local/layout-audit/2026-08-20T15-18-57.555Z`, 18 scenarios, 0 issues.

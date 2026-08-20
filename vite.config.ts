@@ -1,14 +1,17 @@
-import { defineConfig } from "vite";
+import react from '@vitejs/plugin-react'
+import { defineConfig } from 'vite'
 
 export default defineConfig({
+  plugins: [react()],
   build: {
     lib: {
-      entry: "src/index.ts",
-      fileName: "index",
-      formats: ["es"],
+      cssFileName: 'styles',
+      entry: 'src/index.ts',
+      fileName: 'index',
+      formats: ['es'],
     },
     rollupOptions: {
-      external: ["react", "react-dom", "react/jsx-runtime"],
+      external: ['react', 'react-dom', 'react/jsx-runtime'],
     },
   },
-});
+})
