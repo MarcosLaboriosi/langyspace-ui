@@ -24,14 +24,16 @@ are defined in `epic.md` and `technical-plan.md`.
   passed.
 - Task 05 — admin login integration committed as `bc4559c`; 224 tests and all visual gate stages
   passed with 1,716 layout scenarios.
+- Task 06 — student profile integration committed as `149f0e3`; six focused tests and 216 layout
+  scenarios passed.
 
 ## In progress
 
-Task 06.1 — create an isolated `langyspace-student` integration branch/worktree from `origin/main`.
+Task 07.1 — create an isolated `langyspace-teacher` integration branch/worktree from `origin/main`.
 
 ## Next subtask
 
-Task 06.2 — install the immutable package and replace only the `/perfil/editar` save Button.
+Task 07.2 — install the immutable package and compose `AuthSubmitButton` over the shared Button.
 
 ## Blockers
 
