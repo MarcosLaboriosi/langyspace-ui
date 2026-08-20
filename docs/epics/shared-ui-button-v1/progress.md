@@ -28,14 +28,17 @@ are defined in `epic.md` and `technical-plan.md`.
   scenarios passed.
 - Task 07 — teacher auth wrapper integration committed as `f1942ff`; two focused tests, 162 layout
   scenarios and compact-height visual review passed.
+- Task 08 — cupom report-range integration committed as `95f4537`; 15 tests, 36 layout scenarios
+  and visual review at 390, 1281 and 2048 px passed.
 
 ## In progress
 
-Task 08.1 — create an isolated `langyspace-cupom` integration branch/worktree from `origin/main`.
+Task 09.1 — re-confirm the exact release and consumer commits against current remote mains before
+production rollout.
 
 ## Next subtask
 
-Task 08.2 — install the immutable package and replace report range controls with tertiary Buttons.
+Task 09.2 — complete the cross-repository Product, Tech Lead, Senior Engineer and QA review.
 
 ## Blockers
 

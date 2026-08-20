@@ -7,7 +7,7 @@
 - [x] [05 — Integrate langyspace-admin](tasks/05-integrate-admin.md)
 - [x] [06 — Integrate langyspace-student](tasks/06-integrate-student.md)
 - [x] [07 — Integrate langyspace-teacher](tasks/07-integrate-teacher.md)
-- [ ] [08 — Integrate langyspace-cupom](tasks/08-integrate-cupom.md)
+- [x] [08 — Integrate langyspace-cupom](tasks/08-integrate-cupom.md)
 - [ ] [09 — Complete cross-repository release and production rollout](tasks/09-production-rollout.md)
 
 Only one task may be in progress. Each task file owns its subtask checklist and validation evidence.
