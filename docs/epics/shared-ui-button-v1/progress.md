@@ -21,11 +21,11 @@ are defined in `epic.md` and `technical-plan.md`.
 
 ## In progress
 
-None.
+Task 03.2 — tag release workflow with version verification, package and checksum.
 
 ## Next subtask
 
-Task 03.1 — add CI for pull requests and main.
+Task 03.3 — commit and push reviewed library automation to main.
 
 ## Blockers
 

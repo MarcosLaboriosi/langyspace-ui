@@ -6,8 +6,8 @@ Create CI/release automation and publish the first immutable installable artifac
 
 ## Subtasks
 
-- [ ] 03.1 Add CI for pull requests and main.
-- [ ] 03.2 Add tag release workflow with version verification, full validation, pack and SHA-256.
+- [x] 03.1 Add CI for pull requests and main.
+- [x] 03.2 Add tag release workflow with version verification, full validation, pack and SHA-256.
 - [ ] 03.3 Commit/push the reviewed library to main.
 - [ ] 03.4 Tag `v0.1.0`, monitor the workflow and verify release assets/metadata.
 - [ ] 03.5 Download/install the public asset without auth and rerun package smoke build.

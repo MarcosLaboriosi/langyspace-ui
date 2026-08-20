@@ -1,0 +1,52 @@
+name: Validate UI Library
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ui-library-ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.33.2
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Install Chromium
+        run: pnpm exec playwright install --with-deps chromium
+
+      - name: Validate package and visual layout
+        run: pnpm run validate:ui
+
+      - name: Upload visual evidence on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ui-library-layout-audit-${{ github.sha }}
+          path: .local/layout-audit
+          if-no-files-found: ignore
+          retention-days: 7
