@@ -22,14 +22,16 @@ are defined in `epic.md` and `technical-plan.md`.
 - Task 03 — `v0.1.0` published, checksum verified anonymously and public package smoke passed.
 - Task 04 — landing integration committed as `272633a`; 198 layout scenarios and visual review
   passed.
+- Task 05 — admin login integration committed as `bc4559c`; 224 tests and all visual gate stages
+  passed with 1,716 layout scenarios.
 
 ## In progress
 
-Task 05.1 — create an isolated `langyspace-admin` integration branch/worktree from `origin/main`.
+Task 06.1 — create an isolated `langyspace-student` integration branch/worktree from `origin/main`.
 
 ## Next subtask
 
-Task 05.2 — install the immutable package and replace only the `/login` CTA.
+Task 06.2 — install the immutable package and replace only the `/perfil/editar` save Button.
 
 ## Blockers
 
