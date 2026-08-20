@@ -10,7 +10,7 @@ Publish the validated CSS-free styled-components package as an immutable public 
 - [x] 12.2 Tag exact validated main as `v0.2.0` and monitor the release workflow.
 - [x] 12.3 Verify public tarball/checksum, package contents, peer metadata and external smoke install.
 - [x] 12.4 Correct the Node SSR styled-components interop, add regression smoke and validate locally.
-- [ ] 12.5 Publish/verify immutable `v0.2.1` after the complete gate; do not promote `v0.2.0`.
+- [x] 12.5 Publish/verify immutable `v0.2.1` after the complete gate; do not promote `v0.2.0`.
 
 ## Completion conditions
 
@@ -39,3 +39,8 @@ function`; this exposed missing Node SSR coverage, so that immutable artifact is
 - 12.4: package/showcase use the named `styled` export, version is `0.2.1`, and package smoke now
   imports `@langyspace/ui` directly in Node before the Vite build. Formatting, lint, six tests,
   CSS-free build, Node/Vite package smoke and diff checks passed; built ESM imports named `styled`.
+- 12.5: complete local gate passed 18 scenarios at nine widths with normal/stress screenshots at
+  390, 1281 and 2048 px inspected from `.local/layout-audit/2026-08-20T19-10-30.320Z`. Main CI
+  `32407318211` and release workflow `32407468948` passed on commit `be56c56`; public `v0.2.1`
+  checksum `382dd70b1d3b4266a3ff3ce49468c8355dbf4b8c340054569626f70c54a7ef29`, CSS-free contents,
+  named runtime import and external Node/Vite smoke were verified.

@@ -2,9 +2,8 @@
 
 ## Status
 
-In progress — migrate the shared Button implementation from a global CSS artifact to
-styled-components with separated TypeScript types, publish `0.2.1`, upgrade all five consumers and
-roll it out to production.
+Complete — the shared Button uses styled-components with separated TypeScript types, immutable
+`v0.2.1` is installed in all five consumers, and every production Hosting site was verified.
 
 ## Visual impact
 
@@ -45,14 +44,26 @@ are defined in `epic.md` and `technical-plan.md`.
   `32406316475` and release workflow `32406503412` passed. Public checksum
   `d4f24975a051d82ed6fddfbc2fba8db23b6f8829c18631684aa5747e63970e3e`, CSS-free contents and
   external Vite consumer build were verified.
+- Task 12 compatibility correction — `v0.2.0` was withheld after Landing exposed Node SSR interop;
+  `v0.2.1` uses the named styled export and adds direct Node import coverage. Local gate, main CI
+  `32407318211`, release workflow `32407468948`, public checksum and external Node/Vite smoke all
+  passed for commit `be56c56`.
+- Task 13 — all five isolated consumers pin `v0.2.1` with no legacy stylesheet import; focused
+  builds/tests passed, Landing SSR/prerender passed, and Cupom composes its contextual range state
+  through a dedicated `styled(Button)`. Cross-repository version/import audit passed.
+- Task 14 — all five complete visual gates passed; scoped commits reached remote `main`; Hosting
+  workflows `32410680419`, `32410680747`, `32410682154`, `32410680456` and `32410680085` passed;
+  the five public routes returned 200 with the shared runtime marker and zero legacy Button rules in
+  emitted CSS. The later concurrent Teacher main `b3ddccf` preserves `f20aa74` and `v0.2.1`, passed
+  workflow `32412157863`, and serves the matching current production bundle.
 
 ## In progress
 
-Task 12 — correct the SSR interop discovered by Landing and publish immutable `v0.2.1`.
+None.
 
 ## Next subtask
 
-12.5 — run the complete gate and publish/verify immutable `v0.2.1`.
+None — epic complete.
 
 ## Blockers
 
@@ -105,3 +116,17 @@ None.
 - `v0.2.0` passed browser packaging but failed Landing's Node prerender because the externalized
   styled-components default import did not expose `.button`; the named `styled` export is required
   and a direct Node package-import smoke must guard the SSR boundary in `v0.2.1`.
+- Landing's workflow injects its Firebase environment and therefore emits a different asset hash
+  from the local build. Its public `index-D_7_VlbB.js` was correlated directly with the successful
+  workflow build output instead of claiming a false byte-for-byte local match.
+- Teacher advanced concurrently after this rollout. Current `main` `b3ddccf` keeps the shared UI
+  commit as an ancestor, retains the exact `v0.2.1` release and zero legacy stylesheet imports, and
+  its successful Hosting-only deploy supersedes the initially verified `f20aa74` asset without
+  weakening the shared Button result.
+
+## Final visual verdict
+
+Visual gate review: passed — Library 18, Landing 198, Admin 1,716, Student 216, Teacher 162 plus 18
+compact-height, and Cupom 36 layout scenarios passed. Required screenshots at 390, 1281 and 2048 px
+plus Teacher 390x667 were inspected with no Button hierarchy, contrast, containment or overflow
+regression.

@@ -165,3 +165,11 @@ The initial `v0.2.0` artifact passed the browser consumer smoke but the Landing 
 a Node SSR interop failure in styled-components' default import. It remains immutable and will not
 be promoted. `v0.2.1` uses the named `styled` export and adds a direct Node import smoke before the
 same five-consumer rollout resumes.
+
+The styled-components refinement is complete. Public `v0.2.1` points to validated commit `be56c56`,
+has checksum `382dd70b1d3b4266a3ff3ce49468c8355dbf4b8c340054569626f70c54a7ef29`, contains no CSS
+artifact and declares styled-components as a peer. All five products pin that immutable tarball,
+have no legacy stylesheet import and are live after their complete UI gates. Production probes
+returned 200 and confirmed shared runtime markers with zero legacy Button CSS rules. The later
+Teacher deployment at `b3ddccf` preserves the shared commit and release while independently passing
+its own gate. Visual gate review: passed.

@@ -11,8 +11,8 @@
 - [x] [09 — Complete cross-repository release and production rollout](tasks/09-production-rollout.md)
 - [x] [10 — Normalize Button composition and redeploy affected consumers](tasks/10-normalize-composition.md)
 - [x] [11 — Refactor Button to styled-components and separated types](tasks/11-styled-button-refactor.md)
-- [ ] [12 — Publish and verify the immutable styled-components release](tasks/12-release-v0-2-0.md)
-- [ ] [13 — Upgrade all five consumers to v0.2.1](tasks/13-upgrade-consumers-v0-2-0.md)
-- [ ] [14 — Validate and roll out v0.2.1 to production](tasks/14-production-rollout-v0-2-0.md)
+- [x] [12 — Publish and verify the immutable styled-components release](tasks/12-release-v0-2-0.md)
+- [x] [13 — Upgrade all five consumers to v0.2.1](tasks/13-upgrade-consumers-v0-2-0.md)
+- [x] [14 — Validate and roll out v0.2.1 to production](tasks/14-production-rollout-v0-2-0.md)
 
 Only one task may be in progress. Each task file owns its subtask checklist and validation evidence.
