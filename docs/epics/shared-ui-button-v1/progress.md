@@ -33,12 +33,11 @@ are defined in `epic.md` and `technical-plan.md`.
 
 ## In progress
 
-Task 09.1 — re-confirm the exact release and consumer commits against current remote mains before
-production rollout.
+Task 09.3 — promote each clean, fast-forward consumer commit to `main` sequentially.
 
 ## Next subtask
 
-Task 09.2 — complete the cross-repository Product, Tech Lead, Senior Engineer and QA review.
+Task 09.4 — monitor each Firebase Hosting workflow to successful completion before continuing.
 
 ## Blockers
 
