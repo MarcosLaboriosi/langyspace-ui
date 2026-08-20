@@ -13,9 +13,10 @@
 - FR-07: `isLoading` deve manter a label, expor `aria-busy="true"`, substituir o ícone por um
   indicador interno, desabilitar interação e preservar feedback visual.
 - FR-08: props nativas, `className`, `data-*`, `aria-*` e ref devem chegar ao elemento.
-- FR-09: estilos devem ser importáveis por `@langyspace/ui/styles.css`.
-- FR-10: seletores da biblioteca devem ter baixa especificidade para permitir composição local sem
-  `!important`.
+- FR-09: todos os estilos do Button devem viver em `src/Button/styles.ts` com `styled-components`; o
+  pacote não deve expor ou exigir CSS global.
+- FR-10: `className` deve continuar chegando ao elemento para que `styled(Button)` componha estilos
+  externos sem `!important`.
 
 ### Delivery
 
@@ -23,7 +24,8 @@
 - FR-12: uma tag `v<package.version>` deve criar automaticamente um release com `.tgz`, checksum e
   notas, falhando se tag e versão divergirem.
 - FR-13: o release deve ser instalável por URL pública imutável, sem token.
-- FR-14: cada consumidor deve importar o stylesheet uma vez e manter a versão exata no lockfile.
+- FR-14: cada consumidor deve remover o import legado de stylesheet e manter a versão exata no
+  lockfile.
 - FR-15: uma superfície por produto deve usar o componente publicado, não um path/file link local.
 - FR-16: cada integração deve preservar copy, handlers, semântica e estado existentes.
 - FR-17: o deploy de cada app deve continuar pelo workflow Firebase já versionado.
@@ -31,10 +33,17 @@
   neutros do Button nos consumidores.
 - FR-19: consumidores devem usar `fullWidth` para largura de container e podem usar `className` ou
   `styled(Button)` apenas para composição externa ou estado contextual não representado pela API.
+- FR-20: o componente deve usar `src/Button/index.tsx`, `styles.ts` e `types.ts`; tipos públicos e
+  transient props internos não podem permanecer declarados no arquivo do componente.
+- FR-21: `styled-components` deve ser peer dependency externa do pacote, nunca uma cópia embutida no
+  bundle.
+- FR-22: o Cupom deve declarar `styled-components` diretamente e migrar seu controle contextual para
+  `styled(Button)`; os demais produtos reutilizam seus peers existentes.
 
 ## Non-functional requirements
 
-- NFR-01: nenhum runtime dependency além de React como peer.
+- NFR-01: React e styled-components são as únicas peer dependencies de runtime; ambos permanecem
+  externos ao bundle.
 - NFR-02: package build deve ser reproduzível com Node 24 ou superior e pnpm 10.33.2; CI de
   release usa Node 24.
 - NFR-03: o bundle deve ser ESM, tree-shakeable e sem código Firebase ou app-specific.
@@ -71,7 +80,11 @@
 - `aria-busy` explícito deve ser preservado quando loading é falso e forçado para true quando ativo.
 - `className` local deve coexistir com a classe da biblioteca.
 - SSR/prerender de `langyspace` não pode acessar `window` durante import do pacote.
-- O pacote deve funcionar no app `cupom`, que não usa styled-components.
+- O pacote deve funcionar no app `cupom`, que passa a declarar uma instância compatível de
+  styled-components sem adotar ThemeProvider ou tema global.
+- O pacote e o Cupom devem funcionar sem ThemeProvider; o Button não depende do tema de nenhum app.
+- A remoção de `@langyspace/ui/styles.css` deve falhar em busca estática se algum consumidor ainda
+  mantiver o import legado.
 
 ## Acceptance criteria
 
@@ -92,3 +105,12 @@
   mas herda altura, padding, tipografia, raio e interação do `size="sm"` compartilhado.
 - AC-13: gates completos e screenshots de Teacher `/login` e Cupom `/relatorio/:id` passam em 390,
   1281 e 2048 px antes do deploy dos dois produtos.
+- AC-14: `src/button.css`, `src/styles.d.ts`, o export `./styles.css` e qualquer CSS gerado pelo
+  pacote deixam de existir.
+- AC-15: `Button` reside em pasta própria com `index.tsx`, `styles.ts`, `types.ts` e teste focado;
+  os tipos públicos continuam importáveis pela raiz do pacote.
+- AC-16: o tarball `0.2.0` declara React/styled-components como peers, não contém styled-components
+  empacotado e compila num consumidor Vite limpo sem import de CSS.
+- AC-17: os cinco produtos resolvem o mesmo release imutável `0.2.0`, não contêm o import legado e
+  passam seus gates visuais completos.
+- AC-18: os cinco workflows de Hosting concluem no SHA esperado e os assets públicos são verificados.

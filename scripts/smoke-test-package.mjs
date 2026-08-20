@@ -56,6 +56,7 @@ async function writeConsumer(packageSpec) {
           '@langyspace/ui': packageSpec,
           react: '19.2.5',
           'react-dom': '19.2.5',
+          'styled-components': '^6.4.0',
         },
         devDependencies: {
           '@types/react': '19.2.14',
@@ -76,7 +77,6 @@ async function writeConsumer(packageSpec) {
   await writeFile(
     join(consumerDirectory, 'src', 'main.tsx'),
     `import { Button } from '@langyspace/ui'
-import '@langyspace/ui/styles.css'
 import { createRoot } from 'react-dom/client'
 
 createRoot(document.getElementById('root')!).render(
@@ -131,14 +131,21 @@ try {
   const assetDirectory = join(consumerDirectory, 'dist', 'assets')
   const assets = await readdir(assetDirectory)
   const cssFiles = assets.filter((file) => file.endsWith('.css'))
-  const css = (
+  const javascriptFiles = assets.filter((file) => file.endsWith('.js'))
+  const javascript = (
     await Promise.all(
-      cssFiles.map((file) => readFile(join(assetDirectory, file), 'utf8')),
+      javascriptFiles.map((file) =>
+        readFile(join(assetDirectory, file), 'utf8'),
+      ),
     )
   ).join('\n')
 
-  if (!css.includes('.lsui-button')) {
-    throw new Error('shared_button_styles_missing_from_consumer_build')
+  if (cssFiles.length > 0) {
+    throw new Error('unexpected_css_asset_in_styled_components_consumer')
+  }
+
+  if (!javascript.includes('lsui-button')) {
+    throw new Error('shared_button_runtime_missing_from_consumer_build')
   }
 
   console.log(

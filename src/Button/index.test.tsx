@@ -3,7 +3,8 @@ import { cleanup, render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { createRef } from 'react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { Button } from './index'
+import styled from 'styled-components'
+import { Button } from '..'
 
 afterEach(() => cleanup())
 
@@ -145,5 +146,18 @@ describe('Button', () => {
     expect(button).toHaveAttribute('aria-busy', 'false')
     expect(button).toHaveAttribute('data-full-width', 'true')
     expect(button).toHaveAttribute('type', 'submit')
+  })
+
+  it('supports local styled(Button) composition through forwarded className', () => {
+    const CheckoutButton = styled(Button)`
+      width: 12rem;
+      margin-top: 1rem;
+    `
+
+    render(<CheckoutButton>Finalizar compra</CheckoutButton>)
+
+    expect(
+      screen.getByRole('button', { name: 'Finalizar compra' }),
+    ).toHaveStyle({ marginTop: '1rem', width: '12rem' })
   })
 })

@@ -10,5 +10,9 @@
 - [x] [08 — Integrate langyspace-cupom](tasks/08-integrate-cupom.md)
 - [x] [09 — Complete cross-repository release and production rollout](tasks/09-production-rollout.md)
 - [x] [10 — Normalize Button composition and redeploy affected consumers](tasks/10-normalize-composition.md)
+- [x] [11 — Refactor Button to styled-components and separated types](tasks/11-styled-button-refactor.md)
+- [ ] [12 — Publish and verify immutable release v0.2.0](tasks/12-release-v0-2-0.md)
+- [ ] [13 — Upgrade all five consumers to v0.2.0](tasks/13-upgrade-consumers-v0-2-0.md)
+- [ ] [14 — Validate and roll out v0.2.0 to production](tasks/14-production-rollout-v0-2-0.md)
 
 Only one task may be in progress. Each task file owns its subtask checklist and validation evidence.

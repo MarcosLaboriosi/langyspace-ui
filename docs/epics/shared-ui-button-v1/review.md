@@ -63,3 +63,28 @@ ampla para épicas posteriores baseadas em evidência.
 - Botão destrutivo somente após inventário de pelo menos dois produtos.
 - Automação de upgrade/PR cross-repository com credencial dedicada e escopo mínimo.
 - Tokens compartilhados, IconButton e componentes seguintes em épicas próprias.
+
+## Styled-components 0.2.0 product review
+
+### Review outcome
+
+`approved — implementation-only migration with visual parity required`
+
+### Decisions challenged and resolved
+
+- Manter o CSS por compatibilidade prolongaria exatamente a arquitetura rejeitada; `0.2.0` assume a
+  remoção explícita do subpath e mantém `0.1.0` intacto para rollback.
+- Embutir styled-components pouparia uma dependência no Cupom, mas duplicaria runtime/contexto e
+  aumentaria bundle. Um peer único é a fronteira correta.
+- `className` permanece como contrato nativo, porém styling visual local deve preferir
+  `styled(Button)`. Isso é mais determinístico que disputar ordem entre CSS estático e estilos
+  injetados.
+- A separação `index.tsx`/`styles.ts`/`types.ts` resolve responsabilidades concretas e não cria uma
+  abstração genérica adicional.
+
+### UX and scope review
+
+- Nenhuma cor, altura, raio, tipografia, copy, handler ou variante muda intencionalmente.
+- A migração cobre somente o Button já adotado; novos componentes e migração ampla continuam fora.
+- Loading, focus, disabled, long labels, pressed state e reduced motion conservam o contrato
+  aprovado e serão comparados nos gates existentes.

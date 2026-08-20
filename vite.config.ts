@@ -5,13 +5,17 @@ export default defineConfig({
   plugins: [react()],
   build: {
     lib: {
-      cssFileName: 'styles',
       entry: 'src/index.ts',
       fileName: 'index',
       formats: ['es'],
     },
     rollupOptions: {
-      external: ['react', 'react-dom', 'react/jsx-runtime'],
+      external: [
+        'react',
+        'react-dom',
+        'react/jsx-runtime',
+        'styled-components',
+      ],
     },
   },
 })

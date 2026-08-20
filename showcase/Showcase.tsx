@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { Button } from '../src'
+import * as Styled from './styles'
 import type { ButtonSize, ButtonVariant } from '../src'
 
 const variants: ButtonVariant[] = ['primary', 'secondary', 'tertiary']
@@ -40,7 +41,7 @@ export function Showcase() {
       data-audit-mode={stressMode ? 'stress' : 'normal'}
     >
       <header className="showcase__header">
-        <p className="showcase__eyebrow">LANGY.SPACE UI · V0.1.0</p>
+        <p className="showcase__eyebrow">LANGY.SPACE UI · V0.2.0</p>
         <h1>Button</h1>
         <p>
           Um componente nativo, pequeno e previsível para ações principais,
@@ -96,12 +97,12 @@ export function Showcase() {
           <article className="showcase__card showcase__card--dark">
             <h3>Superfície escura</h3>
             <div className="showcase__button-column">
-              <Button className="showcase__dark-tertiary" variant="tertiary">
+              <Styled.DarkTertiaryButton variant="tertiary">
                 Agora não
-              </Button>
-              <Button className="showcase__dark-tertiary" variant="tertiary">
+              </Styled.DarkTertiaryButton>
+              <Styled.DarkTertiaryButton variant="tertiary">
                 Ver detalhes
-              </Button>
+              </Styled.DarkTertiaryButton>
             </div>
           </article>
         </div>

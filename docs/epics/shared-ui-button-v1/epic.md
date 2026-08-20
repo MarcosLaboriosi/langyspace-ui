@@ -51,10 +51,29 @@ O consumidor não deve sobrescrever altura, padding, tipografia, raio ou tons de
 para preservar uma diferença histórica. Se a mesma necessidade visual aparecer em dois produtos,
 ela volta para decisão de produto antes de ampliar o componente.
 
+### Styled-components refinement — 2026-08-20
+
+O Button compartilhado deve usar a mesma tecnologia de styling preferida pelos produtos: todo o
+estilo do primitive fica em `styles.ts` com `styled-components`. Não existe `button.css`, export de
+stylesheet nem import global obrigatório no consumidor.
+
+O componente passa a usar a estrutura explícita:
+
+```text
+src/Button/
+  index.tsx
+  styles.ts
+  types.ts
+```
+
+`types.ts` concentra a API TypeScript pública e os transient props internos. `className`, props
+nativas e ref continuam chegando ao botão, permitindo `styled(Button)` para composição externa sem
+ampliar o contrato visual.
+
 ## Scope
 
 - Criar o repositório público `MarcosLaboriosi/langyspace-ui` e o pacote `@langyspace/ui`.
-- Construir ESM e declarações TypeScript, sem dependências de runtime além do peer React.
+- Construir ESM e declarações TypeScript com React e styled-components como peers externos.
 - Implementar `Button` com `primary`, `secondary` e `tertiary`; `sm`, `md` e `lg`; `fullWidth`;
   `icon`/`iconPosition`; `isLoading`; props nativas e ref.
 - Incluir testes de comportamento, showcase determinístico e auditoria visual local.
@@ -62,6 +81,10 @@ ela volta para decisão de produto antes de ampliar o componente.
 - Consumir um URL imutável de GitHub Release nos cinco lockfiles.
 - Integrar uma superfície real e já auditada de cada produto.
 - Executar gates visuais e promover os cinco produtos a Firebase Hosting pela automação existente.
+- Publicar `0.2.0` com `styled-components` como peer externo, estrutura separada de componente,
+  estilos e tipos, sem artefato CSS.
+- Remover o import global legado nos cinco produtos; instalar o peer no Cupom e manter os quatro
+  peers já existentes.
 
 ## Out of scope
 
@@ -133,3 +156,7 @@ Task 10 is complete. Teacher and Cupom now inherit the canonical `lg`/`sm` geome
 retain only external layout/contextual selection locally, and are live at commits `6d910f6` and
 `02024fb`. The full visual gates and representative screenshot reviews passed, both Hosting
 workflows succeeded, and the deployed assets were verified directly.
+
+The epic was reopened again for the styled-components `0.2.0` migration. This work is incomplete
+until the immutable release is published, all five lockfiles consume it without the legacy CSS
+import, every visual gate passes, and all five Hosting sites are verified in production.

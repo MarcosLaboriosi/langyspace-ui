@@ -1,23 +1,8 @@
 import { forwardRef } from 'react'
-import type { ButtonHTMLAttributes, ReactNode } from 'react'
+import * as Styled from './styles'
+import type { ButtonProps } from './types'
 
-export type ButtonVariant = 'primary' | 'secondary' | 'tertiary'
-
-export type ButtonSize = 'sm' | 'md' | 'lg'
-
-export type ButtonIconPosition = 'start' | 'end'
-
-export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  children: ReactNode
-  fullWidth?: boolean
-  icon?: ReactNode
-  iconPosition?: ButtonIconPosition
-  isLoading?: boolean
-  size?: ButtonSize
-  variant?: ButtonVariant
-}
-
-const hasIcon = (icon: ReactNode) =>
+const hasIcon = (icon: ButtonProps['icon']) =>
   icon !== null && icon !== undefined && icon !== false
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
@@ -39,24 +24,27 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     ref,
   ) {
     const renderedIcon = isLoading ? (
-      <span aria-hidden="true" className="lsui-button__spinner" />
+      <Styled.Spinner aria-hidden="true" className="lsui-button__spinner" />
     ) : (
       icon
     )
     const buttonClassName = ['lsui-button', className].filter(Boolean).join(' ')
     const iconElement = hasIcon(renderedIcon) ? (
-      <span
+      <Styled.Icon
         aria-hidden={isLoading ? true : undefined}
         className="lsui-button__icon"
       >
         {renderedIcon}
-      </span>
+      </Styled.Icon>
     ) : null
 
     return (
-      <button
+      <Styled.Button
         {...props}
         ref={ref}
+        $fullWidth={fullWidth}
+        $size={size}
+        $variant={variant}
         aria-busy={isLoading ? true : ariaBusy}
         className={buttonClassName}
         data-full-width={fullWidth ? 'true' : undefined}
@@ -70,7 +58,14 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         {iconPosition === 'start' ? iconElement : null}
         {children}
         {iconPosition === 'end' ? iconElement : null}
-      </button>
+      </Styled.Button>
     )
   },
 )
+
+export type {
+  ButtonIconPosition,
+  ButtonProps,
+  ButtonSize,
+  ButtonVariant,
+} from './types'

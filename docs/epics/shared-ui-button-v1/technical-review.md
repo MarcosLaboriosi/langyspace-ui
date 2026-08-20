@@ -71,3 +71,54 @@
 workflows, HTTP responses and deployed `lsui-button` asset markers were verified. The failed
 pre-existing Teacher auth deployment was isolated from the UI release; the successful UI run
 proved a Hosting-only target and skipped all Function preparation/deploy steps.
+
+## Styled-components 0.2.0 technical review
+
+### Review outcome
+
+`approved for implementation`
+
+### Tech Lead
+
+- React and styled-components remain peer dependencies and Rollup externals; the library never owns
+  duplicate framework/runtime instances.
+- Removing `./styles.css` is intentionally versioned as `0.2.0`; the immutable `0.1.0` release is
+  the rollback path.
+- No ThemeProvider contract is introduced. Library styles use fixed internal values matching the
+  approved v1 visual contract.
+
+### Senior Engineer
+
+- `src/Button/index.tsx`, `styles.ts` and `types.ts` give render, styling and contracts one
+  responsibility each.
+- Typed `css` maps and transient props express the existing bounded variants/sizes without leaking
+  styling-only props into the DOM.
+- The Cupom range control moves from a plain class override to `styled(Button)` because both layers
+  then share the same runtime and deterministic extension mechanism.
+- Clean-consumer smoke must declare styled-components explicitly, compile without CSS imports and
+  prove the bundled app still contains the Button runtime marker.
+
+### QA and accessibility
+
+- Existing fixtures cover every affected state and width; no audit assertion or fixture changes are
+  justified.
+- Full package and five consumer gates remain mandatory because runtime injection could affect
+  focus, first render, prerender, local extension and no-ThemeProvider behavior.
+- Screenshots at 390, 1281 and 2048 plus Teacher 390x667 must preserve hierarchy, containment and
+  contrast. Unit tests preserve native semantics, ref, className, loading and aria contracts.
+
+### Operational review
+
+- Publish/verify the tarball before consumer edits. Every consumer pins the exact release asset and
+  pnpm 11 exception where applicable.
+- Consumer work happens only in clean isolated branches; original Admin/Teacher changes stay
+  untouched.
+- Final rollout requires strict fast-forwards, successful Hosting workflows and public asset probes.
+
+### Pre-code checklist
+
+- [x] Product outcome and non-goals are explicit.
+- [x] Peer/external and SemVer decisions are resolved.
+- [x] Component/type/style file boundaries are explicit.
+- [x] Every rendered surface and width has deterministic coverage.
+- [x] Release-before-consumer dependency order and rollback are defined.

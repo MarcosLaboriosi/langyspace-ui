@@ -127,15 +127,6 @@ button {
   color: rgba(255, 255, 255, 0.68);
 }
 
-.showcase__dark-tertiary {
-  color: #ffffff;
-}
-
-.showcase__dark-tertiary:hover:not(:disabled) {
-  color: #0a0a0a;
-  background: #ffffff;
-}
-
 .showcase__narrow-card {
   width: min(100%, 26rem);
 }

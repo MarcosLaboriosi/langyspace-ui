@@ -2,8 +2,9 @@
 
 ## Status
 
-Complete — `@langyspace/ui@0.1.0` remains live across all five products, and Teacher/Cupom now use
-the documented composition boundary without duplicated subtle Button metrics.
+In progress — migrate the shared Button implementation from a global CSS artifact to
+styled-components with separated TypeScript types, publish `0.2.0`, upgrade all five consumers and
+roll it out to production.
 
 ## Visual impact
 
@@ -36,14 +37,18 @@ are defined in `epic.md` and `technical-plan.md`.
   and served `lsui-button` assets.
 - Task 10 — composition contract documented; Teacher `6d910f6` and Cupom `02024fb` normalized,
   visually validated and deployed through successful runs `32401579654` and `32401574690`.
+- Task 11 — Button migrated to `src/Button/{index.tsx,styles.ts,types.ts}` with no CSS artifact or
+  stylesheet import/export; six tests, CSS-free clean-consumer packaging and the complete
+  18-scenario visual gate passed. Screenshots at 390, 1281 and 2048 px were inspected from
+  `.local/layout-audit/2026-08-20T18-58-04.234Z`.
 
 ## In progress
 
-None — epic complete.
+Task 12 — publish and verify the immutable `v0.2.0` release.
 
 ## Next subtask
 
-None.
+12.1 — commit and push the scoped package change, then require the main CI run to pass.
 
 ## Blockers
 
@@ -87,3 +92,9 @@ None.
 - Task 10 final visual gate passed: Teacher 162 default plus 18 compact scenarios and Cupom 36
   scenarios, with all required screenshots inspected. Public probes returned HTTP 200 and exact
   deployed assets matched the local production builds.
+- `styled-components ^6.4.0` already exists in Landing, Admin, Student and Teacher; Cupom is the only
+  consumer that must add it explicitly.
+- Removing `./styles.css` and adding a required peer is a real package boundary change, so the next
+  immutable version is `0.2.0`, not a patch release.
+- Existing audits cover every affected surface/state/width. Cupom's contextual range control will
+  move to `styled(Button)` to avoid depending on runtime style injection order.

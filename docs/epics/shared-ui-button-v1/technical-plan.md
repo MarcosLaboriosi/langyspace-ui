@@ -4,15 +4,16 @@
 
 ```text
 langyspace-ui (public)
-  src/Button.tsx
-  src/button.css
+  src/Button/index.tsx
+  src/Button/styles.ts
+  src/Button/types.ts
   src/index.ts
   showcase/
   scripts/audit-layout.mjs
   .github/workflows/ci.yml
   .github/workflows/release.yml
        |
-       | v0.1.0 .tgz + sha256
+       | v0.2.0 .tgz + sha256
        v
 five package.json + pnpm-lock.yaml
        |
@@ -22,26 +23,30 @@ existing Firebase Hosting workflows
 
 ## Package implementation
 
-- React 19 peer dependency; no runtime dependencies.
+- React 19 and styled-components 6 peer dependencies; both externalized from the ESM bundle.
 - `forwardRef<HTMLButtonElement, ButtonProps>` over a native button.
 - `variant`, `size`, `fullWidth`, `icon`, `iconPosition`, `isLoading` are translated to bounded data
   attributes and content.
 - Loading uses an internal CSS spinner so consumers do not need `lucide-react`.
-- `src/index.ts` exports values/types and owns the stylesheet build entry.
-- Vite library mode emits ESM/CSS; TypeScript emits declaration files after Vite empties `dist`.
-- Package exports `.` and `./styles.css`; `files` limits the tarball.
+- `src/Button/index.tsx` owns rendering, `styles.ts` owns all styled-components, and `types.ts` owns
+  public/internal TypeScript contracts.
+- `src/index.ts` exports values/types only. Vite emits ESM; TypeScript emits declaration files after
+  Vite empties `dist`.
+- Package exports only `.`; `files` limits the tarball. There is no side-effect CSS entry.
 
-## CSS strategy
+## Styled-components strategy
 
 - Base metrics mirror the common Langy.space button scale: 32/40/48 px heights, pill radius,
   Montserrat/inherited font, black primary, white secondary and transparent tertiary.
-- All package selectors use `:where(...)` to keep specificity zero.
-- Consumers can compose a local class without `!important`; no theme provider or global token
-  contract is introduced in v1.
+- Variant and size maps use the styled-components `css` helper with typed transient props.
+- Consumers use `styled(Button)` for visual composition; generated `className` is forwarded and
+  merged by styled-components. No ThemeProvider or app theme contract is introduced.
 - Focus uses a two-ring aqua/white/ink treatment and does not depend only on color.
 - Long labels use bounded wrapping; icons do not shrink.
 - `prefers-reduced-motion` disables translate/spinner motion where appropriate while preserving a
   static busy indicator.
+- The internal spinner and icon wrappers are styled components; no Button selector or keyframe is
+  left in a CSS file.
 
 ### Consumer composition boundary
 
@@ -60,7 +65,8 @@ existing Firebase Hosting workflows
 ### Unit and package
 
 - Vitest + Testing Library/jsdom for semantic behavior.
-- `pnpm pack --dry-run` and a smoke install/build in a temporary Vite consumer.
+- `pnpm pack --dry-run` and a smoke install/build in a temporary Vite consumer that declares both
+  peers and imports no CSS.
 - ESLint, Prettier, TypeScript and Vite build.
 
 ### Visual audit
@@ -83,6 +89,9 @@ existing Firebase Hosting workflows
 Consumers running pnpm 11 add the exact `@langyspace/ui@0.1.0` selector to
 `minimumReleaseAgeExclude`. This prevents pnpm from looking up a non-npm GitHub Release package in
 npmjs while retaining publication-age verification for every registry dependency.
+
+For `0.2.0`, every pnpm 11 consumer replaces the exception with the exact new selector. Landing uses
+pnpm 10 and needs no publication-age exception.
 
 ## Consumer changes
 
@@ -116,9 +125,59 @@ npmjs while retaining publication-age verification for every registry dependency
 
 ### `langyspace-cupom`
 
-- Add dependency and stylesheet import.
-- Render period range controls with shared tertiary Button plus the existing local class. Local CSS
-  remains authoritative due to higher specificity.
+- Add the package/peer dependencies without a stylesheet import.
+- Render period range controls with a local `styled(Button)` that owns only equal width and the
+  inverse pressed/unpressed context.
+
+## Styled-components 0.2.0 migration
+
+### Package refactor
+
+- Move `Button.tsx` and its test into `src/Button/`.
+- Move public API types and styled transient props into `src/Button/types.ts`.
+- Translate every declaration, state, reduced-motion rule and spinner keyframe from `button.css` to
+  `src/Button/styles.ts` without changing computed visual contracts.
+- Delete `button.css` and the obsolete wildcard CSS declaration; remove CSS entry/export,
+  `sideEffects` and `cssFileName` configuration.
+- Add `styled-components >=6 <7` as a peer plus `^6.4.0` for development, and externalize it in
+  Vite.
+- Update showcase dark-surface composition to a local `styled(Button)` so the library proves the
+  preferred extension path.
+
+### Consumer migration
+
+- All five consumers remove `@langyspace/ui/styles.css` and pin the immutable `0.2.0` release URL.
+- Landing/Admin/Student/Teacher already declare compatible styled-components and need no new peer.
+- Cupom adds `styled-components ^6.4.0`, creates a local `styles.ts` RangeButton composed from the
+  shared Button, and removes the obsolete range declarations from page CSS.
+- Copy, handlers, refs, semantics, loading/disabled behavior and local layout remain unchanged.
+
+### SemVer and release
+
+`0.2.0` is required because the `./styles.css` export is removed and styled-components becomes a
+required peer. `0.1.0` remains immutable and installable for rollback; no release asset is edited.
+
+### Visual coverage
+
+The rendered component and all five production surfaces remain `direct` impact. Existing offline
+fixtures already exercise variants/sizes/loading/focus/long labels plus Landing `/`, Admin `/login`,
+Student `/perfil/editar`, Teacher `/login` and Cupom `/relatorio/:id` across the nine required
+widths. No new route or state is introduced, so audit code changes are unnecessary. Inspect 390,
+1281 and 2048 screenshots for each surface, plus Teacher 390x667.
+
+### Critical plan review
+
+- Product Manager: this is an implementation simplification, not a new variant or redesign. Visual
+  acceptance requires parity with the approved `0.1.0` surface.
+- Tech Lead: a peer dependency is preferable to bundling styled-components because duplicate
+  instances break theme/context behavior and inflate consumers. Removing the CSS export makes the
+  SemVer boundary explicit.
+- Senior Engineer: folder separation keeps render, styles and types single-purpose. Cupom must use
+  `styled(Button)` because generated runtime style order makes plain CSS overrides less reliable.
+- QA: source and tarball searches must prove that no legacy stylesheet/import remains; full gates
+  and screenshots prove runtime parity, including prerender and no-ThemeProvider consumption.
+- Operations: publish and verify `0.2.0` before touching consumer lockfiles; deploy only immutable
+  release URLs and preserve original dirty Admin/Teacher worktrees through isolated branches.
 
 ## Task 10 implementation refinement
 
@@ -191,6 +250,10 @@ npmjs while retaining publication-age verification for every registry dependency
 | pnpm 11 treats GitHub tarball as unpublished npm name | version-specific age exception; keep policy active for all registry dependencies         |
 | broad production deploy from teacher repo             | separate root frontend files from `functions/packages/*`; prove `hosting:teacher` target |
 | new public repo exposes proprietary app logic         | repository contains only generic UI code/docs and is `UNLICENSED`                        |
+| duplicate styled-components runtime                   | peer dependency plus Vite external; every consumer declares one compatible v6 instance   |
+| runtime injection changes override order              | use `styled(Button)` for contextual visual composition; full screenshot gates            |
+| consumer keeps removed CSS subpath                    | static cross-repository search plus build in every consumer                              |
+| landing prerender renders an unstyled Button          | production prerender/build plus Landing visual audit before rollout                      |
 
 ## External references
 

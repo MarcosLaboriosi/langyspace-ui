@@ -5,19 +5,14 @@ pequeno, nativo e explícito.
 
 ## Installation
 
-Fixe sempre um artefato imutável de release:
+Instale styled-components e fixe sempre um artefato imutável de release:
 
 ```bash
-pnpm add '@langyspace/ui@https://github.com/MarcosLaboriosi/langyspace-ui/releases/download/v0.1.0/langyspace-ui-0.1.0.tgz'
+pnpm add styled-components@^6.4.0 '@langyspace/ui@https://github.com/MarcosLaboriosi/langyspace-ui/releases/download/v0.2.0/langyspace-ui-0.2.0.tgz'
 ```
 
-Importe o CSS uma vez no entrypoint do app:
-
-```tsx
-import '@langyspace/ui/styles.css'
-```
-
-Não é necessário `.npmrc`, token npm ou token GitHub para instalar o release público.
+Não existe import de CSS. O Button injeta seus estilos com styled-components e funciona sem
+ThemeProvider. Não é necessário `.npmrc`, token npm ou token GitHub para instalar o release público.
 
 ## Button
 
@@ -53,8 +48,8 @@ Todas as props nativas de `<button>`, `className` e refs são preservadas. O `ty
 <Button fullWidth>Continuar</Button>
 ```
 
-O CSS usa seletores `:where(...)` com especificidade zero. Quando a composição precisar de largura
-específica, margem ou posicionamento, `className` e `styled(Button)` funcionam sem `!important`:
+Quando a composição precisar de largura específica, margem ou posicionamento, use `styled(Button)`.
+O `className` gerado é encaminhado até o botão nativo:
 
 ```tsx
 import styled from 'styled-components'
@@ -69,6 +64,15 @@ Altura, padding, tipografia, raio e os tons neutros pertencem a `size` e `varian
 essas propriedades no consumidor para conservar diferenças sutis. Estilos locais ficam reservados
 para layout externo ou estados realmente contextuais, como `aria-pressed` sobre uma superfície
 inversa. Uma necessidade visual repetida em dois produtos deve voltar para decisão da biblioteca.
+
+O componente mantém implementação, estilos e tipos separados:
+
+```text
+src/Button/
+  index.tsx
+  styles.ts
+  types.ts
+```
 
 ### Deliberate limits
 
@@ -96,7 +100,7 @@ normal/stress nas larguras de aceitação dos produtos.
 
 1. Atualize a versão em `package.json` usando SemVer.
 2. Faça merge em `main` somente após CI verde.
-3. Crie e envie a tag idêntica, por exemplo `v0.1.0`.
+3. Crie e envie a tag idêntica, por exemplo `v0.2.0`.
 4. O workflow valida, empacota, calcula SHA-256 e cria o GitHub Release automaticamente.
 5. Atualize consumidores explicitamente para o novo URL e lockfile.
 
