@@ -68,6 +68,10 @@ existing Firebase Hosting workflows
 - `langyspace-teacher`: full `pnpm run validate:ui`, login screenshots.
 - `langyspace-cupom`: full `pnpm run validate:ui`, report screenshots and pressed range state.
 
+Consumers running pnpm 11 add the exact `@langyspace/ui@0.1.0` selector to
+`minimumReleaseAgeExclude`. This prevents pnpm from looking up a non-npm GitHub Release package in
+npmjs while retaining publication-age verification for every registry dependency.
+
 ## Consumer changes
 
 ### `langyspace`
@@ -94,6 +98,9 @@ existing Firebase Hosting workflows
 - Add dependency and stylesheet import.
 - Refactor `AuthSubmitButton` to style/compose the shared Button while preserving its public API and
   responsive auth-specific geometry.
+- Keep root manifest/lockfile changes in the Hosting detector. Function build/deploy invalidation
+  follows the manifests and source beneath `functions/packages/*`, so a frontend-only dependency
+  update cannot redeploy every Function.
 
 ### `langyspace-cupom`
 
@@ -134,7 +141,8 @@ existing Firebase Hosting workflows
 | package tag/version mismatch                          | release workflow hard-fails before creating release                                      |
 | React bundled twice                                   | externalize React and declare peer dependency                                            |
 | dirty work mixed into commits                         | isolated worktrees and explicit staging                                                  |
-| broad production deploy from teacher repo             | integration touches only Hosting-detected paths; verify workflow target detection        |
+| pnpm 11 treats GitHub tarball as unpublished npm name | version-specific age exception; keep policy active for all registry dependencies         |
+| broad production deploy from teacher repo             | separate root frontend files from `functions/packages/*`; prove `hosting:teacher` target |
 | new public repo exposes proprietary app logic         | repository contains only generic UI code/docs and is `UNLICENSED`                        |
 
 ## External references

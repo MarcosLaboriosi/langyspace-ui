@@ -2,7 +2,7 @@
 
 ## Status
 
-Implementation in progress.
+Complete — `@langyspace/ui@0.1.0` and all five consumer integrations are live in production.
 
 ## Visual impact
 
@@ -22,22 +22,25 @@ are defined in `epic.md` and `technical-plan.md`.
 - Task 03 — `v0.1.0` published, checksum verified anonymously and public package smoke passed.
 - Task 04 — landing integration committed as `272633a`; 198 layout scenarios and visual review
   passed.
-- Task 05 — admin login integration committed as `bc4559c`; 224 tests and all visual gate stages
-  passed with 1,716 layout scenarios.
-- Task 06 — student profile integration committed as `149f0e3`; six focused tests and 216 layout
+- Task 05 — admin login integration live at `7218b4b`; 224 tests and all visual gate stages passed
+  with 1,716 layout scenarios.
+- Task 06 — student profile integration live at `126a518`; six focused tests and 216 layout
   scenarios passed.
-- Task 07 — teacher auth wrapper integration committed as `f1942ff`; two focused tests, 162 layout
-  scenarios and compact-height visual review passed.
-- Task 08 — cupom report-range integration committed as `95f4537`; 15 tests, 36 layout scenarios
+- Task 07 — teacher auth wrapper integration live at `4f083dd`; two focused tests, 162 layout
+  scenarios, compact-height review and Hosting-only workflow proof passed.
+- Task 08 — cupom report-range integration live at `afc44a6`; 15 tests, 36 layout scenarios
   and visual review at 390, 1281 and 2048 px passed.
+- Task 09 — Landing `32393691284`, Admin `32394417756`, Student `32397183049`, Teacher
+  `32399347546` and Cupom `32399833309` deployed successfully; every production probe returned 200
+  and served `lsui-button` assets.
 
 ## In progress
 
-Task 09.3 — promote each clean, fast-forward consumer commit to `main` sequentially.
+None — epic complete.
 
 ## Next subtask
 
-Task 09.4 — monitor each Firebase Hosting workflow to successful completion before continuing.
+None.
 
 ## Blockers
 
@@ -63,3 +66,12 @@ None.
   the shared spinner plus semantic disabled/`aria-busy` behavior while preserving the visible label.
 - Student normal-mode screenshots are captured before its async renderer is visually stable; the
   unchanged audit intentionally screenshots stress only while still checking geometry in both modes.
+- pnpm 11 applies a 1-day registry publication-age policy by default. Direct GitHub Release
+  tarballs require a version-specific `minimumReleaseAgeExclude`; the exclusion is pinned to
+  `@langyspace/ui@0.1.0` and does not weaken checks for other dependencies.
+- Teacher root manifest/lockfile changes belong to the Vite app. Function dependency invalidation
+  now follows `functions/packages/*`, preventing frontend library updates from redeploying hundreds
+  of Cloud Functions.
+- Unrelated Teacher auth run `32393492196` partially updated Functions but failed on multiple Cloud
+  Run health-check/readiness deadlines. This did not block the independently scoped, successful
+  Hosting run `32399347546` and remains outside this UI epic.

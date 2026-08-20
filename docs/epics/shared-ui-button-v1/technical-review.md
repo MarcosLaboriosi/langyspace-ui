@@ -45,7 +45,11 @@
 ## Operational review
 
 - The library release is recoverable and does not mutate app production.
-- Consumer promotion relies on existing tested workflows; no Firebase workflow rewrite is needed.
+- Consumer promotion relies on existing tested workflows. Rollout evidence required one narrow
+  Teacher correction: root frontend manifest/lockfile changes now select Hosting without selecting
+  Function codebases, whose own `functions/packages/*` paths remain authoritative.
+- pnpm 11's minimum-release-age verification remains active; only the immutable, checksum-verified
+  `@langyspace/ui@0.1.0` GitHub Release selector is excluded from an inapplicable npmjs lookup.
 - Direct pushes to main are allowed by current repository settings, but each push must be a
   fast-forward of observed `origin/main`.
 - If any gate fails, that product is not pushed/deployed until corrected; already deployed products
@@ -60,3 +64,10 @@
 - [x] Visual fixtures and widths are mapped.
 - [x] Dirty worktree preservation is explicit.
 - [x] Rollback and production verification are defined.
+
+## Post-rollout review
+
+`approved and completed` — the public artifact, all final consumer SHAs, five successful Hosting
+workflows, HTTP responses and deployed `lsui-button` asset markers were verified. The failed
+pre-existing Teacher auth deployment was isolated from the UI release; the successful UI run
+proved a Hosting-only target and skipped all Function preparation/deploy steps.

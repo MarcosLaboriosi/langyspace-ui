@@ -99,3 +99,11 @@ uma nova fixture local. Nenhum gate pode autenticar, comprar, escrever ou ler pr
 - Screenshots representativos são inspecionados em mobile, boundary denso e desktop largo.
 - Os cinco commits de integração chegam a `main`, os workflows de Hosting concluem e os sites são
   verificados sem depender de dados de produção.
+
+## Outcome
+
+Completed on 2026-08-20. `@langyspace/ui@0.1.0` is available as an immutable public GitHub Release
+tarball with checksum, the same artifact is locked in all five products, and one deliberately small
+Button surface is live in each production Firebase Hosting site. All library and consumer gates
+passed, representative screenshots were inspected, and production HTTP/assets were verified
+without authentication or product-data access.

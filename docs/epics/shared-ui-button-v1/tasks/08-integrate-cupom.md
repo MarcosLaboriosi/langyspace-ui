@@ -26,7 +26,9 @@ Install the release and use tertiary Button for the existing audited report peri
 
 ## Evidence
 
-- Commit: `95f4537` (`feat(ui): adopt shared report range buttons`).
+- Final commit: `afc44a6` (`feat(ui): adopt shared report range buttons`), including the exact
+  `@langyspace/ui@0.1.0` pnpm 11 publication-age exception. Frozen install passed all 173 lockfile
+  policy checks.
 - `pnpm run validate:ui`: 4 test files / 15 tests, production build and 36 layout scenarios passed
   with zero geometry issues.
 - Visual artifact: `.local/layout-audit/2026-08-20T16-20-17.806Z`.

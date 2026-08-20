@@ -29,6 +29,9 @@ Install the release and use the shared Button for the audited admin login submit
 - Isolated branch `feat/shared-ui-button-v1` from `origin/main`; original dirty feature worktree
   status remained unchanged.
 - Consumer commit `bc4559c` (`feat(ui): adopt shared admin login button`).
+- Final main SHA `7218b4b`; follow-up `fix(ci): allow pinned UI release install` exempts only
+  `@langyspace/ui@0.1.0` from pnpm 11's registry publication-age lookup. The exact pnpm `11.2.2`
+  frozen install passed all 500 lockfile policy checks.
 - Node 26 required the known temporary localStorage file and serial Vitest execution; 224/224 tests
   passed. Build, 11 accessibility flows, 45 design-system scenarios and every remaining
   `validate:ui` stage passed.

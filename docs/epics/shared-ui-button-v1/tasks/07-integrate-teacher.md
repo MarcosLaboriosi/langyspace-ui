@@ -27,7 +27,10 @@ Install the release beneath the audited auth submit wrapper while preserving aut
 
 - Isolated branch `feat/shared-ui-button-v1` from `origin/main`; original Function/billing worktree
   status remained unchanged.
-- Consumer commit `f1942ff` (`feat(ui): compose shared auth button`).
+- Final consumer commit `4f083dd` (`feat(ui): compose shared auth button`), rebased cleanly on
+  `5bfb4a2` after `origin/main` advanced.
+- The exact `@langyspace/ui@0.1.0` pnpm 11 publication-age exception passed all 794 lockfile policy
+  checks.
 - Two focused wrapper tests passed: submit/full-width/size defaults and shared loading semantics.
 - `pnpm run validate:ui`: build and 162 normal/stress scenarios across `/login`, `/cadastro` and
   portal/public routes passed with zero geometry issues.
@@ -36,6 +39,12 @@ Install the release beneath the audited auth submit wrapper while preserving aut
   `.local/layout-audit/2026-08-20T16-14-07.820Z`.
 - The audit now accepts `LAYOUT_AUDIT_HEIGHT` and records `viewportHeight`, enabling repeatable
   compact-height regression checks without changing the default gate.
+- Post-rebase validation passed build and all 162 scenarios again; artifact:
+  `.local/layout-audit/2026-08-20T17-29-31.969Z`.
+- The deploy workflow now treats root frontend manifest/lockfile changes as Hosting-only; Function
+  codebase manifests under `functions/packages/*` remain the Function dependency invalidation path.
+  The production run proved target `hosting:teacher` while all Function build/deploy preparation
+  steps were skipped.
 - Public wrapper props, login/cadastro copy and handlers remained unchanged; no Firebase/Function
   contract changed.
 - Visual gate review: passed.

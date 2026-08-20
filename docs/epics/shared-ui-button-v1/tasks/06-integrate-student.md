@@ -29,7 +29,9 @@ Install the release and use the shared Button for the audited edit-profile actio
 ## Evidence
 
 - Isolated branch `feat/shared-ui-button-v1` from `origin/main`; original worktree remained clean.
-- Consumer commit `149f0e3` (`feat(ui): adopt shared profile buttons`).
+- Final consumer commit `126a518` (`feat(ui): adopt shared profile buttons`), including the exact
+  `@langyspace/ui@0.1.0` pnpm 11 publication-age exception. Frozen install passed all 506 lockfile
+  policy checks.
 - Six focused edit-profile tests passed, including save, normalized update and loading semantics.
 - `pnpm run validate:ui`: build and 216 normal/stress layout scenarios passed with zero geometry
   issues.
