@@ -19,15 +19,15 @@ are defined in `epic.md` and `technical-plan.md`.
 - Task 01 — repository/package foundation (`7e3c672`), public GitHub repository and frozen lockfile.
 - Task 02 — Button v1, 5 unit tests, clean-consumer package smoke and 18-scenario visual audit.
 - Task 03.3 — CI/release automation committed and pushed; GitHub CI run `32385834404` passed.
+- Task 03 — `v0.1.0` published, checksum verified anonymously and public package smoke passed.
 
 ## In progress
 
-Task 03.4 — tag `v0.1.0`, monitor the workflow and verify assets/metadata.
+Task 04.1 — create an isolated `langyspace` integration branch/worktree from `origin/main`.
 
 ## Next subtask
 
-Task 03.5 — download the public asset without authentication, verify SHA-256 and rerun package
-smoke.
+Task 04.2 — install the immutable package and route the landing Button adapter to it.
 
 ## Blockers
 

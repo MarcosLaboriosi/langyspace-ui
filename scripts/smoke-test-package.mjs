@@ -12,7 +12,9 @@ import { join, resolve } from 'node:path'
 import { pathToFileURL } from 'node:url'
 
 const root = resolve(import.meta.dirname, '..')
-const externalPackageSpec = process.argv[2]
+const externalPackageSpec = process.argv
+  .slice(2)
+  .find((argument) => argument !== '--')
 const smokeRoot = await mkdtemp(join(tmpdir(), 'langyspace-ui-smoke-'))
 const packageDirectory = join(smokeRoot, 'package')
 const consumerDirectory = join(smokeRoot, 'consumer')
