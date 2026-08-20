@@ -126,6 +126,11 @@ try {
     ['install', '--ignore-scripts', '--no-frozen-lockfile'],
     consumerDirectory,
   )
+  run(
+    'node',
+    ['--input-type=module', '--eval', "await import('@langyspace/ui')"],
+    consumerDirectory,
+  )
   run('pnpm', ['run', 'build'], consumerDirectory)
 
   const assetDirectory = join(consumerDirectory, 'dist', 'assets')

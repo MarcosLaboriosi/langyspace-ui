@@ -122,3 +122,11 @@ proved a Hosting-only target and skipped all Function preparation/deploy steps.
 - [x] Component/type/style file boundaries are explicit.
 - [x] Every rendered surface and width has deterministic coverage.
 - [x] Release-before-consumer dependency order and rollback are defined.
+
+### SSR compatibility review
+
+`v0.2.0` is rejected for rollout after the real Landing prerender failed with
+`TypeError: t.button is not a function`. The failure is isolated to Node loading the externalized
+default styled-components import; browser/unit/layout checks passed. The smallest safe correction
+is the supported named `styled` export plus a direct Node import smoke. Publish it as immutable
+`v0.2.1`; do not replace the existing release or add runtime fallbacks/bundled duplicates.

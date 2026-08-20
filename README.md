@@ -8,7 +8,7 @@ pequeno, nativo e explícito.
 Instale styled-components e fixe sempre um artefato imutável de release:
 
 ```bash
-pnpm add styled-components@^6.4.0 '@langyspace/ui@https://github.com/MarcosLaboriosi/langyspace-ui/releases/download/v0.2.0/langyspace-ui-0.2.0.tgz'
+pnpm add styled-components@^6.4.0 '@langyspace/ui@https://github.com/MarcosLaboriosi/langyspace-ui/releases/download/v0.2.1/langyspace-ui-0.2.1.tgz'
 ```
 
 Não existe import de CSS. O Button injeta seus estilos com styled-components e funciona sem
@@ -100,7 +100,7 @@ normal/stress nas larguras de aceitação dos produtos.
 
 1. Atualize a versão em `package.json` usando SemVer.
 2. Faça merge em `main` somente após CI verde.
-3. Crie e envie a tag idêntica, por exemplo `v0.2.0`.
+3. Crie e envie a tag idêntica, por exemplo `v0.2.1`.
 4. O workflow valida, empacota, calcula SHA-256 e cria o GitHub Release automaticamente.
 5. Atualize consumidores explicitamente para o novo URL e lockfile.
 

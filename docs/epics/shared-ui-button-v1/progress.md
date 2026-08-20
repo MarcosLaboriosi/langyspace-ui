@@ -3,7 +3,7 @@
 ## Status
 
 In progress — migrate the shared Button implementation from a global CSS artifact to
-styled-components with separated TypeScript types, publish `0.2.0`, upgrade all five consumers and
+styled-components with separated TypeScript types, publish `0.2.1`, upgrade all five consumers and
 roll it out to production.
 
 ## Visual impact
@@ -41,14 +41,18 @@ are defined in `epic.md` and `technical-plan.md`.
   stylesheet import/export; six tests, CSS-free clean-consumer packaging and the complete
   18-scenario visual gate passed. Screenshots at 390, 1281 and 2048 px were inspected from
   `.local/layout-audit/2026-08-20T18-58-04.234Z`.
+- Task 12 — immutable `v0.2.0` release published from validated commit `72fa16e`; main CI
+  `32406316475` and release workflow `32406503412` passed. Public checksum
+  `d4f24975a051d82ed6fddfbc2fba8db23b6f8829c18631684aa5747e63970e3e`, CSS-free contents and
+  external Vite consumer build were verified.
 
 ## In progress
 
-Task 12 — publish and verify the immutable `v0.2.0` release.
+Task 12 — correct the SSR interop discovered by Landing and publish immutable `v0.2.1`.
 
 ## Next subtask
 
-12.1 — commit and push the scoped package change, then require the main CI run to pass.
+12.5 — run the complete gate and publish/verify immutable `v0.2.1`.
 
 ## Blockers
 
@@ -98,3 +102,6 @@ None.
   immutable version is `0.2.0`, not a patch release.
 - Existing audits cover every affected surface/state/width. Cupom's contextual range control will
   move to `styled(Button)` to avoid depending on runtime style injection order.
+- `v0.2.0` passed browser packaging but failed Landing's Node prerender because the externalized
+  styled-components default import did not expose `.button`; the named `styled` export is required
+  and a direct Node package-import smoke must guard the SSR boundary in `v0.2.1`.

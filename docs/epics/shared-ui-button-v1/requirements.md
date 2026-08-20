@@ -109,8 +109,9 @@
   pacote deixam de existir.
 - AC-15: `Button` reside em pasta própria com `index.tsx`, `styles.ts`, `types.ts` e teste focado;
   os tipos públicos continuam importáveis pela raiz do pacote.
-- AC-16: o tarball `0.2.0` declara React/styled-components como peers, não contém styled-components
-  empacotado e compila num consumidor Vite limpo sem import de CSS.
-- AC-17: os cinco produtos resolvem o mesmo release imutável `0.2.0`, não contêm o import legado e
+- AC-16: o tarball `0.2.1` declara React/styled-components como peers, não contém styled-components
+  empacotado, importa o runtime pelo export nomeado e compila/carrega num consumidor Vite + Node SSR
+  limpo sem import de CSS.
+- AC-17: os cinco produtos resolvem o mesmo release imutável `0.2.1`, não contêm o import legado e
   passam seus gates visuais completos.
 - AC-18: os cinco workflows de Hosting concluem no SHA esperado e os assets públicos são verificados.

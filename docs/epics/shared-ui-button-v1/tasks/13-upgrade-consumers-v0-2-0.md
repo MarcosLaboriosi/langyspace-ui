@@ -1,4 +1,4 @@
-# Task 13 — Upgrade all five consumers to v0.2.0
+# Task 13 — Upgrade all five consumers to v0.2.1
 
 ## Responsibility
 
@@ -7,7 +7,7 @@ integration.
 
 ## Subtasks
 
-- [ ] 13.1 Create clean isolated branches from current remote mains and preserve original worktrees.
+- [x] 13.1 Create clean isolated branches from current remote mains and preserve original worktrees.
 - [ ] 13.2 Upgrade Landing and remove its stylesheet import; run focused build/checks.
 - [ ] 13.3 Upgrade Admin and remove its stylesheet import; run focused build/checks.
 - [ ] 13.4 Upgrade Student and remove its stylesheet import; run focused build/checks.
@@ -18,7 +18,7 @@ integration.
 
 ## Completion conditions
 
-- Five manifests/lockfiles resolve the same public `0.2.0` tarball.
+- Five manifests/lockfiles resolve the same public `0.2.1` tarball.
 - No consumer imports `@langyspace/ui/styles.css`.
 - Cupom owns one compatible styled-components runtime and retains its pressed-state design.
 - All focused builds/tests pass before full visual validation.
@@ -29,4 +29,6 @@ integration.
 
 ## Evidence
 
-Pending.
+- 13.1: all five clean integration worktrees were fetched, confirmed equal to their current
+  `origin/main` and switched to isolated `refactor/styled-button-v0-2-0` branches. The original dirty
+  Admin and Teacher worktrees remain outside this work.

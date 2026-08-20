@@ -146,7 +146,7 @@ pnpm 10 and needs no publication-age exception.
 
 ### Consumer migration
 
-- All five consumers remove `@langyspace/ui/styles.css` and pin the immutable `0.2.0` release URL.
+- All five consumers remove `@langyspace/ui/styles.css` and pin the immutable `0.2.1` release URL.
 - Landing/Admin/Student/Teacher already declare compatible styled-components and need no new peer.
 - Cupom adds `styled-components ^6.4.0`, creates a local `styles.ts` RangeButton composed from the
   shared Button, and removes the obsolete range declarations from page CSS.
@@ -178,6 +178,14 @@ widths. No new route or state is introduced, so audit code changes are unnecessa
   and screenshots prove runtime parity, including prerender and no-ThemeProvider consumption.
 - Operations: publish and verify `0.2.0` before touching consumer lockfiles; deploy only immutable
   release URLs and preserve original dirty Admin/Teacher worktrees through isolated branches.
+
+### SSR compatibility correction
+
+The first Landing build proved that browser bundling alone did not exercise Node's ESM/CJS interop:
+the externalized default styled-components import evaluated without a callable `.button` during
+prerender. Keep `v0.2.0` immutable and unpromoted. Change package code to the named `styled` export,
+add a direct Node package import to the clean-consumer smoke, bump to `v0.2.1`, rerun the complete
+library gate and publish that exact validated commit before consumer work resumes.
 
 ## Task 10 implementation refinement
 

@@ -1,4 +1,4 @@
-# Task 14 — Validate and roll out v0.2.0 to production
+# Task 14 — Validate and roll out v0.2.1 to production
 
 ## Responsibility
 

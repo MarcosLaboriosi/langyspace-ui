@@ -81,7 +81,7 @@ ampliar o contrato visual.
 - Consumir um URL imutável de GitHub Release nos cinco lockfiles.
 - Integrar uma superfície real e já auditada de cada produto.
 - Executar gates visuais e promover os cinco produtos a Firebase Hosting pela automação existente.
-- Publicar `0.2.0` com `styled-components` como peer externo, estrutura separada de componente,
+- Publicar `0.2.1` com `styled-components` como peer externo, estrutura separada de componente,
   estilos e tipos, sem artefato CSS.
 - Remover o import global legado nos cinco produtos; instalar o peer no Cupom e manter os quatro
   peers já existentes.
@@ -157,6 +157,11 @@ retain only external layout/contextual selection locally, and are live at commit
 `02024fb`. The full visual gates and representative screenshot reviews passed, both Hosting
 workflows succeeded, and the deployed assets were verified directly.
 
-The epic was reopened again for the styled-components `0.2.0` migration. This work is incomplete
+The epic was reopened again for the styled-components `0.2.1` migration. This work is incomplete
 until the immutable release is published, all five lockfiles consume it without the legacy CSS
 import, every visual gate passes, and all five Hosting sites are verified in production.
+
+The initial `v0.2.0` artifact passed the browser consumer smoke but the Landing integration exposed
+a Node SSR interop failure in styled-components' default import. It remains immutable and will not
+be promoted. `v0.2.1` uses the named `styled` export and adds a direct Node import smoke before the
+same five-consumer rollout resumes.

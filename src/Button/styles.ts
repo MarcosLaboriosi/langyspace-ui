@@ -1,4 +1,4 @@
-import styled, { css, keyframes } from 'styled-components'
+import { css, keyframes, styled } from 'styled-components'
 import type { ButtonSize, ButtonStyleProps, ButtonVariant } from './types'
 
 const spin = keyframes`

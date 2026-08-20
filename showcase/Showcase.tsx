@@ -41,7 +41,7 @@ export function Showcase() {
       data-audit-mode={stressMode ? 'stress' : 'normal'}
     >
       <header className="showcase__header">
-        <p className="showcase__eyebrow">LANGY.SPACE UI · V0.2.0</p>
+        <p className="showcase__eyebrow">LANGY.SPACE UI · V0.2.1</p>
         <h1>Button</h1>
         <p>
           Um componente nativo, pequeno e previsível para ações principais,
