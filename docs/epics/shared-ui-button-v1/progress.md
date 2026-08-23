@@ -123,6 +123,14 @@ None.
   commit as an ancestor, retains the exact `v0.2.1` release and zero legacy stylesheet imports, and
   its successful Hosting-only deploy supersedes the initially verified `f20aa74` asset without
   weakening the shared Button result.
+- Production exposed that `v0.2.1` shipped an unstyled Landing hero button. Vite keeps
+  `styled-components` inlined in the prerender bundle through `ssr.noExternal` while the package
+  stays external, so both loaded separate styled-components instances. Runtime component ids depend
+  on creation order per instance: the Button took `sc-bdnAzI`, the same id as Landing's own first
+  styled component, its CSS never reached the collected `ServerStyleSheet`, and the browser injected
+  the correct rules under a class the hydrated markup did not carry. `v0.2.2` declares explicit
+  `lsui-sc-*` component ids so server and browser class names always match, and consumers that
+  prerender must also add the package to `ssr.noExternal` for the CSS to reach the static HTML.
 
 ## Final visual verdict
 

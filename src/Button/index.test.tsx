@@ -5,6 +5,7 @@ import { createRef } from 'react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import styled from 'styled-components'
 import { Button } from '..'
+import * as Styled from './styles'
 
 afterEach(() => cleanup())
 
@@ -146,6 +147,31 @@ describe('Button', () => {
     expect(button).toHaveAttribute('aria-busy', 'false')
     expect(button).toHaveAttribute('data-full-width', 'true')
     expect(button).toHaveAttribute('type', 'submit')
+  })
+
+  it('keeps explicit component ids so server and browser renders agree', () => {
+    render(
+      <Button isLoading size="lg">
+        Publicar
+      </Button>,
+    )
+
+    const button = screen.getByRole('button', { name: 'Publicar' })
+
+    expect(button).toHaveClass('lsui-sc-button')
+    expect(button.querySelector('.lsui-button__icon')).toHaveClass(
+      'lsui-sc-button-icon',
+    )
+    expect(button.querySelector('.lsui-button__spinner')).toHaveClass(
+      'lsui-sc-button-spinner',
+    )
+
+    const publishedIds = Object.values(Styled).map(
+      (component) => component.styledComponentId,
+    )
+
+    expect(publishedIds.length).toBeGreaterThan(0)
+    publishedIds.forEach((id) => expect(id).toMatch(/^lsui-sc-/))
   })
 
   it('supports local styled(Button) composition through forwarded className', () => {
