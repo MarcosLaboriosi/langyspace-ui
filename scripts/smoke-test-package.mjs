@@ -1,5 +1,6 @@
 import { execFileSync } from 'node:child_process'
 import {
+  copyFile,
   mkdtemp,
   mkdir,
   readFile,
@@ -121,6 +122,10 @@ try {
   const packageSpec = externalPackageSpec ?? (await createLocalPackageSpec())
 
   await writeConsumer(packageSpec)
+  await copyFile(
+    join(root, 'scripts', 'ssr-smoke-consumer.mjs'),
+    join(consumerDirectory, 'ssr-smoke.mjs'),
+  )
   run(
     'pnpm',
     ['install', '--ignore-scripts', '--no-frozen-lockfile'],
@@ -131,6 +136,7 @@ try {
     ['--input-type=module', '--eval', "await import('@langyspace/ui')"],
     consumerDirectory,
   )
+  run('node', ['ssr-smoke.mjs'], consumerDirectory)
   run('pnpm', ['run', 'build'], consumerDirectory)
 
   const assetDirectory = join(consumerDirectory, 'dist', 'assets')

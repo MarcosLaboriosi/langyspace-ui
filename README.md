@@ -8,11 +8,32 @@ pequeno, nativo e explícito.
 Instale styled-components e fixe sempre um artefato imutável de release:
 
 ```bash
-pnpm add styled-components@^6.4.0 '@langyspace/ui@https://github.com/MarcosLaboriosi/langyspace-ui/releases/download/v0.2.1/langyspace-ui-0.2.1.tgz'
+pnpm add styled-components@^6.4.0 '@langyspace/ui@https://github.com/MarcosLaboriosi/langyspace-ui/releases/download/v0.2.2/langyspace-ui-0.2.2.tgz'
 ```
 
 Não existe import de CSS. O Button injeta seus estilos com styled-components e funciona sem
 ThemeProvider. Não é necessário `.npmrc`, token npm ou token GitHub para instalar o release público.
+
+### SSR e prerender
+
+Os componentes publicados declaram `componentId` explícito, então o mesmo `class` sai do render de
+servidor e do browser mesmo quando as duas execuções carregam instâncias diferentes de
+styled-components.
+
+Para que o CSS do Button também apareça no HTML prerenderizado, o build de servidor precisa carregar
+o pacote na mesma instância que coleta os estilos. Em Vite, mantenha a biblioteca junto de
+styled-components:
+
+```ts
+export default defineConfig({
+  ssr: {
+    noExternal: ['styled-components', '@langyspace/ui'],
+  },
+})
+```
+
+Sem isso o botão continua correto depois da hidratação, mas o HTML prerenderizado sai sem as regras
+dele e o consumidor mostra um botão sem estilo até o JavaScript carregar.
 
 ## Button
 
@@ -100,7 +121,7 @@ normal/stress nas larguras de aceitação dos produtos.
 
 1. Atualize a versão em `package.json` usando SemVer.
 2. Faça merge em `main` somente após CI verde.
-3. Crie e envie a tag idêntica, por exemplo `v0.2.1`.
+3. Crie e envie a tag idêntica, por exemplo `v0.2.2`.
 4. O workflow valida, empacota, calcula SHA-256 e cria o GitHub Release automaticamente.
 5. Atualize consumidores explicitamente para o novo URL e lockfile.
 
