@@ -1,23 +1,29 @@
 import { css, styled } from 'styled-components'
 import type { ButtonSize, ButtonStyleProps, ButtonVariant } from './types'
 
+const sizeHeights = {
+  sm: '2rem',
+  md: '2.5rem',
+  lg: '3rem',
+} satisfies Record<ButtonSize, string>
+
 const sizeStyles = {
   sm: css`
-    min-height: 2rem;
+    min-height: ${sizeHeights.sm};
     gap: 0.5rem;
     padding-right: 0.75rem;
     padding-left: 0.75rem;
     font-size: 0.875rem;
   `,
   md: css`
-    min-height: 2.5rem;
+    min-height: ${sizeHeights.md};
     gap: 0.5rem;
     padding-right: 1.25rem;
     padding-left: 1.25rem;
     font-size: 1rem;
   `,
   lg: css`
-    min-height: 3rem;
+    min-height: ${sizeHeights.lg};
     gap: 0.75rem;
     padding-right: 1.5rem;
     padding-left: 1.5rem;
@@ -116,6 +122,13 @@ export const Button = styled.button.withConfig({
     `}
   ${({ $size }) => sizeStyles[$size]}
   ${({ $variant }) => variantStyles[$variant]}
+  ${({ $iconOnly, $size }) =>
+    $iconOnly &&
+    css`
+      width: ${sizeHeights[$size]};
+      padding-right: 0;
+      padding-left: 0;
+    `}
 
   &:focus-visible {
     outline: none;

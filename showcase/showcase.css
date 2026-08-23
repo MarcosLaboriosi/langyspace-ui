@@ -118,6 +118,13 @@ button {
   max-width: 100%;
 }
 
+.showcase__button-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+}
+
 .showcase__card--dark {
   color: #ffffff;
   background: #0a0a0a;

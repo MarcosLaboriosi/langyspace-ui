@@ -60,6 +60,7 @@ export function Actions() {
 | `fullWidth` | boolean                                             | `false`   |
 | `iconStart` | one React node before the label                     | none      |
 | `iconEnd`   | one React node after the label                      | none      |
+| `iconOnly`  | square control whose children is the icon           | `false`   |
 | `isLoading` | keeps label, sets busy/disabled and renders spinner | `false`   |
 
 Todas as props nativas de `<button>`, `className` e refs são preservadas: elas seguem direto no
@@ -73,6 +74,18 @@ container, prefira a prop explícita:
 Enquanto `isLoading` está ativo o botão fica `disabled` e `aria-busy`, mantém o label e mostra um
 único spinner: no lado inicial quando `iconStart` existe, senão no final. O ícone substituído
 desaparece; o do outro lado permanece.
+
+Para um controle só de ícone, use `iconOnly` e passe o ícone como children. Ele fica quadrado na
+altura do `size`, e o raio pill entrega o círculo sem precisar de prop de forma:
+
+```tsx
+<Button aria-label="Tocar áudio" iconOnly>
+  <PlayIcon />
+</Button>
+```
+
+O TypeScript exige `aria-label` nesse modo e recusa `iconStart`/`iconEnd`: sem label visível o ícone
+é o conteúdo, e o nome acessível precisa vir de algum lugar.
 
 ### Contrato de markup
 
