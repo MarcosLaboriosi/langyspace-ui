@@ -6,6 +6,7 @@ export function Button({
   children,
   fullWidth = false,
   iconEnd,
+  iconOnly = false,
   iconStart,
   isLoading = false,
   size = 'md',
@@ -21,14 +22,21 @@ export function Button({
       {...(isLoading && { 'aria-busy': true, disabled: true })}
       type={type}
       $fullWidth={fullWidth}
+      $iconOnly={iconOnly}
       $size={size}
       $variant={variant}
       data-loading={isLoading ? 'true' : undefined}
       data-size={size}
     >
-      <Icon icon={iconStart} isLoading={spinsAtStart} />
-      {children}
-      <Icon icon={iconEnd} isLoading={isLoading && !spinsAtStart} />
+      {iconOnly ? (
+        <Icon icon={children} isLoading={isLoading} />
+      ) : (
+        <>
+          <Icon icon={iconStart} isLoading={spinsAtStart} />
+          {children}
+          <Icon icon={iconEnd} isLoading={isLoading && !spinsAtStart} />
+        </>
+      )}
     </Styled.Button>
   )
 }

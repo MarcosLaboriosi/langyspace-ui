@@ -192,6 +192,55 @@ describe('Button', () => {
     })
   })
 
+  it('turns into a square that holds the icon when iconOnly', () => {
+    render(
+      <Button aria-label="Tocar áudio" iconOnly>
+        <svg data-testid="glyph" />
+      </Button>,
+    )
+
+    const button = screen.getByRole('button', { name: 'Tocar áudio' })
+
+    expect(button).toHaveStyle({
+      minHeight: '2.5rem',
+      width: '2.5rem',
+      borderRadius: '999px',
+      paddingLeft: '0px',
+      paddingRight: '0px',
+    })
+    expect(screen.getByTestId('glyph').parentElement).toHaveClass(
+      'lsui-sc-icon',
+    )
+  })
+
+  it('swaps the only icon for the spinner while an iconOnly button loads', () => {
+    const { container } = render(
+      <Button aria-label="Tocar áudio" iconOnly isLoading>
+        <svg data-testid="glyph" />
+      </Button>,
+    )
+
+    expect(screen.queryByTestId('glyph')).not.toBeInTheDocument()
+    expect(container.querySelectorAll('.lsui-sc-spinner')).toHaveLength(1)
+  })
+
+  it('demands an accessible name and refuses icon slots when iconOnly', () => {
+    render(
+      <>
+        {/* @ts-expect-error iconOnly sem aria-label fica sem nome acessível */}
+        <Button iconOnly>
+          <svg />
+        </Button>
+        {/* @ts-expect-error iconOnly já usa children como ícone */}
+        <Button aria-label="Tocar" iconOnly iconStart={<svg />}>
+          <svg />
+        </Button>
+      </>,
+    )
+
+    expect(screen.getAllByRole('button')).toHaveLength(2)
+  })
+
   it('keeps explicit component ids so server and browser renders agree', () => {
     render(<Button size="lg">Publicar</Button>)
 

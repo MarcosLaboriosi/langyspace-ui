@@ -94,6 +94,27 @@ export function Showcase() {
               </Button>
             </div>
           </article>
+          <article className="showcase__card">
+            <h3>Somente ícone</h3>
+            <div className="showcase__button-row">
+              {sizes.map((size) => (
+                <Button
+                  aria-label={`Avançar ${size}`}
+                  iconOnly
+                  key={size}
+                  size={size}
+                >
+                  {ArrowIcon}
+                </Button>
+              ))}
+              <Button aria-label="Avançar" iconOnly variant="secondary">
+                {ArrowIcon}
+              </Button>
+              <Button aria-label="Carregando" iconOnly isLoading>
+                {ArrowIcon}
+              </Button>
+            </div>
+          </article>
           <article className="showcase__card showcase__card--dark">
             <h3>Superfície escura</h3>
             <div className="showcase__button-column">
