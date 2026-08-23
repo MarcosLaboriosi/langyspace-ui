@@ -79,7 +79,7 @@ async function inspect(page, scenario) {
       const containedSelectors = [
         '.showcase__card',
         '.showcase__narrow-card',
-        '.lsui-button',
+        '.lsui-sc-button',
       ]
 
       containedSelectors.forEach((selector) => {
@@ -118,7 +118,7 @@ async function inspect(page, scenario) {
         })
       })
 
-      document.querySelectorAll('.lsui-button').forEach((element, index) => {
+      document.querySelectorAll('.lsui-sc-button').forEach((element, index) => {
         if (!visible(element)) return
 
         const rect = element.getBoundingClientRect()
@@ -152,7 +152,7 @@ async function inspect(page, scenario) {
       return {
         issues: issues.map((issue) => ({ ...issue, ...currentScenario })),
         stats: {
-          buttons: document.querySelectorAll('.lsui-button').length,
+          buttons: document.querySelectorAll('.lsui-sc-button').length,
           containers: document.querySelectorAll(containedSelectors.join(','))
             .length,
         },

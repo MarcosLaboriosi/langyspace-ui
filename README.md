@@ -8,7 +8,7 @@ pequeno, nativo e explícito.
 Instale styled-components e fixe sempre um artefato imutável de release:
 
 ```bash
-pnpm add styled-components@^6.4.0 '@langyspace/ui@https://github.com/MarcosLaboriosi/langyspace-ui/releases/download/v0.2.2/langyspace-ui-0.2.2.tgz'
+pnpm add styled-components@^6.4.0 '@langyspace/ui@https://github.com/MarcosLaboriosi/langyspace-ui/releases/download/v0.3.0/langyspace-ui-0.3.0.tgz'
 ```
 
 Não existe import de CSS. O Button injeta seus estilos com styled-components e funciona sem
@@ -53,21 +53,46 @@ export function Actions() {
 
 ### Props
 
-| Prop           | Contract                                            | Default   |
-| -------------- | --------------------------------------------------- | --------- |
-| `variant`      | `primary`, `secondary`, `tertiary`                  | `primary` |
-| `size`         | `sm`, `md`, `lg`                                    | `md`      |
-| `fullWidth`    | boolean                                             | `false`   |
-| `icon`         | one React node                                      | none      |
-| `iconPosition` | `start`, `end`                                      | `end`     |
-| `isLoading`    | keeps label, sets busy/disabled and renders spinner | `false`   |
+| Prop        | Contract                                            | Default   |
+| ----------- | --------------------------------------------------- | --------- |
+| `variant`   | `primary`, `secondary`, `tertiary`                  | `primary` |
+| `size`      | `sm`, `md`, `lg`                                    | `md`      |
+| `fullWidth` | boolean                                             | `false`   |
+| `iconStart` | one React node before the label                     | none      |
+| `iconEnd`   | one React node after the label                      | none      |
+| `isLoading` | keeps label, sets busy/disabled and renders spinner | `false`   |
 
-Todas as props nativas de `<button>`, `className` e refs são preservadas. O `type` default é
-`button`, nunca `submit` implícito. Para ocupar o container, prefira a prop explícita:
+Todas as props nativas de `<button>`, `className` e refs são preservadas: elas seguem direto no
+spread, sem repasse manual. O `type` default é `button`, nunca `submit` implícito. Para ocupar o
+container, prefira a prop explícita:
 
 ```tsx
 <Button fullWidth>Continuar</Button>
 ```
+
+Enquanto `isLoading` está ativo o botão fica `disabled` e `aria-busy`, mantém o label e mostra um
+único spinner: no lado inicial quando `iconStart` existe, senão no final. O ícone substituído
+desaparece; o do outro lado permanece.
+
+### Contrato de markup
+
+O botão renderiza `class="lsui-sc-button <classe gerada> <className do consumidor>"`, mais
+`data-size` sempre e `data-loading="true"` enquanto carrega. É só isso que é contrato:
+
+| Marca                                               | Para que serve                                              |
+| --------------------------------------------------- | ----------------------------------------------------------- |
+| `lsui-sc-button`, `lsui-sc-icon`, `lsui-sc-spinner` | ids declarados no source, para seleção em teste e auditoria |
+| `data-size`                                         | a auditoria confere a altura mínima esperada por tamanho    |
+| `data-loading`                                      | os estilos do próprio botão dependem dele                   |
+
+Não estilize por essas marcas: para composição use `styled(Button)`.
+
+`0.3.0` trocou `icon` mais `iconPosition` por `iconStart` e `iconEnd`, o que aceita um ícone de cada
+lado e elimina a prop que só existia para modificar outra. Removeu também as classes `lsui-button`,
+`lsui-button__icon` e `lsui-button__spinner`, que duplicavam os ids acima, e os atributos
+`data-variant`, `data-full-width` e `data-icon-position`, que nenhum estilo, ferramenta ou produto
+consumia. Testes que selecionavam por eles devem usar os ids `lsui-sc-*` ou, de preferência,
+asserções de comportamento.
 
 Quando a composição precisar de largura específica, margem ou posicionamento, use `styled(Button)`.
 O `className` gerado é encaminhado até o botão nativo:
@@ -95,6 +120,10 @@ src/Button/
   types.ts
 ```
 
+O slot de ícone é o componente `Icon`, em `src/Icon/`, porque ele não depende do Button: envolve um
+nó qualquer ou mostra o spinner. Ele não é exportado pelo pacote enquanto não houver um segundo uso
+real.
+
 ### Deliberate limits
 
 - Use links para navegação; o Button v1 não tem `as`, `asChild` nem polymorphism.
@@ -121,7 +150,7 @@ normal/stress nas larguras de aceitação dos produtos.
 
 1. Atualize a versão em `package.json` usando SemVer.
 2. Faça merge em `main` somente após CI verde.
-3. Crie e envie a tag idêntica, por exemplo `v0.2.2`.
+3. Crie e envie a tag idêntica, por exemplo `v0.3.0`.
 4. O workflow valida, empacota, calcula SHA-256 e cria o GitHub Release automaticamente.
 5. Atualize consumidores explicitamente para o novo URL e lockfile.
 

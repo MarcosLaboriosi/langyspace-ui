@@ -41,7 +41,7 @@ export function Showcase() {
       data-audit-mode={stressMode ? 'stress' : 'normal'}
     >
       <header className="showcase__header">
-        <p className="showcase__eyebrow">LANGY.SPACE UI · V0.2.2</p>
+        <p className="showcase__eyebrow">LANGY.SPACE UI · V0.3.0</p>
         <h1>Button</h1>
         <p>
           Um componente nativo, pequeno e previsível para ações principais,
@@ -77,10 +77,10 @@ export function Showcase() {
           <article className="showcase__card">
             <h3>Ícone e foco</h3>
             <div className="showcase__button-column">
-              <Button data-audit-focus icon={ArrowIcon} iconPosition="end">
+              <Button data-audit-focus iconEnd={ArrowIcon}>
                 {standardLabel}
               </Button>
-              <Button icon={ArrowIcon} iconPosition="start" variant="secondary">
+              <Button iconStart={ArrowIcon} variant="secondary">
                 Voltar uma etapa
               </Button>
             </div>
@@ -89,7 +89,7 @@ export function Showcase() {
             <h3>Indisponível e loading</h3>
             <div className="showcase__button-column">
               <Button disabled>Indisponível</Button>
-              <Button icon={ArrowIcon} isLoading>
+              <Button iconEnd={ArrowIcon} isLoading>
                 Guardando alterações
               </Button>
             </div>
@@ -116,7 +116,7 @@ export function Showcase() {
           <h2 id="containment-title">Largura e conteúdo extremo</h2>
         </div>
         <article className="showcase__narrow-card">
-          <Button fullWidth icon={ArrowIcon} size="lg">
+          <Button fullWidth iconEnd={ArrowIcon} size="lg">
             {stressMode ? stressToken : 'Ação principal em largura total'}
           </Button>
         </article>

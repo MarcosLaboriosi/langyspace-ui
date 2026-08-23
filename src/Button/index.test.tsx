@@ -5,7 +5,7 @@ import { createRef } from 'react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import styled from 'styled-components'
 import { Button } from '..'
-import * as Styled from './styles'
+import * as ButtonStyles from './styles'
 
 afterEach(() => cleanup())
 
@@ -32,14 +32,13 @@ describe('Button', () => {
 
     expect(button).toHaveAttribute('type', 'button')
     expect(button).toHaveAttribute('data-context', 'checkout')
-    expect(button).toHaveAttribute('data-size', 'md')
-    expect(button).toHaveAttribute('data-variant', 'primary')
-    expect(button).toHaveClass('lsui-button', 'consumer-button')
+    expect(button).toHaveClass('lsui-sc-button', 'consumer-button')
+    expect(button).toHaveStyle({ backgroundColor: '#0a0a0a' })
     expect(ref.current).toBe(button)
     expect(onClick).toHaveBeenCalledTimes(1)
   })
 
-  it('exposes only the approved semantic variants and sizes as bounded attributes', () => {
+  it('renders each approved variant and size with its own appearance', () => {
     render(
       <>
         <Button size="sm" variant="primary">
@@ -54,50 +53,42 @@ describe('Button', () => {
       </>,
     )
 
-    expect(screen.getByRole('button', { name: 'Principal' })).toHaveAttribute(
-      'data-size',
-      'sm',
-    )
-    expect(screen.getByRole('button', { name: 'Secundário' })).toHaveAttribute(
-      'data-variant',
-      'secondary',
-    )
-    expect(screen.getByRole('button', { name: 'Terciário' })).toHaveAttribute(
-      'data-size',
-      'lg',
-    )
-    expect(screen.getByRole('button', { name: 'Terciário' })).toHaveAttribute(
-      'data-variant',
-      'tertiary',
-    )
+    expect(screen.getByRole('button', { name: 'Principal' })).toHaveStyle({
+      backgroundColor: '#0a0a0a',
+      minHeight: '2rem',
+    })
+    expect(screen.getByRole('button', { name: 'Secundário' })).toHaveStyle({
+      backgroundColor: '#ffffff',
+      minHeight: '2.5rem',
+    })
+    expect(screen.getByRole('button', { name: 'Terciário' })).toHaveStyle({
+      backgroundColor: 'rgba(0, 0, 0, 0)',
+      minHeight: '3rem',
+    })
   })
 
-  it('places one optional icon at the requested edge', () => {
-    const { rerender } = render(
-      <Button icon={<svg data-testid="icon" />} iconPosition="start">
-        Guardar
-      </Button>,
-    )
+  it('accepts one icon on each edge and renders neither by default', () => {
+    const { rerender } = render(<Button>Guardar</Button>)
 
-    let button = screen.getByRole('button', { name: 'Guardar' })
-
-    expect(button).toHaveAttribute('data-icon-position', 'start')
-    expect(button.firstElementChild).toContainElement(
-      screen.getByTestId('icon'),
-    )
+    expect(
+      screen.getByRole('button', { name: 'Guardar' }).querySelector('span'),
+    ).toBeNull()
 
     rerender(
-      <Button icon={<svg data-testid="icon-end" />} iconPosition="end">
+      <Button
+        iconEnd={<svg data-testid="end" />}
+        iconStart={<svg data-testid="start" />}
+      >
         Guardar
       </Button>,
     )
 
-    button = screen.getByRole('button', { name: 'Guardar' })
+    const button = screen.getByRole('button', { name: 'Guardar' })
 
-    expect(button).toHaveAttribute('data-icon-position', 'end')
-    expect(button.lastElementChild).toContainElement(
-      screen.getByTestId('icon-end'),
+    expect(button.firstElementChild).toContainElement(
+      screen.getByTestId('start'),
     )
+    expect(button.lastElementChild).toContainElement(screen.getByTestId('end'))
   })
 
   it('keeps its label, replaces the icon and blocks interaction while loading', async () => {
@@ -106,8 +97,7 @@ describe('Button', () => {
 
     render(
       <Button
-        icon={<span data-testid="consumer-icon" />}
-        iconPosition="start"
+        iconStart={<span data-testid="consumer-icon" />}
         isLoading
         onClick={onClick}
       >
@@ -123,50 +113,93 @@ describe('Button', () => {
     expect(button).toHaveAttribute('aria-busy', 'true')
     expect(button).toHaveAttribute('data-loading', 'true')
     expect(button).toHaveTextContent('Salvar alterações')
-    expect(button.querySelector('.lsui-button__spinner')).toBeInTheDocument()
+    expect(button.querySelector('.lsui-sc-spinner')).toHaveAttribute(
+      'aria-hidden',
+      'true',
+    )
     expect(screen.queryByTestId('consumer-icon')).not.toBeInTheDocument()
     expect(onClick).not.toHaveBeenCalled()
   })
 
-  it('composes explicit disabled, busy, submit and full-width native contracts', () => {
-    render(
+  it('spins on the starting edge only when that edge has an icon', () => {
+    const { rerender } = render(
+      <Button iconEnd={<svg data-testid="end" />} isLoading>
+        <span data-testid="label">Salvar</span>
+      </Button>,
+    )
+
+    let button = screen.getByRole('button', { name: 'Salvar' })
+    const spinner = () => button.querySelector<HTMLElement>('.lsui-sc-spinner')
+
+    expect(button.firstElementChild).toBe(screen.getByTestId('label'))
+    expect(button.lastElementChild).toContainElement(spinner())
+    expect(screen.queryByTestId('end')).not.toBeInTheDocument()
+
+    rerender(
       <Button
-        aria-busy="false"
-        disabled
-        fullWidth
-        type="submit"
-        variant="secondary"
+        iconEnd={<svg data-testid="end" />}
+        iconStart={<svg data-testid="start" />}
+        isLoading
       >
+        <span data-testid="label">Salvar</span>
+      </Button>,
+    )
+
+    button = screen.getByRole('button', { name: 'Salvar' })
+
+    expect(button.querySelectorAll('.lsui-sc-spinner')).toHaveLength(1)
+    expect(button.firstElementChild).toContainElement(spinner())
+    expect(screen.queryByTestId('start')).not.toBeInTheDocument()
+    expect(button.lastElementChild).toContainElement(screen.getByTestId('end'))
+  })
+
+  it('lets loading override the busy and disabled values the consumer sent', () => {
+    const { rerender } = render(
+      <Button aria-busy="false" disabled={false} type="submit">
         Enviar
       </Button>,
     )
 
-    const button = screen.getByRole('button', { name: 'Enviar' })
+    let button = screen.getByRole('button', { name: 'Enviar' })
 
-    expect(button).toBeDisabled()
-    expect(button).toHaveAttribute('aria-busy', 'false')
-    expect(button).toHaveAttribute('data-full-width', 'true')
     expect(button).toHaveAttribute('type', 'submit')
-  })
+    expect(button).toHaveAttribute('aria-busy', 'false')
+    expect(button).not.toBeDisabled()
 
-  it('keeps explicit component ids so server and browser renders agree', () => {
-    render(
-      <Button isLoading size="lg">
-        Publicar
+    rerender(
+      <Button aria-busy="false" disabled={false} isLoading type="submit">
+        Enviar
       </Button>,
     )
 
-    const button = screen.getByRole('button', { name: 'Publicar' })
+    button = screen.getByRole('button', { name: 'Enviar' })
 
-    expect(button).toHaveClass('lsui-sc-button')
-    expect(button.querySelector('.lsui-button__icon')).toHaveClass(
-      'lsui-sc-button-icon',
-    )
-    expect(button.querySelector('.lsui-button__spinner')).toHaveClass(
-      'lsui-sc-button-spinner',
+    expect(button).toHaveAttribute('aria-busy', 'true')
+    expect(button).toBeDisabled()
+  })
+
+  it('fills its container only when fullWidth is explicit', () => {
+    const { rerender } = render(<Button>Continuar</Button>)
+
+    expect(screen.getByRole('button', { name: 'Continuar' })).not.toHaveStyle({
+      width: '100%',
+    })
+
+    rerender(<Button fullWidth>Continuar</Button>)
+
+    expect(screen.getByRole('button', { name: 'Continuar' })).toHaveStyle({
+      width: '100%',
+    })
+  })
+
+  it('keeps explicit component ids so server and browser renders agree', () => {
+    render(<Button size="lg">Publicar</Button>)
+
+    expect(screen.getByRole('button', { name: 'Publicar' })).toHaveClass(
+      'lsui-sc-button',
     )
 
-    const publishedIds = Object.values(Styled).map(
+    const publishedIds = Object.values(ButtonStyles).map(
       (component) => component.styledComponentId,
     )
 

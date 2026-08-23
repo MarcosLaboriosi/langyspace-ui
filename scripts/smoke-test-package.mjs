@@ -81,7 +81,7 @@ async function writeConsumer(packageSpec) {
 import { createRoot } from 'react-dom/client'
 
 createRoot(document.getElementById('root')!).render(
-  <Button icon={<span aria-hidden="true">→</span>} variant="primary">
+  <Button iconEnd={<span aria-hidden="true">→</span>} variant="primary">
     Package smoke passed
   </Button>,
 )
@@ -155,7 +155,7 @@ try {
     throw new Error('unexpected_css_asset_in_styled_components_consumer')
   }
 
-  if (!javascript.includes('lsui-button')) {
+  if (!javascript.includes('lsui-sc-button')) {
     throw new Error('shared_button_runtime_missing_from_consumer_build')
   }
 

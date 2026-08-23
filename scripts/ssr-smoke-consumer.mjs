@@ -1,18 +1,7 @@
-// Runs inside the temporary smoke consumer, not in this repository.
-//
-// Consumers prerender in Node while bundling the same package for the browser.
-// Component ids generated at runtime depend on how many styled components each
-// styled-components instance created before, so they change with module
-// evaluation order: the class in the prerendered markup stops matching the one
-// the browser injects, and the button renders unstyled. Published ids must be
-// explicit and identical in every render.
 import { createElement } from 'react'
 import { renderToString } from 'react-dom/server'
 import { ServerStyleSheet, styled } from 'styled-components'
 
-// Created before the package is evaluated, like a real application would. The
-// dynamic import below is what keeps that order; a static import would hoist
-// the package ahead of this component.
 const ConsumerSurface = styled.div`
   color: #123456;
 `
@@ -41,10 +30,6 @@ try {
 const buttonClasses = (markup.match(/<button[^>]*\sclass="([^"]*)"/)?.[1] ?? '')
   .split(' ')
   .filter(Boolean)
-
-if (!buttonClasses.includes('lsui-button')) {
-  throw new Error('shared_button_public_class_missing_from_ssr_markup')
-}
 
 if (!buttonClasses.includes('lsui-sc-button')) {
   throw new Error('shared_button_component_id_is_not_explicit')

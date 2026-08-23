@@ -1,18 +1,5 @@
-import { css, keyframes, styled } from 'styled-components'
+import { css, styled } from 'styled-components'
 import type { ButtonSize, ButtonStyleProps, ButtonVariant } from './types'
-
-// Every published styled component declares its own component id. Consumers
-// bundle this artifact for the browser and also import it from Node during
-// SSR/prerender, where styled-components can resolve to a second module
-// instance. Generated ids depend on creation order inside each instance, so
-// they diverge between both renders and collide with the consumer's own
-// components. Explicit ids keep the server and browser class names identical.
-
-const spin = keyframes`
-  to {
-    transform: rotate(360deg);
-  }
-`
 
 const sizeStyles = {
   sm: css`
@@ -153,34 +140,5 @@ export const Button = styled.button.withConfig({
     &:hover:not(:disabled) {
       transform: none;
     }
-  }
-`
-
-export const Icon = styled.span.withConfig({
-  componentId: 'lsui-sc-button-icon',
-})`
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex: 0 0 auto;
-
-  > svg {
-    display: block;
-  }
-`
-
-export const Spinner = styled.span.withConfig({
-  componentId: 'lsui-sc-button-spinner',
-})`
-  box-sizing: border-box;
-  width: 1em;
-  height: 1em;
-  border: 2px solid currentcolor;
-  border-right-color: transparent;
-  border-radius: 50%;
-  animation: ${spin} 0.8s linear infinite;
-
-  @media (prefers-reduced-motion: reduce) {
-    animation: none;
   }
 `
