@@ -126,6 +126,8 @@ export const Button = styled.button.withConfig({
     $iconOnly &&
     css`
       width: ${sizeHeights[$size]};
+      max-width: none;
+      flex-shrink: 0;
       padding-right: 0;
       padding-left: 0;
     `}
