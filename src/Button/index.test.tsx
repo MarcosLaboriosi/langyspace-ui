@@ -213,6 +213,23 @@ describe('Button', () => {
     )
   })
 
+  it('keeps the iconOnly square inside a container narrower than it', () => {
+    render(
+      <div style={{ display: 'flex', width: '20px' }}>
+        <Button aria-label="Voltar" iconOnly>
+          <svg />
+        </Button>
+      </div>,
+    )
+
+    expect(screen.getByRole('button', { name: 'Voltar' })).toHaveStyle({
+      width: '2.5rem',
+      minHeight: '2.5rem',
+      maxWidth: 'none',
+      flexShrink: '0',
+    })
+  })
+
   it('swaps the only icon for the spinner while an iconOnly button loads', () => {
     const { container } = render(
       <Button aria-label="Tocar áudio" iconOnly isLoading>
