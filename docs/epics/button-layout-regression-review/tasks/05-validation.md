@@ -1,6 +1,6 @@
 # T05 — validar os cinco produtos
 
-Status: em andamento.
+Status: concluída.
 
 - validar Landing, Student e Cupom como controles;
 - rodar gates completos uma vez após os focados;

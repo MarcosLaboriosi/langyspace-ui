@@ -1,6 +1,6 @@
 # T06 — integrar e verificar produção
 
-Status: pendente.
+Status: concluída.
 
 - publicar patch imutável após os gates;
 - instalar URL/checksum exatos nos consumidores;
