@@ -4,12 +4,15 @@ export type ButtonVariant = 'primary' | 'secondary' | 'tertiary'
 
 export type ButtonSize = 'sm' | 'md' | 'lg'
 
+export type ButtonShape = 'pill' | 'rounded'
+
 interface ButtonBaseProps extends ComponentPropsWithRef<'button'> {
   children: ReactNode
   fullWidth?: boolean
   iconEnd?: ReactNode
   iconStart?: ReactNode
   isLoading?: boolean
+  shape?: ButtonShape
   size?: ButtonSize
   variant?: ButtonVariant
 }
@@ -26,6 +29,7 @@ export type ButtonProps =
 export interface ButtonStyleProps {
   $fullWidth: boolean
   $iconOnly: boolean
+  $shape: ButtonShape
   $size: ButtonSize
   $variant: ButtonVariant
 }

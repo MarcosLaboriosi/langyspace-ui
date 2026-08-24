@@ -9,6 +9,7 @@ export function Button({
   iconOnly = false,
   iconStart,
   isLoading = false,
+  shape = 'pill',
   size = 'md',
   type = 'button',
   variant = 'primary',
@@ -23,6 +24,7 @@ export function Button({
       type={type}
       $fullWidth={fullWidth}
       $iconOnly={iconOnly}
+      $shape={shape}
       $size={size}
       $variant={variant}
       data-loading={isLoading ? 'true' : undefined}
