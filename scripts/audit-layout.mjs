@@ -80,6 +80,7 @@ async function inspect(page, scenario) {
         '.showcase__card',
         '.showcase__narrow-card',
         '.lsui-sc-button',
+        '.lsui-sc-pressable',
       ]
 
       containedSelectors.forEach((selector) => {

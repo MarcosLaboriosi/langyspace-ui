@@ -6,7 +6,7 @@ const ConsumerSurface = styled.div`
   color: #123456;
 `
 
-const { Button } = await import('@langyspace/ui')
+const { Button, Pressable } = await import('@langyspace/ui')
 
 const sheet = new ServerStyleSheet()
 let markup
@@ -18,7 +18,8 @@ try {
       createElement(
         ConsumerSurface,
         null,
-        createElement(Button, { size: 'lg', variant: 'primary' }, 'SSR'),
+        createElement(Button, { size: 'lg', tone: 'brand' }, 'SSR'),
+        createElement(Pressable, null, 'Pressable SSR'),
       ),
     ),
   )
@@ -35,6 +36,10 @@ if (!buttonClasses.includes('lsui-sc-button')) {
   throw new Error('shared_button_component_id_is_not_explicit')
 }
 
+if (!markup.includes('lsui-sc-pressable')) {
+  throw new Error('shared_pressable_component_id_is_not_explicit')
+}
+
 if (buttonClasses.includes(ConsumerSurface.styledComponentId)) {
   throw new Error('shared_button_component_id_collides_with_consumer')
 }
@@ -43,13 +48,17 @@ const generatedClasses = buttonClasses.filter(
   (className) => !className.startsWith('lsui-'),
 )
 
-if (generatedClasses.length !== 1) {
+if (generatedClasses.length !== 2) {
   throw new Error(
-    `expected_one_generated_button_class_received_${generatedClasses.length}`,
+    `expected_two_generated_button_classes_received_${generatedClasses.length}`,
   )
 }
 
-if (!collectedCss.includes(`.${generatedClasses[0]}{`)) {
+if (
+  generatedClasses.some(
+    (generatedClass) => !collectedCss.includes(`.${generatedClass}{`),
+  )
+) {
   throw new Error('shared_button_styles_missing_from_collected_ssr_css')
 }
 

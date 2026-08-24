@@ -1,14 +1,14 @@
 # @langyspace/ui
 
-Biblioteca React compartilhada pelos produtos Langy.space. O v1 contém somente um `Button`
-pequeno, nativo e explícito.
+Biblioteca React compartilhada pelos produtos Langy.space. Expõe um `Button` canônico para ações e
+um `Pressable` mínimo para controles específicos de produto.
 
 ## Installation
 
 Instale styled-components e fixe sempre um artefato imutável de release:
 
 ```bash
-pnpm add styled-components@^6.4.0 '@langyspace/ui@https://github.com/MarcosLaboriosi/langyspace-ui/releases/download/v0.4.1/langyspace-ui-0.4.1.tgz'
+pnpm add styled-components@^6.4.0 '@langyspace/ui@https://github.com/MarcosLaboriosi/langyspace-ui/releases/download/v0.5.0/langyspace-ui-0.5.0.tgz'
 ```
 
 Não existe import de CSS. O Button injeta seus estilos com styled-components e funciona sem
@@ -46,6 +46,9 @@ export function Actions() {
       <Button variant="primary">Continuar</Button>
       <Button variant="secondary">Cancelar</Button>
       <Button variant="tertiary">Agora não</Button>
+      <Button tone="brand">Nova matrícula</Button>
+      <Button variant="danger">Excluir acesso</Button>
+      <Button variant="success">Marcar presença</Button>
     </>
   )
 }
@@ -53,16 +56,17 @@ export function Actions() {
 
 ### Props
 
-| Prop        | Contract                                            | Default   |
-| ----------- | --------------------------------------------------- | --------- |
-| `variant`   | `primary`, `secondary`, `tertiary`                  | `primary` |
-| `size`      | `sm`, `md`, `lg`                                    | `md`      |
-| `fullWidth` | boolean                                             | `false`   |
-| `iconStart` | one React node before the label                     | none      |
-| `iconEnd`   | one React node after the label                      | none      |
-| `shape`     | `pill`, `rounded`                                   | `pill`    |
-| `iconOnly`  | square control whose children is the icon           | `false`   |
-| `isLoading` | keeps label, sets busy/disabled and renders spinner | `false`   |
+| Prop        | Contract                                                | Default   |
+| ----------- | ------------------------------------------------------- | --------- |
+| `variant`   | `primary`, `secondary`, `tertiary`, `danger`, `success` | `primary` |
+| `tone`      | `neutral`; `brand` somente com `primary`                | `neutral` |
+| `size`      | `sm`, `md`, `lg`                                        | `md`      |
+| `fullWidth` | boolean                                                 | `false`   |
+| `iconStart` | one React node before the label                         | none      |
+| `iconEnd`   | one React node after the label                          | none      |
+| `shape`     | `pill`, `rounded`                                       | `pill`    |
+| `iconOnly`  | square control whose children is the icon               | `false`   |
+| `isLoading` | keeps label, sets busy/disabled and renders spinner     | `false`   |
 
 Todas as props nativas de `<button>`, `className` e refs são preservadas: elas seguem direto no
 spread, sem repasse manual. O `type` default é `button`, nunca `submit` implícito. Para ocupar o
@@ -120,10 +124,10 @@ const CheckoutButton = styled(Button)`
 `
 ```
 
-Altura, padding, tipografia, raio e os tons neutros pertencem a `size` e `variant`; não replique
-essas propriedades no consumidor para conservar diferenças sutis. Estilos locais ficam reservados
-para layout externo ou estados realmente contextuais, como `aria-pressed` sobre uma superfície
-inversa. Uma necessidade visual repetida em dois produtos deve voltar para decisão da biblioteca.
+Altura, padding, tipografia, raio e os tons semânticos pertencem a `size`, `variant` e `tone`; não
+replique essas propriedades no consumidor para conservar diferenças sutis. Estilos locais ficam
+reservados para layout externo ou estados realmente contextuais. Uma necessidade visual repetida em
+dois produtos deve voltar para decisão da biblioteca.
 
 O componente mantém implementação, estilos e tipos separados:
 
@@ -138,10 +142,31 @@ O slot de ícone é o componente `Icon`, em `src/Icon/`, porque ele não depende
 nó qualquer ou mostra o spinner. Ele não é exportado pelo pacote enquanto não houver um segundo uso
 real.
 
+## Pressable
+
+Use `Pressable` quando a superfície é um controle específico — tab, card clicável, opção de quiz,
+célula de calendário, row ou scrim — e não uma variação do botão de ação:
+
+```tsx
+import { Pressable } from '@langyspace/ui'
+import { styled } from 'styled-components'
+
+const LessonTab = styled(Pressable)`
+  min-height: 2.5rem;
+  padding: 0 1rem;
+  border-radius: 0.75rem;
+`
+```
+
+`Pressable` preserva props/ref, usa `type="button"` por padrão e fornece somente baseline de box
+model, tipografia herdada, cursor, disabled e focus-visible. Geometria, seleção e visual de domínio
+pertencem ao componente local. Não use Pressable para conservar uma versão quase igual do Button.
+
 ### Deliberate limits
 
 - Use links para navegação; o Button v1 não tem `as`, `asChild` nem polymorphism.
-- Danger, brand tone, icon-only e tabs continuam locais até existir necessidade transversal.
+- Tabs, cards, calendário, quiz e outros controles de domínio continuam locais sobre Pressable.
+- Danger, success e brand só representam os papéis semânticos documentados; não são props de cor.
 - Uma nova variação exige uso real em dois produtos ou uma decisão de produto explícita.
 
 ## Development
@@ -164,7 +189,7 @@ normal/stress nas larguras de aceitação dos produtos.
 
 1. Atualize a versão em `package.json` usando SemVer.
 2. Faça merge em `main` somente após CI verde.
-3. Crie e envie a tag idêntica, por exemplo `v0.4.1`.
+3. Crie e envie a tag idêntica, por exemplo `v0.5.0`.
 4. O workflow valida, empacota, calcula SHA-256 e cria o GitHub Release automaticamente.
 5. Atualize consumidores explicitamente para o novo URL e lockfile.
 

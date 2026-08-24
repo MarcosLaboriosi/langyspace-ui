@@ -1,8 +1,10 @@
 import { css, styled } from 'styled-components'
+import { Pressable } from '../Pressable/styles'
 import type {
   ButtonShape,
   ButtonSize,
   ButtonStyleProps,
+  ButtonTone,
   ButtonVariant,
 } from './types'
 
@@ -95,9 +97,67 @@ const variantStyles = {
       transform: translateY(0);
     }
   `,
+  danger: css`
+    border-color: #c62828;
+    color: #ffffff;
+    background-color: #c62828;
+    box-shadow: none;
+
+    &:hover:not(:disabled) {
+      border-color: #991b1b;
+      background-color: #991b1b;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.07);
+      transform: translateY(-1px);
+    }
+
+    &:active:not(:disabled) {
+      border-color: #991b1b;
+      background-color: #991b1b;
+      transform: translateY(0);
+    }
+  `,
+  success: css`
+    border-color: #166534;
+    color: #ffffff;
+    background-color: #166534;
+    box-shadow: none;
+
+    &:hover:not(:disabled) {
+      border-color: #14532d;
+      background-color: #14532d;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.07);
+      transform: translateY(-1px);
+    }
+
+    &:active:not(:disabled) {
+      border-color: #14532d;
+      background-color: #14532d;
+      transform: translateY(0);
+    }
+  `,
 } satisfies Record<ButtonVariant, ReturnType<typeof css>>
 
-export const Button = styled.button.withConfig({
+const toneStyles = {
+  neutral: css``,
+  brand: css`
+    &,
+    &:active:not(:disabled) {
+      border-color: #cc0f45;
+      color: #ffffff;
+      background-color: #cc0f45;
+      box-shadow: none;
+    }
+
+    &:hover:not(:disabled) {
+      border-color: #b01343;
+      color: #ffffff;
+      background-color: #b01343;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.07);
+    }
+  `,
+} satisfies Record<ButtonTone, ReturnType<typeof css>>
+
+export const Button = styled(Pressable).withConfig({
   componentId: 'lsui-sc-button',
 })<ButtonStyleProps>`
   box-sizing: border-box;
@@ -132,6 +192,7 @@ export const Button = styled.button.withConfig({
     `}
   ${({ $size }) => sizeStyles[$size]}
   ${({ $variant }) => variantStyles[$variant]}
+  ${({ $tone }) => toneStyles[$tone]}
   ${({ $iconOnly, $size }) =>
     $iconOnly &&
     css`

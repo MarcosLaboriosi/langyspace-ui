@@ -1,6 +1,9 @@
 import type { ComponentPropsWithRef, ReactNode } from 'react'
 
-export type ButtonVariant = 'primary' | 'secondary' | 'tertiary'
+export type ButtonVariant =
+  'primary' | 'secondary' | 'tertiary' | 'danger' | 'success'
+
+export type ButtonTone = 'neutral' | 'brand'
 
 export type ButtonSize = 'sm' | 'md' | 'lg'
 
@@ -14,14 +17,13 @@ interface ButtonBaseProps extends ComponentPropsWithRef<'button'> {
   isLoading?: boolean
   shape?: ButtonShape
   size?: ButtonSize
-  variant?: ButtonVariant
 }
 
 type AccessibleName =
   | { 'aria-label': string; 'aria-labelledby'?: never }
   | { 'aria-label'?: never; 'aria-labelledby': string }
 
-export type ButtonProps =
+type ButtonContentProps =
   | (ButtonBaseProps & { iconOnly?: false })
   | (ButtonBaseProps &
       AccessibleName & {
@@ -30,10 +32,17 @@ export type ButtonProps =
         iconStart?: never
       })
 
+type ButtonSemanticProps =
+  | { tone?: 'neutral'; variant?: ButtonVariant }
+  | { tone: 'brand'; variant?: 'primary' }
+
+export type ButtonProps = ButtonContentProps & ButtonSemanticProps
+
 export interface ButtonStyleProps {
   $fullWidth: boolean
   $iconOnly: boolean
   $shape: ButtonShape
   $size: ButtonSize
+  $tone: ButtonTone
   $variant: ButtonVariant
 }

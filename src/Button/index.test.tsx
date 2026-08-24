@@ -50,6 +50,9 @@ describe('Button', () => {
         <Button size="lg" variant="tertiary">
           Terciário
         </Button>
+        <Button variant="danger">Destrutivo</Button>
+        <Button variant="success">Conclusão positiva</Button>
+        <Button tone="brand">Institucional</Button>
       </>,
     )
 
@@ -65,6 +68,29 @@ describe('Button', () => {
       backgroundColor: 'rgba(0, 0, 0, 0)',
       minHeight: '3rem',
     })
+    expect(screen.getByRole('button', { name: 'Destrutivo' })).toHaveStyle({
+      backgroundColor: '#c62828',
+    })
+    expect(
+      screen.getByRole('button', { name: 'Conclusão positiva' }),
+    ).toHaveStyle({ backgroundColor: '#166534' })
+    expect(screen.getByRole('button', { name: 'Institucional' })).toHaveStyle({
+      backgroundColor: '#cc0f45',
+    })
+  })
+
+  it('restricts the brand tone to the primary hierarchy', () => {
+    render(
+      <>
+        <Button tone="brand">Matrícula</Button>
+        {/* @ts-expect-error brand é permitido apenas em primary */}
+        <Button tone="brand" variant="secondary">
+          Cancelar
+        </Button>
+      </>,
+    )
+
+    expect(screen.getAllByRole('button')).toHaveLength(2)
   })
 
   it('accepts one icon on each edge and renders neither by default', () => {

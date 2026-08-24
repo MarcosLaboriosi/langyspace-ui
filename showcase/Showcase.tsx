@@ -3,7 +3,13 @@ import { Button } from '../src'
 import * as Styled from './styles'
 import type { ButtonSize, ButtonVariant } from '../src'
 
-const variants: ButtonVariant[] = ['primary', 'secondary', 'tertiary']
+const variants: ButtonVariant[] = [
+  'primary',
+  'secondary',
+  'tertiary',
+  'danger',
+  'success',
+]
 const sizes: ButtonSize[] = ['sm', 'md', 'lg']
 const stressLabel =
   'Continuar com a configuração compartilhada de componentes Langy.space em todos os produtos'
@@ -41,11 +47,12 @@ export function Showcase() {
       data-audit-mode={stressMode ? 'stress' : 'normal'}
     >
       <header className="showcase__header">
-        <p className="showcase__eyebrow">LANGY.SPACE UI · V0.4.1</p>
-        <h1>Button</h1>
+        <p className="showcase__eyebrow">LANGY.SPACE UI · V0.5.0</p>
+        <h1>Button e Pressable</h1>
         <p>
           Um componente nativo, pequeno e previsível para ações principais,
-          secundárias e terciárias.
+          secundárias, terciárias, destrutivas e de conclusão, com uma base
+          explícita para controles de domínio.
         </p>
       </header>
       <section aria-labelledby="variants-title" className="showcase__section">
@@ -83,6 +90,14 @@ export function Showcase() {
               <Button iconStart={ArrowIcon} variant="secondary">
                 Voltar uma etapa
               </Button>
+            </div>
+          </article>
+          <article className="showcase__card">
+            <h3>Semântica transversal</h3>
+            <div className="showcase__button-column">
+              <Button tone="brand">Nova matrícula</Button>
+              <Button variant="danger">Excluir acesso</Button>
+              <Button variant="success">Marcar presença</Button>
             </div>
           </article>
           <article className="showcase__card">
@@ -139,6 +154,25 @@ export function Showcase() {
             </div>
           </article>
         </div>
+      </section>
+      <section aria-labelledby="pressable-title" className="showcase__section">
+        <div className="showcase__section-heading">
+          <p>COMPOSIÇÃO</p>
+          <h2 id="pressable-title">Controle específico</h2>
+        </div>
+        <article className="showcase__card">
+          <h3>Tabs locais sobre Pressable</h3>
+          <div
+            className="showcase__button-row"
+            role="group"
+            aria-label="Conteúdo da aula"
+          >
+            <Styled.ContextTab aria-pressed="true">Lições</Styled.ContextTab>
+            <Styled.ContextTab aria-pressed="false">
+              Vocabulário
+            </Styled.ContextTab>
+          </div>
+        </article>
       </section>
       <section
         aria-labelledby="containment-title"

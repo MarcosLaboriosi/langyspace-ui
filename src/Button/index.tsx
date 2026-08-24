@@ -11,6 +11,7 @@ export function Button({
   isLoading = false,
   shape = 'pill',
   size = 'md',
+  tone = 'neutral',
   type = 'button',
   variant = 'primary',
   ...props
@@ -26,6 +27,7 @@ export function Button({
       $iconOnly={iconOnly}
       $shape={shape}
       $size={size}
+      $tone={tone}
       $variant={variant}
       data-loading={isLoading ? 'true' : undefined}
       data-size={size}
