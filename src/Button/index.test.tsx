@@ -258,8 +258,11 @@ describe('Button', () => {
   it('demands an accessible name and refuses icon slots when iconOnly', () => {
     render(
       <>
-        {/* @ts-expect-error iconOnly sem aria-label fica sem nome acessível */}
+        {/* @ts-expect-error iconOnly sem nome acessível */}
         <Button iconOnly>
+          <svg />
+        </Button>
+        <Button aria-labelledby="rotulo" iconOnly>
           <svg />
         </Button>
         {/* @ts-expect-error iconOnly já usa children como ícone */}
@@ -269,7 +272,7 @@ describe('Button', () => {
       </>,
     )
 
-    expect(screen.getAllByRole('button')).toHaveLength(2)
+    expect(screen.getAllByRole('button')).toHaveLength(3)
   })
 
   it('keeps explicit component ids so server and browser renders agree', () => {
