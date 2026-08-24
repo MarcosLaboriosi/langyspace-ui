@@ -17,14 +17,18 @@ interface ButtonBaseProps extends ComponentPropsWithRef<'button'> {
   variant?: ButtonVariant
 }
 
+type AccessibleName =
+  | { 'aria-label': string; 'aria-labelledby'?: never }
+  | { 'aria-label'?: never; 'aria-labelledby': string }
+
 export type ButtonProps =
   | (ButtonBaseProps & { iconOnly?: false })
-  | (ButtonBaseProps & {
-      'aria-label': string
-      iconEnd?: never
-      iconOnly: true
-      iconStart?: never
-    })
+  | (ButtonBaseProps &
+      AccessibleName & {
+        iconEnd?: never
+        iconOnly: true
+        iconStart?: never
+      })
 
 export interface ButtonStyleProps {
   $fullWidth: boolean
