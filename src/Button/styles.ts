@@ -1,5 +1,15 @@
 import { css, styled } from 'styled-components'
-import type { ButtonSize, ButtonStyleProps, ButtonVariant } from './types'
+import type {
+  ButtonShape,
+  ButtonSize,
+  ButtonStyleProps,
+  ButtonVariant,
+} from './types'
+
+const shapeRadii = {
+  pill: '999px',
+  rounded: '0.75rem',
+} satisfies Record<ButtonShape, string>
 
 const sizeHeights = {
   sm: '2rem',
@@ -100,7 +110,7 @@ export const Button = styled.button.withConfig({
   padding-bottom: 0;
   border-style: solid;
   border-width: 1px;
-  border-radius: 999px;
+  border-radius: ${({ $shape }) => shapeRadii[$shape]};
   font: inherit;
   font-weight: 600;
   line-height: 1.25;

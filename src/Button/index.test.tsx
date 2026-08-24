@@ -192,6 +192,20 @@ describe('Button', () => {
     })
   })
 
+  it('offers a rounded shape next to the default pill', () => {
+    const { rerender } = render(<Button>Continuar</Button>)
+
+    expect(screen.getByRole('button', { name: 'Continuar' })).toHaveStyle({
+      borderRadius: '999px',
+    })
+
+    rerender(<Button shape="rounded">Continuar</Button>)
+
+    expect(screen.getByRole('button', { name: 'Continuar' })).toHaveStyle({
+      borderRadius: '0.75rem',
+    })
+  })
+
   it('turns into a square that holds the icon when iconOnly', () => {
     render(
       <Button aria-label="Tocar áudio" iconOnly>

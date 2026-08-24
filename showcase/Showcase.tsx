@@ -41,7 +41,7 @@ export function Showcase() {
       data-audit-mode={stressMode ? 'stress' : 'normal'}
     >
       <header className="showcase__header">
-        <p className="showcase__eyebrow">LANGY.SPACE UI · V0.3.1</p>
+        <p className="showcase__eyebrow">LANGY.SPACE UI · V0.4.0</p>
         <h1>Button</h1>
         <p>
           Um componente nativo, pequeno e previsível para ações principais,
@@ -91,6 +91,18 @@ export function Showcase() {
               <Button disabled>Indisponível</Button>
               <Button iconEnd={ArrowIcon} isLoading>
                 Guardando alterações
+              </Button>
+            </div>
+          </article>
+          <article className="showcase__card">
+            <h3>Forma arredondada</h3>
+            <div className="showcase__button-column">
+              <Button shape="rounded">Continuar</Button>
+              <Button shape="rounded" variant="secondary">
+                Cancelar
+              </Button>
+              <Button aria-label="Avançar" iconOnly shape="rounded">
+                {ArrowIcon}
               </Button>
             </div>
           </article>
