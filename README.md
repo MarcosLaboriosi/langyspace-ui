@@ -8,7 +8,7 @@ um `Pressable` mínimo para controles específicos de produto.
 Instale styled-components e fixe sempre um artefato imutável de release:
 
 ```bash
-pnpm add styled-components@^6.4.0 '@langyspace/ui@https://github.com/MarcosLaboriosi/langyspace-ui/releases/download/v0.5.0/langyspace-ui-0.5.0.tgz'
+pnpm add styled-components@^6.4.0 '@langyspace/ui@https://github.com/MarcosLaboriosi/langyspace-ui/releases/download/v0.5.1/langyspace-ui-0.5.1.tgz'
 ```
 
 Não existe import de CSS. O Button injeta seus estilos com styled-components e funciona sem
@@ -49,6 +49,7 @@ export function Actions() {
       <Button tone="brand">Nova matrícula</Button>
       <Button variant="danger">Excluir acesso</Button>
       <Button variant="success">Marcar presença</Button>
+      <Button density="compact">Remarcar aula</Button>
     </>
   )
 }
@@ -61,6 +62,7 @@ export function Actions() {
 | `variant`   | `primary`, `secondary`, `tertiary`, `danger`, `success` | `primary` |
 | `tone`      | `neutral`; `brand` somente com `primary`                | `neutral` |
 | `size`      | `sm`, `md`, `lg`                                        | `md`      |
+| `density`   | `regular`, `compact`                                    | `regular` |
 | `fullWidth` | boolean                                                 | `false`   |
 | `iconStart` | one React node before the label                         | none      |
 | `iconEnd`   | one React node after the label                          | none      |
@@ -75,6 +77,15 @@ container, prefira a prop explícita:
 ```tsx
 <Button fullWidth>Continuar</Button>
 ```
+
+Use `density="compact"` somente em grupos operacionais densos que mantêm as alturas canônicas. Em
+`md`, o recipe compacto preserva 40 px e usa fonte 14 px com padding horizontal de 16 px. Um botão
+regular não deve virar compacto para esconder um problema de composição: quando as ações não cabem,
+o container escolhe explicitamente linha, grid ou pilha no breakpoint do produto.
+
+O recipe permite quebra para preservar conteúdo extremo e localização. Grupos operacionais com
+labels curtas e atômicas devem evitar a quebra na sua composição e trocar de linha para pilha no
+breakpoint do produto.
 
 Enquanto `isLoading` está ativo o botão fica `disabled` e `aria-busy`, mantém o label e mostra um
 único spinner: no lado inicial quando `iconStart` existe, senão no final. O ícone substituído
@@ -95,12 +106,14 @@ O TypeScript exige um nome acessível nesse modo — `aria-label` ou `aria-label
 ### Contrato de markup
 
 O botão renderiza `class="lsui-sc-button <classe gerada> <className do consumidor>"`, mais
-`data-size` sempre e `data-loading="true"` enquanto carrega. É só isso que é contrato:
+`data-size` e `data-density` sempre, mais `data-loading="true"` quando ativo. É só isso que é
+contrato:
 
 | Marca                                               | Para que serve                                              |
 | --------------------------------------------------- | ----------------------------------------------------------- |
 | `lsui-sc-button`, `lsui-sc-icon`, `lsui-sc-spinner` | ids declarados no source, para seleção em teste e auditoria |
 | `data-size`                                         | a auditoria confere a altura mínima esperada por tamanho    |
+| `data-density`                                      | identifica o recipe regular ou compacto no audit            |
 | `data-loading`                                      | os estilos do próprio botão dependem dele                   |
 
 Não estilize por essas marcas: para composição use `styled(Button)`.

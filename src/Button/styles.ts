@@ -43,6 +43,19 @@ const sizeStyles = {
   `,
 } satisfies Record<ButtonSize, ReturnType<typeof css>>
 
+const compactSizeStyles = {
+  sm: css``,
+  md: css`
+    padding-right: 1rem;
+    padding-left: 1rem;
+    font-size: 0.875rem;
+  `,
+  lg: css`
+    padding-right: 1.25rem;
+    padding-left: 1.25rem;
+  `,
+} satisfies Record<ButtonSize, ReturnType<typeof css>>
+
 const variantStyles = {
   primary: css`
     border-color: #0a0a0a;
@@ -191,6 +204,7 @@ export const Button = styled(Pressable).withConfig({
       width: 100%;
     `}
   ${({ $size }) => sizeStyles[$size]}
+  ${({ $density, $size }) => $density === 'compact' && compactSizeStyles[$size]}
   ${({ $variant }) => variantStyles[$variant]}
   ${({ $tone }) => toneStyles[$tone]}
   ${({ $iconOnly, $size }) =>

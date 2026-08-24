@@ -32,10 +32,23 @@ describe('Button', () => {
 
     expect(button).toHaveAttribute('type', 'button')
     expect(button).toHaveAttribute('data-context', 'checkout')
+    expect(button).toHaveAttribute('data-density', 'regular')
     expect(button).toHaveClass('lsui-sc-button', 'consumer-button')
     expect(button).toHaveStyle({ backgroundColor: '#0a0a0a' })
     expect(ref.current).toBe(button)
     expect(onClick).toHaveBeenCalledTimes(1)
+  })
+
+  it('offers a compact density without changing the canonical height', () => {
+    render(
+      <Button density="compact" size="md" variant="secondary">
+        Remarcar aula
+      </Button>,
+    )
+
+    expect(
+      screen.getByRole('button', { name: 'Remarcar aula' }),
+    ).toHaveAttribute('data-density', 'compact')
   })
 
   it('renders each approved variant and size with its own appearance', () => {
@@ -213,9 +226,9 @@ describe('Button', () => {
 
     rerender(<Button fullWidth>Continuar</Button>)
 
-    expect(screen.getByRole('button', { name: 'Continuar' })).toHaveStyle({
-      width: '100%',
-    })
+    const fullWidthButton = screen.getByRole('button', { name: 'Continuar' })
+
+    expect(fullWidthButton).toHaveStyle({ width: '100%' })
   })
 
   it('offers a rounded shape next to the default pill', () => {

@@ -7,10 +7,13 @@ export type ButtonTone = 'neutral' | 'brand'
 
 export type ButtonSize = 'sm' | 'md' | 'lg'
 
+export type ButtonDensity = 'regular' | 'compact'
+
 export type ButtonShape = 'pill' | 'rounded'
 
 interface ButtonBaseProps extends ComponentPropsWithRef<'button'> {
   children: ReactNode
+  density?: ButtonDensity
   fullWidth?: boolean
   iconEnd?: ReactNode
   iconStart?: ReactNode
@@ -39,6 +42,7 @@ type ButtonSemanticProps =
 export type ButtonProps = ButtonContentProps & ButtonSemanticProps
 
 export interface ButtonStyleProps {
+  $density: ButtonDensity
   $fullWidth: boolean
   $iconOnly: boolean
   $shape: ButtonShape

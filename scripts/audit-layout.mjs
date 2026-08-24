@@ -123,6 +123,7 @@ async function inspect(page, scenario) {
         if (!visible(element)) return
 
         const rect = element.getBoundingClientRect()
+        const style = window.getComputedStyle(element)
         const size = element.getAttribute('data-size') ?? 'md'
         const expectedHeight = size === 'sm' ? 32 : size === 'lg' ? 48 : 40
 
@@ -132,6 +133,29 @@ async function inspect(page, scenario) {
             expected: expectedHeight,
             index,
             kind: 'button-minimum-height',
+          })
+        }
+
+        if (
+          element.getAttribute('data-density') === 'compact' &&
+          size === 'md' &&
+          (style.fontSize !== '14px' ||
+            style.paddingLeft !== '16px' ||
+            style.paddingRight !== '16px')
+        ) {
+          issues.push({
+            actual: {
+              fontSize: style.fontSize,
+              paddingLeft: style.paddingLeft,
+              paddingRight: style.paddingRight,
+            },
+            expected: {
+              fontSize: '14px',
+              paddingLeft: '16px',
+              paddingRight: '16px',
+            },
+            index,
+            kind: 'compact-md-recipe',
           })
         }
       })

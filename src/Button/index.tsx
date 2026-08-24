@@ -4,6 +4,7 @@ import type { ButtonProps } from './types'
 
 export function Button({
   children,
+  density = 'regular',
   fullWidth = false,
   iconEnd,
   iconOnly = false,
@@ -23,6 +24,7 @@ export function Button({
       {...props}
       {...(isLoading && { 'aria-busy': true, disabled: true })}
       type={type}
+      $density={density}
       $fullWidth={fullWidth}
       $iconOnly={iconOnly}
       $shape={shape}
@@ -30,6 +32,7 @@ export function Button({
       $tone={tone}
       $variant={variant}
       data-loading={isLoading ? 'true' : undefined}
+      data-density={density}
       data-size={size}
     >
       {iconOnly ? (
