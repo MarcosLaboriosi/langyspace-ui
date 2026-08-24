@@ -6,13 +6,13 @@ Levar o consumidor já padronizado ao mesmo release e impedir regressão.
 
 ## Subtasks
 
-- [ ] atualizar package/lockfile;
-- [ ] confirmar que RangeButton continua apenas contextual;
-- [ ] adicionar audit estático ao gate;
-- [ ] rodar tests/build/layout gate;
-- [ ] inspecionar pressed/unpressed em 390/1281/2048;
-- [ ] provar zero ocorrência e revisar diff;
-- [ ] atualizar progress.
+- [x] atualizar package/lockfile;
+- [x] confirmar que RangeButton continua apenas contextual;
+- [x] adicionar audit estático ao gate;
+- [x] rodar tests/build/layout gate;
+- [x] inspecionar pressed/unpressed em 390/1281/2048;
+- [x] provar zero ocorrência e revisar diff;
+- [x] atualizar progress.
 
 ## Conclusão
 

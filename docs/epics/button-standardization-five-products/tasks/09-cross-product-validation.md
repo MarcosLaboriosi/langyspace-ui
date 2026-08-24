@@ -6,13 +6,13 @@ Validar o conjunto final como PR multi-repositório antes de qualquer push de co
 
 ## Subtasks
 
-- [ ] repetir impacto visual e inventário final;
-- [ ] rodar frozen install e full gate de cada repo uma vez após checks focados;
-- [ ] inspecionar screenshots e computed hierarchy/contrast/density;
-- [ ] comparar handlers, labels, submit/link semantics e accessible names;
-- [ ] revisar todos os diffs contra origin/main;
-- [ ] verificar zero secret, log, dead CSS, cast ou fallback especulativo;
-- [ ] atualizar docs/tasks/progress e registrar veredito visual.
+- [x] repetir impacto visual e inventário final;
+- [x] rodar frozen install e full gate de cada repo uma vez após checks focados;
+- [x] inspecionar screenshots e computed hierarchy/contrast/density;
+- [x] comparar handlers, labels, submit/link semantics e accessible names;
+- [x] revisar todos os diffs contra origin/main;
+- [x] verificar zero secret, log, dead CSS, cast ou fallback especulativo;
+- [x] atualizar docs/tasks/progress e registrar veredito visual.
 
 ## Conclusão
 

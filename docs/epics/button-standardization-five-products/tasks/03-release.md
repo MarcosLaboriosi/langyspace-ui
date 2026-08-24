@@ -6,14 +6,14 @@ Entregar exatamente o package validado como `v0.5.0` público e instalável.
 
 ## Subtasks
 
-- [ ] atualizar version e lockfile;
-- [ ] commit/staging restrito e `git diff --cached --check`;
-- [ ] fast-forward de main e push;
-- [ ] tag/push `v0.5.0`;
-- [ ] esperar CI e release workflows;
-- [ ] verificar tarball, checksum, contents e download anônimo;
-- [ ] rodar smoke externo Node/Vite com o artefato público;
-- [ ] atualizar progress com SHA, runs e checksum.
+- [x] atualizar version e lockfile;
+- [x] commit/staging restrito e `git diff --cached --check`;
+- [x] fast-forward de main e push;
+- [x] tag/push `v0.5.0`;
+- [x] esperar CI e release workflows;
+- [x] verificar tarball, checksum, contents e download anônimo;
+- [x] rodar smoke externo Node/Vite com o artefato público;
+- [x] atualizar progress com SHA, runs e checksum.
 
 ## Conclusão
 

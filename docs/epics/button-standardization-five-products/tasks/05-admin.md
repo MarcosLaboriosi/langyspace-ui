@@ -6,16 +6,16 @@ Substituir buttons nativos e selectors legados segundo a taxonomia semântica j�
 
 ## Subtasks
 
-- [ ] atualizar package/lockfile e wrappers Button/IconButton;
-- [ ] migrar TextButton, FilterPills, SegmentedControl, AppShell, AdminPage e busca para Pressable ou Button;
-- [ ] migrar GuidedWorkSessionPanel por grupo decisório;
-- [ ] migrar InvoiceBatchPanel por grupo decisório;
-- [ ] migrar markup do AdminPortal por famílias `.pill`, `.ico-btn`, `.link-btn`, `.back-link` e destrutivas;
-- [ ] remover CSS/classes sem consumer;
-- [ ] ampliar `test:design-system`/audit estático e testes focados;
-- [ ] rodar tests/build/accessibility/design-system/layout gate;
-- [ ] inspecionar screenshots 390/1281/2048 e revisar diff;
-- [ ] provar zero ocorrência e atualizar progress.
+- [x] atualizar package/lockfile e wrappers Button/IconButton;
+- [x] migrar TextButton, FilterPills, SegmentedControl, AppShell, AdminPage e busca para Pressable ou Button;
+- [x] migrar GuidedWorkSessionPanel por grupo decisório;
+- [x] migrar InvoiceBatchPanel por grupo decisório;
+- [x] migrar markup do AdminPortal por famílias `.pill`, `.ico-btn`, `.link-btn`, `.back-link` e destrutivas;
+- [x] remover overrides locais sem consumer ou contrários aos tamanhos canônicos;
+- [x] ampliar `test:design-system`/audit estático e testes focados;
+- [x] rodar tests/build/accessibility/design-system/layout gate;
+- [x] inspecionar screenshots 390/1281/2048 e revisar diff;
+- [x] provar zero ocorrência e atualizar progress.
 
 ## Conclusão
 

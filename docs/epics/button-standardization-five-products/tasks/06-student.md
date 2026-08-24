@@ -6,17 +6,17 @@ Consolidar componentes base, ações canônicas e controles específicos do port
 
 ## Subtasks
 
-- [ ] atualizar package/lockfile;
-- [ ] migrar Button/IconButton/AuthSubmit/AuthBack e remover base morta;
-- [ ] migrar auth, cadastro, planos, checkout e pagamento;
-- [ ] migrar shell, perfil, notificações e telefone;
-- [ ] migrar home, aulas, lições e live;
-- [ ] migrar portal features, quiz, chat, flashcards e shadowing;
-- [ ] adicionar audit estático;
-- [ ] adicionar cobertura local para auth/cadastro/choose-plan/checkout;
-- [ ] rodar checks focados, build e layout gate;
-- [ ] inspecionar screenshots 390/1281/2048, provar zero ocorrência e revisar diff;
-- [ ] atualizar progress.
+- [x] atualizar package/lockfile;
+- [x] migrar Button/IconButton/AuthSubmit/AuthBack e remover base morta;
+- [x] migrar auth, cadastro, planos, checkout e pagamento;
+- [x] migrar shell, perfil, notificações e telefone;
+- [x] migrar home, aulas, lições e live;
+- [x] migrar portal features, quiz, chat, flashcards e shadowing;
+- [x] adicionar audit estático;
+- [x] adicionar cobertura local para auth/cadastro/choose-plan/checkout;
+- [x] rodar checks focados, build e layout gate;
+- [x] inspecionar screenshots 390/1281/2048, provar zero ocorrência e revisar diff;
+- [x] atualizar progress.
 
 ## Conclusão
 

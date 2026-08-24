@@ -2,17 +2,18 @@
 
 ## Responsabilidade
 
-Remover os três styled buttons nativos restantes sem mudar layout/fluxo da Landing.
+Remover os styled/native buttons restantes sem mudar layout/fluxo da Landing.
 
 ## Subtasks
 
-- [ ] atualizar package/lockfile para `v0.5.0`;
-- [ ] migrar ChipButton, BottomNavItem e Option para Pressable;
-- [ ] adicionar audit estático ao gate;
-- [ ] rodar lint, build SSR/prerender e audit focado;
-- [ ] revisar screenshots 390/1281/2048;
-- [ ] provar zero ocorrência e revisar diff;
-- [ ] atualizar progress.
+- [x] atualizar package/lockfile para `v0.5.0`;
+- [x] migrar ChipButton, BottomNavItem e Option para Pressable;
+- [x] migrar o SpeedOption descoberto pelo audit para Pressable;
+- [x] adicionar audit estático ao gate;
+- [x] rodar lint, build SSR/prerender e audit focado;
+- [x] revisar screenshots 390/1281/2048;
+- [x] provar zero ocorrência e revisar diff;
+- [x] atualizar progress.
 
 ## Conclusão
 
