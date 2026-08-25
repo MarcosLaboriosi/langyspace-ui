@@ -5,8 +5,26 @@ const root = resolve(import.meta.dirname, '..')
 const sourceRoot = resolve(root, 'src')
 const sourceExtensions = new Set(['.js', '.jsx', '.ts', '.tsx'])
 const ignoredSource = /(?:^|\/)[^/]+\.(?:test|spec)\.[cm]?[jt]sx?$|\.d\.ts$/
-const spinnerOwner = 'src/Spinner/styles.ts'
-const nativeButtonOwner = 'src/Pressable/styles.ts'
+const spinnerOwner = 'src/primitives/Spinner/styles.ts'
+const nativeButtonOwner = 'src/primitives/Pressable/styles.ts'
+const layerDependencies = {
+  atoms: new Set(['atoms', 'foundations', 'internal', 'primitives']),
+  foundations: new Set(['foundations']),
+  internal: new Set(['foundations', 'internal', 'primitives']),
+  molecules: new Set([
+    'atoms',
+    'foundations',
+    'internal',
+    'molecules',
+    'primitives',
+  ]),
+  primitives: new Set(['foundations', 'primitives']),
+}
+
+function sourceLayer(path) {
+  const [layer] = relative(sourceRoot, path).split('/')
+  return layerDependencies[layer] ? layer : undefined
+}
 
 async function collectSourceFiles(directory) {
   const entries = await readdir(directory, { withFileTypes: true })
@@ -47,6 +65,21 @@ for (const file of files) {
     if (dirname(importedStyles) !== dirname(file)) {
       failures.push(
         `${sourcePath}: atom imports another atom's private styles; import its public entrypoint`,
+      )
+    }
+  }
+
+  const ownerLayer = sourceLayer(file)
+  if (!ownerLayer) continue
+
+  for (const match of source.matchAll(/from\s+['"](\.[^'"]+)['"]/g)) {
+    const dependencyLayer = sourceLayer(resolve(dirname(file), match[1]))
+    if (
+      dependencyLayer &&
+      !layerDependencies[ownerLayer].has(dependencyLayer)
+    ) {
+      failures.push(
+        `${sourcePath}: ${ownerLayer} cannot depend on the higher ${dependencyLayer} layer`,
       )
     }
   }

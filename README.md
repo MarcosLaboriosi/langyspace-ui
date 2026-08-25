@@ -198,18 +198,31 @@ replique essas propriedades no consumidor para conservar diferenças sutis. Esti
 reservados para layout externo ou estados realmente contextuais. Uma necessidade visual repetida em
 dois produtos deve voltar para decisão da biblioteca.
 
-O componente mantém implementação, estilos e tipos separados:
+O pacote cresce em uma única direção: foundations alimentam primitives, primitives e helpers
+internos alimentam atoms, e atoms podem compor molecules. O entrypoint público mantém imports de
+consumo simples, sem expor a localização física de cada camada:
 
 ```text
-src/Button/
-  index.tsx
-  styles.ts
-  types.ts
+src/
+  foundations/
+    actions/
+    tokens.ts
+  primitives/
+    Pressable/
+    Spinner/
+  internal/
+    IconSlot/
+  atoms/
+    ActionLink/
+    Button/
+  molecules/
 ```
 
-O slot de ícone é o componente interno `Icon`, em `src/Icon/`, porque ele não depende do Button:
-envolve um nó opcional sem decidir estado. Ele é compartilhado por Button e ActionLink, mas não é
-exportado enquanto não houver uso direto real nos produtos.
+Cada componente mantém `index.tsx`, `styles.ts` e `types.ts` próximos quando essas responsabilidades
+existem. O slot de ícone é o helper interno `IconSlot`: envolve um nó opcional sem decidir estado e
+é compartilhado por Button e ActionLink, mas não é exportado enquanto não houver uso direto real
+nos produtos. Tokens são públicos para composições locais que precisem respeitar as mesmas
+foundations; recipes e estilos continuam privados.
 
 ## Pressable
 
