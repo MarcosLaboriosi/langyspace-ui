@@ -28,6 +28,14 @@ migration e rollback. A falha em qualquer item essencial mantém o component loc
 - novo public component incompleto falha CI;
 - components locais de domínio não precisam entrar no manifesto.
 
+## Resultado
+
+- 12 rule IDs estáveis expõem diagnostics estruturados e strings v1 compatíveis;
+- aliases, multiline imports/unions, cada rule, config inválida e fixture positiva são cobertos;
+- exceptions possuem tipos públicos e expiry opcional compatível; a própria library exige expiry;
+- `CONTRIBUTING.md` formaliza ownership, maturity gate, component shape, deprecation e checks;
+- package consumer compila o tipo `AuditConfig` e executa o CLI publicado.
+
 ## Rollback
 
 Rules novas começam focused/advisory quando necessário e viram blocking somente sem falso positivo.

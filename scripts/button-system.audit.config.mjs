@@ -9,6 +9,7 @@ export default defineAuditConfig({
       owner: 'UI foundations',
       path: 'src/primitives/Pressable/styles.ts',
       reason: 'Pressable owns the native styled button',
+      expiresAt: '2027-08-25',
     },
   ],
   spinnerOwners: [
@@ -16,6 +17,7 @@ export default defineAuditConfig({
       owner: 'UI foundations',
       path: 'src/primitives/Spinner/styles.ts',
       reason: 'Spinner owns wait rotation',
+      expiresAt: '2027-08-25',
     },
   ],
   allowedDomainMotion: [
@@ -23,10 +25,12 @@ export default defineAuditConfig({
       owner: 'Identity',
       path: 'src/molecules/AuthTokenDigits/styles.ts',
       reason: 'invalid token feedback',
+      expiresAt: '2027-08-25',
     },
   ],
   canonicalComponents: ['ActionLink', 'Button', 'IconButton'],
   auditPrivateStyles: true,
+  requireExceptionExpiry: true,
   layerDependencies: {
     atoms: ['atoms', 'foundations', 'internal', 'primitives'],
     foundations: ['foundations'],
@@ -36,10 +40,13 @@ export default defineAuditConfig({
   },
   additionalRules: [
     {
+      id: 'LSUI012',
       message:
         'free cosmetic prop; expose a semantic variant or keep the recipe private',
       pattern:
         /^\s+(?:color|height|padding|radius|spacing)\??\s*:\s*(?:number|string)\b/m,
+      remediation:
+        'replace it with a closed semantic variant or keep the component local',
     },
   ],
 })

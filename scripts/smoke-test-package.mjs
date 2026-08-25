@@ -78,7 +78,11 @@ async function writeConsumer(packageSpec) {
   await writeFile(
     join(consumerDirectory, 'src', 'main.tsx'),
     `import { ActionLink, AuthNotice, AuthTokenDigits, Button, CompoundControl, EmptyState, FieldRoot, FilterPills, IconButton, LoadingState, Pressable, SearchInput, SegmentedControl, SelectInput, Spinner, StatePanel, StatusChip, TextareaInput, TextInput } from '@langyspace/ui'
+import type { AuditConfig } from '@langyspace/ui/audit'
 import { createRoot } from 'react-dom/client'
+
+const auditTypeContract: AuditConfig = { root: '.' }
+void auditTypeContract
 
 createRoot(document.getElementById('root')!).render(
   <>
@@ -145,11 +149,13 @@ export default defineConfig({ plugins: [react()] })
 
 export default defineAuditConfig({
   root: import.meta.dirname,
+  requireExceptionExpiry: true,
   allowedDirectButtonImports: [
     {
       owner: 'Smoke consumer',
       path: 'src/main.tsx',
       reason: 'direct package contract smoke',
+      expiresAt: '2027-08-25',
     },
   ],
 })

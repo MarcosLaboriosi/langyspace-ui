@@ -373,7 +373,10 @@ Requirements: Node 24 and pnpm 10.33.2.
 pnpm install --frozen-lockfile
 pnpm run lint
 pnpm test
+pnpm run test:coverage
 pnpm run build
+pnpm run check:api
+pnpm run test:bundle
 pnpm run test:package
 pnpm run validate:ui
 ```
@@ -386,8 +389,9 @@ metadata.
 ### Audit arquitetural
 
 O package publica o mesmo engine usado pelos cinco produtos. Cada consumidor mantém somente um
-config local com source roots, boundaries e exceções exatas; toda exceção exige path, motivo e
-owner, e overrides descendentes exigem também o selector.
+config local com source roots, boundaries e exceções exatas; toda exceção exige path, motivo, owner
+e expiração, e overrides descendentes exigem também o selector. Configs v1 antigas sem expiração
+recebem warning de compatibilidade; a própria library já usa o modo estrito.
 
 ```js
 import { defineAuditConfig } from '@langyspace/ui/audit'
@@ -399,6 +403,7 @@ export default defineAuditConfig({
       owner: 'Product UI',
       path: 'src/components/base/Button/index.tsx',
       reason: 'layout-only composition',
+      expiresAt: '2027-08-25',
     },
   ],
 })
@@ -408,9 +413,12 @@ export default defineAuditConfig({
 langyspace-ui-audit scripts/button-system.audit.config.mjs
 ```
 
-O engine bloqueia ownership nativo fora de Pressable, spinner local, motion não classificado,
+O engine devolve diagnostics estruturados com rule ID, path, line e remediation. Ele bloqueia
+ownership nativo fora de Pressable, spinner local, motion não classificado,
 imports privados, unions copiadas, inversão de camada e overrides visuais do recipe canônico. Os
 layout audits continuam locais porque conhecem rotas, fixtures e densidade de cada produto.
+
+O maturity gate, regras de componentização e política de depreciação estão em `CONTRIBUTING.md`.
 
 ## Release
 

@@ -19,7 +19,10 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
     },
-    "./audit": "./audit/index.mjs"
+    "./audit": {
+      "types": "./audit/index.d.ts",
+      "import": "./audit/index.mjs"
+    }
   },
   "bin": {
     "langyspace-ui-audit": "./audit/cli.mjs"

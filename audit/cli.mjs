@@ -15,6 +15,10 @@ if (!configPath) {
   )
   const result = await auditArchitecture(configModule.default)
 
+  result.warnings.forEach((warning) =>
+    console.warn(`Langyspace UI architecture audit warning: ${warning}`),
+  )
+
   if (result.failures.length > 0) {
     console.error('Langyspace UI architecture audit failed:')
     result.failures.forEach((failure) => console.error(`- ${failure}`))

@@ -27,20 +27,44 @@ async function collectSourceFiles(directory, sourceRoot) {
   return files.flat()
 }
 
-function exceptionPaths(exceptions, label) {
+function validateExpiry(exception, label, config, warnings) {
+  if (!exception.expiresAt) {
+    if (config.requireExceptionExpiry) {
+      throw new Error(`${label} entries require expiresAt in YYYY-MM-DD format`)
+    }
+    warnings.push(
+      `${label}:${exception.path}: missing expiresAt; it will be required in the next audit major`,
+    )
+    return
+  }
+
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(exception.expiresAt)) {
+    throw new Error(`${label} expiresAt must use YYYY-MM-DD format`)
+  }
+
+  const today = config.today ?? new Date().toISOString().slice(0, 10)
+  if (exception.expiresAt < today) {
+    throw new Error(
+      `${label} exception expired on ${exception.expiresAt}: ${exception.path}`,
+    )
+  }
+}
+
+function exceptionPaths(exceptions, label, config, warnings) {
   const paths = new Set()
 
   for (const exception of exceptions ?? []) {
     if (!exception.path || !exception.reason || !exception.owner) {
       throw new Error(`${label} entries require exact path, reason and owner`)
     }
+    validateExpiry(exception, label, config, warnings)
     paths.add(exception.path)
   }
 
   return paths
 }
 
-function descendantOverrideKeys(exceptions) {
+function descendantOverrideKeys(exceptions, config, warnings) {
   const keys = new Set()
 
   for (const exception of exceptions ?? []) {
@@ -54,6 +78,12 @@ function descendantOverrideKeys(exceptions) {
         'allowedDescendantActionOverrides entries require exact path, selector, reason and owner',
       )
     }
+    validateExpiry(
+      exception,
+      'allowedDescendantActionOverrides',
+      config,
+      warnings,
+    )
     keys.add(`${exception.path}::${exception.selector}`)
   }
 
@@ -84,76 +114,153 @@ export async function auditArchitecture(config) {
     )
   ).flat()
   const failures = []
+  const diagnostics = []
+  const warnings = []
+  const report = ({
+    index = 0,
+    message,
+    remediation,
+    ruleId,
+    source,
+    path,
+  }) => {
+    const diagnostic = {
+      line: lineAt(source, index),
+      message,
+      path,
+      remediation,
+      ruleId,
+    }
+    diagnostics.push(diagnostic)
+    failures.push(
+      `[${ruleId}] ${path}:${diagnostic.line} ${message}. Remediation: ${remediation}`,
+    )
+  }
   const allowedDirectButtonImports = exceptionPaths(
     config.allowedDirectButtonImports,
     'allowedDirectButtonImports',
+    config,
+    warnings,
   )
   const allowedDomainMotion = exceptionPaths(
     config.allowedDomainMotion,
     'allowedDomainMotion',
+    config,
+    warnings,
   )
   const nativeButtonOwners = exceptionPaths(
     config.nativeButtonOwners,
     'nativeButtonOwners',
+    config,
+    warnings,
   )
-  const spinnerOwners = exceptionPaths(config.spinnerOwners, 'spinnerOwners')
+  const spinnerOwners = exceptionPaths(
+    config.spinnerOwners,
+    'spinnerOwners',
+    config,
+    warnings,
+  )
   const allowedDescendantActionOverrides = descendantOverrideKeys(
     config.allowedDescendantActionOverrides,
+    config,
+    warnings,
   )
   const canonicalNames = config.canonicalComponents ?? ['Button', 'IconButton']
-  const canonicalAlternation = canonicalNames
-    .map((name) => name.replaceAll('$', '\\$'))
-    .join('|')
-  const canonicalWrapperPattern = new RegExp(
-    `styled\\((${canonicalAlternation})\\)(?:\\.attrs\\([\\s\\S]*?\\))?(?:<[^\\x60]*>)?\\x60([\\s\\S]*?)\\x60`,
-    'g',
-  )
   const canonicalDescendantPattern =
     />\s*(?:button|a)(?:[^,{]*)\s*\{([\s\S]*?)\}/g
 
   for (const file of files) {
     const source = await readFile(file, 'utf8')
     const sourcePath = relative(root, file)
+    const localCanonicalNames = new Set(canonicalNames)
 
-    if (
-      /rotate\(\s*360deg\s*\)/.test(source) &&
-      !spinnerOwners.has(sourcePath)
-    ) {
-      failures.push(
-        `${sourcePath}: local wait spinner; use Spinner or Button isLoading from @langyspace/ui`,
-      )
+    for (const importMatch of source.matchAll(
+      /import\s+(?:type\s+)?\{([\s\S]*?)\}\s+from\s+['"]@langyspace\/ui['"]/g,
+    )) {
+      for (const canonicalName of canonicalNames) {
+        const alias = new RegExp(
+          `(?:^|,)\\s*${canonicalName}\\s+as\\s+([A-Za-z_$][\\w$]*)`,
+        ).exec(importMatch[1])?.[1]
+        if (alias) localCanonicalNames.add(alias)
+      }
     }
 
+    const canonicalAlternation = [...localCanonicalNames]
+      .map((name) => name.replaceAll('$', '\\$'))
+      .join('|')
+    const canonicalWrapperPattern = new RegExp(
+      `styled\\((${canonicalAlternation})\\)(?:\\.attrs\\([\\s\\S]*?\\))?(?:<[^\\x60]*>)?\\x60([\\s\\S]*?)\\x60`,
+      'g',
+    )
+
+    const spinnerMatch = /rotate\(\s*360deg\s*\)/.exec(source)
+    if (spinnerMatch && !spinnerOwners.has(sourcePath)) {
+      report({
+        index: spinnerMatch.index,
+        message: 'local wait spinner',
+        path: sourcePath,
+        remediation: 'use Spinner or Button isLoading from @langyspace/ui',
+        ruleId: 'LSUI001',
+        source,
+      })
+    }
+
+    const motionMatch = /(?:\bkeyframes\s*`|@keyframes\s+[\w-]+)/.exec(source)
     if (
-      /(?:\bkeyframes\s*`|@keyframes\s+[\w-]+)/.test(source) &&
+      motionMatch &&
       !allowedDomainMotion.has(sourcePath) &&
       !spinnerOwners.has(sourcePath)
     ) {
-      failures.push(
-        `${sourcePath}: unclassified motion; add exact path, reason and owner to allowedDomainMotion`,
-      )
+      report({
+        index: motionMatch.index,
+        message: 'unclassified motion',
+        path: sourcePath,
+        remediation:
+          'add exact path, reason, owner and expiresAt to allowedDomainMotion',
+        ruleId: 'LSUI002',
+        source,
+      })
     }
 
     for (const match of source.matchAll(/<button(?=[\s>])/g)) {
       if (!nativeButtonOwners.has(sourcePath)) {
-        failures.push(
-          `${sourcePath}:${lineAt(source, match.index)}: native JSX button`,
-        )
+        report({
+          index: match.index,
+          message: 'native JSX button',
+          path: sourcePath,
+          remediation:
+            'compose the approved local action or Pressable boundary',
+          ruleId: 'LSUI003',
+          source,
+        })
       }
     }
 
     for (const match of source.matchAll(/styled\.button\b/g)) {
       if (!nativeButtonOwners.has(sourcePath)) {
-        failures.push(
-          `${sourcePath}:${lineAt(source, match.index)}: styled.button declaration`,
-        )
+        report({
+          index: match.index,
+          message: 'styled.button declaration',
+          path: sourcePath,
+          remediation: 'style Pressable or an approved action component',
+          ruleId: 'LSUI003',
+          source,
+        })
       }
     }
 
-    if (/from\s+['"]@langyspace\/ui\//.test(source)) {
-      failures.push(
-        `${sourcePath}: private @langyspace/ui import; use the package public entrypoint`,
-      )
+    const privateImportMatch = /from\s+['"]@langyspace\/ui\/(?!audit['"])/.exec(
+      source,
+    )
+    if (privateImportMatch) {
+      report({
+        index: privateImportMatch.index,
+        message: 'private @langyspace/ui import',
+        path: sourcePath,
+        remediation: 'use the package public entrypoint',
+        ruleId: 'LSUI004',
+        source,
+      })
     }
 
     const packageImports = source.matchAll(
@@ -164,26 +271,44 @@ export async function auditArchitecture(config) {
         /\bButton(?:\s+as\s+\w+)?\b/.test(match[1] ?? match[0]) &&
         !allowedDirectButtonImports.has(sourcePath)
       ) {
-        failures.push(
-          `${sourcePath}: direct Button import bypasses this product boundary; use the approved local composition`,
-        )
+        report({
+          index: match.index,
+          message: 'direct Button import bypasses this product boundary',
+          path: sourcePath,
+          remediation: 'use the approved local composition',
+          ruleId: 'LSUI005',
+          source,
+        })
       }
     }
 
-    if (/<Button\b[^>]*\b(?:iconOnly|shape|tone)\s*=/.test(source)) {
-      failures.push(
-        `${sourcePath}: Button uses a removed action prop; select Button or IconButton directly`,
-      )
+    const removedPropMatch = new RegExp(
+      `<(?:${canonicalAlternation})\\b[^>]*\\b(?:iconOnly|shape|tone)\\s*=`,
+    ).exec(source)
+    if (removedPropMatch) {
+      report({
+        index: removedPropMatch.index,
+        message: 'Button uses a removed action prop',
+        path: sourcePath,
+        remediation: 'select Button or IconButton directly',
+        ruleId: 'LSUI006',
+        source,
+      })
     }
 
-    if (
-      /type\s+\w*Button\w*\s*=\s*(?!Extract\b|Exclude\b|Pick\b|Omit\b)(?=[^;\n]*['"]primary['"])(?=[^;\n]*['"]secondary['"])[^;\n]+/.test(
+    const copiedUnionMatch =
+      /type\s+\w*Button\w*\s*=\s*(?!Extract\b|Exclude\b|Pick\b|Omit\b)(?=[^;]*['"]primary['"])(?=[^;]*['"]secondary['"])[^;]+/.exec(
         source,
       )
-    ) {
-      failures.push(
-        `${sourcePath}: copied Button union; derive it from the public @langyspace/ui types`,
-      )
+    if (copiedUnionMatch) {
+      report({
+        index: copiedUnionMatch.index,
+        message: 'copied Button union',
+        path: sourcePath,
+        remediation: 'derive it from the public @langyspace/ui types',
+        ruleId: 'LSUI007',
+        source,
+      })
     }
 
     for (const match of source.matchAll(canonicalWrapperPattern)) {
@@ -191,9 +316,15 @@ export async function auditArchitecture(config) {
         .match(forbiddenRecipeDeclaration)?.[0]
         ?.trim()
       if (declaration) {
-        failures.push(
-          `${sourcePath}: styled(${match[1]}) overrides canonical recipe with ${declaration}`,
-        )
+        report({
+          index: match.index,
+          message: `styled(${match[1]}) overrides canonical recipe with ${declaration}`,
+          path: sourcePath,
+          remediation:
+            'keep local styles to external layout or request a semantic variant',
+          ruleId: 'LSUI008',
+          source,
+        })
       }
     }
 
@@ -209,25 +340,46 @@ export async function auditArchitecture(config) {
           declaration &&
           !allowedDescendantActionOverrides.has(`${sourcePath}::${selector}`)
         ) {
-          failures.push(
-            `${sourcePath}: descendant action selector overrides canonical recipe with ${declaration}`,
-          )
+          report({
+            index: match.index,
+            message: `descendant action selector overrides canonical recipe with ${declaration}`,
+            path: sourcePath,
+            remediation:
+              'remove the override or register an exact temporary exception',
+            ruleId: 'LSUI009',
+            source,
+          })
         }
       }
     }
 
     for (const rule of config.additionalRules ?? []) {
-      if (rule.pattern.test(source))
-        failures.push(`${sourcePath}: ${rule.message}`)
+      const match = rule.pattern.exec(source)
+      rule.pattern.lastIndex = 0
+      if (match)
+        report({
+          index: match.index,
+          message: rule.message,
+          path: sourcePath,
+          remediation:
+            rule.remediation ?? 'follow the configured project policy',
+          ruleId: rule.id ?? 'LSUI099',
+          source,
+        })
     }
 
     if (config.auditPrivateStyles) {
       for (const match of source.matchAll(/from\s+['"]([^'"]+\/styles)['"]/g)) {
         const importedStyles = resolve(dirname(file), match[1])
         if (dirname(importedStyles) !== dirname(file)) {
-          failures.push(
-            `${sourcePath}: component imports another component's private styles; use its public entrypoint`,
-          )
+          report({
+            index: match.index,
+            message: "component imports another component's private styles",
+            path: sourcePath,
+            remediation: 'use its public entrypoint',
+            ruleId: 'LSUI010',
+            source,
+          })
         }
       }
     }
@@ -250,12 +402,23 @@ export async function auditArchitecture(config) {
         dependencyLayer &&
         !config.layerDependencies[ownerLayer].includes(dependencyLayer)
       ) {
-        failures.push(
-          `${sourcePath}: ${ownerLayer} cannot depend on the higher ${dependencyLayer} layer`,
-        )
+        report({
+          index: match.index,
+          message: `${ownerLayer} cannot depend on the higher ${dependencyLayer} layer`,
+          path: sourcePath,
+          remediation:
+            'move the shared contract down or invert the composition owner',
+          ruleId: 'LSUI011',
+          source,
+        })
       }
     }
   }
 
-  return { failures, files: files.map((file) => relative(root, file)) }
+  return {
+    diagnostics,
+    failures,
+    files: files.map((file) => relative(root, file)),
+    warnings,
+  }
 }

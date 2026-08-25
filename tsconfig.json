@@ -21,6 +21,7 @@
   },
   "include": [
     ".storybook/**/*.ts",
+    "audit/index.d.ts",
     "quality",
     "src",
     "test",

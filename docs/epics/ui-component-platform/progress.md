@@ -2,8 +2,8 @@
 
 ## Status
 
-Investigação, refinamento de produto, refinamento técnico, breakdown, revisão crítica e T01–T10
-concluídos. T11 é a única task em andamento.
+Investigação, refinamento de produto, refinamento técnico, breakdown, revisão crítica e T01–T11
+concluídos. T12 é a única task em andamento.
 
 ## Baseline
 
@@ -99,10 +99,17 @@ concluídos. T11 é a única task em andamento.
   molecules receberam budgets raw/gzip calibrados;
 - coverage baseline: 96,67% statements, 96,11% branches, 99,06% functions e 97,29% lines, com
   threshold de 90% por métrica.
+- T11 deu IDs estáveis LSUI001–LSUI012, path, line e remediation a cada diagnóstico, mantendo
+  `failures` compatível e expondo também a forma estruturada;
+- fixtures cobrem aliases, multiline formatting, as 12 rules, config/expiry e um caso positivo;
+- `AuditConfig`/diagnostics/exceptions ganharam declarations públicas e o smoke consumer compila o
+  contrato; a library exige expiry e configs v1 antigas recebem warning;
+- `CONTRIBUTING.md` tornou ownership, maturity gate, composição, depreciação e gates uma política
+  operacional curta.
 
 ## Próxima subtask
 
-T11 — fortalecer o architecture audit e escrever a governança de contribuição.
+T12 — inventariar os cinco products e decidir no máximo uma family piloto.
 
 ## Blockers
 
