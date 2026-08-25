@@ -1,8 +1,8 @@
 # @langyspace/ui
 
-Biblioteca React compartilhada pelos produtos Langy.space. Expõe `Button` para comandos,
-`ActionLink` para navegação com aparência de ação, `Pressable` para controles específicos e
-`Spinner` para espera.
+Biblioteca React compartilhada pelos produtos Langy.space. Expõe `Button` para comandos rotulados,
+`IconButton` para comandos de glyph único, `ActionLink` para navegação com aparência de ação,
+`Pressable` para controles específicos e `Spinner` para espera.
 
 ## Installation
 
@@ -47,9 +47,10 @@ export function Actions() {
       <Button variant="primary">Continuar</Button>
       <Button variant="secondary">Cancelar</Button>
       <Button variant="tertiary">Agora não</Button>
-      <Button tone="brand">Nova matrícula</Button>
+      <Button variant="brand">Nova matrícula</Button>
       <Button variant="danger">Excluir acesso</Button>
       <Button variant="success">Marcar presença</Button>
+      <Button variant="inverse">Agora não</Button>
       <Button density="compact">Remarcar aula</Button>
     </>
   )
@@ -58,18 +59,15 @@ export function Actions() {
 
 ### Props
 
-| Prop        | Contract                                                | Default   |
-| ----------- | ------------------------------------------------------- | --------- |
-| `variant`   | `primary`, `secondary`, `tertiary`, `danger`, `success` | `primary` |
-| `tone`      | `neutral`; `brand` somente com `primary`                | `neutral` |
-| `size`      | `sm`, `md`, `lg`                                        | `md`      |
-| `density`   | `regular`, `compact`                                    | `regular` |
-| `fullWidth` | boolean                                                 | `false`   |
-| `iconStart` | one React node before the label                         | none      |
-| `iconEnd`   | one React node after the label                          | none      |
-| `shape`     | `pill`, `rounded`                                       | `pill`    |
-| `iconOnly`  | square control whose children is the icon               | `false`   |
-| `isLoading` | keeps label, sets busy/disabled and renders spinner     | `false`   |
+| Prop        | Contract                                                                    | Default   |
+| ----------- | --------------------------------------------------------------------------- | --------- |
+| `variant`   | `primary`, `secondary`, `tertiary`, `brand`, `danger`, `success`, `inverse` | `primary` |
+| `size`      | `sm`, `md`, `lg`                                                            | `md`      |
+| `density`   | `regular`, `compact`                                                        | `regular` |
+| `fullWidth` | boolean                                                                     | `false`   |
+| `iconStart` | one React node before the label                                             | none      |
+| `iconEnd`   | one React node after the label                                              | none      |
+| `isLoading` | keeps label, sets busy/disabled and renders spinner                         | `false`   |
 
 Todas as props nativas de `<button>`, `className` e refs são preservadas: elas seguem direto no
 spread, sem repasse manual. O `type` default é `button`, nunca `submit` implícito. Para ocupar o
@@ -92,30 +90,42 @@ Enquanto `isLoading` está ativo o botão fica `disabled` e `aria-busy`, mantém
 único Spinner no slot final. O ícone inicial permanece; o ícone final é substituído durante a espera
 ou o slot é criado quando ele não existia. Loading nunca troca o texto do comando por reticências.
 
-Para um controle só de ícone, use `iconOnly` e passe o ícone como children. Ele fica quadrado na
-altura do `size`, e o raio pill entrega o círculo sem precisar de prop de forma:
+`Button` é sempre rotulado e pill. Para um controle só de ícone, use o atom próprio `IconButton`:
 
 ```tsx
-<Button aria-label="Tocar áudio" iconOnly>
+<IconButton aria-label="Tocar áudio">
   <PlayIcon />
-</Button>
+</IconButton>
 ```
 
-O TypeScript exige um nome acessível nesse modo — `aria-label` ou `aria-labelledby` — e recusa
-`iconStart`/`iconEnd`: sem label visível o ícone é o conteúdo, e o nome precisa vir de algum lugar.
+## IconButton
+
+`IconButton` aceita exatamente um glyph por `children`, exige `aria-label` ou `aria-labelledby` e
+mantém as mesmas alturas canônicas do Button. `shape` aceita `circle` (default) ou `rounded`;
+`variant` aceita `neutral`, `subtle`, `brand`, `success`, `danger` e `inverse`. Não existem props de
+cor, raio ou dimensão livre.
+
+```tsx
+<IconButton aria-label="Excluir aula" variant="danger">
+  <TrashIcon />
+</IconButton>
+```
+
+Durante `isLoading`, o glyph é substituído por um único Spinner, o nome acessível é preservado e o
+controle fica busy/disabled para impedir envio duplicado.
 
 ### Contrato de markup
 
-O botão renderiza `class="lsui-sc-button <classe gerada> <className do consumidor>"`, mais
-`data-size` e `data-density` sempre, mais `data-loading="true"` quando ativo. É só isso que é
+Button e IconButton renderizam os component IDs estáveis abaixo. Button mantém `data-size` e
+`data-density`; ambos usam `data-loading="true"` somente enquanto aguardam. É só isso que é
 contrato:
 
-| Marca                                               | Para que serve                                              |
-| --------------------------------------------------- | ----------------------------------------------------------- |
-| `lsui-sc-button`, `lsui-sc-icon`, `lsui-sc-spinner` | ids declarados no source, para seleção em teste e auditoria |
-| `data-size`                                         | a auditoria confere a altura mínima esperada por tamanho    |
-| `data-density`                                      | identifica o recipe regular ou compacto no audit            |
-| `data-loading`                                      | os estilos do próprio botão dependem dele                   |
+| Marca                                                                      | Para que serve                                              |
+| -------------------------------------------------------------------------- | ----------------------------------------------------------- |
+| `lsui-sc-button`, `lsui-sc-icon-button`, `lsui-sc-icon`, `lsui-sc-spinner` | ids declarados no source, para seleção em teste e auditoria |
+| `data-size`                                                                | a auditoria confere a altura mínima esperada por tamanho    |
+| `data-density`                                                             | identifica o recipe regular ou compacto no Button           |
+| `data-loading`                                                             | os estilos do próprio controle dependem dele                |
 
 Não estilize por essas marcas: para composição use `styled(Button)`.
 
@@ -130,7 +140,7 @@ import { ActionLink } from '@langyspace/ui'
 export function NavigationActions() {
   return (
     <>
-      <ActionLink href="/cadastro" iconEnd={<ArrowRight />} tone="brand">
+      <ActionLink href="/cadastro" iconEnd={<ArrowRight />} variant="brand">
         Começar agora
       </ActionLink>
       <ActionLink href="/planos" variant="secondary">
@@ -148,11 +158,11 @@ export function NavigationActions() {
 }
 ```
 
-`href` é obrigatório. `variant` aceita somente `primary`, `secondary` e `tertiary`; danger e
-success são comandos, não destinos. O componente também aceita `size`, `density`, `shape`,
-`fullWidth`, `tone="brand"` apenas com primary, `iconStart`, `iconEnd` e props nativas de anchor.
-Loading, disabled, icon-only, router e polymorphism não fazem parte desta API. Links especiais como
-WhatsApp flutuante, chips e ícones sem label continuam componentes de produto.
+`href` é obrigatório. `variant` aceita somente `primary`, `secondary`, `tertiary` e `brand`; danger,
+success e inverse são comandos, não destinos comprovados. O componente também aceita `size`,
+`density`, `fullWidth`, `iconStart`, `iconEnd` e props nativas de anchor. É sempre pill. Loading,
+disabled, icon-only, router e polymorphism não fazem parte desta API. Links especiais como WhatsApp
+flutuante, chips e ícones sem label continuam componentes de produto.
 
 ## Spinner
 
@@ -193,10 +203,10 @@ const CheckoutButton = styled(Button)`
 `
 ```
 
-Altura, padding, tipografia, raio e os tons semânticos pertencem a `size`, `variant` e `tone`; não
-replique essas propriedades no consumidor para conservar diferenças sutis. Estilos locais ficam
-reservados para layout externo ou estados realmente contextuais. Uma necessidade visual repetida em
-dois produtos deve voltar para decisão da biblioteca.
+Altura, padding, tipografia, raio e cor pertencem aos contratos fechados de `size`, `variant` e, no
+IconButton, `shape`; não replique essas propriedades no consumidor para conservar diferenças sutis.
+Estilos locais ficam reservados para layout externo ou estados realmente contextuais. Uma
+necessidade visual repetida em dois produtos deve voltar para decisão da biblioteca.
 
 O pacote cresce em uma única direção: foundations alimentam primitives, primitives e helpers
 internos alimentam atoms, e atoms podem compor molecules. O entrypoint público mantém imports de
@@ -215,6 +225,7 @@ src/
   atoms/
     ActionLink/
     Button/
+    IconButton/
   molecules/
 ```
 

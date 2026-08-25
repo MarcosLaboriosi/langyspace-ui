@@ -6,7 +6,8 @@ const ConsumerSurface = styled.div`
   color: #123456;
 `
 
-const { Button, Pressable, Spinner } = await import('@langyspace/ui')
+const { Button, IconButton, Pressable, Spinner } =
+  await import('@langyspace/ui')
 
 const sheet = new ServerStyleSheet()
 let markup
@@ -18,7 +19,12 @@ try {
       createElement(
         ConsumerSurface,
         null,
-        createElement(Button, { size: 'lg', tone: 'brand' }, 'SSR'),
+        createElement(Button, { size: 'lg', variant: 'brand' }, 'SSR'),
+        createElement(
+          IconButton,
+          { 'aria-label': 'Open menu' },
+          createElement('span', { 'aria-hidden': true }, '+'),
+        ),
         createElement(Pressable, null, 'Pressable SSR'),
         createElement(Spinner, { size: 'md' }),
       ),
@@ -39,6 +45,10 @@ if (!buttonClasses.includes('lsui-sc-button')) {
 
 if (!markup.includes('lsui-sc-pressable')) {
   throw new Error('shared_pressable_component_id_is_not_explicit')
+}
+
+if (!markup.includes('lsui-sc-icon-button')) {
+  throw new Error('shared_icon_button_component_id_is_not_explicit')
 }
 
 if (!markup.includes('lsui-sc-spinner')) {

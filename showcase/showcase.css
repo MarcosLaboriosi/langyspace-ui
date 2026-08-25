@@ -114,7 +114,8 @@ button {
   min-width: 0;
 }
 
-.showcase__button-column > .lsui-sc-button {
+.showcase__button-column > .lsui-sc-button,
+.showcase__button-column > .lsui-sc-icon-button {
   max-width: 100%;
 }
 
@@ -146,7 +147,8 @@ button {
 }
 
 @media (max-width: 40rem) {
-  .showcase__button-column > .lsui-sc-button {
+  .showcase__button-column > .lsui-sc-button,
+  .showcase__button-column > .lsui-sc-icon-button {
     width: 100%;
   }
 }

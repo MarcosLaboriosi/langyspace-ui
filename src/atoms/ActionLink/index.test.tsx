@@ -34,15 +34,14 @@ describe('ActionLink', () => {
     expect(ref.current).toBe(link)
   })
 
-  it('shares the canonical size, density, shape, width and appearance recipe', () => {
+  it('shares the canonical size, density, width and appearance recipe', () => {
     render(
       <ActionLink
         density="compact"
         fullWidth
         href="/cadastro"
-        shape="rounded"
         size="lg"
-        tone="brand"
+        variant="brand"
       >
         Começar agora
       </ActionLink>,
@@ -50,7 +49,7 @@ describe('ActionLink', () => {
 
     expect(screen.getByRole('link', { name: 'Começar agora' })).toHaveStyle({
       backgroundColor: '#cc0f45',
-      borderRadius: '0.75rem',
+      borderRadius: '999px',
       minHeight: '3rem',
       paddingLeft: '1.25rem',
       paddingRight: '1.25rem',
@@ -117,9 +116,17 @@ describe('ActionLink', () => {
       ;<ActionLink href="/destino" variant="danger">
         Excluir
       </ActionLink>
-      // @ts-expect-error brand é permitido apenas em primary
-      ;<ActionLink href="/destino" tone="brand" variant="secondary">
-        Marca secundária
+      // @ts-expect-error links canônicos usam forma pill
+      ;<ActionLink href="/destino" shape="rounded">
+        Forma local
+      </ActionLink>
+      // @ts-expect-error brand é um variant, não um segundo eixo tone
+      ;<ActionLink href="/destino" tone="brand">
+        Marca
+      </ActionLink>
+      // @ts-expect-error cor pertence aos variants semânticos
+      ;<ActionLink color="red" href="/destino">
+        Destino
       </ActionLink>
     }
 

@@ -81,6 +81,7 @@ async function inspect(page, scenario) {
         '.showcase__narrow-card',
         '.lsui-sc-action-link',
         '.lsui-sc-button',
+        '.lsui-sc-icon-button',
         '.lsui-sc-pressable',
       ]
 
@@ -121,7 +122,9 @@ async function inspect(page, scenario) {
       })
 
       document
-        .querySelectorAll('.lsui-sc-action-link, .lsui-sc-button')
+        .querySelectorAll(
+          '.lsui-sc-action-link, .lsui-sc-button, .lsui-sc-icon-button',
+        )
         .forEach((element, index) => {
           if (!visible(element)) return
 
@@ -232,7 +235,7 @@ async function inspect(page, scenario) {
         issues: issues.map((issue) => ({ ...issue, ...currentScenario })),
         stats: {
           actions: document.querySelectorAll(
-            '.lsui-sc-action-link, .lsui-sc-button',
+            '.lsui-sc-action-link, .lsui-sc-button, .lsui-sc-icon-button',
           ).length,
           buttons: document.querySelectorAll('.lsui-sc-button').length,
           containers: document.querySelectorAll(containedSelectors.join(','))

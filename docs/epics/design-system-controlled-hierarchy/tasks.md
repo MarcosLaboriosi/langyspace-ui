@@ -2,7 +2,7 @@
 
 - [x] [T01 — congelar inventário e cobertura visual](tasks/01-inventory-and-coverage.md)
 - [x] [T02 — criar foundations e dependency boundaries](tasks/02-foundations.md)
-- [ ] [T03 — simplificar actions e publicar IconButton](tasks/03-actions-icon-button.md)
+- [x] [T03 — simplificar actions e publicar IconButton](tasks/03-actions-icon-button.md)
 - [ ] [T04 — validar o candidato major por tarball local](tasks/04-package-candidate.md)
 - [ ] [T05 — migrar Landing](tasks/05-landing.md)
 - [ ] [T06 — migrar Admin](tasks/06-admin.md)

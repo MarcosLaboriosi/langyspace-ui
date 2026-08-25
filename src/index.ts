@@ -7,11 +7,16 @@ export { Button } from './atoms/Button'
 export type {
   ButtonProps,
   ButtonDensity,
-  ButtonShape,
   ButtonSize,
-  ButtonTone,
   ButtonVariant,
 } from './atoms/Button/types'
+export { IconButton } from './atoms/IconButton'
+export type {
+  IconButtonProps,
+  IconButtonShape,
+  IconButtonSize,
+  IconButtonVariant,
+} from './atoms/IconButton/types'
 export { tokens } from './foundations/tokens'
 export type { DesignTokens } from './foundations/tokens'
 export { Pressable } from './primitives/Pressable'

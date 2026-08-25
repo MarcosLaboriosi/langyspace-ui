@@ -1,14 +1,24 @@
 import { useEffect } from 'react'
-import { ActionLink, Button } from '../src'
-import * as Styled from './styles'
-import type { ButtonSize, ButtonVariant } from '../src'
+import { ActionLink, Button, IconButton } from '../src'
+import { ContextTab } from './styles'
+import type { ButtonSize, ButtonVariant, IconButtonVariant } from '../src'
 
 const variants: ButtonVariant[] = [
   'primary',
   'secondary',
   'tertiary',
+  'brand',
   'danger',
   'success',
+  'inverse',
+]
+const iconButtonVariants: IconButtonVariant[] = [
+  'neutral',
+  'subtle',
+  'brand',
+  'success',
+  'danger',
+  'inverse',
 ]
 const sizes: ButtonSize[] = ['sm', 'md', 'lg']
 const stressLabel =
@@ -48,7 +58,7 @@ export function Showcase() {
     >
       <header className="showcase__header">
         <p className="showcase__eyebrow">LANGY.SPACE UI · V0.6.0</p>
-        <h1>Button, ActionLink e Pressable</h1>
+        <h1>Actions e Pressable</h1>
         <p>
           Componentes nativos e previsíveis para comandos, navegação com
           aparência de ação e controles específicos de domínio.
@@ -61,7 +71,10 @@ export function Showcase() {
         </div>
         <div className="showcase__variant-grid">
           {variants.map((variant) => (
-            <article className="showcase__card" key={variant}>
+            <article
+              className={`showcase__card${variant === 'inverse' ? ' showcase__card--dark' : ''}`}
+              key={variant}
+            >
               <h3>{variant}</h3>
               <div className="showcase__button-column">
                 {sizes.map((size) => (
@@ -94,7 +107,7 @@ export function Showcase() {
           <article className="showcase__card">
             <h3>Semântica transversal</h3>
             <div className="showcase__button-column">
-              <Button tone="brand">Nova matrícula</Button>
+              <Button variant="brand">Nova matrícula</Button>
               <Button variant="danger">Excluir acesso</Button>
               <Button variant="success">Marcar presença</Button>
             </div>
@@ -120,47 +133,56 @@ export function Showcase() {
             </div>
           </article>
           <article className="showcase__card">
-            <h3>Forma arredondada</h3>
-            <div className="showcase__button-column">
-              <Button shape="rounded">Continuar</Button>
-              <Button shape="rounded" variant="secondary">
-                Cancelar
-              </Button>
-              <Button aria-label="Avançar" iconOnly shape="rounded">
+            <h3>Formas do IconButton</h3>
+            <div className="showcase__button-row">
+              <IconButton aria-label="Avançar em círculo">
                 {ArrowIcon}
-              </Button>
+              </IconButton>
+              <IconButton aria-label="Avançar arredondado" shape="rounded">
+                {ArrowIcon}
+              </IconButton>
             </div>
           </article>
           <article className="showcase__card">
-            <h3>Somente ícone</h3>
+            <h3>IconButton</h3>
             <div className="showcase__button-row">
               {sizes.map((size) => (
-                <Button
+                <IconButton
                   aria-label={`Avançar ${size}`}
-                  iconOnly
                   key={size}
                   size={size}
                 >
                   {ArrowIcon}
-                </Button>
+                </IconButton>
               ))}
-              <Button aria-label="Avançar" iconOnly variant="secondary">
+              <IconButton aria-label="Carregando" isLoading>
                 {ArrowIcon}
-              </Button>
-              <Button aria-label="Carregando" iconOnly isLoading>
-                {ArrowIcon}
-              </Button>
+              </IconButton>
+            </div>
+          </article>
+          <article className="showcase__card">
+            <h3>Semântica do IconButton</h3>
+            <div className="showcase__button-row">
+              {iconButtonVariants
+                .filter((variant) => variant !== 'inverse')
+                .map((variant) => (
+                  <IconButton
+                    aria-label={`IconButton ${variant}`}
+                    key={variant}
+                    variant={variant}
+                  >
+                    {ArrowIcon}
+                  </IconButton>
+                ))}
             </div>
           </article>
           <article className="showcase__card showcase__card--dark">
             <h3>Superfície escura</h3>
-            <div className="showcase__button-column">
-              <Styled.DarkTertiaryButton variant="tertiary">
-                Agora não
-              </Styled.DarkTertiaryButton>
-              <Styled.DarkTertiaryButton variant="tertiary">
-                Ver detalhes
-              </Styled.DarkTertiaryButton>
+            <div className="showcase__button-row">
+              <Button variant="inverse">Agora não</Button>
+              <IconButton aria-label="Ver detalhes" variant="inverse">
+                {ArrowIcon}
+              </IconButton>
             </div>
           </article>
         </div>
@@ -191,7 +213,7 @@ export function Showcase() {
           </article>
           <article className="showcase__narrow-card">
             <h3>Largura e marca</h3>
-            <ActionLink fullWidth href="#marca" size="lg" tone="brand">
+            <ActionLink fullWidth href="#marca" size="lg" variant="brand">
               {stressMode ? stressToken : 'Começar agora'}
             </ActionLink>
           </article>
@@ -209,10 +231,8 @@ export function Showcase() {
             role="group"
             aria-label="Conteúdo da aula"
           >
-            <Styled.ContextTab aria-pressed="true">Lições</Styled.ContextTab>
-            <Styled.ContextTab aria-pressed="false">
-              Vocabulário
-            </Styled.ContextTab>
+            <ContextTab aria-pressed="true">Lições</ContextTab>
+            <ContextTab aria-pressed="false">Vocabulário</ContextTab>
           </div>
         </article>
       </section>

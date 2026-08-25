@@ -77,17 +77,20 @@ async function writeConsumer(packageSpec) {
   )
   await writeFile(
     join(consumerDirectory, 'src', 'main.tsx'),
-    `import { ActionLink, Button, Pressable, Spinner } from '@langyspace/ui'
+    `import { ActionLink, Button, IconButton, Pressable, Spinner } from '@langyspace/ui'
 import { createRoot } from 'react-dom/client'
 
 createRoot(document.getElementById('root')!).render(
   <>
-    <Button iconEnd={<span aria-hidden="true">→</span>} tone="brand">
+    <Button iconEnd={<span aria-hidden="true">→</span>} variant="brand">
       Package smoke passed
     </Button>
     <ActionLink href="/next" iconEnd={<span aria-hidden="true">→</span>}>
       ActionLink smoke passed
     </ActionLink>
+    <IconButton aria-label="Open menu">
+      <span aria-hidden="true">+</span>
+    </IconButton>
     <Pressable aria-pressed="false">Pressable smoke passed</Pressable>
     <Spinner size="md" />
   </>,
@@ -168,6 +171,10 @@ try {
 
   if (!javascript.includes('lsui-sc-action-link')) {
     throw new Error('shared_action_link_runtime_missing_from_consumer_build')
+  }
+
+  if (!javascript.includes('lsui-sc-icon-button')) {
+    throw new Error('shared_icon_button_runtime_missing_from_consumer_build')
   }
 
   if (!javascript.includes('lsui-sc-pressable')) {

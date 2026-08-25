@@ -3,7 +3,7 @@
 ## Status
 
 Planejamento, refinamento de produto, refinamento técnico, breakdown e revisão crítica concluídos.
-T01 e T02 concluídas. T03 é a única task em andamento.
+T01, T02 e T03 concluídas. T04 é a única task em andamento.
 
 ## Baseline
 
@@ -43,11 +43,19 @@ Worktree root: `/private/tmp/langyspace-design-system-hierarchy.YMowcs`.
 - o audit do package agora bloqueia dependências de camada invertidas;
 - 30 testes unitários, lint, typecheck, build, tarball com Node/SSR smoke e quatro cenários visuais
   em 390 px passaram após a movimentação.
+- T03 removeu os eixos redundantes `tone`, `shape` e `iconOnly` do Button e publicou IconButton como
+  atom separado com accessible-name union;
+- Button loading mantém label e start icon e substitui o slot direito; IconButton loading substitui
+  somente o glyph; ambos usam o Spinner primitive;
+- 31 testes unitários, audit, lint, typecheck, build, tarball/Node/SSR smoke e 12 cenários visuais em
+  390/1281/2048 px passaram com a API final;
+- screenshots mobile normal/stress e desktop foram inspecionados sem overflow, corte ou perda de
+  contraste.
 
 ## Próxima subtask
 
-T03.1 — simplificar o contract de actions (`variant` sem `tone`, Button sem `shape`/`iconOnly`) e
-criar o atom público `IconButton` com nome acessível obrigatório.
+T04.1 — gerar um único tarball local da API major candidata e validar os cinco consumidores contra
+o mesmo artefato antes de iniciar qualquer migração de produto.
 
 ## Blockers
 

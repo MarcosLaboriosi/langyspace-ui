@@ -1,7 +1,11 @@
 export type ActionVariant =
-  'primary' | 'secondary' | 'tertiary' | 'danger' | 'success'
-
-export type ActionTone = 'neutral' | 'brand'
+  | 'primary'
+  | 'secondary'
+  | 'tertiary'
+  | 'brand'
+  | 'danger'
+  | 'success'
+  | 'inverse'
 
 export type ActionSize = 'sm' | 'md' | 'lg'
 
@@ -14,6 +18,5 @@ export interface ActionRecipeStyleProps {
   $fullWidth: boolean
   $shape: ActionShape
   $size: ActionSize
-  $tone: ActionTone
   $variant: ActionVariant
 }

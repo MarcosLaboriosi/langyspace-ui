@@ -4,7 +4,6 @@ import type {
   ActionRecipeStyleProps,
   ActionShape,
   ActionSize,
-  ActionTone,
   ActionVariant,
 } from './types'
 
@@ -110,6 +109,25 @@ const variantStyles = {
       transform: translateY(0);
     }
   `,
+  brand: css`
+    border-color: ${tokens.color.brand.default};
+    color: ${tokens.color.neutral[0]};
+    background-color: ${tokens.color.brand.default};
+    box-shadow: none;
+
+    &:hover:not(:disabled):not([aria-disabled='true']) {
+      border-color: ${tokens.color.brand.hover};
+      background-color: ${tokens.color.brand.hover};
+      box-shadow: ${tokens.shadow.raised};
+      transform: translateY(-1px);
+    }
+
+    &:active:not(:disabled):not([aria-disabled='true']) {
+      border-color: ${tokens.color.brand.hover};
+      background-color: ${tokens.color.brand.hover};
+      transform: translateY(0);
+    }
+  `,
   danger: css`
     border-color: ${tokens.color.feedback.danger};
     color: ${tokens.color.neutral[0]};
@@ -148,27 +166,27 @@ const variantStyles = {
       transform: translateY(0);
     }
   `,
-} satisfies Record<ActionVariant, ReturnType<typeof css>>
-
-const toneStyles = {
-  neutral: css``,
-  brand: css`
-    &,
-    &:active:not(:disabled):not([aria-disabled='true']) {
-      border-color: ${tokens.color.brand.default};
-      color: ${tokens.color.neutral[0]};
-      background-color: ${tokens.color.brand.default};
-      box-shadow: none;
-    }
+  inverse: css`
+    border-color: transparent;
+    color: ${tokens.color.neutral[0]};
+    background-color: transparent;
+    box-shadow: none;
 
     &:hover:not(:disabled):not([aria-disabled='true']) {
-      border-color: ${tokens.color.brand.hover};
-      color: ${tokens.color.neutral[0]};
-      background-color: ${tokens.color.brand.hover};
-      box-shadow: ${tokens.shadow.raised};
+      border-color: ${tokens.color.neutral[0]};
+      color: ${tokens.color.neutral[950]};
+      background-color: ${tokens.color.neutral[0]};
+      transform: translateY(-1px);
+    }
+
+    &:active:not(:disabled):not([aria-disabled='true']) {
+      border-color: ${tokens.color.neutral[100]};
+      color: ${tokens.color.neutral[950]};
+      background-color: ${tokens.color.neutral[100]};
+      transform: translateY(0);
     }
   `,
-} satisfies Record<ActionTone, ReturnType<typeof css>>
+} satisfies Record<ActionVariant, ReturnType<typeof css>>
 
 export const actionRecipe = css<ActionRecipeStyleProps>`
   box-sizing: border-box;
@@ -212,7 +230,6 @@ export const actionRecipe = css<ActionRecipeStyleProps>`
   ${({ $size }) => sizeStyles[$size]}
   ${({ $density, $size }) => $density === 'compact' && compactSizeStyles[$size]}
   ${({ $variant }) => variantStyles[$variant]}
-  ${({ $tone }) => toneStyles[$tone]}
 
   &:focus-visible {
     outline: none;

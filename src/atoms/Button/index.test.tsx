@@ -65,7 +65,8 @@ describe('Button', () => {
         </Button>
         <Button variant="danger">Destrutivo</Button>
         <Button variant="success">Conclusão positiva</Button>
-        <Button tone="brand">Institucional</Button>
+        <Button variant="brand">Institucional</Button>
+        <Button variant="inverse">Superfície escura</Button>
       </>,
     )
 
@@ -90,20 +91,29 @@ describe('Button', () => {
     expect(screen.getByRole('button', { name: 'Institucional' })).toHaveStyle({
       backgroundColor: '#cc0f45',
     })
+    expect(
+      screen.getByRole('button', { name: 'Superfície escura' }),
+    ).toHaveStyle({
+      backgroundColor: 'rgba(0, 0, 0, 0)',
+      color: '#ffffff',
+    })
   })
 
-  it('restricts the brand tone to the primary hierarchy', () => {
-    render(
-      <>
-        <Button tone="brand">Matrícula</Button>
-        {/* @ts-expect-error brand é permitido apenas em primary */}
-        <Button tone="brand" variant="secondary">
-          Cancelar
-        </Button>
-      </>,
-    )
+  it('keeps icon-only, shape and tone out of the labeled action API', () => {
+    const renderTypeOnlyExamples = false as boolean
 
-    expect(screen.getAllByRole('button')).toHaveLength(2)
+    if (renderTypeOnlyExamples) {
+      // @ts-expect-error icon-only pertence a IconButton
+      ;<Button iconOnly>×</Button>
+      // @ts-expect-error Button rotulado possui forma pill canônica
+      ;<Button shape="rounded">Continuar</Button>
+      // @ts-expect-error brand é um variant, não um segundo eixo tone
+      ;<Button tone="brand">Matrícula</Button>
+      // @ts-expect-error cor pertence aos variants semânticos
+      ;<Button color="red">Continuar</Button>
+    }
+
+    expect(true).toBe(true)
   })
 
   it('accepts one icon on each edge and renders neither by default', () => {
@@ -236,87 +246,12 @@ describe('Button', () => {
     expect(fullWidthButton).toHaveStyle({ width: '100%' })
   })
 
-  it('offers a rounded shape next to the default pill', () => {
-    const { rerender } = render(<Button>Continuar</Button>)
+  it('keeps the canonical pill shape for every labeled action', () => {
+    render(<Button>Continuar</Button>)
 
     expect(screen.getByRole('button', { name: 'Continuar' })).toHaveStyle({
       borderRadius: '999px',
     })
-
-    rerender(<Button shape="rounded">Continuar</Button>)
-
-    expect(screen.getByRole('button', { name: 'Continuar' })).toHaveStyle({
-      borderRadius: '0.75rem',
-    })
-  })
-
-  it('turns into a square that holds the icon when iconOnly', () => {
-    render(
-      <Button aria-label="Tocar áudio" iconOnly>
-        <svg data-testid="glyph" />
-      </Button>,
-    )
-
-    const button = screen.getByRole('button', { name: 'Tocar áudio' })
-
-    expect(button).toHaveStyle({
-      minHeight: '2.5rem',
-      width: '2.5rem',
-      borderRadius: '999px',
-      paddingLeft: '0px',
-      paddingRight: '0px',
-    })
-    expect(screen.getByTestId('glyph').parentElement).toHaveClass(
-      'lsui-sc-icon',
-    )
-  })
-
-  it('keeps the iconOnly square inside a container narrower than it', () => {
-    render(
-      <div style={{ display: 'flex', width: '20px' }}>
-        <Button aria-label="Voltar" iconOnly>
-          <svg />
-        </Button>
-      </div>,
-    )
-
-    expect(screen.getByRole('button', { name: 'Voltar' })).toHaveStyle({
-      width: '2.5rem',
-      minHeight: '2.5rem',
-      maxWidth: 'none',
-      flexShrink: '0',
-    })
-  })
-
-  it('swaps the only icon for the spinner while an iconOnly button loads', () => {
-    const { container } = render(
-      <Button aria-label="Tocar áudio" iconOnly isLoading>
-        <svg data-testid="glyph" />
-      </Button>,
-    )
-
-    expect(screen.queryByTestId('glyph')).not.toBeInTheDocument()
-    expect(container.querySelectorAll('.lsui-sc-spinner')).toHaveLength(1)
-  })
-
-  it('demands an accessible name and refuses icon slots when iconOnly', () => {
-    render(
-      <>
-        {/* @ts-expect-error iconOnly sem nome acessível */}
-        <Button iconOnly>
-          <svg />
-        </Button>
-        <Button aria-labelledby="rotulo" iconOnly>
-          <svg />
-        </Button>
-        {/* @ts-expect-error iconOnly já usa children como ícone */}
-        <Button aria-label="Tocar" iconOnly iconStart={<svg />}>
-          <svg />
-        </Button>
-      </>,
-    )
-
-    expect(screen.getAllByRole('button')).toHaveLength(3)
   })
 
   it('keeps explicit component ids so server and browser renders agree', () => {

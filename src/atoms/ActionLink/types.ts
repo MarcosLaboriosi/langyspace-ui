@@ -2,16 +2,14 @@ import type { ComponentPropsWithRef, ReactNode } from 'react'
 import type {
   ActionDensity,
   ActionRecipeStyleProps,
-  ActionShape,
   ActionSize,
-  ActionTone,
 } from '../../foundations/actions/types'
 
-export type ActionLinkVariant = 'primary' | 'secondary' | 'tertiary'
+export type ActionLinkVariant = 'primary' | 'secondary' | 'tertiary' | 'brand'
 
 interface ActionLinkBaseProps extends Omit<
   ComponentPropsWithRef<'a'>,
-  'aria-disabled' | 'children' | 'href'
+  'aria-disabled' | 'children' | 'color' | 'href'
 > {
   children: ReactNode
   density?: ActionDensity
@@ -19,17 +17,12 @@ interface ActionLinkBaseProps extends Omit<
   href: string
   iconEnd?: ReactNode
   iconStart?: ReactNode
-  shape?: ActionShape
   size?: ActionSize
+  variant?: ActionLinkVariant
 }
 
-type ActionLinkSemanticProps =
-  | { tone?: 'neutral'; variant?: ActionLinkVariant }
-  | { tone: 'brand'; variant?: 'primary' }
-
-export type ActionLinkProps = ActionLinkBaseProps & ActionLinkSemanticProps
+export type ActionLinkProps = ActionLinkBaseProps
 
 export interface ActionLinkStyleProps extends ActionRecipeStyleProps {
   $variant: ActionLinkVariant
-  $tone: ActionTone
 }

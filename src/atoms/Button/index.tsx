@@ -8,12 +8,9 @@ export function Button({
   density = 'regular',
   fullWidth = false,
   iconEnd,
-  iconOnly = false,
   iconStart,
   isLoading = false,
-  shape = 'pill',
   size = 'md',
-  tone = 'neutral',
   type = 'button',
   variant = 'primary',
   ...props
@@ -25,24 +22,16 @@ export function Button({
       type={type}
       $density={density}
       $fullWidth={fullWidth}
-      $iconOnly={iconOnly}
-      $shape={shape}
+      $shape="pill"
       $size={size}
-      $tone={tone}
       $variant={variant}
       data-loading={isLoading ? 'true' : undefined}
       data-density={density}
       data-size={size}
     >
-      {iconOnly ? (
-        <IconSlot icon={isLoading ? <Spinner /> : children} />
-      ) : (
-        <>
-          <IconSlot icon={iconStart} />
-          {children}
-          <IconSlot icon={isLoading ? <Spinner /> : iconEnd} />
-        </>
-      )}
+      <IconSlot icon={iconStart} />
+      {children}
+      <IconSlot icon={isLoading ? <Spinner /> : iconEnd} />
     </Styled.Button>
   )
 }

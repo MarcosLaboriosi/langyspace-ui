@@ -1,6 +1,6 @@
 # T04 — validar o candidato major por tarball local
 
-Status: pendente.
+Status: em andamento.
 
 ## Responsabilidade
 

@@ -8,9 +8,7 @@ export function ActionLink({
   fullWidth = false,
   iconEnd,
   iconStart,
-  shape = 'pill',
   size = 'md',
-  tone = 'neutral',
   variant = 'primary',
   ...props
 }: ActionLinkProps) {
@@ -19,9 +17,8 @@ export function ActionLink({
       {...props}
       $density={density}
       $fullWidth={fullWidth}
-      $shape={shape}
+      $shape="pill"
       $size={size}
-      $tone={tone}
       $variant={variant}
       data-density={density}
       data-size={size}
