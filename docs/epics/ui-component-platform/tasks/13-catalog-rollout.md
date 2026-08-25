@@ -37,3 +37,9 @@ Disponibilizar a plataforma ao time e fechar a execução com provas do mesmo co
 
 Pages/workflow pode ser revertido sem package release. Runtime volta ao tarball imutável anterior;
 deploys de products seguem seus runbooks e SHAs comprovados.
+
+## Resultado
+
+Concluído. Catálogo, package `1.1.0`, CI agregado, dois consumers aplicáveis e os dois Hostings estão
+publicados e comprovados em `../release-evidence.md`. Landing, Student e Cupom não sofreram churn
+porque não possuem callsite runtime do piloto.

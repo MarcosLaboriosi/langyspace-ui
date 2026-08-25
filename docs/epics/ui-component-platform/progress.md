@@ -2,8 +2,8 @@
 
 ## Status
 
-Investigação, refinamento de produto, refinamento técnico, breakdown, revisão crítica e T01–T12
-concluídos. T13 é a única task em andamento.
+Investigação, refinamento de produto, refinamento técnico, breakdown, revisão crítica e T01–T13
+concluídos. O épico está encerrado e publicado.
 
 ## Baseline
 
@@ -115,24 +115,29 @@ concluídos. T13 é a única task em andamento.
 - Admin e Teacher consumiram o mesmo tarball candidato sem adapters; Teacher passou 252 cenários de
   layout com zero issue, enquanto os gates restantes do Admin estão registrados separadamente de
   15 falhas de `localStorage` já reproduzidas na baseline sob Node 26.
+- T13 publicou `@langyspace/ui@1.1.0` no SHA `5b182df`, catálogo GitHub Pages e CI dividido com um
+  gate agregado; 146 testes, 612 cenários de catálogo, smokes, coverage, API e budgets passaram;
+- Admin `a627cb8` e Teacher `89a4c79` removeram os recipes locais, fixaram o tarball imutável e
+  passaram seus workflows/deploys; bundles servidos possuem o mesmo hash dos builds validados e o
+  marker de `SectionHeader`;
+- a evidência operacional completa, incluindo run IDs, hashes, incidentes contidos e rollback, está
+  em `release-evidence.md`.
 
 ## Próxima subtask
 
-T13 — publicar catálogo/package, instalar o artefato imutável e comprovar os consumers alterados.
+Nenhuma. Próxima family exige novo inventário e maturity gate.
 
 ## Blockers
 
-Nenhum. GitHub Pages ainda não está configurado e não bloqueia o build/artifact do catálogo.
+Nenhum.
 
 ## Decisões abertas controladas
 
-- ref pattern final;
-- Pages versus CI artifact na primeira publicação;
 - próxima family depois do piloto `SectionHeader`.
 
 Cada item possui task, evidence e acceptance; nenhum bloqueia a baseline.
 
 ## Veredito visual atual
 
-Passed: 63 stories passaram em 534 cenários headless; 57 screenshots foram gerados e amostras em
+Passed: 72 stories passaram em 612 cenários headless; screenshots da library e dos consumers em
 390/1281/2048 foram inspecionadas sem overflow, corte, perda de ação ou regressão hierárquica.
