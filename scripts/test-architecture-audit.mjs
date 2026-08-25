@@ -29,6 +29,7 @@ const NativeStyled = styled.button\`color: red;\`
 const Parent = styled.div\`> button { height: 41px; }\`
 export const Native = () => <button>Broken</button>
 export const Removed = () => <BaseButton tone="brand">Broken</BaseButton>
+export const ValidIcon = () => <IconButton shape="rounded">Valid</IconButton>
 export type CosmeticProps = { color?: string }
 `,
   )
@@ -116,6 +117,11 @@ export type CosmeticProps = { color?: string }
     assert.ok(diagnostic.line >= 1)
     assert.ok(diagnostic.remediation.length > 8)
   }
+  assert.equal(
+    result.diagnostics.filter(({ ruleId }) => ruleId === 'LSUI006').length,
+    1,
+    'IconButton shape must not be classified as a removed Button prop',
+  )
 
   await assert.rejects(
     () =>

@@ -4,6 +4,7 @@ export {
   EmptyState,
   FilterPills,
   LoadingState,
+  SectionHeader,
   SegmentedControl,
   StatePanel,
   StatusChip,

@@ -19,6 +19,7 @@ const {
   LoadingState,
   Pressable,
   SearchInput,
+  SectionHeader,
   SegmentedControl,
   SelectInput,
   Spinner,
@@ -81,6 +82,10 @@ try {
         createElement(SearchInput, {
           'aria-label': 'Search',
           defaultValue: 'Maria',
+        }),
+        createElement(SectionHeader, {
+          meta: '4 items',
+          title: 'Section header SSR',
         }),
         createElement(FilterPills, {
           'aria-label': 'Filters',
@@ -147,6 +152,7 @@ for (const componentId of [
   'lsui-sc-filter-pills',
   'lsui-sc-compound-control',
   'lsui-sc-search-input',
+  'lsui-sc-section-header',
   'lsui-sc-select-input',
   'lsui-sc-segmented-control',
   'lsui-sc-textarea-input',

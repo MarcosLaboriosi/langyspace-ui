@@ -257,6 +257,26 @@ options tipadas; nenhuma conhece query params ou regra de produto.
 />
 ```
 
+## Cabeçalhos de seção
+
+`SectionHeader` organiza título, metadata curta e uma ação opcional sem conhecer a página ou o
+domínio. O heading nativo defaults para `h2`; use `headingLevel` somente para respeitar a hierarquia
+real do documento. `spacing="flush"` remove apenas o espaço superior quando o container já possui
+padding próprio.
+
+```tsx
+<SectionHeader
+  actions={<Button size="sm">Ver detalhes</Button>}
+  headingLevel={3}
+  meta="4 itens"
+  spacing="flush"
+  title="Fila operacional"
+/>
+```
+
+O component pode quebrar title/meta/action em linhas estreitas. Copy e actions continuam sob
+ownership do produto; não há props livres de tipografia ou spacing.
+
 ## Autenticação
 
 `AuthNotice` é um aviso pequeno com tones `error | info` e props nativas de parágrafo.
@@ -328,6 +348,7 @@ src/
     FieldRoot/
     FilterPills/
     SearchInput/
+    SectionHeader/
     SegmentedControl/
     StatePanel/
 ```

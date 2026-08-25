@@ -77,7 +77,7 @@ async function writeConsumer(packageSpec) {
   )
   await writeFile(
     join(consumerDirectory, 'src', 'main.tsx'),
-    `import { ActionLink, AuthNotice, AuthTokenDigits, Button, CompoundControl, EmptyState, FieldRoot, FilterPills, IconButton, LoadingState, Pressable, SearchInput, SegmentedControl, SelectInput, Spinner, StatePanel, StatusChip, TextareaInput, TextInput } from '@langyspace/ui'
+    `import { ActionLink, AuthNotice, AuthTokenDigits, Button, CompoundControl, EmptyState, FieldRoot, FilterPills, IconButton, LoadingState, Pressable, SearchInput, SectionHeader, SegmentedControl, SelectInput, Spinner, StatePanel, StatusChip, TextareaInput, TextInput } from '@langyspace/ui'
 import type { AuditConfig } from '@langyspace/ui/audit'
 import { createRoot } from 'react-dom/client'
 
@@ -106,6 +106,7 @@ createRoot(document.getElementById('root')!).render(
     <FieldRoot label="Notes"><TextareaInput defaultValue="Package textarea passed" /></FieldRoot>
     <CompoundControl leading={<span>$</span>}><TextInput aria-label="Amount" defaultValue="48" /></CompoundControl>
     <SearchInput aria-label="Search" defaultValue="Maria" />
+    <SectionHeader meta="4 items" title="Package section header passed" />
     <FilterPills aria-label="Filters" options={[{ label: 'All', value: 'all' }]} value="all" onChange={() => undefined} />
     <SegmentedControl aria-label="Range" options={[{ label: '30 days', value: '30' }]} value="30" onChange={() => undefined} />
     <AuthTokenDigits aria-label="Code" autoFocus={false} digitLabel="Digit" idPrefix="code" length={4} onTokenChange={() => undefined} />
@@ -290,6 +291,7 @@ try {
     'lsui-sc-filter-pills',
     'lsui-sc-compound-control',
     'lsui-sc-search-input',
+    'lsui-sc-section-header',
     'lsui-sc-select-input',
     'lsui-sc-segmented-control',
     'lsui-sc-textarea-input',

@@ -8,13 +8,13 @@
   "gzipBytes": {
     "actions": 3500,
     "fields": 5600,
-    "library": 9000,
-    "molecules": 5900
+    "library": 9800,
+    "molecules": 6300
   },
   "rawBytes": {
     "actions": 15000,
     "fields": 25000,
-    "library": 41000,
-    "molecules": 21000
+    "library": 45000,
+    "molecules": 22500
   }
 }

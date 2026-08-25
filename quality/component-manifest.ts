@@ -304,6 +304,25 @@ export const publicComponentContracts = [
   },
   {
     browserSmoke: complete,
+    exportName: 'SectionHeader',
+    interactive: false,
+    layer: 'molecule',
+    ownerPath: 'src/molecules/SectionHeader/index.tsx',
+    runtimeMarker: 'lsui-sc-section-header',
+    ssrSmoke: complete,
+    story: {
+      ...complete,
+      path: 'src/molecules/SectionHeader/SectionHeader.stories.tsx',
+      title: 'Molecules/Layout/SectionHeader',
+    },
+    test: {
+      ...complete,
+      path: 'src/molecules/SectionHeader/SectionHeader.test.tsx',
+    },
+    visual: true,
+  },
+  {
+    browserSmoke: complete,
     exportName: 'SegmentedControl',
     interactive: true,
     layer: 'molecule',

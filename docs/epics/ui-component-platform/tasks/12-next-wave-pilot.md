@@ -36,3 +36,10 @@ Usar a plataforma nova para decidir o próximo component, em vez de crescer a li
 
 Não publicar o candidate antes dos consumer gates; abandonar a promoção e manter o component local
 é um resultado válido.
+
+## Resultado
+
+Concluído. O inventário dos cinco products e o maturity gate estão em
+`next-wave-inventory.md`. Somente `SectionHeader` foi promovido: 20/20 components públicos agora
+possuem test owner, story, axe, browser smoke e SSR smoke. Admin e Teacher consumiram o mesmo
+tarball candidato e eliminaram as cópias locais sem alterar callsites ou domínio.

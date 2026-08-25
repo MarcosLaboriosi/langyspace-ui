@@ -2,8 +2,8 @@
 
 ## Status
 
-Investigação, refinamento de produto, refinamento técnico, breakdown, revisão crítica e T01–T11
-concluídos. T12 é a única task em andamento.
+Investigação, refinamento de produto, refinamento técnico, breakdown, revisão crítica e T01–T12
+concluídos. T13 é a única task em andamento.
 
 ## Baseline
 
@@ -14,7 +14,7 @@ concluídos. T12 é a única task em andamento.
 | Worktree              | `/private/tmp/langyspace-ui-component-platform.xn8HG1/langyspace-ui` |
 | Branch                | `codex/ui-component-platform-epic-20260825`                          |
 | Package               | `@langyspace/ui@1.0.0`                                               |
-| Public components     | 19                                                                   |
+| Public components     | 20                                                                   |
 | TS/TSX source files   | 78                                                                   |
 | TS/TSX source lines   | 3.608                                                                |
 | Unit test files/tests | 11/46                                                                |
@@ -106,10 +106,19 @@ concluídos. T12 é a única task em andamento.
   contrato; a library exige expiry e configs v1 antigas recebem warning;
 - `CONTRIBUTING.md` tornou ownership, maturity gate, composição, depreciação e gates uma política
   operacional curta.
+- T12 repetiu o inventário nos cinco `origin/main` e aprovou somente `SectionHeader`: Title e
+  Underlined seguem na Landing, Feature segue nos organisms de autenticação e cópias mortas não
+  viraram API pública;
+- a nova molecule possui heading semântico, metadata/action, spacing fechado, wrapping estreito e
+  zero dependency de theme/produto; 74 unit tests, 72 story/axe tests, browser/SSR smoke, coverage e
+  quatro bundle slices passaram;
+- Admin e Teacher consumiram o mesmo tarball candidato sem adapters; Teacher passou 252 cenários de
+  layout com zero issue, enquanto os gates restantes do Admin estão registrados separadamente de
+  15 falhas de `localStorage` já reproduzidas na baseline sob Node 26.
 
 ## Próxima subtask
 
-T12 — inventariar os cinco products e decidir no máximo uma family piloto.
+T13 — publicar catálogo/package, instalar o artefato imutável e comprovar os consumers alterados.
 
 ## Blockers
 
@@ -119,7 +128,7 @@ Nenhum. GitHub Pages ainda não está configurado e não bloqueia o build/artifa
 
 - ref pattern final;
 - Pages versus CI artifact na primeira publicação;
-- family piloto da próxima onda.
+- próxima family depois do piloto `SectionHeader`.
 
 Cada item possui task, evidence e acceptance; nenhum bloqueia a baseline.
 

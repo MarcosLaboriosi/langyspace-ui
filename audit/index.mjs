@@ -173,6 +173,7 @@ export async function auditArchitecture(config) {
     const source = await readFile(file, 'utf8')
     const sourcePath = relative(root, file)
     const localCanonicalNames = new Set(canonicalNames)
+    const importedButtonNames = new Set()
 
     for (const importMatch of source.matchAll(
       /import\s+(?:type\s+)?\{([\s\S]*?)\}\s+from\s+['"]@langyspace\/ui['"]/g,
@@ -183,6 +184,12 @@ export async function auditArchitecture(config) {
         ).exec(importMatch[1])?.[1]
         if (alias) localCanonicalNames.add(alias)
       }
+
+      const buttonImport =
+        /(?:^|,)\s*Button(?:\s+as\s+([A-Za-z_$][\w$]*))?\s*(?:,|$)/.exec(
+          importMatch[1],
+        )
+      if (buttonImport) importedButtonNames.add(buttonImport[1] ?? 'Button')
     }
 
     const canonicalAlternation = [...localCanonicalNames]
@@ -282,9 +289,14 @@ export async function auditArchitecture(config) {
       }
     }
 
-    const removedPropMatch = new RegExp(
-      `<(?:${canonicalAlternation})\\b[^>]*\\b(?:iconOnly|shape|tone)\\s*=`,
-    ).exec(source)
+    const importedButtonAlternation = [...importedButtonNames]
+      .map((name) => name.replaceAll('$', '\\$'))
+      .join('|')
+    const removedPropMatch = importedButtonAlternation
+      ? new RegExp(
+          `<(?:${importedButtonAlternation})\\b[^>]*\\b(?:iconOnly|shape|tone)\\s*=`,
+        ).exec(source)
+      : null
     if (removedPropMatch) {
       report({
         index: removedPropMatch.index,

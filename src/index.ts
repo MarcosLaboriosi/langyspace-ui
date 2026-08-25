@@ -65,6 +65,12 @@ export type {
   SearchInputProps,
   SearchInputSize,
 } from './molecules/SearchInput'
+export { SectionHeader } from './molecules/SectionHeader'
+export type {
+  SectionHeaderLevel,
+  SectionHeaderProps,
+  SectionHeaderSpacing,
+} from './molecules/SectionHeader'
 export { SegmentedControl } from './molecules/SegmentedControl'
 export type {
   ChoiceOption,
