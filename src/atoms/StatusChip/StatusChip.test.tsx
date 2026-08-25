@@ -52,10 +52,19 @@ describe('StatusChip', () => {
       'aria-hidden',
       'true',
     )
-    expect(screen.getByText('Confirmado')).toHaveAttribute(
+    expect(chip).toHaveAttribute('title', 'Confirmado')
+    expect(screen.getByText('Confirmado')).not.toHaveAttribute('title')
+  })
+
+  it('keeps an explicit tooltip on the root as its single owner', () => {
+    render(<StatusChip title="Status completo">Confirmado</StatusChip>)
+
+    const label = screen.getByText('Confirmado')
+    expect(label.closest('.lsui-sc-status-chip')).toHaveAttribute(
       'title',
-      'Confirmado',
+      'Status completo',
     )
+    expect(label).not.toHaveAttribute('title')
   })
 
   it('does not expose cosmetic color aliases', () => {
