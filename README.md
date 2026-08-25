@@ -3,7 +3,7 @@
 Biblioteca React compartilhada pelos produtos Langy.space. Expõe `Button` para comandos rotulados,
 `IconButton` para comandos de glyph único, `ActionLink` para navegação com aparência de ação,
 `Pressable` para controles específicos, `Spinner` para espera e pequenas composições semânticas de
-status e estado de conteúdo.
+status, estado de conteúdo, fields, filtros e autenticação.
 
 ## Installation
 
@@ -216,6 +216,64 @@ container expõe `role="status"`, `aria-live="polite"` e `aria-busy="true"`.
 />
 ```
 
+## Fields e busca
+
+Inputs são native-first e não conhecem `react-hook-form`. `FieldRoot` conecta label, hint e error ao
+control por `id`, `aria-invalid` e `aria-describedby`; adapters de form continuam no produto.
+
+```tsx
+<FieldRoot label="Nome" hint="Use o nome completo" error={errors.name?.message}>
+  <TextInput {...register('name')} />
+</FieldRoot>
+```
+
+`TextInput`, `SelectInput` e `TextareaInput` aceitam props e refs nativas. `CompoundControl` é o
+único owner de border/background/focus quando ícone, input e ação formam uma surface. `SearchInput`
+compõe esse contrato e, quando `onClear` existe, devolve o foco ao input depois de limpar.
+
+```tsx
+<SearchInput
+  aria-label="Buscar aluno"
+  clearLabel="Limpar busca"
+  value={query}
+  onChange={(event) => setQuery(event.target.value)}
+  onClear={() => setQuery('')}
+/>
+```
+
+## Filtros e seleção
+
+`FilterPills` modela filtros em buttons pressionáveis e aceita `sm | md`, counts e overflow
+`scroll | wrap`. `SegmentedControl` modela escolha exclusiva e aceita as surfaces semânticas
+`light | inverse` e shapes `rounded | pill`. As duas APIs exigem nome acessível do grupo e recebem
+options tipadas; nenhuma conhece query params ou regra de produto.
+
+```tsx
+<SegmentedControl
+  aria-label="Período"
+  options={rangeOptions}
+  value={range}
+  onChange={setRange}
+/>
+```
+
+## Autenticação
+
+`AuthNotice` é um aviso pequeno com tones `error | info` e props nativas de parágrafo.
+`AuthTokenDigits` possui somente dígitos, sanitização, paste, backspace, foco e estado
+controlled/uncontrolled. Copy, resend, Firebase, navegação e state machine ficam no produto.
+
+```tsx
+<AuthTokenDigits
+  aria-label="Código de confirmação"
+  digitLabel="Dígito"
+  idPrefix="login-token"
+  length={6}
+  value={token}
+  onTokenChange={setToken}
+/>
+```
+
 `0.3.0` trocou `icon` mais `iconPosition` por `iconStart` e `iconEnd`, o que aceita um ícone de cada
 lado e elimina a prop que só existia para modificar outra. Removeu também as classes `lsui-button`,
 `lsui-button__icon` e `lsui-button__spinner`, que duplicavam os ids acima, e os atributos
@@ -253,12 +311,25 @@ src/
     Pressable/
     Spinner/
   internal/
+    FieldControlContext/
     IconSlot/
   atoms/
     ActionLink/
+    AuthNotice/
     Button/
     IconButton/
+    SelectInput/
+    StatusChip/
+    TextareaInput/
+    TextInput/
   molecules/
+    AuthTokenDigits/
+    CompoundControl/
+    FieldRoot/
+    FilterPills/
+    SearchInput/
+    SegmentedControl/
+    StatePanel/
 ```
 
 Cada componente mantém `index.tsx`, `styles.ts` e `types.ts` próximos quando essas responsabilidades

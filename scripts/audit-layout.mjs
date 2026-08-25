@@ -80,9 +80,15 @@ async function inspect(page, scenario) {
         '.showcase__card',
         '.showcase__narrow-card',
         '.lsui-sc-action-link',
+        '.lsui-sc-auth-notice',
+        '.lsui-sc-auth-token-digits',
         '.lsui-sc-button',
+        '.lsui-sc-compound-control',
+        '.lsui-sc-field-root',
+        '.lsui-sc-filter-pills',
         '.lsui-sc-icon-button',
         '.lsui-sc-pressable',
+        '.lsui-sc-segmented-control',
         '.lsui-sc-state-panel',
         '.lsui-sc-status-chip',
       ]
@@ -106,9 +112,16 @@ async function inspect(page, scenario) {
             })
           }
 
+          const ownsReachableSelectionOverflow =
+            element.matches(
+              '.lsui-sc-filter-pills, .lsui-sc-segmented-control',
+            ) ||
+            element.closest('.lsui-sc-filter-pills, .lsui-sc-segmented-control')
+
           if (
-            element.scrollWidth > element.clientWidth + acceptedTolerance ||
-            element.scrollHeight > element.clientHeight + acceptedTolerance
+            !ownsReachableSelectionOverflow &&
+            (element.scrollWidth > element.clientWidth + acceptedTolerance ||
+              element.scrollHeight > element.clientHeight + acceptedTolerance)
           ) {
             issues.push({
               clientHeight: element.clientHeight,
@@ -225,6 +238,45 @@ async function inspect(page, scenario) {
             })
           }
         })
+
+      const invalidField = document.querySelector(
+        '.lsui-sc-field-root[data-invalid="true"] input',
+      )
+      const describedByIds =
+        invalidField?.getAttribute('aria-describedby')?.split(/\s+/) ?? []
+      if (
+        !invalidField ||
+        invalidField.getAttribute('aria-invalid') !== 'true' ||
+        describedByIds.length !== 2 ||
+        describedByIds.some((id) => !document.getElementById(id))
+      ) {
+        issues.push({ kind: 'field-accessibility-contract' })
+      }
+
+      document
+        .querySelectorAll('.lsui-sc-filter-pills, .lsui-sc-segmented-control')
+        .forEach((group, index) => {
+          const selected = group.querySelectorAll('[aria-pressed="true"]')
+          if (
+            group.getAttribute('role') !== 'group' ||
+            !group.getAttribute('aria-label') ||
+            selected.length !== 1
+          ) {
+            issues.push({ index, kind: 'selection-group-contract' })
+          }
+        })
+
+      const tokenGroup = document.querySelector('.lsui-sc-auth-token-digits')
+      const tokenInputs = tokenGroup?.querySelectorAll('input') ?? []
+      if (
+        !tokenGroup?.getAttribute('aria-label') ||
+        tokenInputs.length !== 4 ||
+        Array.from(tokenInputs).some(
+          (input) => !input.getAttribute('aria-label'),
+        )
+      ) {
+        issues.push({ kind: 'auth-token-accessibility-contract' })
+      }
 
       const focusedButton = document.querySelector('[data-audit-focus]')
       const focusedStyle = focusedButton

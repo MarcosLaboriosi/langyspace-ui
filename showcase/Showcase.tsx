@@ -1,11 +1,21 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import {
   ActionLink,
+  AuthNotice,
+  AuthTokenDigits,
   Button,
+  CompoundControl,
+  FieldRoot,
+  FilterPills,
   IconButton,
   LoadingState,
+  SearchInput,
+  SegmentedControl,
+  SelectInput,
   StatePanel,
   StatusChip,
+  TextareaInput,
+  TextInput,
 } from '../src'
 import { ContextTab } from './styles'
 import type {
@@ -45,6 +55,11 @@ const stressLabel =
   'Continuar com a configuração compartilhada de componentes Langy.space em todos os produtos'
 const stressToken =
   'acaoprincipalcompartilhadaextremamentelongasemespaços000000000000000000000000000000000000'
+const selectionOptions = [
+  { label: 'Todos', value: 'all' },
+  { label: 'Ativos', value: 'active' },
+  { label: 'Pendentes', value: 'pending' },
+] as const
 
 const ArrowIcon = (
   <svg
@@ -66,6 +81,10 @@ export function Showcase() {
   const stressMode =
     new URLSearchParams(window.location.search).get('stress') === '1'
   const standardLabel = stressMode ? stressLabel : 'Continuar'
+  const [filter, setFilter] = useState<'all' | 'active' | 'pending'>('all')
+  const [range, setRange] = useState<'all' | 'active' | 'pending'>('active')
+  const [search, setSearch] = useState(stressMode ? stressLabel : 'Maria')
+  const [token, setToken] = useState('12')
 
   useEffect(() => {
     document.querySelector<HTMLButtonElement>('[data-audit-focus]')?.focus()
@@ -289,6 +308,117 @@ export function Showcase() {
             state="partial"
             title="Parte dos resultados está disponível"
           />
+        </div>
+      </section>
+      <section aria-labelledby="fields-title" className="showcase__section">
+        <div className="showcase__section-heading">
+          <p>FIELDS</p>
+          <h2 id="fields-title">Nativos e compostos</h2>
+        </div>
+        <div className="showcase__state-grid">
+          <article className="showcase__card showcase__field-stack">
+            <h3>Label, hint e error</h3>
+            <FieldRoot
+              error="Revise este valor"
+              hint="O adapter de formulário permanece no produto."
+              label="Nome completo"
+            >
+              <TextInput
+                defaultValue={stressMode ? stressLabel : 'Maria Alves'}
+              />
+            </FieldRoot>
+            <FieldRoot controlId="showcase-level" label="Nível">
+              <SelectInput defaultValue="b1">
+                <option value="b1">B1</option>
+                <option value="b2">B2</option>
+              </SelectInput>
+            </FieldRoot>
+            <FieldRoot controlId="showcase-notes" label="Notas">
+              <TextareaInput defaultValue="Objetivos da próxima aula" />
+            </FieldRoot>
+          </article>
+          <article className="showcase__card showcase__field-stack">
+            <h3>Single surface</h3>
+            <SearchInput
+              aria-label="Buscar estudante"
+              clearLabel="Limpar busca"
+              onClear={() => setSearch('')}
+              value={search}
+              onChange={(event) => setSearch(event.target.value)}
+            />
+            <CompoundControl
+              leading={<span>R$</span>}
+              trailing={<span>BRL</span>}
+            >
+              <TextInput aria-label="Valor" defaultValue="480,00" />
+            </CompoundControl>
+          </article>
+        </div>
+      </section>
+      <section aria-labelledby="filters-title" className="showcase__section">
+        <div className="showcase__section-heading">
+          <p>SELEÇÃO</p>
+          <h2 id="filters-title">Filtros e escolha exclusiva</h2>
+        </div>
+        <div className="showcase__state-grid">
+          <article className="showcase__card showcase__field-stack">
+            <h3>Filter pills</h3>
+            <FilterPills
+              aria-label="Filtrar registros"
+              counts={{ active: 18, pending: 4 }}
+              onChange={setFilter}
+              options={selectionOptions}
+              value={filter}
+            />
+          </article>
+          <article className="showcase__card showcase__field-stack">
+            <h3>Segmented light</h3>
+            <SegmentedControl
+              aria-label="Visualização"
+              onChange={setRange}
+              options={selectionOptions}
+              value={range}
+            />
+          </article>
+          <article className="showcase__card showcase__card--dark showcase__field-stack">
+            <h3>Segmented inverse</h3>
+            <SegmentedControl
+              aria-label="Período do relatório"
+              onChange={setRange}
+              options={selectionOptions}
+              shape="pill"
+              surface="inverse"
+              value={range}
+            />
+          </article>
+        </div>
+      </section>
+      <section aria-labelledby="auth-title" className="showcase__section">
+        <div className="showcase__section-heading">
+          <p>AUTENTICAÇÃO</p>
+          <h2 id="auth-title">Peças sem fluxo embutido</h2>
+        </div>
+        <div className="showcase__state-grid">
+          <article className="showcase__card showcase__field-stack">
+            <h3>Token controlado</h3>
+            <AuthTokenDigits
+              aria-label="Código de confirmação"
+              autoFocus={false}
+              digitLabel="Dígito"
+              hasError={stressMode}
+              idPrefix="showcase-token"
+              length={4}
+              value={token}
+              onTokenChange={setToken}
+            />
+          </article>
+          <article className="showcase__card">
+            <h3>Notices</h3>
+            <AuthNotice tone="info">
+              Código enviado para o canal confirmado.
+            </AuthNotice>
+            <AuthNotice role="alert">O código informado expirou.</AuthNotice>
+          </article>
         </div>
       </section>
       <section aria-labelledby="pressable-title" className="showcase__section">

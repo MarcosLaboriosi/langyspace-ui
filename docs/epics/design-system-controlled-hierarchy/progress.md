@@ -3,7 +3,7 @@
 ## Status
 
 Planejamento, refinamento de produto, refinamento técnico, breakdown e revisão crítica concluídos.
-T01 a T11 concluídas. T12 é a única task em andamento.
+T01 a T12 concluídas. T13 é a única task em andamento.
 
 ## Baseline
 
@@ -110,11 +110,17 @@ Worktree root: `/private/tmp/langyspace-design-system-hierarchy.YMowcs`.
   equivalentes ao atom/painel compartilhado;
 - package, builds, testes focados e gates completos passaram, incluindo 1.820 cenários no Admin,
   630 no Student e 234 no Teacher, todos sem problemas geométricos.
+- T12 promoveu auth, field, compound/search, filter e segmented components com APIs native-first e
+  variações semânticas fechadas; adapters de form e state machines continuam fora do package;
+- uma tentativa de reutilizar alturas de actions em fields foi bloqueada pelos testes e corrigida
+  com tokens de família separados antes da adoção;
+- 45 testes, audit de 67 production files, build, tarball/Node/SSR smoke e 12 cenários focados em
+  390/1281/2048 passaram; screenshots normal/stress confirmaram hierarquia e contenção.
 
 ## Próxima subtask
 
-T12.1 — comparar os contratos atuais de AuthNotice/AuthTokenDigits, fields e filtros e promover
-somente equivalências provadas.
+T13.1 — migrar AuthNotice/AuthTokenDigits em Student/Teacher sem mover as state machines de login e
+cadastro.
 
 ## Blockers
 

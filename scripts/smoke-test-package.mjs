@@ -77,7 +77,7 @@ async function writeConsumer(packageSpec) {
   )
   await writeFile(
     join(consumerDirectory, 'src', 'main.tsx'),
-    `import { ActionLink, Button, EmptyState, IconButton, LoadingState, Pressable, Spinner, StatePanel, StatusChip } from '@langyspace/ui'
+    `import { ActionLink, AuthNotice, AuthTokenDigits, Button, EmptyState, FieldRoot, FilterPills, IconButton, LoadingState, Pressable, SearchInput, SegmentedControl, Spinner, StatePanel, StatusChip, TextInput } from '@langyspace/ui'
 import { createRoot } from 'react-dom/client'
 
 createRoot(document.getElementById('root')!).render(
@@ -97,6 +97,12 @@ createRoot(document.getElementById('root')!).render(
     <EmptyState title="Package empty state passed" />
     <LoadingState title="Package loading state passed" />
     <StatePanel state="error" title="Package error state passed" />
+    <FieldRoot label="Name"><TextInput defaultValue="Maria" /></FieldRoot>
+    <SearchInput aria-label="Search" defaultValue="Maria" />
+    <FilterPills aria-label="Filters" options={[{ label: 'All', value: 'all' }]} value="all" onChange={() => undefined} />
+    <SegmentedControl aria-label="Range" options={[{ label: '30 days', value: '30' }]} value="30" onChange={() => undefined} />
+    <AuthTokenDigits aria-label="Code" autoFocus={false} digitLabel="Digit" idPrefix="code" length={4} onTokenChange={() => undefined} />
+    <AuthNotice tone="info">Package auth notice passed</AuthNotice>
   </>,
 )
 `,
@@ -195,6 +201,20 @@ try {
 
   if (!javascript.includes('lsui-sc-state-panel')) {
     throw new Error('shared_state_panel_runtime_missing_from_consumer_build')
+  }
+
+  for (const componentId of [
+    'lsui-sc-auth-notice',
+    'lsui-sc-auth-token-digits',
+    'lsui-sc-field-root',
+    'lsui-sc-filter-pills',
+    'lsui-sc-search-input',
+    'lsui-sc-segmented-control',
+    'lsui-sc-text-input',
+  ]) {
+    if (!javascript.includes(componentId)) {
+      throw new Error(`shared_component_runtime_missing_${componentId}`)
+    }
   }
 
   console.log(

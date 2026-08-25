@@ -1,12 +1,19 @@
 export const tokens = {
   color: {
+    accent: {
+      default: '#ff1f5c',
+      tint: '#fff4f7',
+    },
     brand: {
       default: '#cc0f45',
       hover: '#b01343',
     },
     feedback: {
       danger: '#c62828',
+      dangerSoft: '#fdecec',
       dangerStrong: '#991b1b',
+      info: '#006c9a',
+      infoSoft: '#e8f7fc',
       success: '#166534',
       successStrong: '#14532d',
     },
@@ -48,6 +55,7 @@ export const tokens = {
       50: '#fafaf9',
       100: '#f1f1ef',
       300: '#d9d9d6',
+      400: '#d9d9d6',
       500: '#9a9a9a',
       600: '#6b6b6b',
       900: '#1a1a1a',
@@ -65,6 +73,13 @@ export const tokens = {
       sm: '2rem',
     },
   },
+  field: {
+    height: {
+      lg: '3.5rem',
+      md: '2.75rem',
+      sm: '2.5rem',
+    },
+  },
   motion: {
     duration: {
       interactive: '150ms',
@@ -76,6 +91,8 @@ export const tokens = {
   },
   radius: {
     card: '0.875rem',
+    control: '0.625rem',
+    lg: '0.5rem',
     pill: '999px',
     rounded: '0.75rem',
   },
@@ -91,15 +108,22 @@ export const tokens = {
     4: '1rem',
     5: '1.25rem',
     6: '1.5rem',
+    8: '2rem',
     16: '4rem',
   },
   typography: {
     fontSize: {
       md: '1rem',
+      lg: '1.125rem',
+      xl: '1.25rem',
+      '2xl': '1.5rem',
+      '3xl': '2rem',
       sm: '0.875rem',
       xs: '0.75rem',
     },
     fontWeight: {
+      bold: 700,
+      medium: 500,
       semibold: 600,
     },
     lineHeight: {

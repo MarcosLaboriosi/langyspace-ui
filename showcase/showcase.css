@@ -133,6 +133,22 @@ button {
   min-width: 0;
 }
 
+.showcase__field-stack {
+  display: grid;
+  align-content: start;
+  gap: 1rem;
+}
+
+.showcase__field-stack h3 {
+  margin-bottom: 0.5rem;
+}
+
+.showcase__field-stack > .lsui-sc-segmented-control,
+.showcase__field-stack > .lsui-sc-filter-pills,
+.showcase__field-stack > .lsui-sc-compound-control {
+  max-width: 100%;
+}
+
 .showcase__card--dark {
   color: #ffffff;
   background: #0a0a0a;

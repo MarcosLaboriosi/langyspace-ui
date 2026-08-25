@@ -7,14 +7,21 @@ const ConsumerSurface = styled.div`
 `
 
 const {
+  AuthNotice,
+  AuthTokenDigits,
   Button,
   EmptyState,
+  FieldRoot,
+  FilterPills,
   IconButton,
   LoadingState,
   Pressable,
+  SearchInput,
+  SegmentedControl,
   Spinner,
   StatePanel,
   StatusChip,
+  TextInput,
 } = await import('@langyspace/ui')
 
 const sheet = new ServerStyleSheet()
@@ -39,6 +46,36 @@ try {
         createElement(EmptyState, { title: 'Empty' }),
         createElement(LoadingState, { title: 'Loading' }),
         createElement(StatePanel, { state: 'error', title: 'Error' }),
+        createElement(
+          FieldRoot,
+          { label: 'Name' },
+          createElement(TextInput, { defaultValue: 'Maria' }),
+        ),
+        createElement(SearchInput, {
+          'aria-label': 'Search',
+          defaultValue: 'Maria',
+        }),
+        createElement(FilterPills, {
+          'aria-label': 'Filters',
+          onChange: () => undefined,
+          options: [{ label: 'All', value: 'all' }],
+          value: 'all',
+        }),
+        createElement(SegmentedControl, {
+          'aria-label': 'Range',
+          onChange: () => undefined,
+          options: [{ label: '30 days', value: '30' }],
+          value: '30',
+        }),
+        createElement(AuthTokenDigits, {
+          'aria-label': 'Code',
+          autoFocus: false,
+          digitLabel: 'Digit',
+          idPrefix: 'code',
+          length: 4,
+          onTokenChange: () => undefined,
+        }),
+        createElement(AuthNotice, { tone: 'info' }, 'Code sent'),
       ),
     ),
   )
@@ -75,6 +112,20 @@ if (!markup.includes('lsui-sc-state-panel')) {
   throw new Error('shared_state_panel_component_id_is_not_explicit')
 }
 
+for (const componentId of [
+  'lsui-sc-auth-notice',
+  'lsui-sc-auth-token-digits',
+  'lsui-sc-field-root',
+  'lsui-sc-filter-pills',
+  'lsui-sc-search-input',
+  'lsui-sc-segmented-control',
+  'lsui-sc-text-input',
+]) {
+  if (!markup.includes(componentId)) {
+    throw new Error(`shared_component_id_is_not_explicit_${componentId}`)
+  }
+}
+
 if (buttonClasses.includes(ConsumerSurface.styledComponentId)) {
   throw new Error('shared_button_component_id_collides_with_consumer')
 }
@@ -101,4 +152,6 @@ if (!collectedCss.includes('border-radius:999px')) {
   throw new Error('shared_button_declarations_missing_from_collected_ssr_css')
 }
 
-console.log('SSR smoke passed for the packaged Button.')
+console.log(
+  'SSR smoke passed for packaged actions, fields, filters and auth components.',
+)
