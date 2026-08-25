@@ -14,7 +14,36 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  validate:
+  architecture:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v6
+        with:
+          version: 10.33.2
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Validate architecture and source contracts
+        run: |
+          pnpm run test:button-system
+          pnpm run lint
+          pnpm run format:check
+          pnpm run typecheck
+
+  tests:
     runs-on: ubuntu-latest
     timeout-minutes: 20
 
@@ -39,8 +68,76 @@ jobs:
       - name: Install Chromium
         run: pnpm exec playwright install --with-deps chromium
 
-      - name: Validate package and visual layout
-        run: pnpm run validate:ui
+      - name: Validate behavior, accessibility and coverage
+        run: |
+          pnpm test
+          pnpm run test:coverage
+
+  package:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v6
+        with:
+          version: 10.33.2
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Validate public package and budgets
+        run: |
+          pnpm run build
+          pnpm run check:api
+          pnpm run test:bundle
+          pnpm run test:package
+
+  visual:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v6
+        with:
+          version: 10.33.2
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Install Chromium
+        run: pnpm exec playwright install --with-deps chromium
+
+      - name: Validate catalog layouts
+        run: LAYOUT_AUDIT_SCREENSHOTS=1 pnpm run test:layout
+
+      - name: Upload static catalog
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ui-catalog-${{ github.sha }}
+          path: storybook-static
+          if-no-files-found: error
+          retention-days: 14
 
       - name: Upload visual evidence on failure
         if: failure()
@@ -50,3 +147,24 @@ jobs:
           path: .local/layout-audit
           if-no-files-found: ignore
           retention-days: 7
+
+  validate:
+    if: always()
+    needs:
+      - architecture
+      - package
+      - tests
+      - visual
+    runs-on: ubuntu-latest
+    steps:
+      - name: Require every UI gate
+        env:
+          ARCHITECTURE_RESULT: ${{ needs.architecture.result }}
+          PACKAGE_RESULT: ${{ needs.package.result }}
+          TESTS_RESULT: ${{ needs.tests.result }}
+          VISUAL_RESULT: ${{ needs.visual.result }}
+        run: |
+          test "${ARCHITECTURE_RESULT}" = success
+          test "${PACKAGE_RESULT}" = success
+          test "${TESTS_RESULT}" = success
+          test "${VISUAL_RESULT}" = success

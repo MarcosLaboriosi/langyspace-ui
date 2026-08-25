@@ -10,7 +10,7 @@ status, estado de conteúdo, fields, filtros e autenticação.
 Instale styled-components e fixe sempre um artefato imutável de release:
 
 ```bash
-pnpm add styled-components@^6.4.0 '@langyspace/ui@https://github.com/MarcosLaboriosi/langyspace-ui/releases/download/v1.0.0/langyspace-ui-1.0.0.tgz'
+pnpm add styled-components@^6.4.0 '@langyspace/ui@https://github.com/MarcosLaboriosi/langyspace-ui/releases/download/v1.1.0/langyspace-ui-1.1.0.tgz'
 ```
 
 Não existe import de CSS. O Button injeta seus estilos com styled-components e funciona sem
@@ -389,6 +389,9 @@ pertencem ao componente local. Não use Pressable para conservar uma versão qua
 ## Development
 
 Requirements: Node 24 and pnpm 10.33.2.
+
+O catálogo publicado fica em <https://marcoslaboriosi.github.io/langyspace-ui/>. Ele é gerado pelo
+mesmo SHA que passou no gate agregado de CI; PRs também produzem um artifact estático revisável.
 
 ```bash
 pnpm install --frozen-lockfile
