@@ -37,6 +37,10 @@ describe('CompoundControl', () => {
     )
 
     const name = screen.getByRole('textbox', { name: 'Nome' })
+    expect(name.parentElement).toHaveStyle({
+      borderRadius: '0.625rem',
+      minHeight: '3.5rem',
+    })
     expect(name).toBeDisabled()
     expect(name).toHaveAttribute('aria-invalid', 'true')
     expect(name).toHaveStyle({ minHeight: '3.5rem' })

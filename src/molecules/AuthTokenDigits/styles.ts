@@ -29,7 +29,7 @@ export const Input = styled.input<{ $hasError: boolean; $isFilled: boolean }>`
         ? tokens.color.accent.default
         : $isFilled
           ? tokens.color.neutral[950]
-          : tokens.color.neutral[400]};
+          : tokens.color.neutral[300]};
   border-radius: ${tokens.radius.card};
   outline: 0;
   background-color: ${({ $hasError, $isFilled }) =>

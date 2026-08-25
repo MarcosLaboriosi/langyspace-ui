@@ -10,6 +10,12 @@ const options = [
   { label: '90 dias', value: 90 },
 ] as const
 
+const longOptions = [
+  { label: 'Últimos 30 dias', value: 30 },
+  { label: 'Últimos 90 dias', value: 90 },
+  { label: 'Desde o início', value: 'all' },
+] as const
+
 function SegmentedExample({
   surface = 'light',
 }: {
@@ -90,4 +96,20 @@ export const Narrow: Story = {
     ),
   ],
   render: () => <SegmentedExample />,
+}
+
+export const NarrowLongLabels: Story = {
+  tags: ['layout-boundary', 'visual-review'],
+  decorators: [
+    (Story) => (
+      <NarrowSurface>
+        <Story />
+      </NarrowSurface>
+    ),
+  ],
+  args: {
+    'aria-label': 'Período detalhado do relatório',
+    options: longOptions,
+    value: 90,
+  },
 }

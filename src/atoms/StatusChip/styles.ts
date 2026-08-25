@@ -7,7 +7,7 @@ const sizeStyles = {
     font-size: ${tokens.typography.fontSize.xs};
   `,
   sm: css`
-    font-size: 0.6875rem;
+    font-size: ${tokens.typography.fontSize['2xs']};
   `,
 } satisfies Record<StatusChipSize, ReturnType<typeof css>>
 
@@ -22,7 +22,7 @@ export const Chip = styled.span.withConfig({
   width: fit-content;
   max-width: 100%;
   gap: 0.375rem;
-  padding: 0.25rem 0.625rem;
+  padding: ${tokens.spacing[1]} 0.625rem;
   border-radius: ${tokens.radius.pill};
   color: ${({ $tone }) => tokens.color.status[$tone].foreground};
   background: ${({ $tone }) => tokens.color.status[$tone].background};

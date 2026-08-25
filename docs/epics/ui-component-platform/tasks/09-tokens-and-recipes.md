@@ -32,6 +32,18 @@ cosmética livre.
 - visual/a11y/layout gates passam;
 - public API continua sem color/radius/spacing props livres.
 
+## Resultado
+
+- as 86 ocorrências em owners de style foram classificadas em foundations, recipe compartilhada,
+  recipe privada ou borda estrutural em `literal-classification.md`;
+- `FilterPills` recuperou escala monotônica de tamanho, `CompoundControl lg` passou a compartilhar
+  a geometria dos fields e `SegmentedControl` preserva uma única trilha com scroll estreito;
+- inverse roles e `fontSize.2xs` são os únicos tokens novos; StatePanel e demais geometrias
+  singulares permanecem constants privadas;
+- `neutral[400]` permanece somente como alias deprecated para não quebrar consumers v1;
+- o audit rejeita props cosméticas livres com tipo `string`/`number`;
+- quatro stories before/after, 72 unit tests, 68 story/axe tests e 36 cenários focados passaram.
+
 ## Rollback
 
 Tokens aditivos podem permanecer sem uso; recipe changes são revertidos pelo commit focado e o

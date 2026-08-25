@@ -19,9 +19,9 @@ const sizeStyles = {
     padding-left: ${tokens.spacing[3]};
   `,
   lg: css`
-    min-height: 3rem;
+    min-height: ${tokens.field.height.lg};
     gap: ${tokens.spacing[3]};
-    border-radius: ${tokens.radius.rounded};
+    border-radius: ${tokens.radius.control};
     padding-right: ${tokens.spacing[3]};
     padding-left: ${tokens.spacing[3]};
   `,

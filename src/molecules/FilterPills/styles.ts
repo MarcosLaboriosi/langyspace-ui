@@ -5,18 +5,18 @@ import type { FilterPillsOverflow, FilterPillsSize } from './types'
 
 const sizeStyles = {
   md: css`
-    min-height: 2.5rem;
+    min-height: ${tokens.control.height.md};
     gap: ${tokens.spacing[2]};
     padding-right: ${tokens.spacing[4]};
     padding-left: ${tokens.spacing[4]};
-    font-size: ${tokens.typography.fontSize.xs};
+    font-size: ${tokens.typography.fontSize.sm};
     font-weight: ${tokens.typography.fontWeight.bold};
   `,
   sm: css`
-    min-height: 2rem;
+    min-height: ${tokens.control.height.sm};
     padding-right: ${tokens.spacing[3]};
     padding-left: ${tokens.spacing[3]};
-    font-size: ${tokens.typography.fontSize.sm};
+    font-size: ${tokens.typography.fontSize.xs};
     font-weight: ${tokens.typography.fontWeight.medium};
   `,
 } satisfies Record<FilterPillsSize, ReturnType<typeof css>>
@@ -81,9 +81,9 @@ export const Item = styled(Pressable)<{
 export const Count = styled.span`
   min-width: 1.375rem;
   border-radius: ${tokens.radius.pill};
-  background: rgba(255, 255, 255, 0.18);
+  background: ${tokens.color.inverse.surfaceSubtle};
   color: inherit;
-  font-size: 0.6875rem;
+  font-size: ${tokens.typography.fontSize['2xs']};
   line-height: 1;
   padding: ${tokens.spacing[1]} 0.4375rem;
   text-align: center;

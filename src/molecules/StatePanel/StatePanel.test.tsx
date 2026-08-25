@@ -53,6 +53,7 @@ describe('StatePanel', () => {
       borderColor: '#d8d4cb',
       borderRadius: '0.875rem',
       color: '#6b6b6b',
+      minHeight: '13.125rem',
     })
     expect(
       screen.getByText('Confira sua conexão e tente outra vez.'),

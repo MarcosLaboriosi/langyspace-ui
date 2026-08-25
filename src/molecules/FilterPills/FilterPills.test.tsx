@@ -60,4 +60,32 @@ describe('FilterPills', () => {
       screen.getByRole('button', { name: 'Alunos ativos: 4' }),
     ).toHaveAttribute('aria-pressed', 'true')
   })
+
+  it('keeps the named size scale monotonic', () => {
+    render(
+      <>
+        <FilterPills
+          aria-label="Filtro pequeno"
+          onChange={() => undefined}
+          options={options}
+          size="sm"
+          value="all"
+        />
+        <FilterPills
+          aria-label="Filtro médio"
+          onChange={() => undefined}
+          options={options}
+          size="md"
+          value="all"
+        />
+      </>,
+    )
+
+    expect(
+      screen.getByRole('group', { name: 'Filtro pequeno' }).firstElementChild,
+    ).toHaveStyle({ fontSize: '0.75rem', minHeight: '2rem' })
+    expect(
+      screen.getByRole('group', { name: 'Filtro médio' }).firstElementChild,
+    ).toHaveStyle({ fontSize: '0.875rem', minHeight: '2.5rem' })
+  })
 })

@@ -34,4 +34,12 @@ export default defineAuditConfig({
     molecules: ['atoms', 'foundations', 'internal', 'molecules', 'primitives'],
     primitives: ['foundations', 'primitives'],
   },
+  additionalRules: [
+    {
+      message:
+        'free cosmetic prop; expose a semantic variant or keep the recipe private',
+      pattern:
+        /^\s+(?:color|height|padding|radius|spacing)\??\s*:\s*(?:number|string)\b/m,
+    },
+  ],
 })

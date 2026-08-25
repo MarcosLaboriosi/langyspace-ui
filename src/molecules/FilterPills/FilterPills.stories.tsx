@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import { useState } from 'react'
 import { expect } from 'storybook/test'
-import { NarrowSurface } from '../../../.storybook/fixtures'
+import { NarrowSurface, StoryStack } from '../../../.storybook/fixtures'
 import { FilterPills } from '.'
 
 const options = [
@@ -52,6 +52,16 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 export const Default: Story = {}
+
+export const Sizes: Story = {
+  tags: ['visual-review'],
+  render: () => (
+    <StoryStack>
+      <FilterPills {...meta.args} aria-label="Filtro pequeno" size="sm" />
+      <FilterPills {...meta.args} aria-label="Filtro médio" size="md" />
+    </StoryStack>
+  ),
+}
 
 export const Interactive: Story = {
   render: () => <FilterExample />,

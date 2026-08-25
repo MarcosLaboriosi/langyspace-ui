@@ -2,6 +2,13 @@ import { styled } from 'styled-components'
 import { tokens } from '../../foundations/tokens'
 import type { StatePanelDensity, StatePanelSurface } from './types'
 
+const compactDescriptionFontSize = '0.8125rem'
+const compactDescriptionOffset = '0.4375rem'
+const compactPanelGap = '0.625rem'
+const compactPanelPadding = '1.875rem'
+const contentMaxWidth = '32rem'
+const filledPanelMinHeight = '13.125rem'
+
 export const Container = styled.div.withConfig({
   componentId: 'lsui-sc-state-panel',
 })<{
@@ -11,11 +18,11 @@ export const Container = styled.div.withConfig({
 }>`
   display: grid;
   min-width: 0;
-  min-height: ${({ $fill }) => ($fill ? '13.125rem' : 'auto')};
+  min-height: ${({ $fill }) => ($fill ? filledPanelMinHeight : 'auto')};
   align-content: center;
   justify-items: center;
-  gap: ${({ $density }) => ($density === 'compact' ? '0.625rem' : tokens.spacing[2])};
-  padding: ${({ $density }) => ($density === 'compact' ? '1.875rem' : `${tokens.spacing[16]} ${tokens.spacing[5]}`)};
+  gap: ${({ $density }) => ($density === 'compact' ? compactPanelGap : tokens.spacing[2])};
+  padding: ${({ $density }) => ($density === 'compact' ? compactPanelPadding : `${tokens.spacing[16]} ${tokens.spacing[5]}`)};
   border-width: 1px;
   border-style: ${({ $surface }) => ($surface === 'dashed' ? 'dashed' : 'solid')};
   border-color: ${({ $surface }) =>
@@ -32,7 +39,7 @@ export const Icon = styled.span`
   flex-shrink: 0;
 `
 export const Content = styled.div`
-  max-width: 32rem;
+  max-width: ${contentMaxWidth};
 `
 export const Title = styled.strong`
   display: block;
@@ -42,8 +49,8 @@ export const Title = styled.strong`
   line-height: ${tokens.typography.lineHeight.snug};
 `
 export const Description = styled.div<{ $density: StatePanelDensity }>`
-  margin-top: ${({ $density }) => ($density === 'compact' ? '0.4375rem' : tokens.spacing[1])};
-  font-size: ${({ $density }) => ($density === 'compact' ? '0.8125rem' : tokens.typography.fontSize.sm)};
+  margin-top: ${({ $density }) => ($density === 'compact' ? compactDescriptionOffset : tokens.spacing[1])};
+  font-size: ${({ $density }) => ($density === 'compact' ? compactDescriptionFontSize : tokens.typography.fontSize.sm)};
   line-height: ${tokens.typography.lineHeight.normal};
 `
 export const Action = styled.div<{ $density: StatePanelDensity }>`

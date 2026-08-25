@@ -28,6 +28,19 @@ type Story = StoryObj<typeof meta>
 
 export const Default: Story = {}
 
+export const Sizes: Story = {
+  tags: ['visual-review'],
+  render: () => (
+    <StoryStack>
+      {(['sm', 'md', 'lg'] as const).map((size) => (
+        <CompoundControl key={size} leading={<span>R$</span>} size={size}>
+          <TextInput aria-label={`Valor ${size}`} defaultValue="480,00" />
+        </CompoundControl>
+      ))}
+    </StoryStack>
+  ),
+}
+
 export const States: Story = {
   tags: ['visual-review'],
   render: () => (

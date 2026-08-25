@@ -56,11 +56,17 @@ export const tokens = {
       },
     },
     focus: 'rgba(0, 242, 234, 0.72)',
+    inverse: {
+      borderSubtle: 'rgba(255, 255, 255, 0.18)',
+      contentMuted: 'rgba(255, 255, 255, 0.72)',
+      surfaceSubtle: 'rgba(255, 255, 255, 0.18)',
+    },
     neutral: {
       0: '#ffffff',
       50: '#fafaf9',
       100: '#f1f1ef',
       300: '#d9d9d6',
+      /** @deprecated Compatibility alias. Prefer neutral[300] for borders. */
       400: '#d9d9d6',
       500: '#9a9a9a',
       600: '#6b6b6b',
@@ -124,6 +130,7 @@ export const tokens = {
   },
   typography: {
     fontSize: {
+      '2xs': '0.6875rem',
       md: '1rem',
       lg: '1.125rem',
       xl: '1.25rem',

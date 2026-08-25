@@ -2,8 +2,8 @@
 
 ## Status
 
-Investigação, refinamento de produto, refinamento técnico, breakdown, revisão crítica e T01–T08
-concluídos. T09 é a única task em andamento.
+Investigação, refinamento de produto, refinamento técnico, breakdown, revisão crítica e T01–T09
+concluídos. T10 é a única task em andamento.
 
 ## Baseline
 
@@ -85,10 +85,16 @@ concluídos. T09 é a única task em andamento.
 - 25 unit files/70 tests, 63 story/axe tests e 60 cenários de layout focados passaram; screenshots
   de CompoundControl, AuthNotice e StatusChip em 390/1281/2048 foram inspecionados;
 - bundle atual: 38,84 kB / 8,51 kB gzip.
+- T09 classificou os 86 literals de production style owners sem transformar geometria singular em
+  token global; o catálogo documenta os boundaries de control, field, inverse e tiny metadata;
+- `FilterPills` agora possui escala sm/md monotônica, `CompoundControl lg` compartilha altura/radius
+  da family e `SegmentedControl` deixou de quebrar uma escolha exclusiva em múltiplas linhas;
+- before/after foi capturado em 390/1281/2048; 72 unit tests, 68 story/axe tests e 36 cenários
+  focados passaram, sem overflow de viewport ou perda de conteúdo acessível.
 
 ## Próxima subtask
 
-T09 — classificar literais e convergir recipes/tokens com comparação visual before/after.
+T10 — completar package/API smokes e calibrar budgets de surface, bundle e coverage.
 
 ## Blockers
 
@@ -97,10 +103,6 @@ Nenhum. GitHub Pages ainda não está configurado e não bloqueia o build/artifa
 ## Decisões abertas controladas
 
 - ref pattern final;
-- CompoundControl disabled ownership;
-- AuthTokenDigits supported lengths/keyboard;
-- SegmentedControl narrow layout;
-- token versus private constant por literal;
 - tooling de API diff/bundle;
 - Pages versus CI artifact na primeira publicação;
 - family piloto da próxima onda.

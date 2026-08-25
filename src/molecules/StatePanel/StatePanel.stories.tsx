@@ -27,6 +27,13 @@ type Story = StoryObj<typeof meta>
 
 export const Default: Story = {}
 
+export const Filled: Story = {
+  tags: ['visual-review'],
+  args: {
+    fill: true,
+  },
+}
+
 export const States: Story = {
   tags: ['visual-review'],
   render: () => (

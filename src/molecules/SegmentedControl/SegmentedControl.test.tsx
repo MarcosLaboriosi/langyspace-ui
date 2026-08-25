@@ -37,4 +37,22 @@ describe('SegmentedControl', () => {
     await user.click(screen.getByRole('button', { name: 'Todos' }))
     expect(onChange).toHaveBeenCalledWith('all')
   })
+
+  it('keeps exclusive choices in one horizontally scrollable track', () => {
+    render(
+      <SegmentedControl
+        aria-label="Período detalhado"
+        onChange={() => undefined}
+        options={options}
+        value="all"
+      />,
+    )
+
+    expect(
+      screen.getByRole('group', { name: 'Período detalhado' }),
+    ).toHaveStyle({
+      flexWrap: 'nowrap',
+      overflowX: 'auto',
+    })
+  })
 })

@@ -25,7 +25,7 @@ const intentStyles = {
   `,
   inverse: css`
     & {
-      border-color: rgba(255, 255, 255, 0.2);
+      border-color: ${tokens.color.inverse.borderSubtle};
     }
   `,
   neutral: css``,
