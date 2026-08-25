@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
+import { expect } from 'storybook/test'
 import { StoryStack } from '../../../.storybook/fixtures'
 import { TextInput } from '../../atoms/TextInput'
 import { CompoundControl } from '.'
@@ -35,15 +36,19 @@ export const States: Story = {
         <TextInput aria-label="Valor disponível" defaultValue="480,00" />
       </CompoundControl>
       <CompoundControl invalid leading={<span>R$</span>}>
-        <TextInput
-          aria-label="Valor inválido"
-          aria-invalid="true"
-          defaultValue="0,00"
-        />
+        <TextInput aria-label="Valor inválido" defaultValue="0,00" />
       </CompoundControl>
       <CompoundControl disabled leading={<span>R$</span>}>
-        <TextInput aria-label="Valor indisponível" disabled />
+        <TextInput aria-label="Valor indisponível" />
       </CompoundControl>
     </StoryStack>
   ),
+  play: async ({ canvas }) => {
+    await expect(
+      canvas.getByRole('textbox', { name: 'Valor inválido' }),
+    ).toHaveAttribute('aria-invalid', 'true')
+    await expect(
+      canvas.getByRole('textbox', { name: 'Valor indisponível' }),
+    ).toBeDisabled()
+  },
 }
