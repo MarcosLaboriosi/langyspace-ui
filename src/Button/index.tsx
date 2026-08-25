@@ -1,4 +1,5 @@
 import { Icon } from '../Icon'
+import { Spinner } from '../Spinner'
 import * as Styled from './styles'
 import type { ButtonProps } from './types'
 
@@ -17,8 +18,6 @@ export function Button({
   variant = 'primary',
   ...props
 }: ButtonProps) {
-  const spinsAtStart = isLoading && Boolean(iconStart)
-
   return (
     <Styled.Button
       {...props}
@@ -36,12 +35,12 @@ export function Button({
       data-size={size}
     >
       {iconOnly ? (
-        <Icon icon={children} isLoading={isLoading} />
+        <Icon icon={isLoading ? <Spinner /> : children} />
       ) : (
         <>
-          <Icon icon={iconStart} isLoading={spinsAtStart} />
+          <Icon icon={iconStart} />
           {children}
-          <Icon icon={iconEnd} isLoading={isLoading && !spinsAtStart} />
+          <Icon icon={isLoading ? <Spinner /> : iconEnd} />
         </>
       )}
     </Styled.Button>

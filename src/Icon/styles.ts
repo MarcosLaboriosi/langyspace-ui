@@ -1,10 +1,4 @@
-import { keyframes, styled } from 'styled-components'
-
-const spin = keyframes`
-  to {
-    transform: rotate(360deg);
-  }
-`
+import { styled } from 'styled-components'
 
 export const Icon = styled.span.withConfig({
   componentId: 'lsui-sc-icon',
@@ -16,21 +10,5 @@ export const Icon = styled.span.withConfig({
 
   > svg {
     display: block;
-  }
-`
-
-export const Spinner = styled.span.withConfig({
-  componentId: 'lsui-sc-spinner',
-})`
-  box-sizing: border-box;
-  width: 1em;
-  height: 1em;
-  border: 2px solid currentcolor;
-  border-right-color: transparent;
-  border-radius: 50%;
-  animation: ${spin} 0.8s linear infinite;
-
-  @media (prefers-reduced-motion: reduce) {
-    animation: none;
   }
 `

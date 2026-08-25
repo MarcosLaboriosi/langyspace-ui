@@ -130,7 +130,7 @@ describe('Button', () => {
     expect(button.lastElementChild).toContainElement(screen.getByTestId('end'))
   })
 
-  it('keeps its label, replaces the icon and blocks interaction while loading', async () => {
+  it('keeps its label and start icon while loading blocks interaction', async () => {
     const onClick = vi.fn()
     const user = userEvent.setup()
 
@@ -156,11 +156,14 @@ describe('Button', () => {
       'aria-hidden',
       'true',
     )
-    expect(screen.queryByTestId('consumer-icon')).not.toBeInTheDocument()
+    expect(screen.getByTestId('consumer-icon')).toBeInTheDocument()
+    expect(button.lastElementChild).toContainElement(
+      button.querySelector('.lsui-sc-spinner'),
+    )
     expect(onClick).not.toHaveBeenCalled()
   })
 
-  it('spins on the starting edge only when that edge has an icon', () => {
+  it('always replaces or creates the ending slot with one spinner', () => {
     const { rerender } = render(
       <Button iconEnd={<svg data-testid="end" />} isLoading>
         <span data-testid="label">Salvar</span>
@@ -187,9 +190,11 @@ describe('Button', () => {
     button = screen.getByRole('button', { name: 'Salvar' })
 
     expect(button.querySelectorAll('.lsui-sc-spinner')).toHaveLength(1)
-    expect(button.firstElementChild).toContainElement(spinner())
-    expect(screen.queryByTestId('start')).not.toBeInTheDocument()
-    expect(button.lastElementChild).toContainElement(screen.getByTestId('end'))
+    expect(button.firstElementChild).toContainElement(
+      screen.getByTestId('start'),
+    )
+    expect(button.lastElementChild).toContainElement(spinner())
+    expect(screen.queryByTestId('end')).not.toBeInTheDocument()
   })
 
   it('lets loading override the busy and disabled values the consumer sent', () => {

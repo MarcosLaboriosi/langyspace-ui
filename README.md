@@ -1,14 +1,15 @@
 # @langyspace/ui
 
-Biblioteca React compartilhada pelos produtos Langy.space. Expõe um `Button` canônico para ações e
-um `Pressable` mínimo para controles específicos de produto.
+Biblioteca React compartilhada pelos produtos Langy.space. Expõe `Button` para comandos,
+`ActionLink` para navegação com aparência de ação, `Pressable` para controles específicos e
+`Spinner` para espera.
 
 ## Installation
 
 Instale styled-components e fixe sempre um artefato imutável de release:
 
 ```bash
-pnpm add styled-components@^6.4.0 '@langyspace/ui@https://github.com/MarcosLaboriosi/langyspace-ui/releases/download/v0.5.1/langyspace-ui-0.5.1.tgz'
+pnpm add styled-components@^6.4.0 '@langyspace/ui@https://github.com/MarcosLaboriosi/langyspace-ui/releases/download/v0.6.0/langyspace-ui-0.6.0.tgz'
 ```
 
 Não existe import de CSS. O Button injeta seus estilos com styled-components e funciona sem
@@ -88,8 +89,8 @@ labels curtas e atômicas devem evitar a quebra na sua composição e trocar de 
 breakpoint do produto.
 
 Enquanto `isLoading` está ativo o botão fica `disabled` e `aria-busy`, mantém o label e mostra um
-único spinner: no lado inicial quando `iconStart` existe, senão no final. O ícone substituído
-desaparece; o do outro lado permanece.
+único Spinner no slot final. O ícone inicial permanece; o ícone final é substituído durante a espera
+ou o slot é criado quando ele não existia. Loading nunca troca o texto do comando por reticências.
 
 Para um controle só de ícone, use `iconOnly` e passe o ícone como children. Ele fica quadrado na
 altura do `size`, e o raio pill entrega o círculo sem precisar de prop de forma:
@@ -117,6 +118,61 @@ contrato:
 | `data-loading`                                      | os estilos do próprio botão dependem dele                   |
 
 Não estilize por essas marcas: para composição use `styled(Button)`.
+
+## ActionLink
+
+Use `ActionLink` quando a ação canônica navega por `href`. Ele renderiza um `<a>` nativo e
+compartilha com Button somente o recipe de tamanho, densidade, forma, hierarquia, foco e motion.
+
+```tsx
+import { ActionLink } from '@langyspace/ui'
+
+export function NavigationActions() {
+  return (
+    <>
+      <ActionLink href="/cadastro" iconEnd={<ArrowRight />} tone="brand">
+        Começar agora
+      </ActionLink>
+      <ActionLink href="/planos" variant="secondary">
+        Ver planos
+      </ActionLink>
+      <ActionLink
+        href="https://meet.google.com/example"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        Abrir Meet
+      </ActionLink>
+    </>
+  )
+}
+```
+
+`href` é obrigatório. `variant` aceita somente `primary`, `secondary` e `tertiary`; danger e
+success são comandos, não destinos. O componente também aceita `size`, `density`, `shape`,
+`fullWidth`, `tone="brand"` apenas com primary, `iconStart`, `iconEnd` e props nativas de anchor.
+Loading, disabled, icon-only, router e polymorphism não fazem parte desta API. Links especiais como
+WhatsApp flutuante, chips e ícones sem label continuam componentes de produto.
+
+## Spinner
+
+Use o atom exportado quando a espera não pertence a um Button. O container continua responsável
+pelo status acessível e pela copy; o Spinner é sempre decorativo, usa `currentColor` e respeita
+`prefers-reduced-motion`.
+
+```tsx
+import { Spinner } from '@langyspace/ui'
+
+export function LoadingState() {
+  return (
+    <div aria-live="polite">
+      <Spinner size="md" /> Carregando aulas
+    </div>
+  )
+}
+```
+
+`size` aceita `inherit` (default, `1em`), `sm` (16 px), `md` (20 px) e `lg` (24 px).
 
 `0.3.0` trocou `icon` mais `iconPosition` por `iconStart` e `iconEnd`, o que aceita um ícone de cada
 lado e elimina a prop que só existia para modificar outra. Removeu também as classes `lsui-button`,
@@ -151,9 +207,9 @@ src/Button/
   types.ts
 ```
 
-O slot de ícone é o componente `Icon`, em `src/Icon/`, porque ele não depende do Button: envolve um
-nó qualquer ou mostra o spinner. Ele não é exportado pelo pacote enquanto não houver um segundo uso
-real.
+O slot de ícone é o componente interno `Icon`, em `src/Icon/`, porque ele não depende do Button:
+envolve um nó opcional sem decidir estado. Ele é compartilhado por Button e ActionLink, mas não é
+exportado enquanto não houver uso direto real nos produtos.
 
 ## Pressable
 
@@ -177,7 +233,7 @@ pertencem ao componente local. Não use Pressable para conservar uma versão qua
 
 ### Deliberate limits
 
-- Use links para navegação; o Button v1 não tem `as`, `asChild` nem polymorphism.
+- Use ActionLink para navegação canônica; Button não tem `as`, `asChild` nem polymorphism.
 - Tabs, cards, calendário, quiz e outros controles de domínio continuam locais sobre Pressable.
 - Danger, success e brand só representam os papéis semânticos documentados; não são props de cor.
 - Uma nova variação exige uso real em dois produtos ou uma decisão de produto explícita.

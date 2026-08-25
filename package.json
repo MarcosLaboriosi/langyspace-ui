@@ -1,6 +1,6 @@
 {
   "name": "@langyspace/ui",
-  "version": "0.5.1",
+  "version": "0.6.0",
   "description": "Shared React UI primitives for Langy.space products.",
   "type": "module",
   "license": "UNLICENSED",
@@ -28,10 +28,11 @@
     "format:check": "prettier . --check",
     "lint": "eslint .",
     "test": "vitest run",
+    "test:button-system": "node scripts/audit-button-system.mjs",
     "test:layout": "node scripts/audit-layout.mjs",
     "test:package": "node scripts/smoke-test-package.mjs",
     "typecheck": "tsc --noEmit -p tsconfig.json",
-    "validate:ui": "pnpm run lint && pnpm run format:check && pnpm run typecheck && pnpm test && pnpm run build && pnpm run test:package && LAYOUT_AUDIT_SCREENSHOTS=1 pnpm run test:layout"
+    "validate:ui": "pnpm run test:button-system && pnpm run lint && pnpm run format:check && pnpm run typecheck && pnpm test && pnpm run build && pnpm run test:package && LAYOUT_AUDIT_SCREENSHOTS=1 pnpm run test:layout"
   },
   "peerDependencies": {
     "react": ">=19 <20",

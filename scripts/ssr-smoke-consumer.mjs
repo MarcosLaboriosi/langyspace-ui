@@ -6,7 +6,7 @@ const ConsumerSurface = styled.div`
   color: #123456;
 `
 
-const { Button, Pressable } = await import('@langyspace/ui')
+const { Button, Pressable, Spinner } = await import('@langyspace/ui')
 
 const sheet = new ServerStyleSheet()
 let markup
@@ -20,6 +20,7 @@ try {
         null,
         createElement(Button, { size: 'lg', tone: 'brand' }, 'SSR'),
         createElement(Pressable, null, 'Pressable SSR'),
+        createElement(Spinner, { size: 'md' }),
       ),
     ),
   )
@@ -38,6 +39,10 @@ if (!buttonClasses.includes('lsui-sc-button')) {
 
 if (!markup.includes('lsui-sc-pressable')) {
   throw new Error('shared_pressable_component_id_is_not_explicit')
+}
+
+if (!markup.includes('lsui-sc-spinner')) {
+  throw new Error('shared_spinner_component_id_is_not_explicit')
 }
 
 if (buttonClasses.includes(ConsumerSurface.styledComponentId)) {

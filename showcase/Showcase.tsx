@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { Button } from '../src'
+import { ActionLink, Button } from '../src'
 import * as Styled from './styles'
 import type { ButtonSize, ButtonVariant } from '../src'
 
@@ -47,12 +47,11 @@ export function Showcase() {
       data-audit-mode={stressMode ? 'stress' : 'normal'}
     >
       <header className="showcase__header">
-        <p className="showcase__eyebrow">LANGY.SPACE UI · V0.5.1</p>
-        <h1>Button e Pressable</h1>
+        <p className="showcase__eyebrow">LANGY.SPACE UI · V0.6.0</p>
+        <h1>Button, ActionLink e Pressable</h1>
         <p>
-          Um componente nativo, pequeno e previsível para ações principais,
-          secundárias, terciárias, destrutivas e de conclusão, com uma base
-          explícita para controles de domínio.
+          Componentes nativos e previsíveis para comandos, navegação com
+          aparência de ação e controles específicos de domínio.
         </p>
       </header>
       <section aria-labelledby="variants-title" className="showcase__section">
@@ -115,7 +114,7 @@ export function Showcase() {
             <h3>Indisponível e loading</h3>
             <div className="showcase__button-column">
               <Button disabled>Indisponível</Button>
-              <Button iconEnd={ArrowIcon} isLoading>
+              <Button iconEnd={ArrowIcon} iconStart={ArrowIcon} isLoading>
                 Guardando alterações
               </Button>
             </div>
@@ -163,6 +162,38 @@ export function Showcase() {
                 Ver detalhes
               </Styled.DarkTertiaryButton>
             </div>
+          </article>
+        </div>
+      </section>
+      <section aria-labelledby="links-title" className="showcase__section">
+        <div className="showcase__section-heading">
+          <p>NAVEGAÇÃO</p>
+          <h2 id="links-title">Links com aparência de ação</h2>
+        </div>
+        <div className="showcase__state-grid">
+          <article className="showcase__card">
+            <h3>Hierarquia</h3>
+            <div className="showcase__button-column">
+              <ActionLink
+                data-audit-link-focus
+                href="#principal"
+                iconEnd={ArrowIcon}
+              >
+                {standardLabel}
+              </ActionLink>
+              <ActionLink href="#secundaria" variant="secondary">
+                Ação secundária
+              </ActionLink>
+              <ActionLink href="#terciaria" variant="tertiary">
+                Ação terciária
+              </ActionLink>
+            </div>
+          </article>
+          <article className="showcase__narrow-card">
+            <h3>Largura e marca</h3>
+            <ActionLink fullWidth href="#marca" size="lg" tone="brand">
+              {stressMode ? stressToken : 'Começar agora'}
+            </ActionLink>
           </article>
         </div>
       </section>

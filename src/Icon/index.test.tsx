@@ -25,24 +25,6 @@ describe('Icon', () => {
     )
   })
 
-  it('replaces the node with a hidden spinner while loading', () => {
-    const { container } = render(
-      <Icon icon={<svg data-testid="glyph" />} isLoading />,
-    )
-
-    expect(screen.queryByTestId('glyph')).not.toBeInTheDocument()
-    expect(container.querySelector('.lsui-sc-spinner')).toHaveAttribute(
-      'aria-hidden',
-      'true',
-    )
-  })
-
-  it('spins even when no icon was declared', () => {
-    const { container } = render(<Icon icon={undefined} isLoading />)
-
-    expect(container.querySelector('.lsui-sc-spinner')).toBeInTheDocument()
-  })
-
   it('keeps explicit component ids so server and browser renders agree', () => {
     const publishedIds = Object.values(Styled).map(
       (component) => component.styledComponentId,
