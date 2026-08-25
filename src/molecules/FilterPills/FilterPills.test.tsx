@@ -34,4 +34,30 @@ describe('FilterPills', () => {
     await user.click(screen.getByRole('button', { name: 'Ativos: 4' }))
     expect(onChange).toHaveBeenCalledWith('active')
   })
+
+  it('uses explicit accessible copy for a custom visual label', () => {
+    render(
+      <FilterPills
+        aria-label="Filtrar alunos"
+        counts={{ active: 4 }}
+        onChange={() => undefined}
+        options={[
+          {
+            accessibleLabel: 'Alunos ativos',
+            label: (
+              <span>
+                Ativos <strong>4</strong>
+              </span>
+            ),
+            value: 'active',
+          },
+        ]}
+        value="active"
+      />,
+    )
+
+    expect(
+      screen.getByRole('button', { name: 'Alunos ativos: 4' }),
+    ).toHaveAttribute('aria-pressed', 'true')
+  })
 })

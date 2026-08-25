@@ -1,11 +1,11 @@
 import type { HTMLAttributes } from 'react'
-import type { CompatibleAccessibleName } from '../../foundations/accessibility'
+import type { AccessibleName } from '../../foundations/accessibility'
 
 export type AuthTokenDigitsProps = Omit<
   HTMLAttributes<HTMLDivElement>,
   'aria-label' | 'aria-labelledby' | 'onChange'
 > &
-  CompatibleAccessibleName & {
+  AccessibleName & {
     autoFocus?: boolean
     digitLabel: string
     disabled?: boolean

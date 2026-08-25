@@ -1,5 +1,5 @@
 import type { InputHTMLAttributes } from 'react'
-import type { CompatibleAccessibleName } from '../../foundations/accessibility'
+import type { AccessibleName } from '../../foundations/accessibility'
 import type { FieldControlSize } from '../../foundations/fields'
 import type { CompoundControlSurface } from '../CompoundControl/types'
 
@@ -13,7 +13,7 @@ type ClearAction =
   | { clearLabel: string; onClear: () => void }
 
 export type SearchInputProps = NativeProps &
-  CompatibleAccessibleName & {
+  AccessibleName & {
     size?: FieldControlSize
     surface?: CompoundControlSurface
   } & ClearAction
