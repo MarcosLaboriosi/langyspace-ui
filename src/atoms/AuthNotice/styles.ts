@@ -10,20 +10,24 @@ const toneStyles = {
   info: css`
     color: ${tokens.color.feedback.info};
     background-color: ${tokens.color.feedback.infoSoft};
-    font-family:
-      'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
   `,
 } satisfies Record<AuthNoticeTone, ReturnType<typeof css>>
 
 export const Notice = styled.p.withConfig({
   componentId: 'lsui-sc-auth-notice',
 })<{ $tone: AuthNoticeTone }>`
-  margin: ${tokens.spacing[4]} 0 0;
+  margin: 0;
   border-radius: ${tokens.radius.rounded};
   padding: ${tokens.spacing[3]} ${tokens.spacing[4]};
   font-size: ${tokens.typography.fontSize.sm};
 
   ${({ $tone }) => toneStyles[$tone]}
+
+  code {
+    font-family:
+      ui-monospace, 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo,
+      monospace;
+  }
 
   a {
     color: inherit;

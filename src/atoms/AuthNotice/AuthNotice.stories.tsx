@@ -17,10 +17,11 @@ type Story = StoryObj<typeof meta>
 export const Default: Story = {}
 
 export const Tones: Story = {
+  tags: ['visual-review'],
   render: () => (
     <StoryStack>
       <AuthNotice tone="info">
-        Código enviado para o canal confirmado.
+        Código enviado: <code>123456</code>
       </AuthNotice>
       <AuthNotice role="alert" tone="error">
         O código informado expirou.
