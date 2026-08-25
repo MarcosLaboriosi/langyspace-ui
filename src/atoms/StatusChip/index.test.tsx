@@ -55,6 +55,10 @@ describe('StatusChip', () => {
       'aria-hidden',
       'true',
     )
+    expect(screen.getByText('Confirmado')).toHaveAttribute(
+      'title',
+      'Confirmado',
+    )
   })
 
   it('does not expose cosmetic color aliases', () => {

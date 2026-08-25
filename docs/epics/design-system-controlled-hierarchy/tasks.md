@@ -10,7 +10,7 @@
 - [x] [T08 — migrar Teacher](tasks/08-teacher.md)
 - [x] [T09 — migrar Cupom](tasks/09-cupom.md)
 - [x] [T10 — criar atoms e molecules de estado](tasks/10-state-components.md)
-- [ ] [T11 — adotar components de estado nos produtos](tasks/11-state-adoption.md)
+- [x] [T11 — adotar components de estado nos produtos](tasks/11-state-adoption.md)
 - [ ] [T12 — criar auth, field e filter components](tasks/12-auth-field-filter.md)
 - [ ] [T13 — adotar auth, field e filter components](tasks/13-auth-field-filter-adoption.md)
 - [ ] [T14 — centralizar o audit arquitetural](tasks/14-central-audit.md)

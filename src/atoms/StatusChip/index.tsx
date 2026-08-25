@@ -15,7 +15,16 @@ export function StatusChip({
       {iconStart ? (
         <Styled.Icon aria-hidden="true">{iconStart}</Styled.Icon>
       ) : null}
-      <Styled.Label>{children}</Styled.Label>
+      <Styled.Label
+        title={
+          props.title ??
+          (typeof children === 'string' || typeof children === 'number'
+            ? String(children)
+            : undefined)
+        }
+      >
+        {children}
+      </Styled.Label>
     </Styled.Chip>
   )
 }

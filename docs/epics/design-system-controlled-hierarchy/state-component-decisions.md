@@ -26,3 +26,15 @@ no DOM.
 
 A T11 decide a adoção por callsite. Nenhum estilo local será removido quando a comparação visual e
 semântica não provar equivalência.
+
+## Adoção na T11
+
+- status de aula, pagamento, nível, repasse, presença e disponibilidade usam `StatusChip`; o
+  produto continua proprietário do mapa domínio -> tone;
+- estados de página vazia, erro e loading usam a família `StatePanel` quando são painéis de bloco;
+- `StatusChipSkeleton` do Student continua local e compõe `StatusChip`, pois modela geometria de
+  carregamento em vez de um valor semântico;
+- loading compacto dentro de drawers e banners contextuais continuam locais por densidade e
+  estrutura diferentes;
+- receitas paralelas de border, radius e typography foram removidas somente quando a comparação em
+  390/1281/2048 confirmou equivalência visual.

@@ -190,7 +190,8 @@ export function LoadingState() {
 `StatusChip` comunica significado com os tons fechados `neutral`, `info`, `success`, `warning`,
 `danger` e `brand`. O produto escolhe o significado no callsite; nomes cosméticos como `pink`,
 `green` ou `grey` não fazem parte da API. `indicator` e `iconStart` são adornos visuais e o texto
-completo continua no DOM, mesmo quando o label precisa usar ellipsis em um container estreito.
+completo continua no DOM e em `title`, mesmo quando o label precisa usar ellipsis em um container
+estreito.
 
 ```tsx
 <StatusChip indicator tone="success">

@@ -3,7 +3,7 @@
 ## Status
 
 Planejamento, refinamento de produto, refinamento técnico, breakdown e revisão crítica concluídos.
-T01 a T10 concluídas. T11 é a única task em andamento.
+T01 a T11 concluídas. T12 é a única task em andamento.
 
 ## Baseline
 
@@ -104,11 +104,17 @@ Worktree root: `/private/tmp/langyspace-design-system-hierarchy.YMowcs`.
 - 37 testes, audit, lint, format, typecheck, build, tarball/Node/SSR smoke e o full gate do package
   com 36 cenários passaram; normal/stress em 390/1281/2048 foram inspecionados sem problemas de
   layout, hierarquia, contraste ou densidade.
+- T11 removeu os adapters duplicados de estado no Admin, Student e Teacher e resolveu aliases de
+  cor para tones semânticos nos callsites, mantendo regras de negócio nos produtos;
+- skeleton de status, banners contextuais e loading inline permaneceram locais porque não são
+  equivalentes ao atom/painel compartilhado;
+- package, builds, testes focados e gates completos passaram, incluindo 1.820 cenários no Admin,
+  630 no Student e 234 no Teacher, todos sem problemas geométricos.
 
 ## Próxima subtask
 
-T11.1 — mapear cada StatusChip local para tone semântico no callsite e separar skeletons/banners que
-não representam o atom compartilhado.
+T12.1 — comparar os contratos atuais de AuthNotice/AuthTokenDigits, fields e filtros e promover
+somente equivalências provadas.
 
 ## Blockers
 

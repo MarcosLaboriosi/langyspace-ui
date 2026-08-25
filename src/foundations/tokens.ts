@@ -49,8 +49,13 @@ export const tokens = {
       100: '#f1f1ef',
       300: '#d9d9d6',
       500: '#9a9a9a',
+      600: '#6b6b6b',
       900: '#1a1a1a',
       950: '#0a0a0a',
+    },
+    surfaceBorder: {
+      default: '#d8d4cb',
+      subtle: '#ececea',
     },
   },
   control: {
@@ -70,7 +75,7 @@ export const tokens = {
     },
   },
   radius: {
-    card: '1rem',
+    card: '0.875rem',
     pill: '999px',
     rounded: '0.75rem',
   },

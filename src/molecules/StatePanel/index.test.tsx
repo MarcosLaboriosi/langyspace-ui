@@ -51,6 +51,11 @@ describe('StatePanel', () => {
     expect(panel).toHaveClass('lsui-sc-state-panel', 'consumer-state')
     expect(panel).toHaveAttribute('data-context', 'student-list')
     expect(panel).toHaveAttribute('data-state', 'error')
+    expect(panel).toHaveStyle({
+      borderColor: '#d8d4cb',
+      borderRadius: '0.875rem',
+      color: '#6b6b6b',
+    })
     expect(
       screen.getByText('Confira sua conexão e tente outra vez.'),
     ).toBeInTheDocument()

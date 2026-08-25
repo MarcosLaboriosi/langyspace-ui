@@ -16,10 +16,14 @@ export const Container = styled.div.withConfig({
   justify-items: center;
   gap: ${({ $density }) => ($density === 'compact' ? '0.625rem' : tokens.spacing[2])};
   padding: ${({ $density }) => ($density === 'compact' ? '1.875rem' : `${tokens.spacing[16]} ${tokens.spacing[5]}`)};
-  border: 1px ${({ $surface }) => ($surface === 'dashed' ? 'dashed' : 'solid')}
-    ${tokens.color.neutral[300]};
+  border-width: 1px;
+  border-style: ${({ $surface }) => ($surface === 'dashed' ? 'dashed' : 'solid')};
+  border-color: ${({ $surface }) =>
+    $surface === 'dashed'
+      ? tokens.color.surfaceBorder.default
+      : tokens.color.surfaceBorder.subtle};
   border-radius: ${tokens.radius.card};
-  color: ${tokens.color.neutral[500]};
+  color: ${tokens.color.neutral[600]};
   background: ${tokens.color.neutral[0]};
   text-align: center;
 `
