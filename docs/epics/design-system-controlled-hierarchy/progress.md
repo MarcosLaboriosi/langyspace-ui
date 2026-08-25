@@ -3,7 +3,7 @@
 ## Status
 
 Planejamento, refinamento de produto, refinamento técnico, breakdown e revisão crítica concluídos.
-T01 a T07 concluídas. T08 é a única task em andamento.
+T01 a T08 concluídas. T09 é a única task em andamento.
 
 ## Baseline
 
@@ -83,11 +83,18 @@ Worktree root: `/private/tmp/langyspace-design-system-hierarchy.YMowcs`.
 - 133 testes focados e o full gate com 630 cenários de layout passaram; home, live-reserve-loading,
   planos/checkout, handoff e auth foram inspecionados em 390/1281/2048 e os boundaries 768/1280
   também passaram sem problemas geométricos.
+- T08 removeu os adapters simples de Button/IconButton no Teacher e preservou PillButton como
+  boundary real de densidade compacta entre Button e ActionLink, agora com slots/variants públicos;
+- aliases `pink`/`green`, `tone`, `icon` e `iconPosition` foram removidos das actions; calendário,
+  attendance, Payouts, previews e auth mantêm somente layout ou comportamento de domínio;
+- 47 testes focados e o full gate do Teacher com 216 cenários passaram; Today, drawer de presença,
+  Students, Payouts, calendário e auth foram inspecionados em 390/1281/2048, sem a quebra original
+  do footer e sem problemas geométricos.
 
 ## Próxima subtask
 
-T08.1 — comparar os adapters e wrappers de action do Teacher com o Student já migrado, preservar as
-divergências reais de calendário/attendance e mapear Today, Students, Payouts e auth.
+T09.1 — confirmar a semântica exclusiva do seletor de período do Cupom, substituí-lo por um
+controle local sobre Pressable e preservar relatório, loading, erro e redirects.
 
 ## Blockers
 

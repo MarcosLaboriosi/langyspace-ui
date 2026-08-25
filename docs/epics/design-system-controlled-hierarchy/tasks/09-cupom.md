@@ -1,6 +1,6 @@
 # T09 — migrar Cupom
 
-Status: pendente.
+Status: em andamento.
 
 ## Responsabilidade
 

@@ -7,7 +7,7 @@
 - [x] [T05 — migrar Landing](tasks/05-landing.md)
 - [x] [T06 — migrar Admin](tasks/06-admin.md)
 - [x] [T07 — migrar Student](tasks/07-student.md)
-- [ ] [T08 — migrar Teacher](tasks/08-teacher.md)
+- [x] [T08 — migrar Teacher](tasks/08-teacher.md)
 - [ ] [T09 — migrar Cupom](tasks/09-cupom.md)
 - [ ] [T10 — criar atoms e molecules de estado](tasks/10-state-components.md)
 - [ ] [T11 — adotar components de estado nos produtos](tasks/11-state-adoption.md)
