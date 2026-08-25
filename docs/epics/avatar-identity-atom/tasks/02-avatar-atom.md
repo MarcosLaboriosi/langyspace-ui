@@ -6,13 +6,13 @@ Implementar o menor atom que satisfaz o contrato aprovado, com test e story owne
 
 ## Checklist
 
-- [ ] criar `src/atoms/Avatar/{index.tsx,styles.ts,types.ts}`;
-- [ ] criar `Avatar.test.tsx` antes ou junto do behavior;
-- [ ] cobrir defaults, native props/ref, image, failure e URL recovery;
-- [ ] criar stories Default, Sizes, Tones, WithImage, ImageFailure e Stress;
-- [ ] usar somente tokens e recipe privado tipado;
-- [ ] confirmar componentId, clipped content e reduced-motion não aplicável;
-- [ ] revisar diff contra R01–R16.
+- [x] criar `src/atoms/Avatar/{index.tsx,styles.ts,types.ts}`;
+- [x] criar `Avatar.test.tsx` antes ou junto do behavior;
+- [x] cobrir defaults, native props/ref, image, failure e URL recovery;
+- [x] criar stories Default, Sizes, Tones, WithImage, ImageFailure e Stress;
+- [x] usar somente tokens e recipe privado tipado;
+- [x] confirmar componentId, clipped content e reduced-motion não aplicável;
+- [x] revisar diff contra R01–R16.
 
 ## Done
 
@@ -25,3 +25,10 @@ evidência comportamental e visual.
 - `pnpm run test:storybook -- Avatar` quando suportado;
 - layout runner filtrado para stories Avatar em 390/1281/2048;
 - typecheck, lint e Prettier dos arquivos alterados.
+
+## Resultado
+
+Concluído. Seis unit tests e seis story/axe tests passaram. O layout runner executou 48 cenários em
+390/1281/2048, incluindo os boundaries do stress, com zero issue. Screenshots de Sizes, Tones,
+WithImage, ImageFailure e Stress foram inspecionadas; o atom permaneceu circular, não encolheu e não
+criou overflow. Fallback por error e retry de URL nova ficaram no unit test determinístico.

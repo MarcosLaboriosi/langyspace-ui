@@ -118,7 +118,7 @@ Stories mínimas:
 2. `Sizes`;
 3. `Tones` em surfaces clara e escura;
 4. `WithImage` usando data URL sanitizada;
-5. `ImageFailure` com play aguardando fallback;
+5. `ImageFailure` documentando o fallback; o error event fica no unit test determinístico;
 6. `Stress` com três/mais caracteres, flex row e texto adjacente longo.
 
 Network externo continua bloqueado pelo runner. Boundaries declaram 390/1281/2048 e narrow

@@ -2,8 +2,8 @@
 
 ## Status
 
-T01 concluída. Planejamento, critical review e baseline visual estão aprovados; nenhum runtime foi
-alterado.
+T01–T02 concluídas. O atom está implementado e validado isoladamente; consumers ainda não foram
+alterados.
 
 ## Baseline
 
@@ -34,10 +34,15 @@ alterado.
 - screenshots de busca, tabelas/drawers, shells, Today e Students foram inspecionadas;
 - dois gaps foram transformados em requirements: assertion geométrica do marker e case da tab de
   perfil Teacher para o size `xl`.
+- T02 criou o atom com API fechada, marker `lsui-sc-avatar`, cinco sizes, três tones, image/fallback
+  e zero dependência de product;
+- seis unit tests e seis story/axe tests passaram;
+- 48 cenários de layout Avatar passaram com zero issue e screenshots de todas as variações críticas
+  foram inspecionadas.
 
 ## Próxima subtask
 
-T02 — implementar o atom Avatar com unit tests e stories, sem ainda alterar consumers.
+T03 — integrar Avatar ao manifesto/API/smokes/budgets e produzir o tarball candidato `1.2.0`.
 
 ## Blockers
 
@@ -45,4 +50,4 @@ Nenhum.
 
 ## Decisões abertas controladas
 
-Nenhuma para T02. A comparação after continua blocking antes do release.
+Nenhuma para T03. A comparação after continua blocking antes do release.
