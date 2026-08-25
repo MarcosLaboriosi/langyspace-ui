@@ -132,7 +132,7 @@ jobs:
 
       - name: Upload static catalog
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: ui-catalog-${{ github.sha }}
           path: storybook-static
@@ -141,7 +141,7 @@ jobs:
 
       - name: Upload visual evidence on failure
         if: failure()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: ui-library-layout-audit-${{ github.sha }}
           path: .local/layout-audit
