@@ -2,8 +2,8 @@
 
 ## Status
 
-Investigação, refinamento de produto, refinamento técnico, breakdown, revisão crítica e T01–T09
-concluídos. T10 é a única task em andamento.
+Investigação, refinamento de produto, refinamento técnico, breakdown, revisão crítica e T01–T10
+concluídos. T11 é a única task em andamento.
 
 ## Baseline
 
@@ -91,10 +91,18 @@ concluídos. T10 é a única task em andamento.
   da family e `SegmentedControl` deixou de quebrar uma escolha exclusiva em múltiplas linhas;
 - before/after foi capturado em 390/1281/2048; 72 unit tests, 68 story/axe tests e 36 cenários
   focados passaram, sem overflow de viewport ou perda de conteúdo acessível.
+- T10 fechou o manifest em 19/19 para owner test, story, browser smoke e SSR smoke; o tarball
+  consumer agora cobre conteúdo, package metadata, ESM, audit CLI, SSR/CSS e browser build;
+- API report possui 20 value exports, 48 type exports e 69 declaration hashes; remoção ou mudança
+  exige atualização revisável e decisão SemVer;
+- `sideEffects: false` reduziu o recorte actions de 32,9 para 13,9 kB raw; library/actions/fields/
+  molecules receberam budgets raw/gzip calibrados;
+- coverage baseline: 96,67% statements, 96,11% branches, 99,06% functions e 97,29% lines, com
+  threshold de 90% por métrica.
 
 ## Próxima subtask
 
-T10 — completar package/API smokes e calibrar budgets de surface, bundle e coverage.
+T11 — fortalecer o architecture audit e escrever a governança de contribuição.
 
 ## Blockers
 
@@ -103,7 +111,6 @@ Nenhum. GitHub Pages ainda não está configurado e não bloqueia o build/artifa
 ## Decisões abertas controladas
 
 - ref pattern final;
-- tooling de API diff/bundle;
 - Pages versus CI artifact na primeira publicação;
 - family piloto da próxima onda.
 

@@ -32,6 +32,15 @@ Provar que a surface documentada é exatamente a surface publicada e consumível
 - bundle baseline está registrado antes de decidir subpath exports;
 - thresholds focam contracts críticos, não vanity percentage.
 
+## Resultado
+
+- manifest 19/19 completo em owner test, story, browser smoke e SSR smoke;
+- tarball consumer valida conteúdo, exports, bin, peers, ESM, audit, SSR/CSS e browser build;
+- snapshot estrutural cobre 20 values, 48 types e 69 declaration files;
+- `sideEffects: false` reduziu o recorte actions de 32.911 para 13.872 bytes raw;
+- budgets calibrados cobrem library/actions/fields/molecules em raw e gzip;
+- coverage V8 ficou em 96,67/96,11/99,06/97,29, com threshold inicial de 90 por métrica.
+
 ## Rollback
 
 Checks novos podem voltar a advisory se houver falso positivo comprovado; não remover os smokes

@@ -39,7 +39,7 @@ describe('public component manifest', () => {
     }
   })
 
-  it('keeps every known coverage gap explicitly owned by an epic task', async () => {
+  it('keeps every public component completely covered', async () => {
     for (const contractValue of publicComponentContracts) {
       const contract: ComponentContract = contractValue
       expect(contract.test.path).toBe(
@@ -55,9 +55,7 @@ describe('public component manifest', () => {
         contract.browserSmoke,
         contract.ssrSmoke,
       ]) {
-        if (coverage.status === 'pending') {
-          expect(['T02', 'T04', 'T10']).toContain(coverage.task)
-        }
+        expect(coverage.status).toBe('complete')
       }
 
       if (contract.test.status === 'complete') {

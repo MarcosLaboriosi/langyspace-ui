@@ -9,7 +9,9 @@ const ConsumerSurface = styled.div`
 const {
   AuthNotice,
   AuthTokenDigits,
+  ActionLink,
   Button,
+  CompoundControl,
   EmptyState,
   FieldRoot,
   FilterPills,
@@ -18,9 +20,11 @@ const {
   Pressable,
   SearchInput,
   SegmentedControl,
+  SelectInput,
   Spinner,
   StatePanel,
   StatusChip,
+  TextareaInput,
   TextInput,
 } = await import('@langyspace/ui')
 
@@ -35,6 +39,7 @@ try {
         ConsumerSurface,
         null,
         createElement(Button, { size: 'lg', variant: 'brand' }, 'SSR'),
+        createElement(ActionLink, { href: '/next' }, 'Action SSR'),
         createElement(
           IconButton,
           { 'aria-label': 'Open menu' },
@@ -50,6 +55,28 @@ try {
           FieldRoot,
           { label: 'Name' },
           createElement(TextInput, { defaultValue: 'Maria' }),
+        ),
+        createElement(
+          FieldRoot,
+          { label: 'Level' },
+          createElement(
+            SelectInput,
+            { defaultValue: 'B1' },
+            createElement('option', null, 'B1'),
+          ),
+        ),
+        createElement(
+          FieldRoot,
+          { label: 'Notes' },
+          createElement(TextareaInput, { defaultValue: 'SSR notes' }),
+        ),
+        createElement(
+          CompoundControl,
+          { leading: '$' },
+          createElement(TextInput, {
+            'aria-label': 'Amount',
+            defaultValue: '48',
+          }),
         ),
         createElement(SearchInput, {
           'aria-label': 'Search',
@@ -113,12 +140,16 @@ if (!markup.includes('lsui-sc-state-panel')) {
 }
 
 for (const componentId of [
+  'lsui-sc-action-link',
   'lsui-sc-auth-notice',
   'lsui-sc-auth-token-digits',
   'lsui-sc-field-root',
   'lsui-sc-filter-pills',
+  'lsui-sc-compound-control',
   'lsui-sc-search-input',
+  'lsui-sc-select-input',
   'lsui-sc-segmented-control',
+  'lsui-sc-textarea-input',
   'lsui-sc-text-input',
 ]) {
   if (!markup.includes(componentId)) {

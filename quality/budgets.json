@@ -1,0 +1,20 @@
+{
+  "coverage": {
+    "branches": 90,
+    "functions": 90,
+    "lines": 90,
+    "statements": 90
+  },
+  "gzipBytes": {
+    "actions": 3500,
+    "fields": 5600,
+    "library": 9000,
+    "molecules": 5900
+  },
+  "rawBytes": {
+    "actions": 15000,
+    "fields": 25000,
+    "library": 41000,
+    "molecules": 21000
+  }
+}

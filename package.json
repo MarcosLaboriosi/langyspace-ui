@@ -26,10 +26,12 @@
   },
   "main": "./dist/index.js",
   "module": "./dist/index.js",
+  "sideEffects": false,
   "types": "./dist/index.d.ts",
   "scripts": {
     "build": "vite build && tsc -p tsconfig.build.json",
     "build:storybook": "storybook build",
+    "check:api": "node scripts/check-public-api.mjs",
     "format": "prettier . --write",
     "format:check": "prettier . --check",
     "lint": "eslint .",
@@ -37,11 +39,14 @@
     "test": "vitest run",
     "test:storybook": "vitest run --project storybook",
     "test:unit": "vitest run --project unit",
+    "test:coverage": "vitest run --project unit --coverage",
     "test:button-system": "node audit/cli.mjs scripts/button-system.audit.config.mjs && node scripts/test-architecture-audit.mjs",
+    "test:bundle": "node scripts/check-bundle-budgets.mjs",
     "test:layout": "pnpm run build:storybook && node scripts/audit-storybook-layout.mjs",
     "test:package": "node scripts/smoke-test-package.mjs",
     "typecheck": "tsc --noEmit -p tsconfig.json",
-    "validate:ui": "pnpm run test:button-system && pnpm run lint && pnpm run format:check && pnpm run typecheck && pnpm test && pnpm run build && pnpm run test:package && LAYOUT_AUDIT_SCREENSHOTS=1 pnpm run test:layout"
+    "validate:ui": "pnpm run test:button-system && pnpm run lint && pnpm run format:check && pnpm run typecheck && pnpm test && pnpm run test:coverage && pnpm run build && pnpm run check:api && pnpm run test:bundle && pnpm run test:package && LAYOUT_AUDIT_SCREENSHOTS=1 pnpm run test:layout",
+    "write:api": "node scripts/check-public-api.mjs --write"
   },
   "peerDependencies": {
     "react": ">=19 <20",
@@ -62,6 +67,7 @@
     "@vitejs/plugin-react": "^6.0.1",
     "@vitest/browser": "4.1.11",
     "@vitest/browser-playwright": "4.1.11",
+    "@vitest/coverage-v8": "4.1.11",
     "eslint": "^9.39.4",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-react-hooks": "^7.1.1",

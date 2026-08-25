@@ -8,6 +8,19 @@ const dirname = path.dirname(fileURLToPath(import.meta.url))
 
 export default defineConfig({
   test: {
+    coverage: {
+      exclude: ['src/**/*.stories.{ts,tsx}', 'src/**/*.test.{ts,tsx}'],
+      include: ['src/**/*.{ts,tsx}'],
+      provider: 'v8',
+      reporter: ['text', 'json-summary'],
+      reportsDirectory: '.local/quality/coverage',
+      thresholds: {
+        branches: 90,
+        functions: 90,
+        lines: 90,
+        statements: 90,
+      },
+    },
     projects: [
       {
         extends: true,

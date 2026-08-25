@@ -1,9 +1,6 @@
 export type ComponentLayer = 'atom' | 'molecule' | 'primitive'
 
-type CoverageTask = 'T02' | 'T04' | 'T10'
-
-type Coverage =
-  { status: 'complete' } | { status: 'pending'; task: CoverageTask }
+type Coverage = { status: 'complete' }
 
 export interface ComponentContract {
   browserSmoke: Coverage
@@ -19,8 +16,6 @@ export interface ComponentContract {
 }
 
 const complete = { status: 'complete' } as const
-const pending = (task: CoverageTask) => ({ status: 'pending', task }) as const
-
 export const publicComponentContracts = [
   {
     browserSmoke: complete,
@@ -29,7 +24,7 @@ export const publicComponentContracts = [
     layer: 'atom',
     ownerPath: 'src/atoms/ActionLink/index.tsx',
     runtimeMarker: 'lsui-sc-action-link',
-    ssrSmoke: pending('T10'),
+    ssrSmoke: complete,
     story: {
       ...complete,
       path: 'src/atoms/ActionLink/ActionLink.stories.tsx',
@@ -99,13 +94,13 @@ export const publicComponentContracts = [
     visual: true,
   },
   {
-    browserSmoke: pending('T10'),
+    browserSmoke: complete,
     exportName: 'SelectInput',
     interactive: true,
     layer: 'atom',
     ownerPath: 'src/atoms/SelectInput/index.tsx',
     runtimeMarker: 'lsui-sc-select-input',
-    ssrSmoke: pending('T10'),
+    ssrSmoke: complete,
     story: {
       ...complete,
       path: 'src/atoms/SelectInput/SelectInput.stories.tsx',
@@ -137,13 +132,13 @@ export const publicComponentContracts = [
     visual: true,
   },
   {
-    browserSmoke: pending('T10'),
+    browserSmoke: complete,
     exportName: 'TextareaInput',
     interactive: true,
     layer: 'atom',
     ownerPath: 'src/atoms/TextareaInput/index.tsx',
     runtimeMarker: 'lsui-sc-textarea-input',
-    ssrSmoke: pending('T10'),
+    ssrSmoke: complete,
     story: {
       ...complete,
       path: 'src/atoms/TextareaInput/TextareaInput.stories.tsx',
@@ -194,13 +189,13 @@ export const publicComponentContracts = [
     visual: true,
   },
   {
-    browserSmoke: pending('T10'),
+    browserSmoke: complete,
     exportName: 'CompoundControl',
     interactive: false,
     layer: 'molecule',
     ownerPath: 'src/molecules/CompoundControl/index.tsx',
     runtimeMarker: 'lsui-sc-compound-control',
-    ssrSmoke: pending('T10'),
+    ssrSmoke: complete,
     story: {
       ...complete,
       path: 'src/molecules/CompoundControl/CompoundControl.stories.tsx',

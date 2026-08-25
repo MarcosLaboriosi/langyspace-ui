@@ -77,7 +77,7 @@ async function writeConsumer(packageSpec) {
   )
   await writeFile(
     join(consumerDirectory, 'src', 'main.tsx'),
-    `import { ActionLink, AuthNotice, AuthTokenDigits, Button, EmptyState, FieldRoot, FilterPills, IconButton, LoadingState, Pressable, SearchInput, SegmentedControl, Spinner, StatePanel, StatusChip, TextInput } from '@langyspace/ui'
+    `import { ActionLink, AuthNotice, AuthTokenDigits, Button, CompoundControl, EmptyState, FieldRoot, FilterPills, IconButton, LoadingState, Pressable, SearchInput, SegmentedControl, SelectInput, Spinner, StatePanel, StatusChip, TextareaInput, TextInput } from '@langyspace/ui'
 import { createRoot } from 'react-dom/client'
 
 createRoot(document.getElementById('root')!).render(
@@ -98,6 +98,9 @@ createRoot(document.getElementById('root')!).render(
     <LoadingState title="Package loading state passed" />
     <StatePanel state="error" title="Package error state passed" />
     <FieldRoot label="Name"><TextInput defaultValue="Maria" /></FieldRoot>
+    <FieldRoot label="Level"><SelectInput defaultValue="B1"><option>B1</option></SelectInput></FieldRoot>
+    <FieldRoot label="Notes"><TextareaInput defaultValue="Package textarea passed" /></FieldRoot>
+    <CompoundControl leading={<span>$</span>}><TextInput aria-label="Amount" defaultValue="48" /></CompoundControl>
     <SearchInput aria-label="Search" defaultValue="Maria" />
     <FilterPills aria-label="Filters" options={[{ label: 'All', value: 'all' }]} value="all" onChange={() => undefined} />
     <SegmentedControl aria-label="Range" options={[{ label: '30 days', value: '30' }]} value="30" onChange={() => undefined} />
@@ -167,6 +170,51 @@ try {
     ['install', '--ignore-scripts', '--no-frozen-lockfile'],
     consumerDirectory,
   )
+
+  const installedPackage = join(
+    consumerDirectory,
+    'node_modules',
+    '@langyspace',
+    'ui',
+  )
+  const installedPackageJson = JSON.parse(
+    await readFile(join(installedPackage, 'package.json'), 'utf8'),
+  )
+  const topLevelFiles = (await readdir(installedPackage))
+    .filter((file) => file !== 'node_modules')
+    .sort()
+  const packagedFiles = (
+    await readdir(installedPackage, { recursive: true })
+  ).filter((file) => !file.startsWith('node_modules/'))
+
+  if (
+    JSON.stringify(topLevelFiles) !==
+    JSON.stringify(['LICENSE', 'README.md', 'audit', 'dist', 'package.json'])
+  ) {
+    throw new Error(`unexpected_package_surface_${topLevelFiles.join(',')}`)
+  }
+
+  if (
+    packagedFiles.some((file) =>
+      /(?:^|\/)(?:\.storybook|quality|src|fixtures|scripts)(?:\/|$)|\.(?:stories|test|spec)\.[cm]?[jt]sx?$/.test(
+        file,
+      ),
+    )
+  ) {
+    throw new Error('development_tooling_leaked_into_package')
+  }
+
+  if (
+    installedPackageJson.sideEffects !== false ||
+    JSON.stringify(Object.keys(installedPackageJson.exports).sort()) !==
+      JSON.stringify(['.', './audit']) ||
+    installedPackageJson.bin?.['langyspace-ui-audit'] !== './audit/cli.mjs' ||
+    installedPackageJson.peerDependencies?.react !== '>=19 <20' ||
+    installedPackageJson.peerDependencies?.['styled-components'] !== '>=6 <7'
+  ) {
+    throw new Error('installed_package_contract_mismatch')
+  }
+
   run(
     'node',
     ['--input-type=module', '--eval', "await import('@langyspace/ui')"],
@@ -234,8 +282,11 @@ try {
     'lsui-sc-auth-token-digits',
     'lsui-sc-field-root',
     'lsui-sc-filter-pills',
+    'lsui-sc-compound-control',
     'lsui-sc-search-input',
+    'lsui-sc-select-input',
     'lsui-sc-segmented-control',
+    'lsui-sc-textarea-input',
     'lsui-sc-text-input',
   ]) {
     if (!javascript.includes(componentId)) {
