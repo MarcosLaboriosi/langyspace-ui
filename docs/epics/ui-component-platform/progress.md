@@ -2,8 +2,8 @@
 
 ## Status
 
-Investigação, refinamento de produto, refinamento técnico, breakdown, revisão crítica e T01–T07
-concluídos. T08 é a única task em andamento.
+Investigação, refinamento de produto, refinamento técnico, breakdown, revisão crítica e T01–T08
+concluídos. T09 é a única task em andamento.
 
 ## Baseline
 
@@ -77,10 +77,18 @@ concluídos. T08 é a única task em andamento.
 - a ADR de refs foi comprovada por object/callback refs, styled composition e SSR; 24 unit files/59
   tests, 63 story/axe tests, tarball consumer build/SSR e 48 cenários focados passaram;
 - o bundle permaneceu em 37,69 kB / 8,20 kB gzip e o entrypoint não perdeu exports.
+- T08 resolveu composição de IDREFs, ownership de CompoundControl, contracts estritos aditivos de
+  clear/accessibility/choice/token, keyboard/focus do OTP, spacing/typography de AuthNotice e owner
+  único de title no StatusChip;
+- a revisão SemVer restaurou explicitamente os props v1 permissivos e manteve tightenings como
+  additive contract até major; não há breaking silencioso no release candidato;
+- 25 unit files/70 tests, 63 story/axe tests e 60 cenários de layout focados passaram; screenshots
+  de CompoundControl, AuthNotice e StatusChip em 390/1281/2048 foram inspecionados;
+- bundle atual: 38,84 kB / 8,51 kB gzip.
 
 ## Próxima subtask
 
-T08 — corrigir contratos de composição em subtasks pequenas, começando por `aria-describedby`.
+T09 — classificar literais e convergir recipes/tokens com comparação visual before/after.
 
 ## Blockers
 

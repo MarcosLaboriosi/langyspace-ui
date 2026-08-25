@@ -11,7 +11,7 @@
 | [x]    | T05 | A11y e interaction tests nas stories   | T04           | direct         | contracts de uso blocking em CI            |
 | [x]    | T06 | Runner de layout orientado a stories   | T04, T05      | direct         | fim do showcase monolítico                 |
 | [x]    | T07 | Foundations e contracts compartilhados | T04           | indirect       | layer direction consistente                |
-| [ ]    | T08 | Correções de API/composição            | T05, T07      | direct         | contracts implícitos resolvidos            |
+| [x]    | T08 | Correções de API/composição            | T05, T07      | direct         | contracts implícitos resolvidos            |
 | [ ]    | T09 | Tokens e recipes                       | T04, T07      | direct         | escala controlada e divergências decididas |
 | [ ]    | T10 | Package, SSR, API e bundle quality     | T01, T07–09   | indirect       | release surface completa                   |
 | [ ]    | T11 | Audit engine e governance              | T02, T04, T10 | indirect       | rules escaláveis e maturity gate           |

@@ -31,13 +31,13 @@ Colocar types/recipes compartilhados no layer correto e remover duplications est
 
 ## Resultado
 
-- `AccessibleName` XOR e `mergeIdRefs` agora pertencem a `foundations/accessibility`; os public
-  props que antes aceitavam ambos os nomes usam uma compat type central até um épico major, enquanto
-  IconButton preserva o XOR que já publicava;
+- `AccessibleName` XOR e `mergeIdRefs` agora pertencem a `foundations/accessibility`; T08 confirmou
+  que os public props v1 antes permissivos devem usar uma compat type central até um épico major,
+  enquanto IconButton preserva o XOR que já publicava;
 - field size/style recipe saiu de `atoms/fieldControlStyles.ts` para `foundations/fields`; todas as
   imports foram invertidas e `FieldControlSize` continua exportado com o mesmo nome no entrypoint;
 - `ChoiceValue`/`ChoiceOption` saíram de `molecules/choice.ts` para `foundations/selection`; o strict
-  `AccessibleChoiceOption` foi provado, mas o contract público compatível foi mantido para não
+  `AccessibleChoiceOption` foi provado e T08 manteve o contract público compatível para não
   introduzir breaking type neste épico;
 - accessibility e selection possuem type/unit tests positivos e negativos; IDREF normaliza e
   deduplica mantendo ordem;
