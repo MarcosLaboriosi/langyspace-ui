@@ -6,7 +6,7 @@
 - [x] [T04 — validar o candidato major por tarball local](tasks/04-package-candidate.md)
 - [x] [T05 — migrar Landing](tasks/05-landing.md)
 - [x] [T06 — migrar Admin](tasks/06-admin.md)
-- [ ] [T07 — migrar Student](tasks/07-student.md)
+- [x] [T07 — migrar Student](tasks/07-student.md)
 - [ ] [T08 — migrar Teacher](tasks/08-teacher.md)
 - [ ] [T09 — migrar Cupom](tasks/09-cupom.md)
 - [ ] [T10 — criar atoms e molecules de estado](tasks/10-state-components.md)

@@ -1,6 +1,6 @@
 # T08 — migrar Teacher
 
-Status: pendente.
+Status: em andamento.
 
 ## Responsabilidade
 

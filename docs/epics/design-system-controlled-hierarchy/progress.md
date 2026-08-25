@@ -3,7 +3,7 @@
 ## Status
 
 Planejamento, refinamento de produto, refinamento técnico, breakdown e revisão crítica concluídos.
-T01 a T06 concluídas. T07 é a única task em andamento.
+T01 a T07 concluídas. T08 é a única task em andamento.
 
 ## Baseline
 
@@ -75,11 +75,19 @@ Worktree root: `/private/tmp/langyspace-design-system-hierarchy.YMowcs`.
 - o full gate do Admin passou com 245 testes, 13 fluxos de acessibilidade, 45 cenários do design
   system e 1.820 cenários de layout; login, leads, alunos, busca e drawers foram inspecionados em
   390/1281/2048 e validados também nos boundaries 620/1280, sem problemas geométricos.
+- T07 removeu os adapters tradutores e aliases `pink`/`green` de Button/IconButton no Student;
+  AuthSubmitButton permanece como composição de layout, mas expõe diretamente `iconStart` e
+  `iconEnd` do atom;
+- wrappers canônicos do Student mantêm somente layout contextual; home dark hero, planos, checkout,
+  cupom e IconButton success/inverse usam variants públicos sem recipe paralelo;
+- 133 testes focados e o full gate com 630 cenários de layout passaram; home, live-reserve-loading,
+  planos/checkout, handoff e auth foram inspecionados em 390/1281/2048 e os boundaries 768/1280
+  também passaram sem problemas geométricos.
 
 ## Próxima subtask
 
-T07.1 — inventariar os adapters e aliases de action do Student, mapear os estados de loading e
-preservar home, live, planos, checkout, handoff e auth antes da primeira substituição.
+T08.1 — comparar os adapters e wrappers de action do Teacher com o Student já migrado, preservar as
+divergências reais de calendário/attendance e mapear Today, Students, Payouts e auth.
 
 ## Blockers
 
