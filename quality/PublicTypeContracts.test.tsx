@@ -1,86 +1,79 @@
 import { describe, expect, it } from 'vitest'
 import type {
   AuthTokenDigitsProps,
+  AuthTokenLength,
   ChoiceOption,
-  FilterPillsProps,
+  SearchInputClearAction,
   SearchInputProps,
-  SegmentedControlProps,
 } from '../src'
+import type { AccessibleName } from '../src/foundations/accessibility'
+import type { AccessibleChoiceOption } from '../src/foundations/selection'
 
 describe('public type contracts', () => {
-  it('uses one accessible-name source across named components', () => {
-    const change = () => undefined
-    const validSearch: SearchInputProps = { 'aria-label': 'Buscar' }
-    const validToken: AuthTokenDigitsProps = {
-      'aria-labelledby': 'token-title',
-      digitLabel: 'Dígito',
-      idPrefix: 'token',
-      length: 4,
-      onTokenChange: change,
-    }
-    const unsupportedLength: AuthTokenDigitsProps = {
-      'aria-label': 'Código',
-      digitLabel: 'Dígito',
-      idPrefix: 'token',
-      // @ts-expect-error only the verified four- and six-digit contracts are supported
-      length: 5,
-      onTokenChange: change,
-    }
-
-    // @ts-expect-error accessible-name sources are mutually exclusive
-    const invalidSearch: SearchInputProps = {
-      'aria-label': 'Buscar',
+  it('publishes strict additive contracts for new compositions', () => {
+    const directName: AccessibleName = { 'aria-label': 'Buscar' }
+    const referencedName: AccessibleName = {
       'aria-labelledby': 'search-title',
     }
-    // @ts-expect-error accessible-name sources are mutually exclusive
-    const invalidToken: AuthTokenDigitsProps = {
-      'aria-label': 'Código',
-      'aria-labelledby': 'token-title',
-      digitLabel: 'Dígito',
-      idPrefix: 'token',
-      length: 4,
-      onTokenChange: change,
+    const tokenLength: AuthTokenLength = 6
+    const clearAction: SearchInputClearAction = {
+      clearLabel: 'Limpar busca',
+      onClear: () => undefined,
     }
-    // @ts-expect-error accessible-name sources are mutually exclusive
-    const invalidFilters: FilterPillsProps = {
-      'aria-label': 'Filtros',
-      'aria-labelledby': 'filters-title',
-      onChange: change,
-      options: [],
-      value: 'all',
-    }
-    // @ts-expect-error accessible-name sources are mutually exclusive
-    const invalidSegments: SegmentedControlProps = {
-      'aria-label': 'Período',
-      'aria-labelledby': 'period-title',
-      onChange: change,
-      options: [],
-      value: 'month',
-    }
-
-    expect(validSearch['aria-label']).toBe('Buscar')
-    expect(validToken['aria-labelledby']).toBe('token-title')
-    expect(unsupportedLength.length).toBe(5)
-    expect(invalidSearch['aria-label']).toBe('Buscar')
-    expect(invalidToken['aria-label']).toBe('Código')
-    expect(invalidFilters['aria-label']).toBe('Filtros')
-    expect(invalidSegments['aria-label']).toBe('Período')
-  })
-
-  it('requires accessible copy for a custom choice label', () => {
-    const valid: ChoiceOption = {
+    const customChoice: AccessibleChoiceOption = {
       accessibleLabel: 'Ativos: 18',
       label: <span>Ativos · 18</span>,
       value: 'active',
     }
 
-    // @ts-expect-error custom visual choice labels require accessibleLabel
-    const invalid: ChoiceOption = {
+    // @ts-expect-error accessible-name sources are mutually exclusive
+    const duplicatedName: AccessibleName = {
+      'aria-label': 'Buscar',
+      'aria-labelledby': 'search-title',
+    }
+    // @ts-expect-error only verified token lengths belong to the strict contract
+    const unsupportedLength: AuthTokenLength = 5
+    // @ts-expect-error onClear requires explicit product copy in the strict contract
+    const missingClearCopy: SearchInputClearAction = {
+      onClear: () => undefined,
+    }
+    // @ts-expect-error custom visual labels require accessible copy in the strict contract
+    const inaccessibleChoice: AccessibleChoiceOption = {
       label: <span>18</span>,
       value: 'active',
     }
 
-    expect(valid.accessibleLabel).toBe('Ativos: 18')
-    expect(invalid.value).toBe('active')
+    expect(directName['aria-label']).toBe('Buscar')
+    expect(referencedName['aria-labelledby']).toBe('search-title')
+    expect(tokenLength).toBe(6)
+    expect(clearAction.clearLabel).toBe('Limpar busca')
+    expect(customChoice.accessibleLabel).toBe('Ativos: 18')
+    expect(duplicatedName['aria-label']).toBe('Buscar')
+    expect(unsupportedLength).toBe(5)
+    expect(missingClearCopy.onClear).toBeTypeOf('function')
+    expect(inaccessibleChoice.value).toBe('active')
+  })
+
+  it('keeps v1 props source-compatible until a versioned major migration', () => {
+    const legacySearch: SearchInputProps = {
+      'aria-label': 'Buscar',
+      'aria-labelledby': 'search-title',
+      onClear: () => undefined,
+    }
+    const legacyToken: AuthTokenDigitsProps = {
+      'aria-label': 'Código',
+      digitLabel: 'Dígito',
+      idPrefix: 'token',
+      length: 5,
+      onTokenChange: () => undefined,
+    }
+    const legacyChoice: ChoiceOption = {
+      label: <span>18</span>,
+      value: 'active',
+    }
+
+    expect(legacySearch.onClear).toBeTypeOf('function')
+    expect(legacyToken.length).toBe(5)
+    expect(legacyChoice.value).toBe('active')
   })
 })

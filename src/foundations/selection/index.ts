@@ -11,15 +11,12 @@ type AccessibleChoiceLabel =
   | { accessibleLabel?: string; label: string }
   | { accessibleLabel: string; label: ReactElement }
 
-export interface CompatibleChoiceOption<
+export interface ChoiceOption<
   Value extends ChoiceValue = string,
 > extends ChoiceOptionBase<Value> {
   accessibleLabel?: string
   label: ReactNode
 }
 
-export type ChoiceOption<Value extends ChoiceValue = string> =
-  ChoiceOptionBase<Value> & AccessibleChoiceLabel
-
 export type AccessibleChoiceOption<Value extends ChoiceValue = string> =
-  ChoiceOption<Value>
+  ChoiceOptionBase<Value> & AccessibleChoiceLabel

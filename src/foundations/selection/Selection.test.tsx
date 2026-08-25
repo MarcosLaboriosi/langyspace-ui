@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import type { AccessibleChoiceOption, CompatibleChoiceOption } from '.'
+import type { AccessibleChoiceOption, ChoiceOption } from '.'
 
 describe('selection foundations', () => {
   it('requires an accessible label for custom visual labels', () => {
@@ -23,7 +23,7 @@ describe('selection foundations', () => {
     }
     expect(inaccessible.value).toBe('18')
 
-    const compatibilityOption: CompatibleChoiceOption = {
+    const compatibilityOption: ChoiceOption = {
       label: <span>Legado</span>,
       value: 'legacy',
     }

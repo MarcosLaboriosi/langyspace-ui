@@ -60,7 +60,11 @@ export type {
 export { LoadingState } from './molecules/LoadingState'
 export type { LoadingStateProps } from './molecules/LoadingState/types'
 export { SearchInput } from './molecules/SearchInput'
-export type { SearchInputProps, SearchInputSize } from './molecules/SearchInput'
+export type {
+  SearchInputClearAction,
+  SearchInputProps,
+  SearchInputSize,
+} from './molecules/SearchInput'
 export { SegmentedControl } from './molecules/SegmentedControl'
 export type {
   ChoiceOption,

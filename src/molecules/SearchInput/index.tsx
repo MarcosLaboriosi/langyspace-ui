@@ -50,7 +50,7 @@ export const SearchInput = forwardRef<HTMLInputElement, SearchInputProps>(
   function SearchInput(
     {
       className,
-      clearLabel,
+      clearLabel = 'Clear search',
       disabled = false,
       onClear,
       size = 'md',
@@ -106,5 +106,5 @@ export const SearchInput = forwardRef<HTMLInputElement, SearchInputProps>(
   },
 )
 
-export type { SearchInputProps } from './types'
+export type { SearchInputClearAction, SearchInputProps } from './types'
 export type { FieldControlSize as SearchInputSize } from '../../foundations/fields'
