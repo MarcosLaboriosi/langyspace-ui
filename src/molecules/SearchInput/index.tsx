@@ -50,7 +50,7 @@ export const SearchInput = forwardRef<HTMLInputElement, SearchInputProps>(
   function SearchInput(
     {
       className,
-      clearLabel = 'Clear search',
+      clearLabel,
       disabled = false,
       onClear,
       size = 'md',
@@ -73,7 +73,7 @@ export const SearchInput = forwardRef<HTMLInputElement, SearchInputProps>(
         size={size}
         surface={surface}
         trailing={
-          onClear && hasValue ? (
+          onClear && clearLabel && hasValue ? (
             <IconButton
               aria-label={clearLabel}
               disabled={disabled}

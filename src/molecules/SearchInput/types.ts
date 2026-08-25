@@ -8,10 +8,12 @@ type NativeProps = Omit<
   'aria-label' | 'aria-labelledby' | 'size' | 'type'
 >
 
+type ClearAction =
+  | { clearLabel?: never; onClear?: never }
+  | { clearLabel: string; onClear: () => void }
+
 export type SearchInputProps = NativeProps &
   CompatibleAccessibleName & {
-    clearLabel?: string
-    onClear?: () => void
     size?: FieldControlSize
     surface?: CompoundControlSurface
-  }
+  } & ClearAction
