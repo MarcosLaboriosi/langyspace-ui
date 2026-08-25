@@ -1,7 +1,19 @@
 import { useEffect } from 'react'
-import { ActionLink, Button, IconButton } from '../src'
+import {
+  ActionLink,
+  Button,
+  IconButton,
+  LoadingState,
+  StatePanel,
+  StatusChip,
+} from '../src'
 import { ContextTab } from './styles'
-import type { ButtonSize, ButtonVariant, IconButtonVariant } from '../src'
+import type {
+  ButtonSize,
+  ButtonVariant,
+  IconButtonVariant,
+  StatusChipTone,
+} from '../src'
 
 const variants: ButtonVariant[] = [
   'primary',
@@ -21,6 +33,14 @@ const iconButtonVariants: IconButtonVariant[] = [
   'inverse',
 ]
 const sizes: ButtonSize[] = ['sm', 'md', 'lg']
+const statusTones: StatusChipTone[] = [
+  'neutral',
+  'info',
+  'success',
+  'warning',
+  'danger',
+  'brand',
+]
 const stressLabel =
   'Continuar com a configuração compartilhada de componentes Langy.space em todos os produtos'
 const stressToken =
@@ -217,6 +237,58 @@ export function Showcase() {
               {stressMode ? stressToken : 'Começar agora'}
             </ActionLink>
           </article>
+        </div>
+      </section>
+      <section aria-labelledby="status-title" className="showcase__section">
+        <div className="showcase__section-heading">
+          <p>STATUS</p>
+          <h2 id="status-title">Significado antes de cor</h2>
+        </div>
+        <article className="showcase__card">
+          <h3>Tons semânticos</h3>
+          <div className="showcase__status-row">
+            {statusTones.map((tone) => (
+              <StatusChip indicator key={tone} tone={tone}>
+                {stressMode ? `${tone} · ${stressLabel}` : tone}
+              </StatusChip>
+            ))}
+          </div>
+        </article>
+      </section>
+      <section
+        aria-labelledby="state-panels-title"
+        className="showcase__section"
+      >
+        <div className="showcase__section-heading">
+          <p>ESTADOS DE CONTEÚDO</p>
+          <h2 id="state-panels-title">Painéis compostos</h2>
+        </div>
+        <div className="showcase__state-grid">
+          <StatePanel
+            description={
+              stressMode
+                ? stressLabel
+                : 'Adicione o primeiro item para começar.'
+            }
+            state="empty"
+            surface="dashed"
+            title="Nenhum resultado"
+          />
+          <StatePanel
+            action={<Button size="sm">Tentar novamente</Button>}
+            description="Confira sua conexão e repita a operação."
+            state="error"
+            title="Não foi possível carregar"
+          />
+          <LoadingState
+            description="Isso pode levar alguns segundos."
+            title="Carregando conteúdo"
+          />
+          <StatePanel
+            density="compact"
+            state="partial"
+            title="Parte dos resultados está disponível"
+          />
         </div>
       </section>
       <section aria-labelledby="pressable-title" className="showcase__section">

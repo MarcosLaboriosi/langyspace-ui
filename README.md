@@ -2,7 +2,8 @@
 
 Biblioteca React compartilhada pelos produtos Langy.space. Expõe `Button` para comandos rotulados,
 `IconButton` para comandos de glyph único, `ActionLink` para navegação com aparência de ação,
-`Pressable` para controles específicos e `Spinner` para espera.
+`Pressable` para controles específicos, `Spinner` para espera e pequenas composições semânticas de
+status e estado de conteúdo.
 
 ## Installation
 
@@ -183,6 +184,36 @@ export function LoadingState() {
 ```
 
 `size` aceita `inherit` (default, `1em`), `sm` (16 px), `md` (20 px) e `lg` (24 px).
+
+## Status e estados de conteúdo
+
+`StatusChip` comunica significado com os tons fechados `neutral`, `info`, `success`, `warning`,
+`danger` e `brand`. O produto escolhe o significado no callsite; nomes cosméticos como `pink`,
+`green` ou `grey` não fazem parte da API. `indicator` e `iconStart` são adornos visuais e o texto
+completo continua no DOM, mesmo quando o label precisa usar ellipsis em um container estreito.
+
+```tsx
+<StatusChip indicator tone="success">
+  pagamento confirmado
+</StatusChip>
+```
+
+`StatePanel` compõe os estados `empty`, `error`, `loading` e `partial` e é responsável pelos
+atributos acessíveis correspondentes. `icon`, `description` e `action` são opcionais; `title` e
+`state` são obrigatórios. `EmptyState` e `LoadingState` são wrappers pequenos sobre a mesma
+molecule, sem recipe visual paralelo. O Spinner de `LoadingState` permanece decorativo enquanto o
+container expõe `role="status"`, `aria-live="polite"` e `aria-busy="true"`.
+
+```tsx
+<EmptyState title="nenhum aluno encontrado" />
+<LoadingState title="carregando alunos" />
+<StatePanel
+  action={<Button onClick={reload}>tentar novamente</Button>}
+  description="confira sua conexão"
+  state="error"
+  title="não foi possível carregar"
+/>
+```
 
 `0.3.0` trocou `icon` mais `iconPosition` por `iconStart` e `iconEnd`, o que aceita um ícone de cada
 lado e elimina a prop que só existia para modificar outra. Removeu também as classes `lsui-button`,

@@ -83,6 +83,8 @@ async function inspect(page, scenario) {
         '.lsui-sc-button',
         '.lsui-sc-icon-button',
         '.lsui-sc-pressable',
+        '.lsui-sc-state-panel',
+        '.lsui-sc-status-chip',
       ]
 
       containedSelectors.forEach((selector) => {
@@ -199,6 +201,28 @@ async function inspect(page, scenario) {
                 })
               }
             }
+          }
+        })
+
+      document
+        .querySelectorAll('.lsui-sc-state-panel')
+        .forEach((element, index) => {
+          const state = element.getAttribute('data-state')
+          const role = element.getAttribute('role')
+
+          if (
+            (state === 'error' && role !== 'alert') ||
+            ((state === 'loading' || state === 'partial') &&
+              role !== 'status') ||
+            (state === 'loading' &&
+              element.getAttribute('aria-busy') !== 'true')
+          ) {
+            issues.push({
+              index,
+              kind: 'state-panel-accessibility',
+              role,
+              state,
+            })
           }
         })
 

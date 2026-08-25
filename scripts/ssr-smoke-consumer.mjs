@@ -6,8 +6,16 @@ const ConsumerSurface = styled.div`
   color: #123456;
 `
 
-const { Button, IconButton, Pressable, Spinner } =
-  await import('@langyspace/ui')
+const {
+  Button,
+  EmptyState,
+  IconButton,
+  LoadingState,
+  Pressable,
+  Spinner,
+  StatePanel,
+  StatusChip,
+} = await import('@langyspace/ui')
 
 const sheet = new ServerStyleSheet()
 let markup
@@ -27,6 +35,10 @@ try {
         ),
         createElement(Pressable, null, 'Pressable SSR'),
         createElement(Spinner, { size: 'md' }),
+        createElement(StatusChip, { tone: 'success' }, 'Confirmed'),
+        createElement(EmptyState, { title: 'Empty' }),
+        createElement(LoadingState, { title: 'Loading' }),
+        createElement(StatePanel, { state: 'error', title: 'Error' }),
       ),
     ),
   )
@@ -53,6 +65,14 @@ if (!markup.includes('lsui-sc-icon-button')) {
 
 if (!markup.includes('lsui-sc-spinner')) {
   throw new Error('shared_spinner_component_id_is_not_explicit')
+}
+
+if (!markup.includes('lsui-sc-status-chip')) {
+  throw new Error('shared_status_chip_component_id_is_not_explicit')
+}
+
+if (!markup.includes('lsui-sc-state-panel')) {
+  throw new Error('shared_state_panel_component_id_is_not_explicit')
 }
 
 if (buttonClasses.includes(ConsumerSurface.styledComponentId)) {

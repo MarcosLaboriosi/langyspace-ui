@@ -77,7 +77,7 @@ async function writeConsumer(packageSpec) {
   )
   await writeFile(
     join(consumerDirectory, 'src', 'main.tsx'),
-    `import { ActionLink, Button, IconButton, Pressable, Spinner } from '@langyspace/ui'
+    `import { ActionLink, Button, EmptyState, IconButton, LoadingState, Pressable, Spinner, StatePanel, StatusChip } from '@langyspace/ui'
 import { createRoot } from 'react-dom/client'
 
 createRoot(document.getElementById('root')!).render(
@@ -93,6 +93,10 @@ createRoot(document.getElementById('root')!).render(
     </IconButton>
     <Pressable aria-pressed="false">Pressable smoke passed</Pressable>
     <Spinner size="md" />
+    <StatusChip indicator tone="success">Package status passed</StatusChip>
+    <EmptyState title="Package empty state passed" />
+    <LoadingState title="Package loading state passed" />
+    <StatePanel state="error" title="Package error state passed" />
   </>,
 )
 `,
@@ -183,6 +187,14 @@ try {
 
   if (!javascript.includes('lsui-sc-spinner')) {
     throw new Error('shared_spinner_runtime_missing_from_consumer_build')
+  }
+
+  if (!javascript.includes('lsui-sc-status-chip')) {
+    throw new Error('shared_status_chip_runtime_missing_from_consumer_build')
+  }
+
+  if (!javascript.includes('lsui-sc-state-panel')) {
+    throw new Error('shared_state_panel_runtime_missing_from_consumer_build')
   }
 
   console.log(

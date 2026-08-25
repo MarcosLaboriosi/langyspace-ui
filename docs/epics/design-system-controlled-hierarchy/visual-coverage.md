@@ -21,7 +21,8 @@ Adicionar:
 - matrix de IconButton variants/sizes/shapes/loading/accessibility;
 - Button/ActionLink variant brand/inverse e ausência de props removidas;
 - computed geometry 32/40/48 e no layout shift durante loading;
-- StatusChip/StatePanel/Auth/Field/Filter showcases quando cada task os promover;
+- StatusChip e StatePanel cobertos em todos os tones/states, conteúdo opcional e stress; Auth,
+  Field e Filter entram quando a T12 confirmar cada promoção;
 - type fixtures negativas e Node/SSR render das novas camadas.
 
 ## Landing

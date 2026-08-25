@@ -3,7 +3,7 @@
 ## Status
 
 Planejamento, refinamento de produto, refinamento técnico, breakdown e revisão crítica concluídos.
-T01 a T09 concluídas. T10 é a única task em andamento.
+T01 a T10 concluídas. T11 é a única task em andamento.
 
 ## Baseline
 
@@ -96,11 +96,19 @@ Worktree root: `/private/tmp/langyspace-design-system-hierarchy.YMowcs`.
   revelou overflow de 744 px no gráfico mobile, corrigido no owner do grid com `min-width: 0`;
 - 15 testes, build e o full gate do Cupom com 36 cenários passaram; relatório normal/stress,
   seleção 30d e redirects sanitizados foram validados em nove larguras sem problemas geométricos.
+- T10 promoveu StatusChip semântico e a família StatePanel/EmptyState/LoadingState sem copy ou
+  regras de produto; icon, description e action são opcionais e o container é o owner do status
+  acessível;
+- o stress mobile revelou overflow real em StatusChip longo; o label interno agora contém ellipsis
+  sem retirar o texto completo do DOM, mantendo indicator e icon fixos;
+- 37 testes, audit, lint, format, typecheck, build, tarball/Node/SSR smoke e o full gate do package
+  com 36 cenários passaram; normal/stress em 390/1281/2048 foram inspecionados sem problemas de
+  layout, hierarquia, contraste ou densidade.
 
 ## Próxima subtask
 
-T10.1 — implementar os componentes de estado aprovados no package sobre foundations/primitives,
-mantendo EmptyState, LoadingState e StatePanel sem conhecimento de produto.
+T11.1 — mapear cada StatusChip local para tone semântico no callsite e separar skeletons/banners que
+não representam o atom compartilhado.
 
 ## Blockers
 

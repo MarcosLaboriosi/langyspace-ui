@@ -1,6 +1,6 @@
 # T11 — adotar components de estado nos produtos
 
-Status: pendente.
+Status: em andamento.
 
 ## Responsabilidade
 
