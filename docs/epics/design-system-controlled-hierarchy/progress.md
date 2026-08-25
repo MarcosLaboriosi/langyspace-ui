@@ -3,7 +3,7 @@
 ## Status
 
 Planejamento, refinamento de produto, refinamento técnico, breakdown e revisão crítica concluídos.
-T01 a T04 concluídas. T05 é a única task em andamento.
+T01 a T05 concluídas. T06 é a única task em andamento.
 
 ## Baseline
 
@@ -61,11 +61,18 @@ Worktree root: `/private/tmp/langyspace-design-system-hierarchy.YMowcs`.
 - a primeira inspeção do Footer da Landing revelou perda do contorno do IconButton inverse; a
   correção foi feita no atom, o full gate repetido e o tarball/checksum renovados antes das demais
   migrações.
+- T05 migrou actions canônicas da Landing e converteu os controles pedagógicos específicos para
+  Pressable, sem adapter de variant;
+- o audit da Landing agora bloqueia attrs removidos e recipe visual em wrappers/descendant
+  selectors;
+- o full gate da Landing passou com build client/SSR/prerender e 270 cenários visuais em 15 fixtures
+  e nove larguras; Hero/header, form loading, showcases e CTA/footer foram inspecionados em
+  390/1281/2048.
 
 ## Próxima subtask
 
-T05.1 — migrar os dois ActionLinks brand da Landing, revisar todos os wrappers/action selectors e
-provar header, Hero, forms, FinalCta e sticky mobile contra o baseline.
+T06.1 — remover os adapters tradutores de Button/IconButton do Admin, mapear seus variants para a
+API semântica direta e preservar login, tables, search, drawers e ações densas.
 
 ## Blockers
 

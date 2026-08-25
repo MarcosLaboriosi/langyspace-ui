@@ -1,6 +1,6 @@
 # T06 — migrar Admin
 
-Status: pendente.
+Status: em andamento.
 
 ## Responsabilidade
 
