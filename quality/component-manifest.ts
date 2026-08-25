@@ -1,0 +1,386 @@
+export type ComponentLayer = 'atom' | 'molecule' | 'primitive'
+
+type CoverageTask = 'T02' | 'T04' | 'T10'
+
+type Coverage =
+  { status: 'complete' } | { status: 'pending'; task: CoverageTask }
+
+export interface ComponentContract {
+  browserSmoke: Coverage
+  exportName: string
+  interactive: boolean
+  layer: ComponentLayer
+  ownerPath: string
+  runtimeMarker: string
+  ssrSmoke: Coverage
+  story: Coverage & { path: string; title: string }
+  test: Coverage & { path: string }
+  visual: boolean
+}
+
+const complete = { status: 'complete' } as const
+const pending = (task: CoverageTask) => ({ status: 'pending', task }) as const
+
+export const publicComponentContracts = [
+  {
+    browserSmoke: complete,
+    exportName: 'ActionLink',
+    interactive: true,
+    layer: 'atom',
+    ownerPath: 'src/atoms/ActionLink/index.tsx',
+    runtimeMarker: 'lsui-sc-action-link',
+    ssrSmoke: pending('T10'),
+    story: {
+      ...complete,
+      path: 'src/atoms/ActionLink/ActionLink.stories.tsx',
+      title: 'Atoms/Actions/ActionLink',
+    },
+    test: {
+      ...complete,
+      path: 'src/atoms/ActionLink/ActionLink.test.tsx',
+    },
+    visual: true,
+  },
+  {
+    browserSmoke: complete,
+    exportName: 'AuthNotice',
+    interactive: false,
+    layer: 'atom',
+    ownerPath: 'src/atoms/AuthNotice/index.tsx',
+    runtimeMarker: 'lsui-sc-auth-notice',
+    ssrSmoke: complete,
+    story: {
+      ...complete,
+      path: 'src/atoms/AuthNotice/AuthNotice.stories.tsx',
+      title: 'Atoms/Feedback/AuthNotice',
+    },
+    test: {
+      ...complete,
+      path: 'src/atoms/AuthNotice/AuthNotice.test.tsx',
+    },
+    visual: true,
+  },
+  {
+    browserSmoke: complete,
+    exportName: 'Button',
+    interactive: true,
+    layer: 'atom',
+    ownerPath: 'src/atoms/Button/index.tsx',
+    runtimeMarker: 'lsui-sc-button',
+    ssrSmoke: complete,
+    story: {
+      ...complete,
+      path: 'src/atoms/Button/Button.stories.tsx',
+      title: 'Atoms/Actions/Button',
+    },
+    test: {
+      ...complete,
+      path: 'src/atoms/Button/Button.test.tsx',
+    },
+    visual: true,
+  },
+  {
+    browserSmoke: complete,
+    exportName: 'IconButton',
+    interactive: true,
+    layer: 'atom',
+    ownerPath: 'src/atoms/IconButton/index.tsx',
+    runtimeMarker: 'lsui-sc-icon-button',
+    ssrSmoke: complete,
+    story: {
+      ...complete,
+      path: 'src/atoms/IconButton/IconButton.stories.tsx',
+      title: 'Atoms/Actions/IconButton',
+    },
+    test: {
+      ...complete,
+      path: 'src/atoms/IconButton/IconButton.test.tsx',
+    },
+    visual: true,
+  },
+  {
+    browserSmoke: pending('T10'),
+    exportName: 'SelectInput',
+    interactive: true,
+    layer: 'atom',
+    ownerPath: 'src/atoms/SelectInput/index.tsx',
+    runtimeMarker: 'lsui-sc-select-input',
+    ssrSmoke: pending('T10'),
+    story: {
+      ...complete,
+      path: 'src/atoms/SelectInput/SelectInput.stories.tsx',
+      title: 'Atoms/Fields/SelectInput',
+    },
+    test: {
+      ...complete,
+      path: 'src/atoms/SelectInput/SelectInput.test.tsx',
+    },
+    visual: true,
+  },
+  {
+    browserSmoke: complete,
+    exportName: 'StatusChip',
+    interactive: false,
+    layer: 'atom',
+    ownerPath: 'src/atoms/StatusChip/index.tsx',
+    runtimeMarker: 'lsui-sc-status-chip',
+    ssrSmoke: complete,
+    story: {
+      ...complete,
+      path: 'src/atoms/StatusChip/StatusChip.stories.tsx',
+      title: 'Atoms/Feedback/StatusChip',
+    },
+    test: {
+      ...complete,
+      path: 'src/atoms/StatusChip/StatusChip.test.tsx',
+    },
+    visual: true,
+  },
+  {
+    browserSmoke: pending('T10'),
+    exportName: 'TextareaInput',
+    interactive: true,
+    layer: 'atom',
+    ownerPath: 'src/atoms/TextareaInput/index.tsx',
+    runtimeMarker: 'lsui-sc-textarea-input',
+    ssrSmoke: pending('T10'),
+    story: {
+      ...complete,
+      path: 'src/atoms/TextareaInput/TextareaInput.stories.tsx',
+      title: 'Atoms/Fields/TextareaInput',
+    },
+    test: {
+      ...complete,
+      path: 'src/atoms/TextareaInput/TextareaInput.test.tsx',
+    },
+    visual: true,
+  },
+  {
+    browserSmoke: complete,
+    exportName: 'TextInput',
+    interactive: true,
+    layer: 'atom',
+    ownerPath: 'src/atoms/TextInput/index.tsx',
+    runtimeMarker: 'lsui-sc-text-input',
+    ssrSmoke: complete,
+    story: {
+      ...complete,
+      path: 'src/atoms/TextInput/TextInput.stories.tsx',
+      title: 'Atoms/Fields/TextInput',
+    },
+    test: {
+      ...complete,
+      path: 'src/atoms/TextInput/TextInput.test.tsx',
+    },
+    visual: true,
+  },
+  {
+    browserSmoke: complete,
+    exportName: 'AuthTokenDigits',
+    interactive: true,
+    layer: 'molecule',
+    ownerPath: 'src/molecules/AuthTokenDigits/index.tsx',
+    runtimeMarker: 'lsui-sc-auth-token-digits',
+    ssrSmoke: complete,
+    story: {
+      ...complete,
+      path: 'src/molecules/AuthTokenDigits/AuthTokenDigits.stories.tsx',
+      title: 'Molecules/Auth/AuthTokenDigits',
+    },
+    test: {
+      ...complete,
+      path: 'src/molecules/AuthTokenDigits/AuthTokenDigits.test.tsx',
+    },
+    visual: true,
+  },
+  {
+    browserSmoke: pending('T10'),
+    exportName: 'CompoundControl',
+    interactive: false,
+    layer: 'molecule',
+    ownerPath: 'src/molecules/CompoundControl/index.tsx',
+    runtimeMarker: 'lsui-sc-compound-control',
+    ssrSmoke: pending('T10'),
+    story: {
+      ...complete,
+      path: 'src/molecules/CompoundControl/CompoundControl.stories.tsx',
+      title: 'Molecules/Fields/CompoundControl',
+    },
+    test: {
+      ...complete,
+      path: 'src/molecules/CompoundControl/CompoundControl.test.tsx',
+    },
+    visual: true,
+  },
+  {
+    browserSmoke: complete,
+    exportName: 'EmptyState',
+    interactive: false,
+    layer: 'molecule',
+    ownerPath: 'src/molecules/EmptyState/index.tsx',
+    runtimeMarker: 'lsui-sc-state-panel',
+    ssrSmoke: complete,
+    story: {
+      ...complete,
+      path: 'src/molecules/EmptyState/EmptyState.stories.tsx',
+      title: 'Molecules/State/EmptyState',
+    },
+    test: {
+      ...complete,
+      path: 'src/molecules/EmptyState/EmptyState.test.tsx',
+    },
+    visual: true,
+  },
+  {
+    browserSmoke: complete,
+    exportName: 'FieldRoot',
+    interactive: false,
+    layer: 'molecule',
+    ownerPath: 'src/molecules/FieldRoot/index.tsx',
+    runtimeMarker: 'lsui-sc-field-root',
+    ssrSmoke: complete,
+    story: {
+      ...complete,
+      path: 'src/molecules/FieldRoot/FieldRoot.stories.tsx',
+      title: 'Molecules/Fields/FieldRoot',
+    },
+    test: {
+      ...complete,
+      path: 'src/molecules/FieldRoot/FieldRoot.test.tsx',
+    },
+    visual: true,
+  },
+  {
+    browserSmoke: complete,
+    exportName: 'FilterPills',
+    interactive: true,
+    layer: 'molecule',
+    ownerPath: 'src/molecules/FilterPills/index.tsx',
+    runtimeMarker: 'lsui-sc-filter-pills',
+    ssrSmoke: complete,
+    story: {
+      ...complete,
+      path: 'src/molecules/FilterPills/FilterPills.stories.tsx',
+      title: 'Molecules/Selection/FilterPills',
+    },
+    test: {
+      ...complete,
+      path: 'src/molecules/FilterPills/FilterPills.test.tsx',
+    },
+    visual: true,
+  },
+  {
+    browserSmoke: complete,
+    exportName: 'LoadingState',
+    interactive: false,
+    layer: 'molecule',
+    ownerPath: 'src/molecules/LoadingState/index.tsx',
+    runtimeMarker: 'lsui-sc-state-panel',
+    ssrSmoke: complete,
+    story: {
+      ...complete,
+      path: 'src/molecules/LoadingState/LoadingState.stories.tsx',
+      title: 'Molecules/State/LoadingState',
+    },
+    test: {
+      ...complete,
+      path: 'src/molecules/LoadingState/LoadingState.test.tsx',
+    },
+    visual: true,
+  },
+  {
+    browserSmoke: complete,
+    exportName: 'SearchInput',
+    interactive: true,
+    layer: 'molecule',
+    ownerPath: 'src/molecules/SearchInput/index.tsx',
+    runtimeMarker: 'lsui-sc-search-input',
+    ssrSmoke: complete,
+    story: {
+      ...complete,
+      path: 'src/molecules/SearchInput/SearchInput.stories.tsx',
+      title: 'Molecules/Fields/SearchInput',
+    },
+    test: {
+      ...complete,
+      path: 'src/molecules/SearchInput/SearchInput.test.tsx',
+    },
+    visual: true,
+  },
+  {
+    browserSmoke: complete,
+    exportName: 'SegmentedControl',
+    interactive: true,
+    layer: 'molecule',
+    ownerPath: 'src/molecules/SegmentedControl/index.tsx',
+    runtimeMarker: 'lsui-sc-segmented-control',
+    ssrSmoke: complete,
+    story: {
+      ...complete,
+      path: 'src/molecules/SegmentedControl/SegmentedControl.stories.tsx',
+      title: 'Molecules/Selection/SegmentedControl',
+    },
+    test: {
+      ...complete,
+      path: 'src/molecules/SegmentedControl/SegmentedControl.test.tsx',
+    },
+    visual: true,
+  },
+  {
+    browserSmoke: complete,
+    exportName: 'StatePanel',
+    interactive: false,
+    layer: 'molecule',
+    ownerPath: 'src/molecules/StatePanel/index.tsx',
+    runtimeMarker: 'lsui-sc-state-panel',
+    ssrSmoke: complete,
+    story: {
+      ...complete,
+      path: 'src/molecules/StatePanel/StatePanel.stories.tsx',
+      title: 'Molecules/State/StatePanel',
+    },
+    test: {
+      ...complete,
+      path: 'src/molecules/StatePanel/StatePanel.test.tsx',
+    },
+    visual: true,
+  },
+  {
+    browserSmoke: complete,
+    exportName: 'Pressable',
+    interactive: true,
+    layer: 'primitive',
+    ownerPath: 'src/primitives/Pressable/index.tsx',
+    runtimeMarker: 'lsui-sc-pressable',
+    ssrSmoke: complete,
+    story: {
+      ...complete,
+      path: 'src/primitives/Pressable/Pressable.stories.tsx',
+      title: 'Primitives/Pressable',
+    },
+    test: {
+      ...complete,
+      path: 'src/primitives/Pressable/Pressable.test.tsx',
+    },
+    visual: true,
+  },
+  {
+    browserSmoke: complete,
+    exportName: 'Spinner',
+    interactive: false,
+    layer: 'primitive',
+    ownerPath: 'src/primitives/Spinner/index.tsx',
+    runtimeMarker: 'lsui-sc-spinner',
+    ssrSmoke: complete,
+    story: {
+      ...complete,
+      path: 'src/primitives/Spinner/Spinner.stories.tsx',
+      title: 'Primitives/Spinner',
+    },
+    test: {
+      ...complete,
+      path: 'src/primitives/Spinner/Spinner.test.tsx',
+    },
+    visual: true,
+  },
+] as const satisfies readonly ComponentContract[]

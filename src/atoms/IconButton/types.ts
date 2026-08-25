@@ -1,4 +1,5 @@
 import type { ComponentPropsWithRef, ReactNode } from 'react'
+import type { AccessibleName } from '../../foundations/accessibility'
 import type {
   ActionRecipeStyleProps,
   ActionShape,
@@ -11,10 +12,6 @@ export type IconButtonVariant =
 export type IconButtonSize = ActionSize
 
 export type IconButtonShape = 'circle' | 'rounded'
-
-type AccessibleName =
-  | { 'aria-label': string; 'aria-labelledby'?: never }
-  | { 'aria-label'?: never; 'aria-labelledby': string }
 
 type NativeIconButtonProps = Omit<
   ComponentPropsWithRef<'button'>,

@@ -1,10 +1,7 @@
 import type { InputHTMLAttributes } from 'react'
-import type { FieldControlSize } from '../../atoms/fieldControlStyles'
+import type { CompatibleAccessibleName } from '../../foundations/accessibility'
+import type { FieldControlSize } from '../../foundations/fields'
 import type { CompoundControlSurface } from '../CompoundControl/types'
-
-type SearchInputAccessibleName =
-  | { 'aria-label': string; 'aria-labelledby'?: string }
-  | { 'aria-label'?: string; 'aria-labelledby': string }
 
 type NativeProps = Omit<
   InputHTMLAttributes<HTMLInputElement>,
@@ -12,7 +9,7 @@ type NativeProps = Omit<
 >
 
 export type SearchInputProps = NativeProps &
-  SearchInputAccessibleName & {
+  CompatibleAccessibleName & {
     clearLabel?: string
     onClear?: () => void
     size?: FieldControlSize

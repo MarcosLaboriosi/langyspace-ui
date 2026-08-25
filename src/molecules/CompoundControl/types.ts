@@ -1,5 +1,5 @@
 import type { HTMLAttributes, ReactNode } from 'react'
-import type { FieldControlSize } from '../../atoms/fieldControlStyles'
+import type { FieldControlSize } from '../../foundations/fields'
 
 export type CompoundControlSurface = 'surface' | 'muted'
 

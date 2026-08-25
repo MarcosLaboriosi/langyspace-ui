@@ -23,4 +23,4 @@ export const SelectInput = forwardRef<HTMLSelectElement, SelectInputProps>(
 )
 
 export type { SelectInputProps } from './types'
-export type { FieldControlSize as SelectInputSize } from '../fieldControlStyles'
+export type { FieldControlSize as SelectInputSize } from '../../foundations/fields'

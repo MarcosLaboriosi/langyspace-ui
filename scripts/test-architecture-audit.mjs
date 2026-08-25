@@ -9,7 +9,9 @@ const root = await mkdtemp(join(tmpdir(), 'langyspace-ui-audit-'))
 try {
   await mkdir(join(root, 'src', 'atoms', 'Broken'), { recursive: true })
   await mkdir(join(root, 'src', 'foundations'), { recursive: true })
+  await mkdir(join(root, 'src', 'internal'), { recursive: true })
   await mkdir(join(root, 'src', 'molecules'), { recursive: true })
+  await mkdir(join(root, 'src', 'primitives'), { recursive: true })
   await writeFile(
     join(root, 'src', 'atoms', 'Broken', 'index.tsx'),
     `import { Button } from '@langyspace/ui/private'
@@ -31,6 +33,18 @@ export const Native = () => <button>Broken</button>
     join(root, 'src', 'foundations', 'tokens.ts'),
     'export const token = 1\n',
   )
+  await writeFile(
+    join(root, 'src', 'foundations', 'BrokenFoundation.ts'),
+    "import { Native } from '../atoms/Broken'\nexport const brokenFoundation = Native\n",
+  )
+  await writeFile(
+    join(root, 'src', 'primitives', 'BrokenPrimitive.ts'),
+    "import { Native } from '../atoms/Broken'\nexport const brokenPrimitive = Native\n",
+  )
+  await writeFile(
+    join(root, 'src', 'internal', 'BrokenInternal.ts'),
+    "import { Higher } from '../molecules/Higher'\nexport const brokenInternal = Higher\n",
+  )
 
   const result = await auditArchitecture(
     defineAuditConfig({
@@ -41,7 +55,9 @@ export const Native = () => <button>Broken</button>
       layerDependencies: {
         atoms: ['atoms', 'foundations'],
         foundations: ['foundations'],
+        internal: ['foundations', 'internal', 'primitives'],
         molecules: ['atoms', 'foundations', 'molecules'],
+        primitives: ['foundations', 'primitives'],
       },
     }),
   )
@@ -56,6 +72,9 @@ export const Native = () => <button>Broken</button>
     'overrides canonical recipe',
     'descendant action selector',
     'atoms cannot depend on the higher molecules layer',
+    'foundations cannot depend on the higher atoms layer',
+    'internal cannot depend on the higher molecules layer',
+    'primitives cannot depend on the higher atoms layer',
   ]) {
     assert.match(output, new RegExp(expected))
   }
@@ -85,7 +104,7 @@ export const Native = () => <button>Broken</button>
   )
 
   console.log(
-    'Architecture audit negative fixtures passed: 10 contracts proved.',
+    'Architecture audit negative fixtures passed: 13 contracts proved.',
   )
 } finally {
   await rm(root, { force: true, recursive: true })

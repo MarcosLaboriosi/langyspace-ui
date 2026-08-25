@@ -6,7 +6,9 @@ import globals from 'globals'
 import tseslint from 'typescript-eslint'
 
 export default tseslint.config(
-  { ignores: ['dist', 'node_modules', '.local', 'release'] },
+  {
+    ignores: ['dist', 'node_modules', '.local', 'release', 'storybook-static'],
+  },
   js.configs.recommended,
   ...tseslint.configs.recommended,
   {
@@ -43,12 +45,21 @@ export default tseslint.config(
     },
   },
   {
-    files: ['scripts/audit-layout.mjs'],
+    files: [
+      'scripts/audit-storybook-layout.mjs',
+      'scripts/layout-audit/**/*.mjs',
+    ],
     languageOptions: {
       globals: {
         ...globals.browser,
         ...globals.node,
       },
+    },
+  },
+  {
+    files: ['.storybook/fixtures.tsx'],
+    rules: {
+      'react-refresh/only-export-components': 'off',
     },
   },
   prettier,

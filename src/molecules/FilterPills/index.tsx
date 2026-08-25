@@ -1,5 +1,5 @@
 import * as Styled from './styles'
-import type { ChoiceValue } from '../choice'
+import type { ChoiceValue } from '../../foundations/selection'
 import type { FilterPillsProps } from './types'
 
 export function FilterPills<Value extends ChoiceValue>({

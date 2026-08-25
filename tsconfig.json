@@ -19,5 +19,12 @@
     "target": "ES2022",
     "types": ["node", "vitest/globals"]
   },
-  "include": ["src", "showcase", "vite.config.ts", "vitest.config.ts"]
+  "include": [
+    ".storybook/**/*.ts",
+    "quality",
+    "src",
+    "test",
+    "vite.config.ts",
+    "vitest.config.ts"
+  ]
 }

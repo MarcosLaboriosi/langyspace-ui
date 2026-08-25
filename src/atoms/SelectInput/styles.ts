@@ -2,7 +2,7 @@ import { styled } from 'styled-components'
 import {
   fieldControlStyles,
   type FieldControlStyleProps,
-} from '../fieldControlStyles'
+} from '../../foundations/fields'
 import { tokens } from '../../foundations/tokens'
 
 export const Select = styled.select.withConfig({

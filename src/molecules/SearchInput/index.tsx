@@ -107,4 +107,4 @@ export const SearchInput = forwardRef<HTMLInputElement, SearchInputProps>(
 )
 
 export type { SearchInputProps } from './types'
-export type { FieldControlSize as SearchInputSize } from '../../atoms/fieldControlStyles'
+export type { FieldControlSize as SearchInputSize } from '../../foundations/fields'

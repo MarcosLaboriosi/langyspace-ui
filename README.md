@@ -378,8 +378,10 @@ pnpm run test:package
 pnpm run validate:ui
 ```
 
-O showcase local abre com `pnpm exec vite`. A auditoria bloqueia rede externa e cobre os modos
-normal/stress nas larguras de aceitação dos produtos.
+O catálogo local abre com `pnpm run storybook`. `pnpm run test:storybook` executa render,
+interações e axe em Chromium; `pnpm run test:layout` constrói o catálogo, bloqueia rede externa e
+audita cada story em movimento normal/reduzido nas larguras globais e boundaries declaradas por
+metadata.
 
 ### Audit arquitetural
 

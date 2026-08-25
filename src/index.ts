@@ -5,7 +5,6 @@ export type {
 } from './atoms/ActionLink/types'
 export { AuthNotice } from './atoms/AuthNotice'
 export type { AuthNoticeProps, AuthNoticeTone } from './atoms/AuthNotice/types'
-export type { FieldControlSize } from './atoms/fieldControlStyles'
 export { Button } from './atoms/Button'
 export type {
   ButtonProps,
@@ -37,6 +36,7 @@ export { TextInput } from './atoms/TextInput'
 export type { TextInputProps, TextInputSize } from './atoms/TextInput'
 export { tokens } from './foundations/tokens'
 export type { DesignTokens } from './foundations/tokens'
+export type { FieldControlSize } from './foundations/fields'
 export { AuthTokenDigits } from './molecules/AuthTokenDigits'
 export type { AuthTokenDigitsProps } from './molecules/AuthTokenDigits/types'
 export { CompoundControl } from './molecules/CompoundControl'

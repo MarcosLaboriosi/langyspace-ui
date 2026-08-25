@@ -1,6 +1,6 @@
 import { css, styled } from 'styled-components'
 import { tokens } from '../../foundations/tokens'
-import type { FieldControlSize } from '../../atoms/fieldControlStyles'
+import type { FieldControlSize } from '../../foundations/fields'
 import type { CompoundControlSurface } from './types'
 
 const sizeStyles = {
