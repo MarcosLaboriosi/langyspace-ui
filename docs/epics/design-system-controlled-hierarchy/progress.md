@@ -3,7 +3,7 @@
 ## Status
 
 Planejamento, refinamento de produto, refinamento técnico, breakdown e revisão crítica concluídos.
-T01 a T13 concluídas. T14 é a única task em andamento.
+T01 a T14 concluídas. T15 é a única task em andamento.
 
 ## Baseline
 
@@ -130,11 +130,23 @@ Worktree root: `/private/tmp/langyspace-design-system-hierarchy.YMowcs`.
   geometria ou regressão de hierarquia;
 - o mesmo candidato local 1.0.0 possui SHA-256
   `1ae7f97337ef3896877438b33133217afae394bfa51dfe1677f912e5e1fa8613`.
+- T14 substituiu os seis engines copiados por `@langyspace/ui/audit` e pelo executable
+  `langyspace-ui-audit`; cada produto mantém somente config explícito de boundaries, motion e
+  exceções;
+- dez fixtures negativas provam native ownership, spinner, motion, private import, copied union,
+  layer inversion, visual overrides e os metadados obrigatórios das exceções;
+- o audit central encontrou e removeu o min-height redundante do quiz do Teacher; o segmented
+  financeiro do Admin foi confirmado como controle de domínio sobre Pressable e documentado por
+  selector, razão e owner;
+- o package passou full gate e smoke do CLI no tarball; o mesmo engine auditou 99/149/307/477/20
+  arquivos nos cinco consumidores, todos com configs formatados;
+- o candidato local 1.0.0 com o executable público possui SHA-256
+  `8a1d7ff63bd412cf3ae1efde7a7442e48450515d01bb87552436f5e0076d6ceb`.
 
 ## Próxima subtask
 
-T14.1 — extrair o engine versionado do audit para o package e reduzir cada produto a uma config
-local explícita.
+T15.1 — revisar requirements, diffs, dead code, dependências temporárias e executar os seis gates
+finais antes da publicação.
 
 ## Blockers
 
@@ -145,10 +157,10 @@ Nenhum.
 - o único uso produtivo explícito de `IconButton size="xs"` converge para `sm`; PortalAction também
   deve parar de traduzir a class `sm` para xs;
 - quais StatusChip color aliases representam brand versus info/neutral no contexto do dado;
-- quais exceções atuais dos seis scripts precisam de owner e motivo explícitos no config central;
+- nenhuma descoberta arquitetural pendente; T15 deve somente revisar, publicar e provar o rollout;
 - quais descendant selectors tocam actions canônicas versus controles de domínio.
 
 ## Veredito visual atual
 
-Passed: package e quatro consumidores passaram gates completos; capturas de auth, fields, filtros e
-range em 390/1281/2048 não mostraram overflow, corte ou mudança de geometria.
+Passed: T14 não introduziu nova superfície; a única remoção visual eliminou um min-height redundante
+e preservou a altura canônica do Button, comprovada por build e 13 testes do preview.

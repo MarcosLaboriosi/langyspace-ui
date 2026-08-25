@@ -13,7 +13,7 @@
 - [x] [T11 — adotar components de estado nos produtos](tasks/11-state-adoption.md)
 - [x] [T12 — criar auth, field e filter components](tasks/12-auth-field-filter.md)
 - [x] [T13 — adotar auth, field e filter components](tasks/13-auth-field-filter-adoption.md)
-- [ ] [T14 — centralizar o audit arquitetural](tasks/14-central-audit.md)
+- [x] [T14 — centralizar o audit arquitetural](tasks/14-central-audit.md)
 - [ ] [T15 — revisar, publicar e provar produção](tasks/15-rollout.md)
 
 As tarefas são dependency-ordered. Somente a task indicada em `progress.md` pode entrar em

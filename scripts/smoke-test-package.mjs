@@ -136,6 +136,22 @@ import { defineConfig } from 'vite'
 export default defineConfig({ plugins: [react()] })
 `,
   )
+  await writeFile(
+    join(consumerDirectory, 'audit.config.mjs'),
+    `import { defineAuditConfig } from '@langyspace/ui/audit'
+
+export default defineAuditConfig({
+  root: import.meta.dirname,
+  allowedDirectButtonImports: [
+    {
+      owner: 'Smoke consumer',
+      path: 'src/main.tsx',
+      reason: 'direct package contract smoke',
+    },
+  ],
+})
+`,
+  )
 }
 
 try {
@@ -154,6 +170,16 @@ try {
   run(
     'node',
     ['--input-type=module', '--eval', "await import('@langyspace/ui')"],
+    consumerDirectory,
+  )
+  run(
+    'node',
+    ['--input-type=module', '--eval', "await import('@langyspace/ui/audit')"],
+    consumerDirectory,
+  )
+  run(
+    'pnpm',
+    ['exec', 'langyspace-ui-audit', 'audit.config.mjs'],
     consumerDirectory,
   )
   run('node', ['ssr-smoke.mjs'], consumerDirectory)

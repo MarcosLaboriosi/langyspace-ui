@@ -381,6 +381,35 @@ pnpm run validate:ui
 O showcase local abre com `pnpm exec vite`. A auditoria bloqueia rede externa e cobre os modos
 normal/stress nas larguras de aceitação dos produtos.
 
+### Audit arquitetural
+
+O package publica o mesmo engine usado pelos cinco produtos. Cada consumidor mantém somente um
+config local com source roots, boundaries e exceções exatas; toda exceção exige path, motivo e
+owner, e overrides descendentes exigem também o selector.
+
+```js
+import { defineAuditConfig } from '@langyspace/ui/audit'
+
+export default defineAuditConfig({
+  root: import.meta.dirname,
+  allowedDirectButtonImports: [
+    {
+      owner: 'Product UI',
+      path: 'src/components/base/Button/index.tsx',
+      reason: 'layout-only composition',
+    },
+  ],
+})
+```
+
+```bash
+langyspace-ui-audit scripts/button-system.audit.config.mjs
+```
+
+O engine bloqueia ownership nativo fora de Pressable, spinner local, motion não classificado,
+imports privados, unions copiadas, inversão de camada e overrides visuais do recipe canônico. Os
+layout audits continuam locais porque conhecem rotas, fixtures e densidade de cada produto.
+
 ## Release
 
 1. Atualize a versão em `package.json` usando SemVer.
