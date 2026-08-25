@@ -43,10 +43,15 @@ export const Item = styled(Pressable)<{
 }>`
   flex: 0 0 auto;
   border: 1px solid
-    ${({ $active }) => ($active ? tokens.color.neutral[950] : tokens.color.neutral[400])};
+    ${({ $active }) =>
+      $active
+        ? tokens.color.content.default
+        : tokens.color.surfaceBorder.default};
   border-radius: ${tokens.radius.pill};
-  color: ${({ $active }) => ($active ? tokens.color.neutral[0] : tokens.color.neutral[600])};
-  background: ${({ $active }) => ($active ? tokens.color.neutral[950] : tokens.color.neutral[0])};
+  color: ${({ $active }) =>
+    $active ? tokens.color.neutral[0] : tokens.color.content.secondary};
+  background: ${({ $active }) =>
+    $active ? tokens.color.content.default : tokens.color.neutral[0]};
   white-space: nowrap;
   transition:
     color ${tokens.motion.duration.interactive}
@@ -59,7 +64,7 @@ export const Item = styled(Pressable)<{
   ${({ $size }) => sizeStyles[$size]}
 
   &:hover:not(:disabled) {
-    border-color: ${tokens.color.neutral[950]};
+    border-color: ${tokens.color.surfaceBorder.strong};
   }
 
   &:focus-visible {

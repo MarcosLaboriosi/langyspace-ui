@@ -1,7 +1,8 @@
 import * as Styled from './styles'
+import type { ChoiceValue } from '../choice'
 import type { FilterPillsProps } from './types'
 
-export function FilterPills<Value extends string>({
+export function FilterPills<Value extends ChoiceValue>({
   counts,
   onChange,
   options,

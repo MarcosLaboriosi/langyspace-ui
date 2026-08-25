@@ -1,6 +1,7 @@
 import '@testing-library/jest-dom/vitest'
 import { cleanup, fireEvent, render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import { useState } from 'react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { AuthNotice, AuthTokenDigits } from '../..'
 
@@ -80,5 +81,34 @@ describe('auth components', () => {
     digits = screen.getAllByRole('textbox') as HTMLInputElement[]
     expect(digits.map((input) => input.value)).toEqual(['9', '8', '7', '6'])
     expect(digits[0]).toHaveAttribute('aria-invalid', 'true')
+  })
+
+  it('distributes continuous typing through a controlled value', async () => {
+    const onTokenChange = vi.fn()
+    const user = userEvent.setup()
+
+    function ControlledToken() {
+      const [value, setValue] = useState('')
+
+      return (
+        <AuthTokenDigits
+          aria-label="Código de acesso"
+          autoFocus={false}
+          digitLabel="Dígito"
+          idPrefix="continuous-code"
+          length={6}
+          value={value}
+          onTokenChange={(token) => {
+            setValue(token)
+            onTokenChange(token)
+          }}
+        />
+      )
+    }
+
+    render(<ControlledToken />)
+    await user.type(screen.getByLabelText('Dígito 1'), '123456')
+
+    expect(onTokenChange).toHaveBeenLastCalledWith('123456')
   })
 })

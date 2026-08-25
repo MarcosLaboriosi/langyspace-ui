@@ -1,7 +1,8 @@
 import * as Styled from './styles'
+import type { ChoiceValue } from '../choice'
 import type { SegmentedControlProps } from './types'
 
-export function SegmentedControl<Value extends string>({
+export function SegmentedControl<Value extends ChoiceValue>({
   onChange,
   options,
   shape = 'rounded',
@@ -35,4 +36,4 @@ export type {
   SegmentedControlShape,
   SegmentedControlSurface,
 } from './types'
-export type { ChoiceOption } from '../choice'
+export type { ChoiceOption, ChoiceValue } from '../choice'

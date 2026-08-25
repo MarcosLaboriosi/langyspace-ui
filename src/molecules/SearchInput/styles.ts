@@ -27,7 +27,7 @@ export const Input = styled.input.withConfig({
   appearance: none;
   background: transparent;
   box-shadow: none;
-  color: ${tokens.color.neutral[950]};
+  color: ${tokens.color.content.default};
   font-family: inherit;
   padding: 0;
 
@@ -46,11 +46,11 @@ export const Input = styled.input.withConfig({
   }
 
   &::placeholder {
-    color: ${tokens.color.neutral[500]};
+    color: ${tokens.color.content.placeholder};
   }
 
   &:disabled {
-    color: ${tokens.color.neutral[600]};
+    color: ${tokens.color.content.muted};
     cursor: default;
   }
 `

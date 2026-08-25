@@ -20,11 +20,13 @@ export const fieldControlStyles = css<FieldControlStyleProps>`
   min-height: ${({ $size }) => heights[$size]};
   border: 1px solid
     ${({ $invalid }) =>
-      $invalid ? tokens.color.feedback.danger : tokens.color.neutral[400]};
+      $invalid
+        ? tokens.color.feedback.danger
+        : tokens.color.surfaceBorder.default};
   border-radius: ${tokens.radius.control};
   outline: none;
   background: ${tokens.color.neutral[0]};
-  color: ${tokens.color.neutral[950]};
+  color: ${tokens.color.content.default};
   font: inherit;
   font-size: ${tokens.typography.fontSize.sm};
   padding-right: ${tokens.spacing[3]};
@@ -40,26 +42,28 @@ export const fieldControlStyles = css<FieldControlStyleProps>`
       ${tokens.motion.easing.interactive};
 
   &:hover:not(:disabled):not([aria-invalid='true']) {
-    border-color: ${tokens.color.neutral[500]};
+    border-color: ${tokens.color.surfaceBorder.strong};
   }
 
   &:focus-visible {
     border-color: ${({ $invalid }) =>
-      $invalid ? tokens.color.feedback.danger : tokens.color.neutral[500]};
+      $invalid
+        ? tokens.color.feedback.danger
+        : tokens.color.surfaceBorder.strong};
     box-shadow: ${tokens.shadow.focus};
   }
 
   &:disabled {
-    background: ${tokens.color.neutral[100]};
-    color: ${tokens.color.neutral[600]};
+    background: ${tokens.color.surface.muted};
+    color: ${tokens.color.content.muted};
     cursor: default;
   }
 
   &:read-only:not(:disabled) {
-    background: ${tokens.color.neutral[50]};
+    background: ${tokens.color.surface.subtle};
   }
 
   &::placeholder {
-    color: ${tokens.color.neutral[500]};
+    color: ${tokens.color.content.placeholder};
   }
 `

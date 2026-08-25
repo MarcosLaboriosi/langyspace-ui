@@ -10,7 +10,7 @@ export const Root = styled.div.withConfig({
 `
 
 export const Label = styled.label`
-  color: ${tokens.color.neutral[600]};
+  color: ${tokens.color.content.secondary};
   font-size: ${tokens.typography.fontSize.xs};
   font-weight: ${tokens.typography.fontWeight.bold};
   line-height: ${tokens.typography.lineHeight.snug};
@@ -18,7 +18,7 @@ export const Label = styled.label`
 
 export const Hint = styled.p`
   margin: 0;
-  color: ${tokens.color.neutral[600]};
+  color: ${tokens.color.content.muted};
   font-size: 0.71875rem;
   line-height: ${tokens.typography.lineHeight.normal};
 `

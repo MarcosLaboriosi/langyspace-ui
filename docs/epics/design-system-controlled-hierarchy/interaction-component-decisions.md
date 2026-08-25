@@ -30,3 +30,15 @@
   referência promovida;
 - FilterPills repetia a mesma semântica com duas densidades reais; SegmentedControl repetia escolha
   exclusiva em surfaces clara e inversa no Admin/Cupom.
+
+## Decisões da adoção T13
+
+- `ChoiceValue` é `string | number`: valores numéricos são identidade legítima de uma escolha e o
+  Cupom não deve converter domínio para string somente para satisfazer o componente visual;
+- os tokens de fields preservam altura, border, surface e conteúdo do Admin sem reutilizar tokens de
+  actions, impedindo que uma correção de input altere Button/IconButton;
+- `AuthTokenDigits` preserva digitação contínua controlled, paste, foco, backspace, accessible name
+  do grupo e nome individual dos seis dígitos;
+- o FilterPills sem uso do Student foi removido; o do Teacher permanece local por possuir
+  distribuição responsiva específica, não por diferença cosmética;
+- os componentes removidos só foram apagados depois de busca confirmar zero imports locais.

@@ -28,7 +28,7 @@ const sizeStyles = {
 } satisfies Record<FieldControlSize, ReturnType<typeof css>>
 
 const surfaces = {
-  muted: tokens.color.neutral[100],
+  muted: tokens.color.surface.muted,
   surface: tokens.color.neutral[0],
 } satisfies Record<CompoundControlSurface, string>
 
@@ -46,8 +46,10 @@ export const Root = styled.div.withConfig({
   align-items: center;
   border: 1px solid
     ${({ $invalid }) =>
-      $invalid ? tokens.color.feedback.danger : tokens.color.neutral[400]};
-  color: ${tokens.color.neutral[600]};
+      $invalid
+        ? tokens.color.feedback.danger
+        : tokens.color.surfaceBorder.default};
+  color: ${tokens.color.content.muted};
   background: ${({ $surface }) => surfaces[$surface]};
   transition:
     background-color ${tokens.motion.duration.interactive}
@@ -60,19 +62,21 @@ export const Root = styled.div.withConfig({
   ${({ $size }) => sizeStyles[$size]}
 
   &:hover:not([data-disabled='true']):not([data-invalid='true']) {
-    border-color: ${tokens.color.neutral[500]};
+    border-color: ${tokens.color.surfaceBorder.strong};
   }
 
   &:focus-within {
     border-color: ${({ $invalid }) =>
-      $invalid ? tokens.color.feedback.danger : tokens.color.neutral[500]};
+      $invalid
+        ? tokens.color.feedback.danger
+        : tokens.color.surfaceBorder.strong};
     background: ${tokens.color.neutral[0]};
     box-shadow: ${tokens.shadow.focus};
   }
 
   &[data-disabled='true'] {
-    background: ${tokens.color.neutral[100]};
-    color: ${tokens.color.neutral[500]};
+    background: ${tokens.color.surface.muted};
+    color: ${tokens.color.content.placeholder};
   }
 
   &&& > input,

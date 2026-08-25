@@ -5,6 +5,7 @@ export type {
 } from './atoms/ActionLink/types'
 export { AuthNotice } from './atoms/AuthNotice'
 export type { AuthNoticeProps, AuthNoticeTone } from './atoms/AuthNotice/types'
+export type { FieldControlSize } from './atoms/fieldControlStyles'
 export { Button } from './atoms/Button'
 export type {
   ButtonProps,
@@ -60,6 +61,7 @@ export type { SearchInputProps, SearchInputSize } from './molecules/SearchInput'
 export { SegmentedControl } from './molecules/SegmentedControl'
 export type {
   ChoiceOption,
+  ChoiceValue,
   SegmentedControlProps,
   SegmentedControlShape,
   SegmentedControlSurface,

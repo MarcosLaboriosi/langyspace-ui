@@ -3,7 +3,7 @@
 ## Status
 
 Planejamento, refinamento de produto, refinamento técnico, breakdown e revisão crítica concluídos.
-T01 a T12 concluídas. T13 é a única task em andamento.
+T01 a T13 concluídas. T14 é a única task em andamento.
 
 ## Baseline
 
@@ -116,11 +116,25 @@ Worktree root: `/private/tmp/langyspace-design-system-hierarchy.YMowcs`.
   com tokens de família separados antes da adoção;
 - 45 testes, audit de 67 production files, build, tarball/Node/SSR smoke e 12 cenários focados em
   390/1281/2048 passaram; screenshots normal/stress confirmaram hierarquia e contenção.
+- T13 removeu AuthNotice/AuthTokenDigits duplicados de Student/Teacher e os componentes locais
+  equivalentes de fields/search/filter/segmented do Admin; state machines e adapters de domínio
+  continuam locais;
+- Cupom usa SegmentedControl compartilhado com valores numéricos; ChoiceValue foi ampliado para
+  `string | number` sem casts, e o FilterPills responsivo do Teacher permaneceu boundary local;
+- fixtures `login-token` cobrem o OTP compartilhado sem rede e validam grupo, seis inputs e labels
+  individuais;
+- package passou 46 testes e full gate; Admin passou 236 testes, 13 fluxos WCAG, 45 cenários do
+  design system e 1.820 cenários de layout; Student, Teacher e Cupom passaram builds e 648/252/36
+  cenários respectivamente;
+- auth, fields, filters e range foram inspecionados em 390/1281/2048 sem overflow, corte, mudança de
+  geometria ou regressão de hierarquia;
+- o mesmo candidato local 1.0.0 possui SHA-256
+  `1ae7f97337ef3896877438b33133217afae394bfa51dfe1677f912e5e1fa8613`.
 
 ## Próxima subtask
 
-T13.1 — migrar AuthNotice/AuthTokenDigits em Student/Teacher sem mover as state machines de login e
-cadastro.
+T14.1 — extrair o engine versionado do audit para o package e reduzir cada produto a uma config
+local explícita.
 
 ## Blockers
 
@@ -131,11 +145,10 @@ Nenhum.
 - o único uso produtivo explícito de `IconButton size="xs"` converge para `sm`; PortalAction também
   deve parar de traduzir a class `sm` para xs;
 - quais StatusChip color aliases representam brand versus info/neutral no contexto do dado;
-- se FilterPills e SegmentedControl têm keyboard semantics equivalentes nos consumidores;
-- se os AuthTokenDigits atuais possuem divergências recentes além das props nativas do Teacher;
+- quais exceções atuais dos seis scripts precisam de owner e motivo explícitos no config central;
 - quais descendant selectors tocam actions canônicas versus controles de domínio.
 
 ## Veredito visual atual
 
-Bloqueado até a implementação e os gates: este documento mapeia o impacto, mas nenhuma superfície
-foi alterada ou validada nesta branch ainda.
+Passed: package e quatro consumidores passaram gates completos; capturas de auth, fields, filtros e
+range em 390/1281/2048 não mostraram overflow, corte ou mudança de geometria.

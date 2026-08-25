@@ -1,6 +1,8 @@
 import type { ReactNode } from 'react'
 
-export interface ChoiceOption<Value extends string = string> {
+export type ChoiceValue = string | number
+
+export interface ChoiceOption<Value extends ChoiceValue = string> {
   accessibleLabel?: string
   disabled?: boolean
   label: ReactNode

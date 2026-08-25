@@ -10,7 +10,7 @@ const groupSurfaces = {
   `,
   light: css`
     border: 0;
-    background: ${tokens.color.neutral[100]};
+    background: ${tokens.color.surface.muted};
   `,
 } satisfies Record<SegmentedControlSurface, ReturnType<typeof css>>
 
@@ -42,7 +42,7 @@ export const Item = styled(Pressable)<{
   color: ${({ $active, $surface }) => {
     if ($surface === 'inverse')
       return $active ? tokens.color.neutral[950] : 'rgba(255, 255, 255, 0.72)'
-    return $active ? tokens.color.neutral[950] : tokens.color.neutral[600]
+    return $active ? tokens.color.content.default : tokens.color.content.muted
   }};
   background: ${({ $active, $surface }) => {
     if (!$active) return 'transparent'

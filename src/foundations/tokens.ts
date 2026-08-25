@@ -4,6 +4,12 @@ export const tokens = {
       default: '#ff1f5c',
       tint: '#fff4f7',
     },
+    content: {
+      default: '#0a0a0a',
+      muted: '#6b6b6b',
+      placeholder: '#737373',
+      secondary: '#2a2a2a',
+    },
     brand: {
       default: '#cc0f45',
       hover: '#b01343',
@@ -63,7 +69,12 @@ export const tokens = {
     },
     surfaceBorder: {
       default: '#d8d4cb',
+      strong: '#0a0a0a',
       subtle: '#ececea',
+    },
+    surface: {
+      muted: '#f8f8f6',
+      subtle: '#fbfbfa',
     },
   },
   control: {

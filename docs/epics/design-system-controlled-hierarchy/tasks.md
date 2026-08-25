@@ -12,7 +12,7 @@
 - [x] [T10 — criar atoms e molecules de estado](tasks/10-state-components.md)
 - [x] [T11 — adotar components de estado nos produtos](tasks/11-state-adoption.md)
 - [x] [T12 — criar auth, field e filter components](tasks/12-auth-field-filter.md)
-- [ ] [T13 — adotar auth, field e filter components](tasks/13-auth-field-filter-adoption.md)
+- [x] [T13 — adotar auth, field e filter components](tasks/13-auth-field-filter-adoption.md)
 - [ ] [T14 — centralizar o audit arquitetural](tasks/14-central-audit.md)
 - [ ] [T15 — revisar, publicar e provar produção](tasks/15-rollout.md)
 

@@ -36,7 +36,7 @@ export const Input = styled.input<{ $hasError: boolean; $isFilled: boolean }>`
     $hasError
       ? tokens.color.accent.tint
       : $isFilled
-        ? tokens.color.neutral[100]
+        ? tokens.color.neutral[50]
         : tokens.color.neutral[0]};
   color: ${tokens.color.neutral[950]};
   font-size: ${tokens.typography.fontSize['2xl']};
