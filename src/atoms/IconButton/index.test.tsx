@@ -90,6 +90,7 @@ describe('IconButton', () => {
       color: '#c62828',
     })
     expect(screen.getByRole('button', { name: 'Inverso' })).toHaveStyle({
+      borderColor: 'rgba(255, 255, 255, 0.2)',
       color: '#ffffff',
     })
   })

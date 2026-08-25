@@ -3,7 +3,7 @@
 ## Artefato único
 
 - arquivo: `langyspace-ui-1.0.0.tgz`;
-- SHA-256: `b8e31d99e4740d4015817d37d6f69a3b0915f4a6af2b8bb884f869ae430e3503`;
+- SHA-256: `a6e00b71f1784fbd1efc1c983c1581815cd98135920ee755fdb931c303421093`;
 - conteúdo: `dist`, `LICENSE`, `README.md` e `package.json`; sem source, screenshots ou arquivos
   locais;
 - validação do package: `validate:ui` passou, incluindo 31 testes, audit, lint, format, typecheck,
@@ -11,6 +11,10 @@
 
 Os cinco worktrees receberam exatamente esse arquivo via `file:`. A dependência local é somente o
 mecanismo do candidato; T15 troca a referência pela URL imutável da release pública.
+
+O candidato foi renovado durante a revisão visual da Landing: `IconButton inverse` passou a manter
+um contorno translúcido canônico em surfaces escuras. O full gate do package foi repetido antes de
+gerar o checksum acima.
 
 ## Builds iniciais dos consumidores
 

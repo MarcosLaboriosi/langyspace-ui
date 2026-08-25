@@ -54,10 +54,13 @@ Worktree root: `/private/tmp/langyspace-design-system-hierarchy.YMowcs`.
 - T04 promoveu a versão do candidato para 1.0.0 e o full `validate:ui` passou com 36 cenários em
   nove larguras;
 - o tarball único possui SHA-256
-  `b8e31d99e4740d4015817d37d6f69a3b0915f4a6af2b8bb884f869ae430e3503` e foi instalado nos cinco
+  `a6e00b71f1784fbd1efc1c983c1581815cd98135920ee755fdb931c303421093` e foi instalado nos cinco
   worktrees;
 - Cupom compilou sem mudança; Landing, Admin, Student e Teacher falharam somente em referências à
   API removida, registradas em `candidate-incompatibilities.md`.
+- a primeira inspeção do Footer da Landing revelou perda do contorno do IconButton inverse; a
+  correção foi feita no atom, o full gate repetido e o tarball/checksum renovados antes das demais
+  migrações.
 
 ## Próxima subtask
 

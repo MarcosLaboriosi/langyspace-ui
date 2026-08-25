@@ -23,7 +23,11 @@ const intentStyles = {
       background-color: ${tokens.color.neutral[100]};
     }
   `,
-  inverse: css``,
+  inverse: css`
+    & {
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+  `,
   neutral: css``,
   subtle: css``,
   success: css``,
