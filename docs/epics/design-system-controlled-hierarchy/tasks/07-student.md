@@ -1,6 +1,6 @@
 # T07 — migrar Student
 
-Status: pendente.
+Status: em andamento.
 
 ## Responsabilidade
 

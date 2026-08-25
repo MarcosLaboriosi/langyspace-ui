@@ -3,7 +3,7 @@
 ## Status
 
 Planejamento, refinamento de produto, refinamento técnico, breakdown e revisão crítica concluídos.
-T01 a T05 concluídas. T06 é a única task em andamento.
+T01 a T06 concluídas. T07 é a única task em andamento.
 
 ## Baseline
 
@@ -68,11 +68,18 @@ Worktree root: `/private/tmp/langyspace-design-system-hierarchy.YMowcs`.
 - o full gate da Landing passou com build client/SSR/prerender e 270 cenários visuais em 15 fixtures
   e nove larguras; Hero/header, form loading, showcases e CTA/footer foram inspecionados em
   390/1281/2048.
+- T06 removeu os adapters tradutores de Button/IconButton do Admin, migrou slots e variants para a
+  API pública e manteve PortalAction/TextButton somente como boundaries de produto explícitas;
+- o audit do Admin agora bloqueia props removidas, `IconButton size="xs"` e recipe visual paralelo
+  em wrappers canônicos;
+- o full gate do Admin passou com 245 testes, 13 fluxos de acessibilidade, 45 cenários do design
+  system e 1.820 cenários de layout; login, leads, alunos, busca e drawers foram inspecionados em
+  390/1281/2048 e validados também nos boundaries 620/1280, sem problemas geométricos.
 
 ## Próxima subtask
 
-T06.1 — remover os adapters tradutores de Button/IconButton do Admin, mapear seus variants para a
-API semântica direta e preservar login, tables, search, drawers e ações densas.
+T07.1 — inventariar os adapters e aliases de action do Student, mapear os estados de loading e
+preservar home, live, planos, checkout, handoff e auth antes da primeira substituição.
 
 ## Blockers
 
