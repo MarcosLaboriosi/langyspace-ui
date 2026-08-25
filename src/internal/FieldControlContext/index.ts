@@ -1,4 +1,5 @@
 import { createContext, useContext } from 'react'
+import { mergeIdRefs } from '../../foundations/accessibility'
 import type {
   FieldControlContextValue,
   FieldControlNativeAttributes,
@@ -16,7 +17,10 @@ export function useFieldControlAttributes(
 
   return {
     ...attributes,
-    'aria-describedby': attributes['aria-describedby'] ?? context.describedBy,
+    'aria-describedby': mergeIdRefs(
+      attributes['aria-describedby'],
+      context.describedBy,
+    ),
     'aria-invalid':
       (attributes['aria-invalid'] ?? context.invalid) || undefined,
     id: attributes.id ?? context.controlId,

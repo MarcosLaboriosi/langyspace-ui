@@ -34,4 +34,25 @@ describe('FieldRoot', () => {
       'notes',
     )
   })
+
+  it('preserves consumer and field IDREFs without duplicates', () => {
+    render(
+      <>
+        <p id="consumer-help">Ajuda do produto</p>
+        <FieldRoot
+          controlId="student-name"
+          error="Obrigatório"
+          hint="Use o nome completo"
+          label="Nome"
+        >
+          <TextInput aria-describedby="consumer-help student-name-hint" />
+        </FieldRoot>
+      </>,
+    )
+
+    expect(screen.getByRole('textbox', { name: 'Nome' })).toHaveAttribute(
+      'aria-describedby',
+      'consumer-help student-name-hint student-name-error',
+    )
+  })
 })
