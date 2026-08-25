@@ -8,7 +8,7 @@
 - [x] [T06 — migrar Admin](tasks/06-admin.md)
 - [x] [T07 — migrar Student](tasks/07-student.md)
 - [x] [T08 — migrar Teacher](tasks/08-teacher.md)
-- [ ] [T09 — migrar Cupom](tasks/09-cupom.md)
+- [x] [T09 — migrar Cupom](tasks/09-cupom.md)
 - [ ] [T10 — criar atoms e molecules de estado](tasks/10-state-components.md)
 - [ ] [T11 — adotar components de estado nos produtos](tasks/11-state-adoption.md)
 - [ ] [T12 — criar auth, field e filter components](tasks/12-auth-field-filter.md)

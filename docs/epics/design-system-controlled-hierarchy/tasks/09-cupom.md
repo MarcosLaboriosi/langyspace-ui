@@ -1,6 +1,6 @@
 # T09 — migrar Cupom
 
-Status: em andamento.
+Status: concluída.
 
 ## Responsabilidade
 
@@ -20,3 +20,10 @@ Cupom não usa Button como base de seleção e não ganha adapter vazio.
 
 - tests, build e button-system audit;
 - report normal/stress e segmented selection em 390/1281/2048.
+
+## Evidência
+
+- 15 testes e build de produção passaram;
+- o full `validate:ui` passou com 36 cenários em nove larguras, sem problemas geométricos;
+- o audit seleciona 30d e confirma uma única opção `aria-pressed`;
+- o estado 30d revelou e corrigiu overflow mobile no owner do painel, sem reduzir a asserção.

@@ -3,7 +3,7 @@
 ## Status
 
 Planejamento, refinamento de produto, refinamento técnico, breakdown e revisão crítica concluídos.
-T01 a T08 concluídas. T09 é a única task em andamento.
+T01 a T09 concluídas. T10 é a única task em andamento.
 
 ## Baseline
 
@@ -90,11 +90,17 @@ Worktree root: `/private/tmp/langyspace-design-system-hierarchy.YMowcs`.
 - 47 testes focados e o full gate do Teacher com 216 cenários passaram; Today, drawer de presença,
   Students, Payouts, calendário e auth foram inspecionados em 390/1281/2048, sem a quebra original
   do footer e sem problemas geométricos.
+- T09 substituiu o RangeButton reestilizado do Cupom por RangeSelector local sobre Pressable, com
+  seleção exclusiva via `aria-pressed` e sem criar adapter de Button;
+- o audit visual agora seleciona 30 dias e prova que existe somente uma opção ativa; essa cobertura
+  revelou overflow de 744 px no gráfico mobile, corrigido no owner do grid com `min-width: 0`;
+- 15 testes, build e o full gate do Cupom com 36 cenários passaram; relatório normal/stress,
+  seleção 30d e redirects sanitizados foram validados em nove larguras sem problemas geométricos.
 
 ## Próxima subtask
 
-T09.1 — confirmar a semântica exclusiva do seletor de período do Cupom, substituí-lo por um
-controle local sobre Pressable e preservar relatório, loading, erro e redirects.
+T10.1 — implementar os componentes de estado aprovados no package sobre foundations/primitives,
+mantendo EmptyState, LoadingState e StatePanel sem conhecimento de produto.
 
 ## Blockers
 

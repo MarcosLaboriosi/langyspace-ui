@@ -1,6 +1,6 @@
 # T10 — criar atoms e molecules de estado
 
-Status: pendente.
+Status: em andamento.
 
 ## Responsabilidade
 
