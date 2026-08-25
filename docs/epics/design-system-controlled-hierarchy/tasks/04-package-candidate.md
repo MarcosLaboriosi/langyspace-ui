@@ -1,6 +1,6 @@
 # T04 — validar o candidato major por tarball local
 
-Status: em andamento.
+Status: concluída.
 
 ## Responsabilidade
 
@@ -22,3 +22,13 @@ Tarball candidato reproduzível e nenhum blocker arquitetural desconhecido nos c
 - `pnpm run validate:ui` no package;
 - frozen/offline-compatible install quando suportado;
 - build inicial dos cinco consumers.
+
+## Evidência
+
+- package `validate:ui` passou integralmente;
+- tarball 1.0.0 foi inspecionado e fixado pelo SHA-256 registrado em
+  `candidate-incompatibilities.md`;
+- os cinco worktrees instalaram o mesmo arquivo e confirmaram `@langyspace/ui` 1.0.0 em
+  `node_modules`;
+- Cupom compilou; os outros quatro builds falharam apenas nos adapters e props removidos já
+  previstos, agora enumerados no documento do candidato.

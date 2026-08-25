@@ -3,7 +3,7 @@
 ## Status
 
 Planejamento, refinamento de produto, refinamento técnico, breakdown e revisão crítica concluídos.
-T01, T02 e T03 concluídas. T04 é a única task em andamento.
+T01 a T04 concluídas. T05 é a única task em andamento.
 
 ## Baseline
 
@@ -51,11 +51,18 @@ Worktree root: `/private/tmp/langyspace-design-system-hierarchy.YMowcs`.
   390/1281/2048 px passaram com a API final;
 - screenshots mobile normal/stress e desktop foram inspecionados sem overflow, corte ou perda de
   contraste.
+- T04 promoveu a versão do candidato para 1.0.0 e o full `validate:ui` passou com 36 cenários em
+  nove larguras;
+- o tarball único possui SHA-256
+  `b8e31d99e4740d4015817d37d6f69a3b0915f4a6af2b8bb884f869ae430e3503` e foi instalado nos cinco
+  worktrees;
+- Cupom compilou sem mudança; Landing, Admin, Student e Teacher falharam somente em referências à
+  API removida, registradas em `candidate-incompatibilities.md`.
 
 ## Próxima subtask
 
-T04.1 — gerar um único tarball local da API major candidata e validar os cinco consumidores contra
-o mesmo artefato antes de iniciar qualquer migração de produto.
+T05.1 — migrar os dois ActionLinks brand da Landing, revisar todos os wrappers/action selectors e
+provar header, Hero, forms, FinalCta e sticky mobile contra o baseline.
 
 ## Blockers
 

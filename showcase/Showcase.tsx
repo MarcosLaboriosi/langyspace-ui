@@ -57,7 +57,7 @@ export function Showcase() {
       data-audit-mode={stressMode ? 'stress' : 'normal'}
     >
       <header className="showcase__header">
-        <p className="showcase__eyebrow">LANGY.SPACE UI · V0.6.0</p>
+        <p className="showcase__eyebrow">LANGY.SPACE UI · V1.0.0</p>
         <h1>Actions e Pressable</h1>
         <p>
           Componentes nativos e previsíveis para comandos, navegação com

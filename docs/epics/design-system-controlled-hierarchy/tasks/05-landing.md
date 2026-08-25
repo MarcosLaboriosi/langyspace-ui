@@ -1,6 +1,6 @@
 # T05 — migrar Landing
 
-Status: pendente.
+Status: em andamento.
 
 ## Responsabilidade
 
