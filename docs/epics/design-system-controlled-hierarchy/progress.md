@@ -2,8 +2,8 @@
 
 ## Status
 
-Planejamento, refinamento de produto, refinamento técnico, breakdown e revisão crítica concluídos.
-T01 a T14 concluídas. T15 é a única task em andamento.
+Planejamento, refinamento de produto, refinamento técnico, breakdown, revisão crítica e execução
+concluídos. T01 a T15 concluídas; o épico está em produção.
 
 ## Baseline
 
@@ -142,11 +142,32 @@ Worktree root: `/private/tmp/langyspace-design-system-hierarchy.YMowcs`.
   arquivos nos cinco consumidores, todos com configs formatados;
 - o candidato local 1.0.0 com o executable público possui SHA-256
   `8a1d7ff63bd412cf3ae1efde7a7442e48450515d01bb87552436f5e0076d6ceb`.
+- T15 publicou `@langyspace/ui@1.0.0` em release público imutável; o tarball oficial possui SHA-256
+  `b64791ed236da7d018898e46785c33a29528eb7862541dd6bed20146c01a048f` e passou smoke remoto de
+  import, CLI, SSR e Vite;
+- os seis gates finais passaram: package 36, Landing 270, Admin 1.820, Student 648, Teacher 252 e
+  Cupom 36 cenários visuais, além dos testes, builds, acessibilidade e audits específicos;
+- a revisão dos screenshots em 390/1281/2048 confirmou o footer de presença mobile, auth/OTP,
+  forms, estados, filtros, segmented controls e showcases sem overflow, corte ou perda de ação;
+- o runner Linux encontrou 6 px de texto mascarado em `Ordering coffee`; os gaps do cabeçalho foram
+  ajustados com tokens, e a repetição integral do gate passou localmente e no CI;
+- os consumers foram publicados em Landing `2c5bc3a`, Admin `ae49e0a`, Student `70caa49`, Teacher
+  `8cff191` e Cupom `fde3356`; os workflows `32887914621`, `32887652635`, `32887658437`,
+  `32887665155` e `32887670681` concluíram com sucesso;
+- `https://langy.space`, `https://admin.langy.space`, `https://student.langy.space`,
+  `https://teacher.langy.space` e `https://cupom.langy.space` responderam HTTP 200 e serviram,
+  respectivamente, `index-Cxf_v9T6.js`, `index-BdTUEimx.js`, `index-CVkiMW9G.js`,
+  `index-DVReTccE.js` e `index-BtzyAuoX.js`, todos com markers semânticos do design system;
+- os SHA-256 dos bundles servidos são, na mesma ordem,
+  `a4cc8b0654f94fd22d567cc91a4502dfec42ba2589ce0d26ba1920e74bd2d477`,
+  `63bef6691e01296e1a522f0fc924dd2ca8709187880fac57ad7e564545792eb9`,
+  `359c78a0817781c51e78f67476f600980b1c87a5048c109332d6694c0769aeb0`,
+  `d25d54afb72764a655d50f0ce990f4f11aa662d9a320b4f4d80f29a91f78bc43` e
+  `69857be155f7c27223c25121060bb55698d55b7a77aea2be361fe2180e0e12c7`.
 
 ## Próxima subtask
 
-T15.1 — revisar requirements, diffs, dead code, dependências temporárias e executar os seis gates
-finais antes da publicação.
+Nenhuma. O rollout está concluído e comprovado em produção.
 
 ## Blockers
 
@@ -154,13 +175,9 @@ Nenhum.
 
 ## Descobertas para as próximas tasks
 
-- o único uso produtivo explícito de `IconButton size="xs"` converge para `sm`; PortalAction também
-  deve parar de traduzir a class `sm` para xs;
-- quais StatusChip color aliases representam brand versus info/neutral no contexto do dado;
-- nenhuma descoberta arquitetural pendente; T15 deve somente revisar, publicar e provar o rollout;
-- quais descendant selectors tocam actions canônicas versus controles de domínio.
+Nenhuma descoberta arquitetural pendente neste épico.
 
 ## Veredito visual atual
 
-Passed: T14 não introduziu nova superfície; a única remoção visual eliminou um min-height redundante
-e preservou a altura canônica do Button, comprovada por build e 13 testes do preview.
+Passed: os seis gates finais, a inspeção dos screenshots e os cinco bundles live confirmam a
+hierarquia compartilhada sem a regressão original nem novos problemas geométricos.
