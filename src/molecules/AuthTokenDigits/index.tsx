@@ -15,6 +15,7 @@ export function AuthTokenDigits({
   ...props
 }: AuthTokenDigitsProps) {
   const inputRefs = useRef<Array<HTMLInputElement | null>>([])
+  const previousLengthRef = useRef(length)
   const [internalDigits, setInternalDigits] = useState<string[]>(() =>
     getEmptyDigits(length),
   )
@@ -31,6 +32,16 @@ export function AuthTokenDigits({
     )
     return () => window.clearTimeout(focusTimeoutId)
   }, [autoFocus, disabled])
+
+  useEffect(() => {
+    if (previousLengthRef.current === length) return
+
+    setInternalDigits((currentDigits) =>
+      getTokenDigits(currentDigits.join(''), length),
+    )
+    inputRefs.current.length = length
+    previousLengthRef.current = length
+  }, [length])
 
   const updateDigits = (nextDigits: string[]) => {
     setInternalDigits(nextDigits)
@@ -94,8 +105,25 @@ export function AuthTokenDigits({
           value={digit}
           onChange={(event) => handleDigitChange(index, event.target.value)}
           onKeyDown={(event) => {
-            if (event.key === 'Backspace' && !digits[index] && index > 0) {
-              inputRefs.current[index - 1]?.focus()
+            const focusIndex = (nextIndex: number) => {
+              event.preventDefault()
+              inputRefs.current[nextIndex]?.focus()
+            }
+
+            if (event.key === 'ArrowLeft') {
+              focusIndex(Math.max(0, index - 1))
+            } else if (event.key === 'ArrowRight') {
+              focusIndex(Math.min(length - 1, index + 1))
+            } else if (event.key === 'Home') {
+              focusIndex(0)
+            } else if (event.key === 'End') {
+              focusIndex(length - 1)
+            } else if (
+              event.key === 'Backspace' &&
+              !digits[index] &&
+              index > 0
+            ) {
+              focusIndex(index - 1)
             }
           }}
           onPaste={handlePaste}
@@ -105,4 +133,4 @@ export function AuthTokenDigits({
   )
 }
 
-export type { AuthTokenDigitsProps } from './types'
+export type { AuthTokenDigitsProps, AuthTokenLength } from './types'

@@ -38,7 +38,10 @@ export { tokens } from './foundations/tokens'
 export type { DesignTokens } from './foundations/tokens'
 export type { FieldControlSize } from './foundations/fields'
 export { AuthTokenDigits } from './molecules/AuthTokenDigits'
-export type { AuthTokenDigitsProps } from './molecules/AuthTokenDigits/types'
+export type {
+  AuthTokenDigitsProps,
+  AuthTokenLength,
+} from './molecules/AuthTokenDigits/types'
 export { CompoundControl } from './molecules/CompoundControl'
 export type {
   CompoundControlProps,

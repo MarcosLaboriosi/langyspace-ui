@@ -1,6 +1,8 @@
 import type { HTMLAttributes } from 'react'
 import type { AccessibleName } from '../../foundations/accessibility'
 
+export type AuthTokenLength = 4 | 6
+
 export type AuthTokenDigitsProps = Omit<
   HTMLAttributes<HTMLDivElement>,
   'aria-label' | 'aria-labelledby' | 'onChange'
@@ -11,7 +13,7 @@ export type AuthTokenDigitsProps = Omit<
     disabled?: boolean
     hasError?: boolean
     idPrefix: string
-    length: number
+    length: AuthTokenLength
     value?: string
     onTokenChange: (token: string) => void
   }

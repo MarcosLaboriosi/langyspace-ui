@@ -18,6 +18,14 @@ describe('public type contracts', () => {
       length: 4,
       onTokenChange: change,
     }
+    const unsupportedLength: AuthTokenDigitsProps = {
+      'aria-label': 'Código',
+      digitLabel: 'Dígito',
+      idPrefix: 'token',
+      // @ts-expect-error only the verified four- and six-digit contracts are supported
+      length: 5,
+      onTokenChange: change,
+    }
 
     // @ts-expect-error accessible-name sources are mutually exclusive
     const invalidSearch: SearchInputProps = {
@@ -52,6 +60,7 @@ describe('public type contracts', () => {
 
     expect(validSearch['aria-label']).toBe('Buscar')
     expect(validToken['aria-labelledby']).toBe('token-title')
+    expect(unsupportedLength.length).toBe(5)
     expect(invalidSearch['aria-label']).toBe('Buscar')
     expect(invalidToken['aria-label']).toBe('Código')
     expect(invalidFilters['aria-label']).toBe('Filtros')

@@ -60,6 +60,13 @@ export const Default: Story = {
     await userEvent.keyboard('{Backspace}{Backspace}')
     await expect(inputs[3]).toHaveValue('')
     await expect(inputs[2]).toHaveFocus()
+
+    await userEvent.keyboard('{ArrowLeft}')
+    await expect(inputs[1]).toHaveFocus()
+    await userEvent.keyboard('{End}')
+    await expect(inputs[3]).toHaveFocus()
+    await userEvent.keyboard('{Home}')
+    await expect(inputs[0]).toHaveFocus()
   },
 }
 

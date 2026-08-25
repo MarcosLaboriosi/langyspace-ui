@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from '@testing-library/react'
+import { act, fireEvent, render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { useState } from 'react'
 import { describe, expect, it, vi } from 'vitest'
@@ -96,5 +96,80 @@ describe('AuthTokenDigits', () => {
     await user.type(screen.getByLabelText('Dígito 1'), '123456')
 
     expect(onTokenChange).toHaveBeenLastCalledWith('123456')
+  })
+
+  it('supports directional, first and last keyboard focus', async () => {
+    const user = userEvent.setup()
+
+    render(
+      <AuthTokenDigits
+        aria-label="Código de acesso"
+        autoFocus={false}
+        digitLabel="Dígito"
+        idPrefix="keyboard-code"
+        length={4}
+        onTokenChange={() => undefined}
+      />,
+    )
+
+    const digits = screen.getAllByRole('textbox')
+    await user.click(digits[1])
+    await user.keyboard('{ArrowLeft}')
+    expect(digits[0]).toHaveFocus()
+    await user.keyboard('{ArrowRight}')
+    expect(digits[1]).toHaveFocus()
+    await user.keyboard('{End}')
+    expect(digits[3]).toHaveFocus()
+    await user.keyboard('{Home}')
+    expect(digits[0]).toHaveFocus()
+  })
+
+  it('does not resurrect truncated uncontrolled digits after length changes', async () => {
+    const user = userEvent.setup()
+    const props = {
+      'aria-label': 'Código de acesso',
+      autoFocus: false,
+      digitLabel: 'Dígito',
+      idPrefix: 'resized-code',
+      onTokenChange: () => undefined,
+    } as const
+    const { rerender } = render(<AuthTokenDigits {...props} length={6} />)
+
+    await user.type(screen.getByLabelText('Dígito 1'), '123456')
+    rerender(<AuthTokenDigits {...props} length={4} />)
+    expect(screen.getAllByRole('textbox')).toHaveLength(4)
+
+    rerender(<AuthTokenDigits {...props} length={6} />)
+    expect(
+      screen
+        .getAllByRole('textbox')
+        .map((input) => (input as HTMLInputElement).value),
+    ).toEqual(['1', '2', '3', '4', '', ''])
+  })
+
+  it('autofocuses only when enabled by the consumer', () => {
+    vi.useFakeTimers()
+
+    try {
+      const props = {
+        'aria-label': 'Código de acesso',
+        digitLabel: 'Dígito',
+        idPrefix: 'autofocus-code',
+        length: 4,
+        onTokenChange: () => undefined,
+      } as const
+      const { rerender } = render(
+        <AuthTokenDigits {...props} autoFocus disabled />,
+      )
+
+      act(() => vi.advanceTimersByTime(80))
+      expect(screen.getByLabelText('Dígito 1')).not.toHaveFocus()
+
+      rerender(<AuthTokenDigits {...props} autoFocus />)
+      act(() => vi.advanceTimersByTime(80))
+      expect(screen.getByLabelText('Dígito 1')).toHaveFocus()
+    } finally {
+      vi.useRealTimers()
+    }
   })
 })
