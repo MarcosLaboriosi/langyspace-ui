@@ -2,7 +2,7 @@
 
 ## Status
 
-T01 a T08 concluídas. T09 é a próxima task.
+Épico concluído. T01 a T09 foram implementadas, validadas, publicadas e provadas em produção.
 
 ## Baseline
 
@@ -119,10 +119,25 @@ editados.
   original do footer do drawer não se reproduz e as três ações permanecem alinhadas em desktop;
 - o diff final continua de impacto visual `direct`; não há overflow, mudança de geometria, warning de
   hidratação ou regressão de hierarquia nas capturas aprovadas.
+- a release pública `v0.6.0` foi publicada a partir de `6fe2500`; o tarball de 11.201 bytes tem
+  SHA-256 `d4035636a72e2d892f60cf71124edeafab880a55fd4f075c4e741b670386aef2` e passou por
+  inspeção de conteúdo, Node import e prerender depois do download público;
+- Landing `d73ebaa`, Admin `d7af28e`, Student `f48a3d8`, Teacher `177cb5a` e Cupom `a461f52`
+  usam a URL imutável do mesmo tarball, passaram frozen install com a política de supply chain do
+  pnpm 11 e foram enviados para `main` sem force;
+- os runs finais `32835473786` (UI CI), `32835485297` (release), `32836796401` (Landing),
+  `32836969477` (Admin), `32836971341` (Student), `32836974119` (Teacher) e `32836975983`
+  (Cupom) concluíram com sucesso nos SHAs esperados;
+- as cinco rotas públicas responderam HTTP 200. Landing serve `index-Crmp2sqi.js`, Admin
+  `index-BwHy6Xrj.js`, Student `index-BJviWSRB.js`, Teacher `index-DiX-7tRA.js` e Cupom
+  `index-BbgbKG57.js`; todos os bundles servidos contêm `lsui-sc-spinner` e
+  `lsui-sc-action-link`;
+- os seis worktrees de rollout terminaram limpos e iguais a `origin/main`; o checkout original do
+  Teacher preservou exclusivamente os dois arquivos sujos preexistentes e não relacionados.
 
 ## Próxima task
 
-- executar T09: publicar 0.6.0, integrar a URL imutável, commitar, atualizar mains e provar Hosting.
+Nenhuma. O épico está fechado.
 
 ## Blockers
 
@@ -135,4 +150,6 @@ Nenhum.
 
 ## Veredito visual do épico
 
-Pendente: a implementação futura é direta e exige os full gates e a inspeção definidos em T08.
+Passed: gates completos dos cinco produtos e do package, inspeção focada em 390/1281/2048 e prova
+dos bundles live não encontraram overflow, mudança de geometria ou regressão da quebra original do
+drawer de presença.

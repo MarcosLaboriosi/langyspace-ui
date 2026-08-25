@@ -8,6 +8,6 @@
 - [x] [T06 — normalizar adapters e import boundaries](tasks/06-adapters-and-boundaries.md)
 - [x] [T07 — fortalecer audits arquiteturais](tasks/07-architecture-audits.md)
 - [x] [T08 — executar gates e revisão visual](tasks/08-validation.md)
-- [ ] [T09 — publicar, integrar e provar produção](tasks/09-rollout.md)
+- [x] [T09 — publicar, integrar e provar produção](tasks/09-rollout.md)
 
 As tarefas são dependency-ordered. Somente a task indicada em `progress.md` pode entrar em andamento.
