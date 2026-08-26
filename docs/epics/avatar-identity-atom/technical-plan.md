@@ -22,7 +22,7 @@ visual, acessibilidade e risco de migração.
 
 | Family                      |             Uso ativo | Decisão          | Motivo                                                                           |
 | --------------------------- | --------------------: | ---------------- | -------------------------------------------------------------------------------- |
-| Avatar                      |  Admin 10 + Teacher 8 | promover         | atom sem domínio, API convergente e 257 linhas locais removíveis                 |
+| Avatar                      |  Admin 10 + Teacher 9 | promover         | atom sem domínio, API convergente e recipes locais removíveis                    |
 | ToastViewport               | Student 2 + Teacher 1 | manter local     | tipos, ações e lifecycle pertencem aos stores; notification diverge de dismiss   |
 | PhoneField                  | Student 3 + Teacher 2 | manter local     | formatter, country catalog, cursor/paste/error contracts divergem por produto    |
 | SearchField                 |             Teacher 2 | convergir depois | Student copy morta; package já possui SearchInput e não há dois consumers ativos |
@@ -158,7 +158,7 @@ real e manter margem pequena.
 ### Teacher
 
 1. instalar o mesmo tarball candidato e atualizar `minimumReleaseAgeExclude`;
-2. substituir seis imports locais por import público;
+2. substituir sete imports locais e o `ProfileAvatar` artesanal por import público;
 3. mapear `tone="accent"` para `tone="brand"`; omitir `muted` porque `neutral` é default;
 4. remover `src/components/base/Avatar`;
 5. adicionar `Avatar` a `canonicalComponents` e `TEACHER_UI_003`;

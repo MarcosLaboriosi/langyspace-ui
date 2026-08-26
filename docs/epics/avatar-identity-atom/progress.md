@@ -2,8 +2,7 @@
 
 ## Status
 
-T01–T02 concluídas. O atom está implementado e validado isoladamente; consumers ainda não foram
-alterados.
+T01–T03 concluídas. O package candidato está comprovado e a adoção Admin está em execução.
 
 ## Baseline
 
@@ -14,7 +13,7 @@ alterados.
 | UI base                  | `f91f74b0b2fc`                                  |
 | Package                  | `@langyspace/ui@1.1.0`                          |
 | Public components        | 20                                              |
-| Avatar runtime callsites | Admin 10 / Teacher 8                            |
+| Avatar runtime callsites | Admin 10 / Teacher 9                            |
 | Dead Avatar copy         | Student 3 files                                 |
 
 ## Evidência atual
@@ -22,9 +21,10 @@ alterados.
 - os cinco `origin/main` foram fetched e montados em worktrees isolados;
 - directory-name matches foram reclassificados por source, props, styles, semantics e imports;
 - Avatar é a única family aprovada nesta onda;
-- Admin possui 158 linhas locais, Teacher 99 e Student 77;
+- Admin possui 158 linhas locais incluindo test, Teacher 99 e Student 77; a revisão encontrou mais
+  15 linhas do recipe artesanal no drawer Teacher;
 - Admin já prova image failure e decorative semantics em teste local;
-- Teacher possui image/fallback e oito callsites em shell, lists e drawer;
+- Teacher possui image/fallback e nove callsites visuais em shell, lists e drawers;
 - Student possui zero imports runtime;
 - Landing e Cupom não possuem Avatar;
 - o recipe proposto normaliza tamanhos sem criar props para diferenças cosméticas;
@@ -39,10 +39,16 @@ alterados.
 - seis unit tests e seis story/axe tests passaram;
 - 48 cenários de layout Avatar passaram com zero issue e screenshots de todas as variações críticas
   foram inspecionadas.
+- T03 integrou Avatar a exports, manifesto, API, browser/styled/SSR smokes e slice de bundle;
+- o gate completo passou com 49 files/158 tests, coverage acima dos thresholds e 660 cenários;
+- o candidate `1.2.0` foi gerado com SHA-256
+  `a74968bf19d266159da40191bbda954f9a6064906bbe4c292c0d7461ff035b2a`;
+- a revisão do primeiro consumer encontrou um non-package `ProfileAvatar` adicional no drawer
+  Teacher; ele foi incorporado ao escopo em vez de preservar uma exceção cosmética.
 
 ## Próxima subtask
 
-T03 — integrar Avatar ao manifesto/API/smokes/budgets e produzir o tarball candidato `1.2.0`.
+T04 — concluir adoção Admin, incluindo assertions do marker e comparação after.
 
 ## Blockers
 
@@ -50,4 +56,4 @@ Nenhum.
 
 ## Decisões abertas controladas
 
-Nenhuma para T03. A comparação after continua blocking antes do release.
+Nenhuma. A comparação after continua blocking antes do release.

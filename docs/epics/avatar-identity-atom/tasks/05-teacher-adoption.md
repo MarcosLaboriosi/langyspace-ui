@@ -2,12 +2,14 @@
 
 ## Responsabilidade
 
-Substituir os oito callsites Teacher pelo mesmo package candidato e validar shell, lists e drawers.
+Substituir os oito callsites do Avatar local e o `ProfileAvatar` artesanal pelo mesmo package
+candidato, validando shell, lists e drawers.
 
 ## Checklist
 
 - [ ] instalar exatamente o candidate aprovado no Admin;
-- [ ] migrar seis imports para o entrypoint público;
+- [ ] migrar sete imports para o entrypoint público;
+- [ ] remover o recipe `ProfileAvatar` duplicado do drawer de aluno;
 - [ ] mapear `accent` para `brand` e `muted` para default `neutral`;
 - [ ] remover os três arquivos locais;
 - [ ] adicionar policy contra import local e recipe override;

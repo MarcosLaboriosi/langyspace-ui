@@ -8,7 +8,7 @@ Avatar pode parecer uma escolha cosmética com pouco valor depois de Button e Se
 
 ### Resolução
 
-Há 18 callsites ativos e 257 linhas de source repetidas. A mudança reduz manutenção em duas
+Há 19 callsites ativos e 310 linhas de source repetidas. A mudança reduz manutenção em duas
 superfícies operacionais densas e estabelece o primeiro atom de identidade. Não há quota de
 components: outras families foram explicitamente rejeitadas.
 

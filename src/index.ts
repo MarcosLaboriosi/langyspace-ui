@@ -5,6 +5,8 @@ export type {
 } from './atoms/ActionLink/types'
 export { AuthNotice } from './atoms/AuthNotice'
 export type { AuthNoticeProps, AuthNoticeTone } from './atoms/AuthNotice/types'
+export { Avatar } from './atoms/Avatar'
+export type { AvatarProps, AvatarSize, AvatarTone } from './atoms/Avatar/types'
 export { Button } from './atoms/Button'
 export type {
   ButtonProps,

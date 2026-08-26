@@ -57,6 +57,25 @@ export const publicComponentContracts = [
   },
   {
     browserSmoke: complete,
+    exportName: 'Avatar',
+    interactive: false,
+    layer: 'atom',
+    ownerPath: 'src/atoms/Avatar/index.tsx',
+    runtimeMarker: 'lsui-sc-avatar',
+    ssrSmoke: complete,
+    story: {
+      ...complete,
+      path: 'src/atoms/Avatar/Avatar.stories.tsx',
+      title: 'Atoms/Identity/Avatar',
+    },
+    test: {
+      ...complete,
+      path: 'src/atoms/Avatar/Avatar.test.tsx',
+    },
+    visual: true,
+  },
+  {
+    browserSmoke: complete,
     exportName: 'Button',
     interactive: true,
     layer: 'atom',

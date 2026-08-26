@@ -65,9 +65,10 @@ Admin bloqueia a antiga import local.
 
 ### R10 — Adoção Teacher
 
-Os oito callsites Teacher devem importar `Avatar` do entrypoint público, mapear `accent -> brand` e
-deixar o default `muted -> neutral`. Os três arquivos locais devem ser removidos. `Avatar` entra em
-`canonicalComponents` e uma regra Teacher bloqueia a antiga import local.
+Os oito callsites do Avatar local Teacher e o `ProfileAvatar` artesanal do drawer de aluno devem
+usar `Avatar` do entrypoint público, mapear `accent -> brand` e deixar o default
+`muted -> neutral`. Os três arquivos locais e o recipe duplicado devem ser removidos. `Avatar`
+entra em `canonicalComponents` e uma regra Teacher bloqueia a antiga import local.
 
 ### R11 — Limpeza Student
 

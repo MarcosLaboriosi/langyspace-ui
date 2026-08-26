@@ -2,15 +2,15 @@
 
 Biblioteca React compartilhada pelos produtos Langy.space. Expõe `Button` para comandos rotulados,
 `IconButton` para comandos de glyph único, `ActionLink` para navegação com aparência de ação,
-`Pressable` para controles específicos, `Spinner` para espera e pequenas composições semânticas de
-status, estado de conteúdo, fields, filtros e autenticação.
+`Pressable` para controles específicos, `Spinner` para espera, `Avatar` para identidade visual e
+pequenas composições semânticas de status, estado de conteúdo, fields, filtros e autenticação.
 
 ## Installation
 
 Instale styled-components e fixe sempre um artefato imutável de release:
 
 ```bash
-pnpm add styled-components@^6.4.0 '@langyspace/ui@https://github.com/MarcosLaboriosi/langyspace-ui/releases/download/v1.1.0/langyspace-ui-1.1.0.tgz'
+pnpm add styled-components@^6.4.0 '@langyspace/ui@https://github.com/MarcosLaboriosi/langyspace-ui/releases/download/v1.2.0/langyspace-ui-1.2.0.tgz'
 ```
 
 Não existe import de CSS. O Button injeta seus estilos com styled-components e funciona sem
@@ -114,6 +114,28 @@ cor, raio ou dimensão livre.
 
 Durante `isLoading`, o glyph é substituído por um único Spinner, o nome acessível é preservado e o
 controle fica busy/disabled para impedir envio duplicado.
+
+## Avatar
+
+`Avatar` representa uma identidade de forma decorativa, com iniciais sempre disponíveis e imagem
+opcional. Ele não deriva iniciais, abre perfil, faz upload nem comunica status.
+
+```tsx
+import { Avatar } from '@langyspace/ui'
+
+<Avatar initials="MF" />
+<Avatar imageUrl={teacherPhotoUrl} initials="MF" size="lg" tone="brand" />
+<Avatar initials="AD" size="sm" tone="inverse" />
+```
+
+`size` aceita `xs`, `sm`, `md`, `lg` e `xl`; `tone` aceita `neutral`, `brand` e `inverse`. O root é
+um `span` decorativo por default e aceita props nativas/ref. Se um avatar futuro for a única fonte
+de identidade, o consumer pode passar `aria-hidden={false}`, `role="img"` e `aria-label`; nos
+callsites atuais o nome textual adjacente permanece o owner acessível.
+
+Não envolva comportamento dentro do atom. Upload, menu ou navegação usam um Button/Pressable
+externo. Não estilize diâmetro, radius, cor ou typography por `styled(Avatar)`; escolha o size/tone
+semântico ou ajuste somente o layout do container.
 
 ### Contrato de markup
 
@@ -336,6 +358,7 @@ src/
   atoms/
     ActionLink/
     AuthNotice/
+    Avatar/
     Button/
     IconButton/
     SelectInput/

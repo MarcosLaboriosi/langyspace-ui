@@ -77,7 +77,7 @@ async function writeConsumer(packageSpec) {
   )
   await writeFile(
     join(consumerDirectory, 'src', 'main.tsx'),
-    `import { ActionLink, AuthNotice, AuthTokenDigits, Button, CompoundControl, EmptyState, FieldRoot, FilterPills, IconButton, LoadingState, Pressable, SearchInput, SectionHeader, SegmentedControl, SelectInput, Spinner, StatePanel, StatusChip, TextareaInput, TextInput } from '@langyspace/ui'
+    `import { ActionLink, AuthNotice, AuthTokenDigits, Avatar, Button, CompoundControl, EmptyState, FieldRoot, FilterPills, IconButton, LoadingState, Pressable, SearchInput, SectionHeader, SegmentedControl, SelectInput, Spinner, StatePanel, StatusChip, TextareaInput, TextInput } from '@langyspace/ui'
 import type { AuditConfig } from '@langyspace/ui/audit'
 import { createRoot } from 'react-dom/client'
 
@@ -97,6 +97,7 @@ createRoot(document.getElementById('root')!).render(
     </IconButton>
     <Pressable aria-pressed="false">Pressable smoke passed</Pressable>
     <Spinner size="md" />
+    <Avatar initials="LS" tone="brand" />
     <StatusChip indicator tone="success">Package status passed</StatusChip>
     <EmptyState title="Package empty state passed" />
     <LoadingState title="Package loading state passed" />

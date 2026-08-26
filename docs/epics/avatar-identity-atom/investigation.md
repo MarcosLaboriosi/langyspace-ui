@@ -17,10 +17,12 @@ produção.
 | Landing |            0 |               0 |           0 | ausente  |
 | Admin   |            4 |               3 |          10 | ativo    |
 | Student |            3 |               0 |           0 | morto    |
-| Teacher |            3 |               6 |           8 | ativo    |
+| Teacher |            4 |               7 |           9 | ativo    |
 | Cupom   |            0 |               0 |           0 | ausente  |
 
-Linhas locais: Admin 158, Student 77, Teacher 99; total 334 incluindo o test Admin, 257 de source.
+Além dos 99 lines do diretório Avatar Teacher, a inspeção do drawer encontrou um recipe
+`ProfileAvatar` de 52 px no próprio `styles.ts`. Ele não aparecia na busca por nome de component e
+foi reclassificado como o nono callsite visual da mesma family.
 
 ## Contratos atuais
 
@@ -62,7 +64,7 @@ Linhas locais: Admin 158, Student 77, Teacher 99; total 334 incluindo o test Adm
 - aluno na tabela de assinaturas;
 - amostra brand no DesignSystemAudit.
 
-### Teacher — 8
+### Teacher — 9
 
 - avatar de professora no sidebar;
 - avatar compacto e avatar expandido no mobile header;
@@ -71,6 +73,7 @@ Linhas locais: Admin 158, Student 77, Teacher 99; total 334 incluindo o test Adm
 - aluno em Alunos;
 - identity `lg` no overview do ClassDrawer;
 - identity `xl` no perfil do ClassDrawer.
+- identity `lg` artesanal no StudentProfileDrawer.
 
 Todos possuem texto de identidade adjacente ou um botão externo com accessible name. O círculo é
 decorativo; não deve repetir o nome para screen readers.

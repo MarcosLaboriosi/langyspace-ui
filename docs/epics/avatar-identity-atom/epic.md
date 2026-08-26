@@ -7,7 +7,7 @@ piloto posterior aos botões, `SectionHeader`. A próxima onda deve provar que a
 crescendo por evidência e não por cópia de diretórios.
 
 Um inventário novo dos cinco `origin/main` encontrou três implementações locais chamadas `Avatar`.
-Admin e Teacher possuem 18 callsites runtime que resolvem a mesma responsabilidade: mostrar
+Admin e Teacher possuem 19 callsites runtime que resolvem a mesma responsabilidade: mostrar
 iniciais ou uma foto decorativa dentro de um círculo. Student mantém uma cópia sem qualquer import
 runtime. Landing e Cupom não possuem a family.
 
@@ -19,7 +19,7 @@ Admin e Teacher mantêm recipes incompatíveis para a mesma identidade visual:
 - `accent`/`muted` e `brand`/`neutral` expressam as mesmas intenções com vocabulários distintos;
 - apenas Admin declara o avatar decorativo por padrão;
 - duas estratégias diferentes controlam fallback de imagem;
-- 257 linhas locais permanecem distribuídas entre os três produtos;
+- 310 linhas de source permanecem distribuídas entre três diretórios e um recipe artesanal;
 - não existe story isolada, package smoke ou regra que impeça a cópia de voltar.
 
 Preservar cada diferença como prop tornaria a library um espelho do legado. Remover diferenças sem
@@ -28,7 +28,7 @@ auditar as telas, porém, repetiria a regressão visual que motivou o design sys
 ## Objetivo
 
 Promover `Avatar` como atom público pequeno, semântico e independente dos themes dos produtos;
-adotá-lo nos 18 callsites ativos; remover a cópia morta do Student; publicar um artefato imutável e
+adotá-lo nos 19 callsites ativos; remover a cópia morta do Student; publicar um artefato imutável e
 comprovar os consumers em produção.
 
 ```text
@@ -83,21 +83,21 @@ de tamanho/tom comprovadas.
 - `size="xs | sm | md | lg | xl"` em uma escala monotônica de 24/32/40/56/64 px;
 - `tone="neutral | brand | inverse"` construído apenas com tokens públicos da library;
 - root decorativo por padrão, imagem com `alt=""` e fallback determinístico para iniciais;
-- 18 callsites ativos importando diretamente de `@langyspace/ui`;
+- 19 callsites ativos importando diretamente de `@langyspace/ui`;
 - zero source local de Avatar nos três products onde a cópia existia;
 - nenhuma alteração de rota, payload, Firebase, regra, dado ou contrato de domínio.
 
 ## Métricas de sucesso
 
-| Medida                  |                       Baseline |                  Meta |
-| ----------------------- | -----------------------------: | --------------------: |
-| Implementações locais   |        3 products / 257 linhas |                     0 |
-| Callsites ativos        |           Admin 10 / Teacher 8 | 18 no package público |
-| Props cosméticas livres |                              0 |                     0 |
-| Stories da library      |                             72 |            +5 ou mais |
-| Owner test/story/smokes |                    inexistente | completo no manifesto |
-| Issues geométricas      | desconhecido após convergência |                     0 |
-| Adapters de consumer    |                              0 |                     0 |
+| Medida                  |                             Baseline |                  Meta |
+| ----------------------- | -----------------------------------: | --------------------: |
+| Implementações locais   | 3 diretórios + 1 recipe / 310 linhas |                     0 |
+| Callsites ativos        |                 Admin 10 / Teacher 9 | 19 no package público |
+| Props cosméticas livres |                                    0 |                     0 |
+| Stories da library      |                                   72 |            +5 ou mais |
+| Owner test/story/smokes |                          inexistente | completo no manifesto |
+| Issues geométricas      |       desconhecido após convergência |                     0 |
+| Adapters de consumer    |                                    0 |                     0 |
 
 ## Critérios de conclusão
 
