@@ -2,8 +2,8 @@
 
 ## Status
 
-Planejamento de produto, refinamento de requisitos, plano técnico, breakdown e revisão crítica
-concluídos. T01–T02 concluídas e T03 em andamento.
+Foundation e adoção cross-portal concluídas e publicadas. T04 permanece aberta apenas para os
+shells legados do monólito Admin que não pertenciam ao corte compartilhado entre os três portais.
 
 ## Baseline
 
@@ -38,14 +38,30 @@ concluídos. T01–T02 concluídas e T03 em andamento.
   normal/reduced;
 - screenshots de Dialog stress e Drawer default em mobile/dense/wide foram inspecionadas sem corte,
   overflow ou hierarquia regressiva.
+- `validate:ui` da library passou com 171 testes, cobertura acima de 92% em todos os eixos, package
+  smoke, SSR, bundle budgets e 726 cenários visuais;
+- release `v1.3.0` publicado; tarball remoto e candidate têm SHA-256
+  `a481d9d1c25990858ee495badb07d020cb597043eb961b78b0fd901adc6a11bd`;
+- Admin removeu sua cópia de ModalLayer/Dialog/Drawer e migrou todos os consumers dessa seed;
+- Teacher migrou Notification, ProblemReport, AvailabilitySettings, SlotAction, StudentProfile e
+  ClassDrawer;
+- Student migrou Notification, ProblemReport e CheckoutDialog, removendo trap/scroll lock/Escape
+  locais;
+- a inspeção visual encontrou e corrigiu o toast mobile que cobria as ações do checkout;
+- gates finais: Admin 228 testes, 13 fluxos a11y, 45 cenários DS e 1.820 cenários de layout; Teacher
+  270 cenários; Student 648 cenários; zero problema geométrico;
+- mains publicadas em Admin `fc94915`, Teacher `3331dab` e Student `f60d82c`;
+- Hosting live publicado nos três targets; HTML HTTP 200, bundle servido idêntico ao `dist` e marker
+  `lsui-sc-modal-panel` presente em Admin, Teacher e Student.
 
 ## Próxima subtask
 
-T03.1 — integrar Dialog/Drawer ao entrypoint, manifesto, peers e smokes públicos.
+T04.2 — decompor e migrar, em corte próprio, os shells `.drawer/.confirm` ainda embutidos no
+`AdminPortal/index.tsx`.
 
 ## Blockers
 
-Nenhum.
+Nenhum para o corte publicado.
 
 ## Descobertas
 
@@ -57,4 +73,5 @@ Nenhum.
 
 ## Evidência visual
 
-Pendente em T01. Nenhum código visual foi editado até este ponto.
+Passed. Screenshots mobile/dense/wide inspecionadas; checkout mobile, ClassDrawer e consumers Admin
+sem corte, overflow ou ação encoberta após a correção do toast.
