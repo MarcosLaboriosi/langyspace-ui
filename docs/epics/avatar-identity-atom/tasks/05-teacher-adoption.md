@@ -7,17 +7,23 @@ candidato, validando shell, lists e drawers.
 
 ## Checklist
 
-- [ ] instalar exatamente o candidate aprovado no Admin;
-- [ ] migrar sete imports para o entrypoint público;
-- [ ] remover o recipe `ProfileAvatar` duplicado do drawer de aluno;
-- [ ] mapear `accent` para `brand` e `muted` para default `neutral`;
-- [ ] remover os três arquivos locais;
-- [ ] adicionar policy contra import local e recipe override;
-- [ ] adicionar assertion do marker para diâmetro, círculo, overflow e flex-shrink;
-- [ ] criar case `inicio-drawer-aluno` para abrir a tab de perfil e cobrir `xl`;
-- [ ] garantir allowlist pnpm para `1.2.0` no release final;
-- [ ] validar foto válida, fallback, mobile header, sidebar, Hoje, Alunos e drawer;
-- [ ] comparar screenshots before/after em 390/1281/2048.
+- [x] instalar exatamente o candidate aprovado no Admin;
+- [x] migrar sete imports para o entrypoint público;
+- [x] remover o recipe `ProfileAvatar` duplicado do drawer de aluno;
+- [x] mapear `accent` para `brand` e `muted` para default `neutral`;
+- [x] remover os três arquivos locais;
+- [x] adicionar policy contra import local e recipe override;
+- [x] adicionar assertion do marker para diâmetro, círculo, overflow e flex-shrink;
+- [x] criar case `inicio-drawer-aluno` para abrir a tab de perfil e cobrir `xl`;
+- [x] garantir allowlist pnpm para `1.2.0` no release final;
+- [x] validar foto válida, fallback, mobile header, sidebar, Hoje, Alunos e drawer;
+- [x] comparar screenshots before/after em 390/1281/2048.
+
+## Resultado
+
+Nove callsites visuais usam o package público; o recipe escondido no StudentProfileDrawer também
+foi removido. Três focused files/18 tests e 270 cenários/594 leituras de Avatar passaram. O workflow
+`32916232724` publicou o bundle validado.
 
 ## Done
 

@@ -2,7 +2,8 @@
 
 ## Status
 
-T01–T03 concluídas. O package candidato está comprovado e a adoção Admin está em execução.
+Concluído. T01–T07 estão em `main`, `@langyspace/ui@1.2.0` está publicado e os consumers estão
+comprovados em produção.
 
 ## Baseline
 
@@ -45,10 +46,21 @@ T01–T03 concluídas. O package candidato está comprovado e a adoção Admin e
   `a74968bf19d266159da40191bbda954f9a6064906bbe4c292c0d7461ff035b2a`;
 - a revisão do primeiro consumer encontrou um non-package `ProfileAvatar` adicional no drawer
   Teacher; ele foi incorporado ao escopo em vez de preservar uma exceção cosmética.
+- Admin migrou dez callsites e passou build/test/a11y/design-system, focused layout e os quatro
+  shards oficiais antes do Hosting;
+- Teacher migrou nove callsites visuais, passou 18 focused tests e 270 cenários com 594 leituras do
+  marker antes do Hosting;
+- Student removeu 77 linhas mortas e passou architecture/build/648 cenários antes do Hosting;
+- o release remoto tem SHA-256
+  `c2b7adb751907878b2fc904084097f29d2e433924e7e6348fcae86fa7dcfa459` e conteúdo descompactado
+  idêntico ao candidate;
+- Admin/Teacher/Student servem exatamente os bundles produzidos pelos builds dos commits publicados;
+- o catálogo público responde 200 e contém as seis stories Avatar;
+- evidência completa: [release-evidence.md](release-evidence.md).
 
 ## Próxima subtask
 
-T04 — concluir adoção Admin, incluindo assertions do marker e comparação after.
+Nenhuma. Uma nova family exige novo maturity gate e épico próprio.
 
 ## Blockers
 
@@ -56,4 +68,4 @@ Nenhum.
 
 ## Decisões abertas controladas
 
-Nenhuma. A comparação after continua blocking antes do release.
+Nenhuma.

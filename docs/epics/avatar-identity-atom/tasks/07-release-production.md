@@ -7,16 +7,16 @@ loop documental.
 
 ## Checklist
 
-- [ ] commit/push da library com fast-forward e CI verde;
-- [ ] criar tag/release `v1.2.0` com tarball e checksum;
-- [ ] baixar e verificar o artifact publicado;
-- [ ] substituir candidate pelo URL imutável em Admin/Teacher;
-- [ ] commit/push Admin, Teacher e cleanup Student com staging explícito;
-- [ ] aguardar workflows e deploys sem tocar Functions;
-- [ ] verificar HTTP 200, bundle filename/hash e marker `lsui-sc-avatar`;
-- [ ] verificar catálogo publicado pelo commit aprovado;
-- [ ] registrar release evidence, rollback e incidentes contidos;
-- [ ] fechar tasks/progress no mesmo commit documental final necessário.
+- [x] commit/push da library com fast-forward e CI verde;
+- [x] criar tag/release `v1.2.0` com tarball e checksum;
+- [x] baixar e verificar o artifact publicado;
+- [x] substituir candidate pelo URL imutável em Admin/Teacher;
+- [x] commit/push Admin, Teacher e cleanup Student com staging explícito;
+- [x] aguardar workflows e deploys sem tocar Functions;
+- [x] verificar HTTP 200, bundle filename/hash e marker `lsui-sc-avatar`;
+- [x] verificar catálogo publicado pelo commit aprovado;
+- [x] registrar release evidence, rollback e incidentes contidos;
+- [x] fechar tasks/progress no mesmo commit documental final necessário.
 
 ## Done
 
