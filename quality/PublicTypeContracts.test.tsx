@@ -3,6 +3,8 @@ import type {
   AuthTokenDigitsProps,
   AuthTokenLength,
   ChoiceOption,
+  DialogDismissal,
+  DrawerSize,
   SearchInputClearAction,
   SearchInputProps,
 } from '../src'
@@ -16,6 +18,8 @@ describe('public type contracts', () => {
       'aria-labelledby': 'search-title',
     }
     const tokenLength: AuthTokenLength = 6
+    const dialogDismissal: DialogDismissal = 'escape-and-backdrop'
+    const drawerSize: DrawerSize = 'lg'
     const clearAction: SearchInputClearAction = {
       clearLabel: 'Limpar busca',
       onClear: () => undefined,
@@ -46,6 +50,8 @@ describe('public type contracts', () => {
     expect(directName['aria-label']).toBe('Buscar')
     expect(referencedName['aria-labelledby']).toBe('search-title')
     expect(tokenLength).toBe(6)
+    expect(dialogDismissal).toBe('escape-and-backdrop')
+    expect(drawerSize).toBe('lg')
     expect(clearAction.clearLabel).toBe('Limpar busca')
     expect(customChoice.accessibleLabel).toBe('Ativos: 18')
     expect(duplicatedName['aria-label']).toBe('Buscar')
