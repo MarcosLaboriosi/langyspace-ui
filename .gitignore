@@ -6,3 +6,6 @@ coverage/
 release/
 *.tgz
 *.tsbuildinfo
+
+# Local agent retrieval indexes
+graphify-out/
