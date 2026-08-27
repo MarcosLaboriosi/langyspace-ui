@@ -1,40 +1,34 @@
-import { type FieldPath, type FieldValues, useFormContext } from 'react-hook-form'
+import { useController, useFormContext, type FieldValues } from 'react-hook-form'
 import { FieldRoot } from '../FieldRoot'
 import { TextInput } from '../../atoms/TextInput'
 import type { ControlledFieldProps } from './types'
 
-const resolveFormError = (
-  errors: unknown,
-  fieldName: FieldPath<FieldValues>,
-): string | undefined => {
-  const path = String(fieldName)
-  if (!errors || typeof errors !== 'object') return undefined
-
-  const cursor: unknown = path.split('.').reduce((acc, key) => {
-    if (!acc || typeof acc !== 'object') return undefined
-    return (acc as Record<string, unknown>)[key]
-  }, errors as Record<string, unknown> | undefined)
-
-  if (!cursor || typeof cursor !== 'object') return undefined
-  const message = (cursor as { message?: unknown }).message
-
-  return typeof message === 'string' ? message : undefined
-}
+const toOptionalError = (error: unknown) =>
+  typeof error === 'string' ? error : undefined
 
 export function ControlledField<TFieldValues extends FieldValues = FieldValues>(
   props: ControlledFieldProps<TFieldValues>,
 ) {
-  const { formState: { errors }, register } = useFormContext<TFieldValues>()
+  const { control } = useFormContext<TFieldValues>()
   const { controlId, hint, label, name, rules, error: externalError, ...inputProps } = props
+  const {
+    field,
+    fieldState: { error: fieldError },
+  } = useController({
+    control,
+    name,
+    rules,
+  })
+
   const fieldId = controlId ?? String(name)
-  const resolvedError = externalError ?? resolveFormError(errors, name)
+  const resolvedError = externalError ?? toOptionalError(fieldError?.message)
 
   return (
     <FieldRoot controlId={fieldId} error={resolvedError} hint={hint} label={label}>
       <TextInput
         id={fieldId}
         {...inputProps}
-        {...register(name, rules)}
+        {...field}
         aria-invalid={Boolean(resolvedError)}
       />
     </FieldRoot>
