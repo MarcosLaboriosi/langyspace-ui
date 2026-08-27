@@ -1,4 +1,5 @@
 export {
+  ControlledField,
   CompoundControl,
   FieldRoot,
   SearchInput,
