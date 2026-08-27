@@ -278,12 +278,22 @@ container expõe `role="status"`, `aria-live="polite"` e `aria-busy="true"`.
 ## Fields e busca
 
 Inputs são native-first e não conhecem `react-hook-form`. `FieldRoot` conecta label, hint e error ao
-control por `id`, `aria-invalid` e `aria-describedby`; adapters de form continuam no produto.
+control por `id`, `aria-invalid` e `aria-describedby`. Para produtos que já usam
+`react-hook-form`, `ControlledField` é o adapter opcional de `FieldRoot` + `TextInput`.
 
 ```tsx
 <FieldRoot label="Nome" hint="Use o nome completo" error={errors.name?.message}>
   <TextInput {...register('name')} />
 </FieldRoot>
+
+<FormProvider {...form}>
+  <ControlledField
+    label="E-mail"
+    name="email"
+    rules={{ required: 'Informe seu e-mail' }}
+    type="email"
+  />
+</FormProvider>
 ```
 
 `TextInput`, `SelectInput` e `TextareaInput` aceitam props e refs nativas. `CompoundControl` é o
@@ -405,6 +415,7 @@ src/
   molecules/
     AuthTokenDigits/
     CompoundControl/
+    ControlledField/
     FieldRoot/
     FilterPills/
     SearchInput/

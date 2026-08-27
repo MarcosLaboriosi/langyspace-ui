@@ -57,6 +57,7 @@ async function writeConsumer(packageSpec) {
           '@langyspace/ui': packageSpec,
           react: '19.2.5',
           'react-dom': '19.2.5',
+          'react-hook-form': '^7.73.1',
           'styled-components': '^6.4.0',
         },
         devDependencies: {
@@ -77,12 +78,18 @@ async function writeConsumer(packageSpec) {
   )
   await writeFile(
     join(consumerDirectory, 'src', 'main.tsx'),
-    `import { ActionLink, AuthNotice, AuthTokenDigits, Avatar, Button, CompoundControl, Dialog, Drawer, EmptyState, FieldRoot, FilterPills, IconButton, LoadingState, Pressable, SearchInput, SectionHeader, SegmentedControl, SelectInput, Spinner, StatePanel, StatusChip, TextareaInput, TextInput } from '@langyspace/ui'
+    `import { ActionLink, AuthNotice, AuthTokenDigits, Avatar, Button, CompoundControl, ControlledField, Dialog, Drawer, EmptyState, FieldRoot, FilterPills, IconButton, LoadingState, Pressable, SearchInput, SectionHeader, SegmentedControl, SelectInput, Spinner, StatePanel, StatusChip, TextareaInput, TextInput } from '@langyspace/ui'
 import type { AuditConfig } from '@langyspace/ui/audit'
 import { createRoot } from 'react-dom/client'
+import { FormProvider, useForm } from 'react-hook-form'
 
 const auditTypeContract: AuditConfig = { root: '.' }
 void auditTypeContract
+
+function PackageForm() {
+  const form = useForm({ defaultValues: { email: 'maria@example.com' } })
+  return <FormProvider {...form}><ControlledField label="Email" name="email" /></FormProvider>
+}
 
 createRoot(document.getElementById('root')!).render(
   <>
@@ -103,6 +110,7 @@ createRoot(document.getElementById('root')!).render(
     <LoadingState title="Package loading state passed" />
     <StatePanel state="error" title="Package error state passed" />
     <FieldRoot label="Name"><TextInput defaultValue="Maria" /></FieldRoot>
+    <PackageForm />
     <FieldRoot label="Level"><SelectInput defaultValue="B1"><option>B1</option></SelectInput></FieldRoot>
     <FieldRoot label="Notes"><TextareaInput defaultValue="Package textarea passed" /></FieldRoot>
     <CompoundControl leading={<span>$</span>}><TextInput aria-label="Amount" defaultValue="48" /></CompoundControl>
@@ -221,6 +229,7 @@ try {
     installedPackageJson.bin?.['langyspace-ui-audit'] !== './audit/cli.mjs' ||
     installedPackageJson.peerDependencies?.react !== '>=19 <20' ||
     installedPackageJson.peerDependencies?.['react-dom'] !== '>=19 <20' ||
+    installedPackageJson.peerDependencies?.['react-hook-form'] !== '>=7 <8' ||
     installedPackageJson.peerDependencies?.['styled-components'] !== '>=6 <7'
   ) {
     throw new Error('installed_package_contract_mismatch')

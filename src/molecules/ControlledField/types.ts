@@ -1,5 +1,6 @@
 import type { FieldPath, FieldValues, RegisterOptions } from 'react-hook-form'
-import type { InputHTMLAttributes, ReactNode } from 'react'
+import type { ReactNode } from 'react'
+import type { TextInputProps } from '../../atoms/TextInput'
 
 export interface ControlledFieldBaseProps<TFieldValues extends FieldValues> {
   controlId?: string
@@ -10,6 +11,7 @@ export interface ControlledFieldBaseProps<TFieldValues extends FieldValues> {
   rules?: RegisterOptions<TFieldValues, FieldPath<TFieldValues>>
 }
 
-export type ControlledFieldProps<TFieldValues extends FieldValues = FieldValues> =
-  ControlledFieldBaseProps<TFieldValues> &
-  Omit<InputHTMLAttributes<HTMLInputElement>, 'name'>
+export type ControlledFieldProps<
+  TFieldValues extends FieldValues = FieldValues,
+> = ControlledFieldBaseProps<TFieldValues> &
+  Omit<TextInputProps, 'defaultValue' | 'name'>

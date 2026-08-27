@@ -1,5 +1,6 @@
 import { createElement } from 'react'
 import { renderToString } from 'react-dom/server'
+import { FormProvider, useForm } from 'react-hook-form'
 import { ServerStyleSheet, styled } from 'styled-components'
 
 const ConsumerSurface = styled.div`
@@ -13,6 +14,7 @@ const {
   Avatar,
   Button,
   CompoundControl,
+  ControlledField,
   Dialog,
   Drawer,
   EmptyState,
@@ -31,6 +33,15 @@ const {
   TextareaInput,
   TextInput,
 } = await import('@langyspace/ui')
+
+function ControlledFieldSsr() {
+  const form = useForm({ defaultValues: { email: 'maria@example.com' } })
+  return createElement(
+    FormProvider,
+    form,
+    createElement(ControlledField, { label: 'Email', name: 'email' }),
+  )
+}
 
 const sheet = new ServerStyleSheet()
 let markup
@@ -61,6 +72,7 @@ try {
           { label: 'Name' },
           createElement(TextInput, { defaultValue: 'Maria' }),
         ),
+        createElement(ControlledFieldSsr),
         createElement(
           FieldRoot,
           { label: 'Level' },

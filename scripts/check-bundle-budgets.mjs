@@ -7,7 +7,13 @@ const root = resolve(import.meta.dirname, '..')
 const budgets = JSON.parse(
   await readFile(resolve(root, 'quality/budgets.json'), 'utf8'),
 )
-const peers = ['react', 'react-dom', 'react/jsx-runtime', 'styled-components']
+const peers = [
+  'react',
+  'react-dom',
+  'react-hook-form',
+  'react/jsx-runtime',
+  'styled-components',
+]
 const measurements = {}
 
 function measure(code) {

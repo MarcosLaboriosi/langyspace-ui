@@ -13,6 +13,7 @@ export default defineConfig({
       external: [
         'react',
         'react-dom',
+        'react-hook-form',
         'react/jsx-runtime',
         'styled-components',
       ],

@@ -228,6 +228,25 @@ export const publicComponentContracts = [
   },
   {
     browserSmoke: complete,
+    exportName: 'ControlledField',
+    interactive: true,
+    layer: 'molecule',
+    ownerPath: 'src/molecules/ControlledField/index.tsx',
+    runtimeMarker: 'lsui-sc-field-root',
+    ssrSmoke: complete,
+    story: {
+      ...complete,
+      path: 'src/molecules/ControlledField/ControlledField.stories.tsx',
+      title: 'Molecules/Fields/ControlledField',
+    },
+    test: {
+      ...complete,
+      path: 'src/molecules/ControlledField/ControlledField.test.tsx',
+    },
+    visual: true,
+  },
+  {
+    browserSmoke: complete,
     exportName: 'Dialog',
     interactive: true,
     layer: 'molecule',
