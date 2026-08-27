@@ -54,6 +54,7 @@
   "peerDependencies": {
     "react": ">=19 <20",
     "react-dom": ">=19 <20",
+    "react-hook-form": ">=7 <8",
     "styled-components": ">=6 <7"
   },
   "devDependencies": {
@@ -82,6 +83,7 @@
     "prettier": "^3.8.3",
     "react": "^19.2.5",
     "react-dom": "^19.2.5",
+    "react-hook-form": "^7.73.1",
     "storybook": "10.5.10",
     "styled-components": "^6.4.0",
     "typescript": "~6.0.2",
