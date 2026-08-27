@@ -77,7 +77,7 @@ async function writeConsumer(packageSpec) {
   )
   await writeFile(
     join(consumerDirectory, 'src', 'main.tsx'),
-    `import { ActionLink, AuthNotice, AuthTokenDigits, Avatar, Button, CompoundControl, EmptyState, FieldRoot, FilterPills, IconButton, LoadingState, Pressable, SearchInput, SectionHeader, SegmentedControl, SelectInput, Spinner, StatePanel, StatusChip, TextareaInput, TextInput } from '@langyspace/ui'
+    `import { ActionLink, AuthNotice, AuthTokenDigits, Avatar, Button, CompoundControl, Dialog, Drawer, EmptyState, FieldRoot, FilterPills, IconButton, LoadingState, Pressable, SearchInput, SectionHeader, SegmentedControl, SelectInput, Spinner, StatePanel, StatusChip, TextareaInput, TextInput } from '@langyspace/ui'
 import type { AuditConfig } from '@langyspace/ui/audit'
 import { createRoot } from 'react-dom/client'
 
@@ -112,6 +112,8 @@ createRoot(document.getElementById('root')!).render(
     <SegmentedControl aria-label="Range" options={[{ label: '30 days', value: '30' }]} value="30" onChange={() => undefined} />
     <AuthTokenDigits aria-label="Code" autoFocus={false} digitLabel="Digit" idPrefix="code" length={4} onTokenChange={() => undefined} />
     <AuthNotice tone="info">Package auth notice passed</AuthNotice>
+    <Dialog closeLabel="Close dialog" onClose={() => undefined} open={false} title="Package dialog passed">Dialog</Dialog>
+    <Drawer closeLabel="Close drawer" onClose={() => undefined} open={false} title="Package drawer passed">Drawer</Drawer>
   </>,
 )
 `,
@@ -218,6 +220,7 @@ try {
       JSON.stringify(['.', './audit']) ||
     installedPackageJson.bin?.['langyspace-ui-audit'] !== './audit/cli.mjs' ||
     installedPackageJson.peerDependencies?.react !== '>=19 <20' ||
+    installedPackageJson.peerDependencies?.['react-dom'] !== '>=19 <20' ||
     installedPackageJson.peerDependencies?.['styled-components'] !== '>=6 <7'
   ) {
     throw new Error('installed_package_contract_mismatch')
@@ -291,6 +294,7 @@ try {
     'lsui-sc-field-root',
     'lsui-sc-filter-pills',
     'lsui-sc-compound-control',
+    'lsui-sc-modal-panel',
     'lsui-sc-search-input',
     'lsui-sc-section-header',
     'lsui-sc-select-input',

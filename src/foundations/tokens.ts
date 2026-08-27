@@ -73,6 +73,9 @@ export const tokens = {
       900: '#1a1a1a',
       950: '#0a0a0a',
     },
+    overlay: {
+      default: 'rgba(10, 10, 10, 0.42)',
+    },
     surfaceBorder: {
       default: '#d8d4cb',
       strong: '#0a0a0a',
@@ -114,7 +117,9 @@ export const tokens = {
     rounded: '0.75rem',
   },
   shadow: {
+    drawer: '-16px 0 40px rgba(10, 10, 10, 0.1)',
     focus: '0 0 0 2px #ffffff, 0 0 0 5px rgba(0, 242, 234, 0.72)',
+    popover: '0 20px 60px rgba(10, 10, 10, 0.18)',
     raised: '0 4px 12px rgba(0, 0, 0, 0.07)',
     subtle: '0 1px 2px rgba(0, 0, 0, 0.05)',
   },

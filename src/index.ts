@@ -51,6 +51,20 @@ export type {
   CompoundControlProps,
   CompoundControlSurface,
 } from './molecules/CompoundControl/types'
+export { Dialog } from './molecules/Dialog'
+export type {
+  DialogDismissal,
+  DialogPanelProps,
+  DialogProps,
+  DialogSize,
+} from './molecules/Dialog'
+export { Drawer } from './molecules/Drawer'
+export type {
+  DrawerDismissal,
+  DrawerPanelProps,
+  DrawerProps,
+  DrawerSize,
+} from './molecules/Drawer'
 export { EmptyState } from './molecules/EmptyState'
 export type { EmptyStateProps } from './molecules/EmptyState/types'
 export { FieldRoot } from './molecules/FieldRoot'

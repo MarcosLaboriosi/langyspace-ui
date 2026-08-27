@@ -4,13 +4,14 @@ Biblioteca React compartilhada pelos produtos Langy.space. Expõe `Button` para 
 `IconButton` para comandos de glyph único, `ActionLink` para navegação com aparência de ação,
 `Pressable` para controles específicos, `Spinner` para espera, `Avatar` para identidade visual e
 pequenas composições semânticas de status, estado de conteúdo, fields, filtros e autenticação.
+`Dialog` e `Drawer` completam essa base com um shell modal único para os portais.
 
 ## Installation
 
 Instale styled-components e fixe sempre um artefato imutável de release:
 
 ```bash
-pnpm add styled-components@^6.4.0 '@langyspace/ui@https://github.com/MarcosLaboriosi/langyspace-ui/releases/download/v1.2.0/langyspace-ui-1.2.0.tgz'
+pnpm add styled-components@^6.4.0 '@langyspace/ui@https://github.com/MarcosLaboriosi/langyspace-ui/releases/download/v1.3.0/langyspace-ui-1.3.0.tgz'
 ```
 
 Não existe import de CSS. O Button injeta seus estilos com styled-components e funciona sem
@@ -136,6 +137,42 @@ callsites atuais o nome textual adjacente permanece o owner acessível.
 Não envolva comportamento dentro do atom. Upload, menu ou navegação usam um Button/Pressable
 externo. Não estilize diâmetro, radius, cor ou typography por `styled(Avatar)`; escolha o size/tone
 semântico ou ajuste somente o layout do container.
+
+## Dialog e Drawer
+
+Os dois componentes compartilham portal, stack, bloqueio de scroll, `inert`, trap e retorno de foco,
+Escape e backdrop. O produto fornece apenas conteúdo e decisões semânticas; width, radius, header,
+body e footer pertencem à biblioteca.
+
+```tsx
+import { Button, Dialog, Drawer } from '@langyspace/ui'
+
+<Dialog
+  closeLabel="Fechar confirmação"
+  footer={<Button onClick={confirm}>Confirmar</Button>}
+  onClose={close}
+  open={open}
+  title="Confirmar decisão"
+>
+  Revise os dados antes de continuar.
+</Dialog>
+
+<Drawer
+  closeLabel="Fechar notificações"
+  description="Atualizações recentes"
+  onClose={close}
+  open={open}
+  size="sm"
+  title="Notificações"
+>
+  {notificationList}
+</Drawer>
+```
+
+`size` aceita `sm`, `md` e `lg`. `dismissal` aceita `escape-and-backdrop` (default), `escape-only`,
+`explicit-only` e `blocked`; use `blocked` durante mutações que não podem ser interrompidas. O
+`Dialog` vira bottom sheet no mobile e o `Drawer` ocupa o viewport inteiro. Não recrie scrim,
+listener de Escape, scroll lock ou focus trap no consumer.
 
 ### Contrato de markup
 

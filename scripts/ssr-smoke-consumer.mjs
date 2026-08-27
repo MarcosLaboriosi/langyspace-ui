@@ -13,6 +13,8 @@ const {
   Avatar,
   Button,
   CompoundControl,
+  Dialog,
+  Drawer,
   EmptyState,
   FieldRoot,
   FilterPills,
@@ -110,6 +112,26 @@ try {
           onTokenChange: () => undefined,
         }),
         createElement(AuthNotice, { tone: 'info' }, 'Code sent'),
+        createElement(
+          Dialog,
+          {
+            closeLabel: 'Close dialog',
+            onClose: () => undefined,
+            open: false,
+            title: 'Dialog SSR',
+          },
+          'Dialog',
+        ),
+        createElement(
+          Drawer,
+          {
+            closeLabel: 'Close drawer',
+            onClose: () => undefined,
+            open: false,
+            title: 'Drawer SSR',
+          },
+          'Drawer',
+        ),
       ),
     ),
   )
