@@ -6,7 +6,6 @@ import type { FilterPillsOverflow, FilterPillsSize } from './types'
 const sizeStyles = {
   md: css`
     min-height: ${tokens.control.height.md};
-    gap: ${tokens.spacing[2]};
     padding-right: ${tokens.spacing[4]};
     padding-left: ${tokens.spacing[4]};
     font-size: ${tokens.typography.fontSize.sm};
@@ -41,7 +40,11 @@ export const Item = styled(Pressable)<{
   $active: boolean
   $size: FilterPillsSize
 }>`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   flex: 0 0 auto;
+  gap: ${tokens.spacing[2]};
   border: 1px solid
     ${({ $active }) =>
       $active

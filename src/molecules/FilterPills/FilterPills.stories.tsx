@@ -21,7 +21,7 @@ function FilterExample({
   return (
     <FilterPills
       aria-label="Filtrar alunos"
-      counts={{ active: 18, pending: 4 }}
+      counts={{ active: 18, all: 175, pending: 4 }}
       onChange={setValue}
       options={options}
       overflow={overflow}
@@ -33,6 +33,7 @@ function FilterExample({
 const meta = {
   args: {
     'aria-label': 'Filtrar alunos',
+    counts: { active: 18, all: 175, pending: 4 },
     onChange: () => undefined,
     options,
     overflow: 'scroll',
@@ -66,7 +67,7 @@ export const Sizes: Story = {
 export const Interactive: Story = {
   render: () => <FilterExample />,
   play: async ({ canvas, userEvent }) => {
-    const all = canvas.getByRole('button', { name: 'Todos' })
+    const all = canvas.getByRole('button', { name: 'Todos: 175' })
     const active = canvas.getByRole('button', { name: 'Ativos: 18' })
     const archived = canvas.getByRole('button', { name: 'Arquivados' })
 
