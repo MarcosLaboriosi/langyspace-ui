@@ -128,3 +128,55 @@ o resultado do piloto permanece local no Admin e a promoção é rejeitada.
 O contrato TypeScript e a estratégia semântica responsiva foram aprovados em
 [t01-evidence.md](t01-evidence.md). A aprovação cobre o shape e o Chromium configurado no package;
 não substitui Storybook, axe, layout audit ou pilotos reais.
+
+## Revisão pós-pilotos — T08
+
+O inventário foi refeito sobre o `HEAD` versionado do Admin depois da adoção de Leads e Alunos. O
+working tree possuía alterações paralelas e não foi usado como baseline. Das 16 tabelas originais,
+Alunos já usa `OperationalList`; os outros 15 `<table>` continuam identificáveis no source.
+
+### Decisão por tabela original
+
+|   # | Superfície                   | Contexto                      | Decisão              | Motivo                                                  |
+| --: | ---------------------------- | ----------------------------- | -------------------- | ------------------------------------------------------- |
+|   1 | Alunos                       | `/alunos`                     | adotado em produção  | piloto comprovou sorting, navegação e ações             |
+|   2 | Allowlist de professoras     | Professoras · liberação       | migrar com V1        | identidade, status, uso e uma ação danger               |
+|   3 | Carteira da professora       | detalhe · carteira            | migrar com V1        | primary navigation e cells simples                      |
+|   4 | Aulas da professora          | detalhe · aulas               | migrar com V1        | histórico tabular sem seleção                           |
+|   5 | Experimentais da professora  | detalhe · experimentais       | migrar com V1        | histórico tabular sem seleção                           |
+|   6 | Professoras                  | `/professoras`                | migrar com V1        | mesmo hierarchy de Alunos, sem nova capability          |
+|   7 | Repasses sem nota fiscal     | Financeiro · `sem_nf`         | migrar com V1        | duas ações por descriptors e sem bulk                   |
+|   8 | Pedidos/histórico de repasse | Financeiro · filas de repasse | migrar com V1        | row click vira command explícito; ações já cabem        |
+|   9 | Saldo por professora         | Financeiro · repasses         | migrar com V1        | resumo por identidade com até duas ações                |
+|  10 | Cobranças                    | Financeiro · cobranças        | estender depois      | modo de lote exige checkbox mestre e seleção controlada |
+|  11 | Assinaturas                  | Financeiro · assinaturas      | migrar com V1 · NW01 | um callsite, drawer e três ações representáveis         |
+|  12 | Receber agora                | Financeiro · dashboard        | migrar com V1        | lista-resumo com command de navegação                   |
+|  13 | Contas a pagar               | Financeiro · dashboard        | migrar com V1        | linhas heterogêneas, mas columns/actions uniformes      |
+|  14 | Despesas                     | Financeiro · despesas         | migrar com V1        | anexo permanece cell; decisões viram actions            |
+|  15 | Influencers                  | Financeiro · influencers      | migrar com V1        | comissão/status/actions sem seleção                     |
+|  16 | Planos                       | Financeiro · planos           | migrar com V1        | read-only e sem coluna de ações                         |
+
+Quinze das 16 tabelas cabem na API `v1.4.0`. Isso não significa migrá-las em lote: cada callsite
+continua sendo uma task pequena com tests e audit próprios. Cobranças permanece local até a decisão
+de [bulk selection](bulk-selection-proposal.md).
+
+### Decisão pelas duas listas de Leads originais
+
+| Superfície       | Estado atual                                                   | Decisão                                  |
+| ---------------- | -------------------------------------------------------------- | ---------------------------------------- |
+| `LeadCohortPage` | montada em `/leads` e usando `OperationalList`                 | adotado em produção                      |
+| `LeadsPage`      | possui implementação e tests, mas não é importada pelo runtime | remover em cleanup; não migrar dead code |
+
+### Listas especializadas
+
+- Agenda: pattern diferente. Calendário, janelas e ordem temporal devem permanecer locais até um
+  discovery próprio; `OperationalList` não deve ganhar props de calendário.
+- Marketing: migrar com V1 em task separada. O funil inline cabe em uma data column, mas precisa de
+  comparação visual para preservar sua leitura sequencial.
+- Prioridades da home: manter local. O tom aplicado à linha inteira e a natureza de atalho não foram
+  validados pelos pilotos como parte do contrato público.
+
+### Próxima decisão executável
+
+[NW01 — Assinaturas](next-wave.md#nw01--assinaturas-com-o-contrato-v1) é a menor nova adoção:
+mantém todo o domínio financeiro no Admin, não depende de bulk e usa apenas a release já publicada.

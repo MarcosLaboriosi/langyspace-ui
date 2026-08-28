@@ -2,7 +2,7 @@
 
 ## Estado
 
-- fase: execução; T01–T07 concluídas, T08 pronta para iniciar;
+- fase: concluída; T01–T08 encerradas;
 - branch: `main`, por orientação explícita;
 - runtime changes: `ActionMenu` e `OperationalList` publicados em `@langyspace/ui@1.4.0`;
 - package release: `v1.4.0` publicada e checksum remoto verificado;
@@ -64,16 +64,23 @@
 - `/leads?area=contato` e `/alunos` retornam 200 nos domínios Firebase e custom;
 - bundle servido coincide com o build local e contém os markers dos componentes;
 - veredito da T07 registrado em `t07-evidence.md`.
+- redução líquida combinada dos pilotos medida em 356 linhas no consumer;
+- 16 tabelas e duas listas originais receberam decisão individual atualizada;
+- 15/16 tabelas cabem no contrato V1; Cobranças aguarda proposal separado de bulk selection;
+- Agenda classificada como pattern diferente e Marketing como migração V1 em task própria;
+- próxima onda aberta com Assinaturas como NW01, sem alterar o package ou o Admin;
+- veredito da T08 registrado em `t08-evidence.md`.
 
 ## Próxima task
 
-Executar T08: revisar as famílias financeiras e registrar o handoff de rollout posterior sem ampliar
-automaticamente o contrato V1.
+Fora da condição de conclusão deste épico: NW01 migra somente Assinaturas com `v1.4.0`, após nova
+autorização. Cobranças não entra nessa task.
 
 ## Handoff
 
 O Admin serve `@langyspace/ui@1.4.0` pela URL imutável do GitHub Release. O artifact remoto possui
 SHA-256 `806cd071be9e8f10a79f7e7697a2a5cc813c7e41396ada3304f252a296f3a194`; o bundle Admin servido é
 `index-Bjoz4iip.js`, SHA-256
-`36cc345b5b8ba9b11526d3ba17e13158378cf5d9b374c9b046056bc4b78f4941`. T08 é apenas discovery e
-decisão de rollout financeiro; nenhuma mutation financeira foi autorizada por este épico.
+`36cc345b5b8ba9b11526d3ba17e13158378cf5d9b374c9b046056bc4b78f4941`. A revisão financeira está em
+`t08-evidence.md`; o backlog posterior está em `next-wave.md` e a eventual extensão de seleção em
+`bulk-selection-proposal.md`. Nenhuma mutation financeira foi autorizada por este épico.

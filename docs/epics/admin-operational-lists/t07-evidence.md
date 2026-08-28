@@ -126,3 +126,9 @@ O rollback é reinstalar a URL imutável de `v1.3.0` e reverter os commits Admin
 T08 deve revisar separadamente as filas financeiras e decidir, por família, entre migrar, estender o
 contrato depois ou manter a implementação local. Nenhuma ação financeira, seleção em lote ou
 mutation de provider entra automaticamente no V1 publicado.
+
+## Fechamento pós-release
+
+A revisão foi concluída em [t08-evidence.md](t08-evidence.md). Ela não alterou o artifact publicado:
+classificou os callsites restantes, separou a proposta de bulk selection e abriu a próxima onda com
+Assinaturas como primeiro escopo pequeno.
