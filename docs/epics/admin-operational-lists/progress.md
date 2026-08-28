@@ -2,12 +2,12 @@
 
 ## Estado
 
-- fase: execução; T01–T06 concluídas, T07 em andamento;
+- fase: execução; T01–T07 concluídas, T08 pronta para iniciar;
 - branch: `main`, por orientação explícita;
-- runtime changes: `ActionMenu` e `OperationalList` publicados no contrato local do package;
-- package candidate: `1.4.0` gerado e validado localmente; release ainda não publicada;
-- consumer adoption: pilotos de Leads e Alunos concluídos localmente no Admin;
-- produção: não iniciada.
+- runtime changes: `ActionMenu` e `OperationalList` publicados em `@langyspace/ui@1.4.0`;
+- package release: `v1.4.0` publicada e checksum remoto verificado;
+- consumer adoption: pilotos de Leads e Alunos versionados no Admin com URL imutável;
+- produção: site Admin live, rotas e bundle servidos verificados.
 
 ## Concluído nesta fase
 
@@ -57,16 +57,23 @@
 - matriz principal de Alunos passou em 120 cenários e overflow em 12 cenários, zero issues;
 - gate integral permaneceu em 315/316 por falha externa do fluxo paralelo de matrícula experimental;
 - veredito da T06 registrado em `t06-evidence.md`.
+- release `v1.4.0` publicada após CI verde da library e workflow de tag verde;
+- artifact remoto baixado anonimamente, checksum conferido e conteúdo idêntico ao candidate;
+- Admin atualizado para a URL imutável, com 316/316 tests, build, a11y e design system verdes;
+- fallback exato publicou somente `hosting:admin` após os workflows falharem antes dos steps;
+- `/leads?area=contato` e `/alunos` retornam 200 nos domínios Firebase e custom;
+- bundle servido coincide com o build local e contém os markers dos componentes;
+- veredito da T07 registrado em `t07-evidence.md`.
 
 ## Próxima task
 
-Concluir a T07: versionar o snapshot validado, publicar a release minor imutável, instalar o
-artifact remoto no Admin e provar CI, Hosting, rotas e bundle servido.
+Executar T08: revisar as famílias financeiras e registrar o handoff de rollout posterior sem ampliar
+automaticamente o contrato V1.
 
 ## Handoff
 
-O candidate final está em
-`.local/candidates/admin-operational-lists/v1.4.0/langyspace-ui-1.4.0.tgz`, SHA-256
-`6366538346b571482a01dfc8e191353820b267d16178c5c45852f9dd31cb3e60`. O `validate:ui` integral da
-library passou sobre esse contrato. O Admin ainda aponta para o candidate histórico `1.3.0` usado
-nos pilotos; a próxima ação é publicar `v1.4.0` e substituir esse path pela URL imutável.
+O Admin serve `@langyspace/ui@1.4.0` pela URL imutável do GitHub Release. O artifact remoto possui
+SHA-256 `806cd071be9e8f10a79f7e7697a2a5cc813c7e41396ada3304f252a296f3a194`; o bundle Admin servido é
+`index-Bjoz4iip.js`, SHA-256
+`36cc345b5b8ba9b11526d3ba17e13158378cf5d9b374c9b046056bc4b78f4941`. T08 é apenas discovery e
+decisão de rollout financeiro; nenhuma mutation financeira foi autorizada por este épico.

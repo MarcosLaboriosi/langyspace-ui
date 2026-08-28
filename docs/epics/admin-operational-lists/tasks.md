@@ -6,7 +6,7 @@
 - [x] [T04 — Storybook, audits e package candidate](tasks/04-storybook-package.md)
 - [x] [T05 — Piloto Admin em Leads](tasks/05-admin-leads-pilot.md)
 - [x] [T06 — Segunda adoção Admin em Alunos](tasks/06-admin-students-adoption.md)
-- [ ] [T07 — Release imutável e produção Admin](tasks/07-release-production.md)
+- [x] [T07 — Release imutável e produção Admin](tasks/07-release-production.md)
 - [ ] [T08 — Revisão financeira e handoff](tasks/08-finance-review-handoff.md)
 
 ## Ordem de dependência
