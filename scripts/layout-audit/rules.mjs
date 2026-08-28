@@ -1,7 +1,7 @@
 const publicRootPattern = /^lsui-sc-[a-z0-9-]+$/
 
 export async function inspectStory(page, scenario, tolerance) {
-  return page.evaluate(
+  const inspection = await page.evaluate(
     ({ acceptedTolerance, currentScenario, rootClassPattern }) => {
       const issues = []
       const viewportWidth = document.documentElement.clientWidth
@@ -46,6 +46,175 @@ export async function inspectStory(page, scenario, tolerance) {
       if (!document.querySelector('#storybook-root > *')) {
         issues.push({ rule: 'render/empty-story' })
       }
+
+      document
+        .querySelectorAll('[data-ui-action-menu="true"]')
+        .forEach((menu, index) => {
+          if (!isVisible(menu)) {
+            issues.push({ index, rule: 'action-menu/not-positioned' })
+            return
+          }
+
+          const rect = menu.getBoundingClientRect()
+          const labelledBy = menu.getAttribute('aria-labelledby')
+          const reducedMotion = window.matchMedia(
+            '(prefers-reduced-motion: reduce)',
+          ).matches
+          const style = window.getComputedStyle(menu)
+
+          if (
+            rect.left < -acceptedTolerance ||
+            rect.top < -acceptedTolerance ||
+            rect.right > viewportWidth + acceptedTolerance ||
+            rect.bottom > window.innerHeight + acceptedTolerance
+          ) {
+            issues.push({
+              bottom: rect.bottom,
+              index,
+              left: rect.left,
+              right: rect.right,
+              rule: 'action-menu/outside-viewport',
+              top: rect.top,
+            })
+          }
+
+          if (
+            menu.getAttribute('role') !== 'menu' ||
+            !labelledBy ||
+            !document.getElementById(labelledBy)
+          ) {
+            issues.push({ index, rule: 'action-menu/accessibility' })
+          }
+
+          if (
+            (reducedMotion && style.animationName !== 'none') ||
+            (!reducedMotion && style.animationName === 'none')
+          ) {
+            issues.push({
+              actual: style.animationName,
+              expected: reducedMotion ? 'none' : 'running animation',
+              index,
+              rule: 'action-menu/motion-preference',
+            })
+          }
+        })
+
+      document
+        .querySelectorAll('[data-ui-operational-list="true"]')
+        .forEach((list, index) => {
+          const table = list.querySelector(
+            '[data-ui-operational-list-table="true"]',
+          )
+          const expandedTriggers = list.querySelectorAll(
+            '[aria-haspopup="menu"][aria-expanded="true"]',
+          )
+          const rootRect = list.getBoundingClientRect()
+
+          if (
+            !table ||
+            table.tagName !== 'TABLE' ||
+            (!table.hasAttribute('aria-label') &&
+              !table.hasAttribute('aria-labelledby'))
+          ) {
+            issues.push({ index, rule: 'operational-list/table-accessibility' })
+          }
+
+          if (expandedTriggers.length > 1) {
+            issues.push({
+              actual: expandedTriggers.length,
+              expected: 1,
+              index,
+              rule: 'operational-list/menu-exclusivity',
+            })
+          }
+
+          if (
+            list.scrollWidth > list.clientWidth + acceptedTolerance ||
+            rootRect.right > viewportWidth + acceptedTolerance
+          ) {
+            issues.push({
+              clientWidth: list.clientWidth,
+              index,
+              rule: 'operational-list/horizontal-overflow',
+              scrollWidth: list.scrollWidth,
+            })
+          }
+
+          list
+            .querySelectorAll('[data-ui-operational-list-cell="true"]')
+            .forEach((cell, cellIndex) => {
+              const references = (cell.getAttribute('headers') ?? '')
+                .split(/\s+/)
+                .filter(Boolean)
+
+              if (
+                references.length !== 2 ||
+                references.some((id) => !document.getElementById(id))
+              ) {
+                issues.push({
+                  cellIndex,
+                  index,
+                  rule: 'operational-list/header-association',
+                })
+              }
+            })
+
+          list
+            .querySelectorAll('[data-ui-operational-list-row="true"]')
+            .forEach((row, rowIndex) => {
+              const actionCell = row.querySelector(
+                '[data-ui-operational-list-actions="true"]',
+              )
+              if (!actionCell || !isVisible(actionCell)) return
+
+              const actionRect = actionCell.getBoundingClientRect()
+              const siblings = row.querySelectorAll(
+                '[data-ui-operational-list-primary="true"], [data-ui-operational-list-cell="true"]',
+              )
+
+              siblings.forEach((cell, cellIndex) => {
+                if (!isVisible(cell)) return
+                const cellRect = cell.getBoundingClientRect()
+                const overlapWidth =
+                  Math.min(actionRect.right, cellRect.right) -
+                  Math.max(actionRect.left, cellRect.left)
+                const overlapHeight =
+                  Math.min(actionRect.bottom, cellRect.bottom) -
+                  Math.max(actionRect.top, cellRect.top)
+
+                if (
+                  overlapWidth > acceptedTolerance &&
+                  overlapHeight > acceptedTolerance
+                ) {
+                  issues.push({
+                    cellIndex,
+                    index,
+                    rowIndex,
+                    rule: 'operational-list/action-cell-overlap',
+                  })
+                }
+              })
+            })
+
+          list
+            .querySelectorAll('[data-sortable="true"] button')
+            .forEach((button, sortIndex) => {
+              if (!isVisible(button)) return
+              button.focus()
+              const style = window.getComputedStyle(button)
+              const hasOutline =
+                style.outlineStyle !== 'none' &&
+                Number.parseFloat(style.outlineWidth) > 0
+
+              if (document.activeElement !== button || !hasOutline) {
+                issues.push({
+                  index,
+                  sortIndex,
+                  rule: 'operational-list/sort-focus-indicator',
+                })
+              }
+            })
+        })
 
       componentRoots.forEach((element, index) => {
         if (!isVisible(element)) return
@@ -266,4 +435,42 @@ export async function inspectStory(page, scenario, tolerance) {
       rootClassPattern: publicRootPattern.source,
     },
   )
+
+  const operationalLists = page.locator('[data-ui-operational-list="true"]')
+  const operationalListCount = await operationalLists.count()
+
+  for (let index = 0; index < operationalListCount; index += 1) {
+    const list = operationalLists.nth(index)
+    const renderedRows = await list
+      .locator('[data-ui-operational-list-row="true"]')
+      .count()
+    const renderedCells = await list
+      .locator(
+        '[data-ui-operational-list-cell="true"], [data-ui-operational-list-actions="true"]',
+      )
+      .count()
+    const tableRoles = await list.getByRole('table').count()
+    const rowHeaderRoles = await list.getByRole('rowheader').count()
+    const cellRoles = await list.getByRole('cell').count()
+
+    if (
+      tableRoles !== 1 ||
+      rowHeaderRoles !== renderedRows ||
+      (renderedRows > 0 && cellRoles !== renderedCells)
+    ) {
+      inspection.issues.push({
+        actual: { cellRoles, rowHeaderRoles, tableRoles },
+        expected: {
+          cellRoles: renderedRows > 0 ? renderedCells : 'empty-state-cell',
+          rowHeaderRoles: renderedRows,
+          tableRoles: 1,
+        },
+        index,
+        rule: 'operational-list/browser-roles',
+        ...scenario,
+      })
+    }
+  }
+
+  return inspection
 }

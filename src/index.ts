@@ -39,6 +39,14 @@ export type { TextInputProps, TextInputSize } from './atoms/TextInput'
 export { tokens } from './foundations/tokens'
 export type { DesignTokens } from './foundations/tokens'
 export type { FieldControlSize } from './foundations/fields'
+export { ActionMenu } from './molecules/ActionMenu'
+export type {
+  ActionMenuAlign,
+  ActionMenuItem,
+  ActionMenuProps,
+  ActionMenuSize,
+  ActionMenuTone,
+} from './molecules/ActionMenu/types'
 export { AuthTokenDigits } from './molecules/AuthTokenDigits'
 export type {
   AuthTokenDigitsProps,
@@ -77,6 +85,20 @@ export type {
 } from './molecules/FilterPills/types'
 export { LoadingState } from './molecules/LoadingState'
 export type { LoadingStateProps } from './molecules/LoadingState/types'
+export { OperationalList } from './molecules/OperationalList'
+export type {
+  OperationalListAlign,
+  OperationalListColumn,
+  OperationalListDensity,
+  OperationalListImportance,
+  OperationalListItemAction,
+  OperationalListNavigation,
+  OperationalListPrimaryColumn,
+  OperationalListPrimaryContent,
+  OperationalListProps,
+  OperationalListSort,
+  OperationalListSortDirection,
+} from './molecules/OperationalList/types'
 export { SearchInput } from './molecules/SearchInput'
 export type {
   SearchInputClearAction,

@@ -5,11 +5,21 @@ import type {
   ChoiceOption,
   DialogDismissal,
   DrawerSize,
+  OperationalListColumn,
+  OperationalListItemAction,
+  OperationalListPrimaryColumn,
+  OperationalListProps,
   SearchInputClearAction,
   SearchInputProps,
 } from '../src'
 import type { AccessibleName } from '../src/foundations/accessibility'
 import type { AccessibleChoiceOption } from '../src/foundations/selection'
+
+interface OperationalPerson {
+  id: string
+  name: string
+  status: string
+}
 
 describe('public type contracts', () => {
   it('publishes strict additive contracts for new compositions', () => {
@@ -81,5 +91,69 @@ describe('public type contracts', () => {
     expect(legacySearch.onClear).toBeTypeOf('function')
     expect(legacyToken.length).toBe(5)
     expect(legacyChoice.value).toBe('active')
+  })
+
+  it('publishes strict generic operational-list contracts', () => {
+    const items: readonly OperationalPerson[] = [
+      { id: 'person-1', name: 'Ana', status: 'active' },
+    ]
+    const primaryColumn = {
+      label: 'Pessoa',
+      render: (item: OperationalPerson) => ({
+        navigation: {
+          label: `Abrir ${item.name}`,
+          onNavigate: () => undefined,
+        },
+        title: item.name,
+      }),
+    } satisfies OperationalListPrimaryColumn<OperationalPerson>
+    const columns = [
+      {
+        id: 'status',
+        label: 'Status',
+        render: (item: OperationalPerson) => item.status,
+      },
+    ] satisfies readonly OperationalListColumn<OperationalPerson>[]
+    const props = {
+      'aria-label': 'Fila operacional',
+      columns,
+      getItemKey: (item: OperationalPerson) => item.id,
+      items,
+      primaryColumn,
+    } satisfies OperationalListProps<OperationalPerson>
+    const quickAction: OperationalListItemAction = {
+      icon: <span aria-hidden="true">+</span>,
+      id: 'message',
+      label: 'Enviar mensagem',
+      onSelect: () => undefined,
+      placement: 'quick',
+    }
+
+    // @ts-expect-error quick actions require an icon
+    const missingQuickIcon: OperationalListItemAction = {
+      id: 'message',
+      label: 'Enviar mensagem',
+      onSelect: () => undefined,
+      placement: 'quick',
+    }
+    const destructivePrimary: OperationalListItemAction = {
+      id: 'archive',
+      label: 'Arquivar',
+      onSelect: () => undefined,
+      placement: 'primary',
+      // @ts-expect-error primary actions cannot be destructive
+      tone: 'danger',
+    }
+    // @ts-expect-error operational lists accept exactly one accessible-name source
+    const duplicatedListName: OperationalListProps<OperationalPerson> = {
+      ...props,
+      'aria-labelledby': 'queue-title',
+    }
+
+    expect(props.getItemKey(items[0])).toBe('person-1')
+    expect(quickAction.placement).toBe('quick')
+    expect(missingQuickIcon.id).toBe('message')
+    expect(destructivePrimary.placement).toBe('primary')
+    expect(duplicatedListName['aria-label']).toBe('Fila operacional')
   })
 })

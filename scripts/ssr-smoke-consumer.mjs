@@ -11,6 +11,7 @@ const {
   AuthNotice,
   AuthTokenDigits,
   ActionLink,
+  ActionMenu,
   Avatar,
   Button,
   CompoundControl,
@@ -22,6 +23,7 @@ const {
   FilterPills,
   IconButton,
   LoadingState,
+  OperationalList,
   Pressable,
   SearchInput,
   SectionHeader,
@@ -144,6 +146,32 @@ try {
           },
           'Drawer',
         ),
+        createElement(ActionMenu, {
+          items: [
+            {
+              id: 'open',
+              label: 'Open person',
+              onSelect: () => undefined,
+            },
+          ],
+          triggerLabel: 'More actions',
+        }),
+        createElement(OperationalList, {
+          'aria-label': 'SSR operational queue',
+          columns: [
+            {
+              id: 'status',
+              label: 'Status',
+              render: (item) => item.status,
+            },
+          ],
+          getItemKey: (item) => item.id,
+          items: [{ id: 'person-1', name: 'Maria', status: 'Active' }],
+          primaryColumn: {
+            label: 'Person',
+            render: (item) => ({ title: item.name }),
+          },
+        }),
       ),
     ),
   )
@@ -182,11 +210,13 @@ if (!markup.includes('lsui-sc-state-panel')) {
 
 for (const componentId of [
   'lsui-sc-action-link',
+  'lsui-sc-action-menu',
   'lsui-sc-auth-notice',
   'lsui-sc-auth-token-digits',
   'lsui-sc-avatar',
   'lsui-sc-field-root',
   'lsui-sc-filter-pills',
+  'lsui-sc-operational-list',
   'lsui-sc-compound-control',
   'lsui-sc-search-input',
   'lsui-sc-section-header',
@@ -227,5 +257,5 @@ if (!collectedCss.includes('border-radius:999px')) {
 }
 
 console.log(
-  'SSR smoke passed for packaged actions, fields, filters and auth components.',
+  'SSR smoke passed for packaged actions, fields, filters, auth and operational-list components.',
 )

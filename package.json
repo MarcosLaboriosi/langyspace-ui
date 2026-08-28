@@ -1,6 +1,6 @@
 {
   "name": "@langyspace/ui",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "Shared React UI primitives for Langy.space products.",
   "type": "module",
   "license": "UNLICENSED",

@@ -22,6 +22,12 @@ export default defineAuditConfig({
   ],
   allowedDomainMotion: [
     {
+      owner: 'Operational lists',
+      path: 'src/molecules/ActionMenu/styles.ts',
+      reason: 'non-modal popover entrance with reduced-motion override',
+      expiresAt: '2027-08-28',
+    },
+    {
       owner: 'Identity',
       path: 'src/molecules/AuthTokenDigits/styles.ts',
       reason: 'invalid token feedback',

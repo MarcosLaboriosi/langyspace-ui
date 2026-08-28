@@ -190,6 +190,25 @@ export const publicComponentContracts = [
   },
   {
     browserSmoke: complete,
+    exportName: 'ActionMenu',
+    interactive: true,
+    layer: 'molecule',
+    ownerPath: 'src/molecules/ActionMenu/index.tsx',
+    runtimeMarker: 'lsui-sc-action-menu',
+    ssrSmoke: complete,
+    story: {
+      ...complete,
+      path: 'src/molecules/ActionMenu/ActionMenu.stories.tsx',
+      title: 'Molecules/Actions/ActionMenu',
+    },
+    test: {
+      ...complete,
+      path: 'src/molecules/ActionMenu/ActionMenu.test.tsx',
+    },
+    visual: true,
+  },
+  {
+    browserSmoke: complete,
     exportName: 'AuthTokenDigits',
     interactive: true,
     layer: 'molecule',
@@ -356,6 +375,25 @@ export const publicComponentContracts = [
     test: {
       ...complete,
       path: 'src/molecules/LoadingState/LoadingState.test.tsx',
+    },
+    visual: true,
+  },
+  {
+    browserSmoke: complete,
+    exportName: 'OperationalList',
+    interactive: true,
+    layer: 'molecule',
+    ownerPath: 'src/molecules/OperationalList/index.tsx',
+    runtimeMarker: 'lsui-sc-operational-list',
+    ssrSmoke: complete,
+    story: {
+      ...complete,
+      path: 'src/molecules/OperationalList/OperationalList.stories.tsx',
+      title: 'Molecules/Data/OperationalList',
+    },
+    test: {
+      ...complete,
+      path: 'src/molecules/OperationalList/OperationalList.test.tsx',
     },
     visual: true,
   },

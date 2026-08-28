@@ -78,7 +78,7 @@ async function writeConsumer(packageSpec) {
   )
   await writeFile(
     join(consumerDirectory, 'src', 'main.tsx'),
-    `import { ActionLink, AuthNotice, AuthTokenDigits, Avatar, Button, CompoundControl, ControlledField, Dialog, Drawer, EmptyState, FieldRoot, FilterPills, IconButton, LoadingState, Pressable, SearchInput, SectionHeader, SegmentedControl, SelectInput, Spinner, StatePanel, StatusChip, TextareaInput, TextInput } from '@langyspace/ui'
+    `import { ActionLink, ActionMenu, AuthNotice, AuthTokenDigits, Avatar, Button, CompoundControl, ControlledField, Dialog, Drawer, EmptyState, FieldRoot, FilterPills, IconButton, LoadingState, OperationalList, Pressable, SearchInput, SectionHeader, SegmentedControl, SelectInput, Spinner, StatePanel, StatusChip, TextareaInput, TextInput } from '@langyspace/ui'
 import type { AuditConfig } from '@langyspace/ui/audit'
 import { createRoot } from 'react-dom/client'
 import { FormProvider, useForm } from 'react-hook-form'
@@ -90,6 +90,8 @@ function PackageForm() {
   const form = useForm({ defaultValues: { email: 'maria@example.com' } })
   return <FormProvider {...form}><ControlledField label="Email" name="email" /></FormProvider>
 }
+
+const queueItems = [{ id: 'person-1', name: 'Maria', status: 'Ativa' }]
 
 createRoot(document.getElementById('root')!).render(
   <>
@@ -122,6 +124,15 @@ createRoot(document.getElementById('root')!).render(
     <AuthNotice tone="info">Package auth notice passed</AuthNotice>
     <Dialog closeLabel="Close dialog" onClose={() => undefined} open={false} title="Package dialog passed">Dialog</Dialog>
     <Drawer closeLabel="Close drawer" onClose={() => undefined} open={false} title="Package drawer passed">Drawer</Drawer>
+    <ActionMenu items={[{ id: 'open', label: 'Open person', onSelect: () => undefined }]} triggerLabel="More actions" />
+    <OperationalList
+      aria-label="Package operational queue"
+      columns={[{ id: 'status', label: 'Status', render: (item) => item.status }]}
+      getActions={(item) => [{ id: 'message', icon: <span aria-hidden="true">+</span>, label: \`Message \${item.name}\`, onSelect: () => undefined, placement: 'quick' }]}
+      getItemKey={(item) => item.id}
+      items={queueItems}
+      primaryColumn={{ label: 'Person', render: (item) => ({ navigation: { label: \`Open \${item.name}\`, onNavigate: () => undefined }, title: item.name }) }}
+    />
   </>,
 )
 `,
@@ -298,12 +309,14 @@ try {
   }
 
   for (const componentId of [
+    'lsui-sc-action-menu',
     'lsui-sc-auth-notice',
     'lsui-sc-auth-token-digits',
     'lsui-sc-field-root',
     'lsui-sc-filter-pills',
     'lsui-sc-compound-control',
     'lsui-sc-modal-panel',
+    'lsui-sc-operational-list',
     'lsui-sc-search-input',
     'lsui-sc-section-header',
     'lsui-sc-select-input',
@@ -317,7 +330,7 @@ try {
   }
 
   console.log(
-    `Package smoke passed for ${externalPackageSpec ? 'external release' : 'local tarball'}.`,
+    `Package smoke passed for ${externalPackageSpec ? 'external package' : 'local tarball'}.`,
   )
 } finally {
   await rm(smokeRoot, { force: true, recursive: true })

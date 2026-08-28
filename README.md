@@ -4,14 +4,16 @@ Biblioteca React compartilhada pelos produtos Langy.space. Expõe `Button` para 
 `IconButton` para comandos de glyph único, `ActionLink` para navegação com aparência de ação,
 `Pressable` para controles específicos, `Spinner` para espera, `Avatar` para identidade visual e
 pequenas composições semânticas de status, estado de conteúdo, fields, filtros e autenticação.
-`Dialog` e `Drawer` completam essa base com um shell modal único para os portais.
+`Dialog` e `Drawer` completam essa base com um shell modal único para os portais. `ActionMenu` e
+`OperationalList` organizam ações e filas operacionais densas sem absorver dados, rotas ou regras
+dos produtos.
 
 ## Installation
 
 Instale styled-components e fixe sempre um artefato imutável de release:
 
 ```bash
-pnpm add styled-components@^6.4.0 '@langyspace/ui@https://github.com/MarcosLaboriosi/langyspace-ui/releases/download/v1.3.0/langyspace-ui-1.3.0.tgz'
+pnpm add styled-components@^6.4.0 '@langyspace/ui@https://github.com/MarcosLaboriosi/langyspace-ui/releases/download/v1.4.0/langyspace-ui-1.4.0.tgz'
 ```
 
 Não existe import de CSS. O Button injeta seus estilos com styled-components e funciona sem
@@ -174,7 +176,133 @@ import { Button, Dialog, Drawer } from '@langyspace/ui'
 `Dialog` vira bottom sheet no mobile e o `Drawer` ocupa o viewport inteiro. Não recrie scrim,
 listener de Escape, scroll lock ou focus trap no consumer.
 
-### Contrato de markup
+## Listas operacionais
+
+`OperationalList<Item>` organiza uma fila fornecida pelo produto. O consumer continua responsável
+por buscar, filtrar, ordenar e paginar dados, além de decidir copy, navegação e ações. A biblioteca
+renderiza uma única table semântica e, pela largura do próprio container, apresenta table ampla,
+cards de duas colunas ou cards de uma coluna.
+
+### Lista de Leads
+
+```tsx
+import {
+  OperationalList,
+  type OperationalListColumn,
+  type OperationalListPrimaryColumn,
+} from '@langyspace/ui'
+
+const primaryColumn = {
+  label: 'Pessoa',
+  render: (lead: Lead) => ({
+    description: lead.phone,
+    navigation: {
+      label: `Abrir cadastro de ${lead.name}`,
+      onNavigate: () => openLead(lead),
+    },
+    title: lead.name,
+  }),
+} satisfies OperationalListPrimaryColumn<Lead>
+
+const columns = [
+  {
+    id: 'status',
+    label: 'Status',
+    render: (lead: Lead) => <StatusChip>{lead.status}</StatusChip>,
+  },
+  {
+    id: 'next-action',
+    importance: 'secondary',
+    label: 'Próxima ação',
+    render: (lead: Lead) => lead.nextAction,
+  },
+] satisfies readonly OperationalListColumn<Lead>[]
+
+<OperationalList
+  aria-label="Fila inicial de leads"
+  columns={columns}
+  getActions={(lead) => [
+    {
+      id: 'convert',
+      label: 'Converter em aluna',
+      onSelect: () => convertLead(lead),
+      placement: 'primary',
+      variant: 'secondary',
+    },
+    {
+      icon: <MessageIcon aria-hidden="true" />,
+      id: 'message',
+      label: `Falar com ${lead.name}`,
+      onSelect: () => messageLead(lead),
+      placement: 'quick',
+    },
+    {
+      id: 'archive',
+      label: 'Arquivar lead',
+      onSelect: () => archiveLead(lead),
+      placement: 'overflow',
+      tone: 'danger',
+    },
+  ]}
+  getItemKey={(lead) => lead.id}
+  items={leads}
+  primaryColumn={primaryColumn}
+/>
+```
+
+A primeira ação `primary` e até duas `quick` ficam visíveis; excesso e ações `overflow` entram no
+`ActionMenu`. Ações danger formam o último grupo do menu. Quick exige icon no TypeScript; primary e
+quick não aceitam danger. A lista controla somente qual menu está aberto, nunca o lifecycle das
+mutações.
+
+### Lista ordenável
+
+```tsx
+const sortablePrimaryColumn = {
+  ...primaryColumn,
+  sort: {
+    direction: studentSort.direction,
+    onToggle: () => setStudentSort(toggleDirection(studentSort)),
+  },
+} satisfies OperationalListPrimaryColumn<Student>
+
+<OperationalList
+  aria-label="Alunos com pagamento confirmado"
+  columns={studentColumns}
+  density="compact"
+  getItemKey={(student) => student.id}
+  items={sortedStudents}
+  primaryColumn={sortablePrimaryColumn}
+/>
+```
+
+Sorting é controlado: a lista publica `aria-sort` e chama `onToggle`, mas não reordena os itens.
+Somente uma coluna pode ter direction diferente de `none`. Navegação primária usa link nativo quando
+recebe `href` e button quando recebe um command callback; a `<tr>` nunca vira pseudo-link.
+
+`ActionMenu` também pode ser usado sozinho. Ele exige nome acessível no trigger, aceita items
+neutral/danger, suporta controlled/uncontrolled, setas, Home/End, Escape e retorno de foco. Não
+possui custom trigger, router adapter, backdrop ou focus trap.
+
+```tsx
+<ActionMenu
+  items={[
+    { id: 'open', label: 'Abrir cadastro', onSelect: openStudent },
+    {
+      id: 'archive',
+      label: 'Arquivar cadastro',
+      onSelect: archiveStudent,
+      tone: 'danger',
+    },
+  ]}
+  triggerLabel="Mais ações do aluno"
+/>
+```
+
+Não existe import de CSS nem dependência de ThemeProvider. Status, Avatar e glyphs são nodes do
+consumer; React Router, permissões, analytics e regras de domínio continuam fora do package.
+
+## Contrato de markup
 
 Button e IconButton renderizam os component IDs estáveis abaixo. Button mantém `data-size` e
 `data-density`; ambos usam `data-loading="true"` somente enquanto aguardam. É só isso que é
@@ -413,11 +541,13 @@ src/
     TextareaInput/
     TextInput/
   molecules/
+    ActionMenu/
     AuthTokenDigits/
     CompoundControl/
     ControlledField/
     FieldRoot/
     FilterPills/
+    OperationalList/
     SearchInput/
     SectionHeader/
     SegmentedControl/
