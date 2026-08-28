@@ -6,7 +6,7 @@ Versionar `1.4.1`, validar o package e enviar somente o escopo deste rollout par
 
 ## Conclusão
 
-- [ ] package version atualizado;
-- [ ] checks focados e diff final aprovados;
-- [ ] commit Conventional Commit enviado;
-- [ ] CI da `main` passou.
+- [x] package version atualizado;
+- [x] checks focados e diff final aprovados;
+- [x] commit Conventional Commit enviado;
+- [x] CI da `main` passou.

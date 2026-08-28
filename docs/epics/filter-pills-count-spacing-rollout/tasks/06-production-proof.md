@@ -6,7 +6,7 @@ Publicar somente o Hosting Admin e provar o artifact servido.
 
 ## Conclusão
 
-- [ ] workflow success ou fallback autorizado documentado;
-- [ ] rotas pública e custom domain respondem HTTP 200;
-- [ ] bundle remoto confere com build e contém o recipe corrigido;
-- [ ] nenhum outro target Firebase foi alterado.
+- [x] workflow success ou fallback autorizado documentado;
+- [x] rotas pública e custom domain respondem HTTP 200;
+- [x] bundle remoto confere com build e contém o recipe corrigido;
+- [x] nenhum outro target Firebase foi alterado.
