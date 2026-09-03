@@ -10,6 +10,8 @@ visual, Storybook, package, or release change.
 
 For medium/large work, create a reviewed and resumable `docs/epics/<name>/` with product and
 technical requirements, dependency-ordered tasks, progress, risks, and acceptance criteria. Execute
-one small task at a time and validate narrowly before the full applicable gate.
+one small task at a time and validate narrowly before the full applicable gate. Batch independent
+read-only discovery and checks in one tool round; keep writes dependency-ordered and do not rerun an
+unchanged gate.
 
 Do not infer permission to publish a package, push tags, deploy, or mutate downstream applications.
