@@ -85,6 +85,14 @@ export type {
 } from './molecules/FilterPills/types'
 export { LoadingState } from './molecules/LoadingState'
 export type { LoadingStateProps } from './molecules/LoadingState/types'
+export { MessageBubble } from './molecules/MessageBubble'
+export type {
+  MessageBubbleProps,
+  MessageBubbleSide,
+  MessageBubbleStatus,
+} from './molecules/MessageBubble/types'
+export { MessageComposer } from './molecules/MessageComposer'
+export type { MessageComposerProps } from './molecules/MessageComposer/types'
 export { OperationalList } from './molecules/OperationalList'
 export type {
   OperationalListAlign,

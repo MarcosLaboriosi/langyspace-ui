@@ -5,6 +5,8 @@ import type {
   ChoiceOption,
   DialogDismissal,
   DrawerSize,
+  MessageBubbleProps,
+  MessageComposerProps,
   OperationalListColumn,
   OperationalListItemAction,
   OperationalListPrimaryColumn,
@@ -22,6 +24,41 @@ interface OperationalPerson {
 }
 
 describe('public type contracts', () => {
+  it('keeps messaging copy and behavior explicit in consumers', () => {
+    const deliveredMessage: MessageBubbleProps = {
+      children: 'Até amanhã!',
+      side: 'outgoing',
+      status: 'sent',
+      statusLabel: 'Enviada',
+      timestamp: '10:30',
+    }
+    const composer: MessageComposerProps = {
+      onSubmit: () => undefined,
+      onValueChange: () => undefined,
+      submitIcon: <span aria-hidden="true">↑</span>,
+      submitLabel: 'Enviar mensagem',
+      textareaLabel: 'Mensagem para a professora',
+      value: '',
+    }
+    // @ts-expect-error delivery status requires consumer-owned accessible copy
+    const missingStatusLabel: MessageBubbleProps = {
+      children: 'Tentando enviar',
+      status: 'sending',
+      timestamp: '10:31',
+    }
+    // @ts-expect-error status copy cannot exist without a semantic status
+    const missingStatus: MessageBubbleProps = {
+      children: 'Estado desconhecido',
+      statusLabel: 'Enviada',
+      timestamp: '10:32',
+    }
+
+    expect(deliveredMessage.statusLabel).toBe('Enviada')
+    expect(composer.onSubmit).toBeTypeOf('function')
+    expect(missingStatusLabel.status).toBe('sending')
+    expect(missingStatus.statusLabel).toBe('Enviada')
+  })
+
   it('publishes strict additive contracts for new compositions', () => {
     const directName: AccessibleName = { 'aria-label': 'Buscar' }
     const referencedName: AccessibleName = {

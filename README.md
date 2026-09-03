@@ -140,6 +140,44 @@ Não envolva comportamento dentro do atom. Upload, menu ou navegação usam um B
 externo. Não estilize diâmetro, radius, cor ou typography por `styled(Avatar)`; escolha o size/tone
 semântico ou ajuste somente o layout do container.
 
+## Mensagens
+
+`MessageBubble` renderiza uma mensagem recebida ou enviada sem conhecer participantes, backend ou
+locale. O produto formata o horário e fornece a copy de status:
+
+```tsx
+<MessageBubble timestamp="10:30">Tudo certo para a aula?</MessageBubble>
+<MessageBubble
+  side="outgoing"
+  status="sending"
+  statusLabel="Enviando"
+  timestamp="10:31"
+>
+  Tudo certo, professora.
+</MessageBubble>
+```
+
+`MessageComposer` é controlado e mantém rede, retry, trim e limpeza do rascunho no consumer. Copy e
+ícone também pertencem ao produto:
+
+```tsx
+<MessageComposer
+  error={sendError}
+  helperText="A professora responde assim que puder."
+  onSubmit={sendMessage}
+  onValueChange={setMessage}
+  placeholder="Escreva uma mensagem"
+  submitIcon={<SendIcon aria-hidden="true" />}
+  submitLabel="Enviar mensagem"
+  textareaLabel="Mensagem para a professora"
+  value={message}
+/>
+```
+
+O composer usa limite default de 1.000 caracteres, expõe contador e bloqueia submit vazio,
+acima do limite, disabled ou loading. Enter continua criando linha na textarea; Tab leva ao botão
+de envio, preservando a semântica nativa do formulário.
+
 ## Dialog e Drawer
 
 Os dois componentes compartilham portal, stack, bloqueio de scroll, `inert`, trap e retorno de foco,

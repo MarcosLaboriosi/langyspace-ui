@@ -7,6 +7,8 @@ export {
   EmptyState,
   FilterPills,
   LoadingState,
+  MessageBubble,
+  MessageComposer,
   OperationalList,
   SectionHeader,
   SegmentedControl,
