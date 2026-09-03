@@ -2,8 +2,8 @@
 
 ## Estado atual
 
-T01.1 a T01.4 concluídas a partir do checkout `main` limpo e sincronizado com `origin/main` em
-`e77933684c84fb69e3b65a7efa4ec20753f8a3ae`.
+T01.1 a T01.5 concluídas. A versão imutável `v1.5.0` foi publicada a partir de `b21f5a6` e está
+disponível para os portais consumidores.
 
 ## Concluído
 
@@ -31,13 +31,21 @@ T01.1 a T01.4 concluídas a partir do checkout `main` limpo e sincronizado com `
   branco e os 6 testes focados de story passaram antes do audit final.
 - o candidate local `1.5.0` foi empacotado e instalado pelo package smoke; o tarball verificado tem
   SHA-256 `b9e99be6c31fe68c52cbaa16c8aee2a1097af780ef0394253746edd42a05fce0`.
+- o CI oficial da revisão `b21f5a6` passou nos jobs package, architecture, tests, visual e validate:
+  `https://github.com/MarcosLaboriosi/langyspace-ui/actions/runs/33753774111`.
+- a tag anotada `v1.5.0` resolve para `b21f5a6a765fdf67b8cb89781e0d51766434271a`;
+- o workflow de release `33756753724` repetiu `validate:ui`, empacotou a revisão e publicou o
+  GitHub Release `https://github.com/MarcosLaboriosi/langyspace-ui/releases/tag/v1.5.0`;
+- o asset público tem SHA-256
+  `0b12cc175bd902e8282d4c67627827cbd4d958172dd3cc3e23faa26570c434f9`; download anônimo,
+  checksum publicado, conteúdo extraído e package smoke externo passaram;
+- o candidate local e o asset remoto têm metadados de archive diferentes, mas o conteúdo extraído
+  é idêntico.
 
-## Próxima subtask
+## Próxima entrega
 
-T01.5 — com autorização explícita adicional, criar a tag `v1.5.0` e publicar o tarball/checksum em
-um GitHub Release imutável.
+T01 encerrada neste repositório. Continuar pela T02.1 da épica principal no repositório Teacher.
 
 ## Bloqueadores
 
-Nenhum para o código e o push. Tag, publicação do pacote e GitHub Release exigem autorização
-explícita adicional e serão tratados somente na T01.5.
+Nenhum para a T01.
