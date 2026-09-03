@@ -27,10 +27,15 @@ T01.1 a T01.4 concluídas a partir do checkout `main` limpo e sincronizado com `
   build, API pública, budgets, package/SSR smokes e Storybook;
 - a auditoria visual passou em 1.002 cenários de 111 stories, sem ocorrências; as capturas de
   `MessageBubble` e `MessageComposer` foram inspecionadas em 390, 1281 e 2048 px.
+- o primeiro teste Storybook recusou contraste 3,43:1 no meta outgoing; a cor foi corrigida para
+  branco e os 6 testes focados de story passaram antes do audit final.
+- o candidate local `1.5.0` foi empacotado e instalado pelo package smoke; o tarball verificado tem
+  SHA-256 `b9e99be6c31fe68c52cbaa16c8aee2a1097af780ef0394253746edd42a05fce0`.
 
 ## Próxima subtask
 
-T01.5 — produzir o candidate `1.5.0` e, com autorização explícita, publicar release imutável.
+T01.5 — com autorização explícita adicional, criar a tag `v1.5.0` e publicar o tarball/checksum em
+um GitHub Release imutável.
 
 ## Bloqueadores
 
