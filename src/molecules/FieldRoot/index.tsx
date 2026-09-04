@@ -17,6 +17,7 @@ export function FieldRoot({
   error,
   hint,
   label,
+  labelVariant = 'default',
   ...rootProps
 }: FieldRootProps) {
   const generatedId = useId().replaceAll(':', '')
@@ -38,7 +39,9 @@ export function FieldRoot({
       }}
     >
       <Styled.Root {...rootProps} data-invalid={hasError || undefined}>
-        <Styled.Label htmlFor={controlId}>{label}</Styled.Label>
+        <Styled.Label $variant={labelVariant} htmlFor={controlId}>
+          {label}
+        </Styled.Label>
         {children}
         {hasHint ? <Styled.Hint id={hintId}>{hint}</Styled.Hint> : null}
         {hasError ? (
@@ -51,4 +54,4 @@ export function FieldRoot({
   )
 }
 
-export type { FieldRootProps } from './types'
+export type { FieldLabelVariant, FieldRootProps } from './types'

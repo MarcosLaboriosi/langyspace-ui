@@ -76,7 +76,10 @@ export type {
 export { EmptyState } from './molecules/EmptyState'
 export type { EmptyStateProps } from './molecules/EmptyState/types'
 export { FieldRoot } from './molecules/FieldRoot'
-export type { FieldRootProps } from './molecules/FieldRoot/types'
+export type {
+  FieldLabelVariant,
+  FieldRootProps,
+} from './molecules/FieldRoot/types'
 export { FilterPills } from './molecules/FilterPills'
 export type {
   FilterPillsOverflow,

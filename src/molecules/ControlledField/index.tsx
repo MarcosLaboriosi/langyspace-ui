@@ -18,6 +18,7 @@ export function ControlledField<TFieldValues extends FieldValues = FieldValues>(
     controlId,
     hint,
     label,
+    labelVariant,
     name,
     rules,
     error: externalError,
@@ -41,6 +42,7 @@ export function ControlledField<TFieldValues extends FieldValues = FieldValues>(
       error={resolvedError}
       hint={hint}
       label={label}
+      labelVariant={labelVariant}
     >
       <TextInput
         id={fieldId}

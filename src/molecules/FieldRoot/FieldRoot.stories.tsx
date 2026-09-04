@@ -39,6 +39,20 @@ export const WithHint: Story = {
   args: { hint: 'Use o nome completo exibido no documento.' },
 }
 
+export const EyebrowLabel: Story = {
+  args: { labelVariant: 'eyebrow' },
+  play: async ({ canvas }) => {
+    const label = canvas.getByText('Nome completo')
+    const styles = window.getComputedStyle(label)
+
+    await expect(styles.fontWeight).toBe('600')
+    await expect(styles.letterSpacing).toBe('0.96px')
+    await expect(styles.lineHeight).toBe('18px')
+    await expect(styles.textTransform).toBe('uppercase')
+  },
+  tags: ['visual-review'],
+}
+
 export const Invalid: Story = {
   args: {
     error: 'Revise este valor antes de continuar.',

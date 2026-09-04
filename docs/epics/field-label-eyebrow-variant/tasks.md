@@ -1,0 +1,21 @@
+# Tarefas — variante eyebrow para labels de campo
+
+- [x] T01 — Implementar contrato e recipe na UI Library.
+  - adicionar a variante opt-in em `FieldRoot` e `ControlledField`;
+  - cobrir default, eyebrow e acessibilidade em testes/stories;
+  - atualizar deliberadamente o snapshot da API;
+  - executar validações focadas e revisar o diff.
+- [x] T02 — Validar o package e integrar no Student.
+  - gerar tarball local validado;
+  - aplicar `labelVariant="eyebrow"` nos cinco labels de texto;
+  - executar testes focados e revisar o diff.
+- [x] T03 — Executar gates visuais e encerrar o handoff.
+  - executar `pnpm run validate:ui` na library e no Student;
+  - inspecionar 390, 1281 e 2048 px;
+  - comparar com o baseline anterior e registrar o verdict;
+  - manter publicação e deploy bloqueados até autorização explícita.
+- [ ] T04 — Publicar e liberar a correção após autorização.
+  - preparar e publicar uma nova versão patch da UI Library;
+  - trocar o tarball local do Student pela URL imutável da release;
+  - repetir instalação/build do commit exato, integrar em `main` e acompanhar o deploy;
+  - comprovar o bundle servido nos dois domínios Student.

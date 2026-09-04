@@ -1,5 +1,6 @@
-import { styled } from 'styled-components'
+import { css, styled } from 'styled-components'
 import { tokens } from '../../foundations/tokens'
+import type { FieldLabelVariant } from './types'
 
 export const Root = styled.div.withConfig({
   componentId: 'lsui-sc-field-root',
@@ -9,11 +10,25 @@ export const Root = styled.div.withConfig({
   gap: ${tokens.spacing[2]};
 `
 
-export const Label = styled.label`
-  color: ${tokens.color.content.secondary};
+const labelVariants = {
+  default: css`
+    color: ${tokens.color.content.secondary};
+    font-weight: ${tokens.typography.fontWeight.bold};
+    line-height: ${tokens.typography.lineHeight.snug};
+  `,
+  eyebrow: css`
+    margin-bottom: ${tokens.spacing[1]};
+    color: ${tokens.color.content.muted};
+    font-weight: ${tokens.typography.fontWeight.semibold};
+    letter-spacing: 0.08em;
+    line-height: ${tokens.typography.lineHeight.normal};
+    text-transform: uppercase;
+  `,
+}
+
+export const Label = styled.label<{ $variant: FieldLabelVariant }>`
   font-size: ${tokens.typography.fontSize.xs};
-  font-weight: ${tokens.typography.fontWeight.bold};
-  line-height: ${tokens.typography.lineHeight.snug};
+  ${({ $variant }) => labelVariants[$variant]}
 `
 
 export const Hint = styled.p`

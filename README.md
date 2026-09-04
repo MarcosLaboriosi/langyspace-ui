@@ -445,7 +445,9 @@ container expõe `role="status"`, `aria-live="polite"` e `aria-busy="true"`.
 
 Inputs são native-first e não conhecem `react-hook-form`. `FieldRoot` conecta label, hint e error ao
 control por `id`, `aria-invalid` e `aria-describedby`. Para produtos que já usam
-`react-hook-form`, `ControlledField` é o adapter opcional de `FieldRoot` + `TextInput`.
+`react-hook-form`, `ControlledField` é o adapter opcional de `FieldRoot` + `TextInput`. Ambos aceitam
+`labelVariant="eyebrow"` quando o formulário pede um label pequeno, espaçado e em caixa alta; sem a
+prop, o recipe default permanece inalterado.
 
 ```tsx
 <FieldRoot label="Nome" hint="Use o nome completo" error={errors.name?.message}>
@@ -455,6 +457,7 @@ control por `id`, `aria-invalid` e `aria-describedby`. Para produtos que já usa
 <FormProvider {...form}>
   <ControlledField
     label="E-mail"
+    labelVariant="eyebrow"
     name="email"
     rules={{ required: 'Informe seu e-mail' }}
     type="email"

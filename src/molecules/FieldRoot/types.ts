@@ -1,5 +1,7 @@
 import type { HTMLAttributes, ReactNode } from 'react'
 
+export type FieldLabelVariant = 'default' | 'eyebrow'
+
 export interface FieldRootProps extends Omit<
   HTMLAttributes<HTMLDivElement>,
   'children'
@@ -9,4 +11,5 @@ export interface FieldRootProps extends Omit<
   error?: ReactNode
   hint?: ReactNode
   label: ReactNode
+  labelVariant?: FieldLabelVariant
 }

@@ -55,4 +55,21 @@ describe('FieldRoot', () => {
       'consumer-help student-name-hint student-name-error',
     )
   })
+
+  it('renders the eyebrow label variant without changing its accessible name', () => {
+    render(
+      <FieldRoot label="Código promocional" labelVariant="eyebrow">
+        <TextInput />
+      </FieldRoot>,
+    )
+
+    const input = screen.getByRole('textbox', { name: 'Código promocional' })
+    const label = screen.getByText('Código promocional')
+    const styles = window.getComputedStyle(label)
+
+    expect(input).toHaveAccessibleName('Código promocional')
+    expect(styles.fontWeight).toBe('600')
+    expect(styles.letterSpacing).toBe('0.08em')
+    expect(styles.textTransform).toBe('uppercase')
+  })
 })

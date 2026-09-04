@@ -62,6 +62,18 @@ export const Default: Story = {
   },
 }
 
+export const EyebrowLabel: Story = {
+  args: { labelVariant: 'eyebrow' },
+  play: async ({ canvas }) => {
+    const label = canvas.getByText('E-mail')
+    await expect(window.getComputedStyle(label).textTransform).toBe('uppercase')
+    await expect(
+      canvas.getByRole('textbox', { name: 'E-mail' }),
+    ).toBeInTheDocument()
+  },
+  tags: ['visual-review'],
+}
+
 export const Invalid: Story = {
   args: { error: 'E-mail já cadastrado', initialValue: 'maria@example.com' },
   play: async ({ canvas }) => {
