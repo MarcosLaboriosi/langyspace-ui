@@ -14,7 +14,7 @@
   - inspecionar 390, 1281 e 2048 px;
   - comparar com o baseline anterior e registrar o verdict;
   - manter publicação e deploy bloqueados até autorização explícita.
-- [ ] T04 — Publicar e liberar a correção após autorização.
+- [x] T04 — Publicar e liberar a correção após autorização.
   - preparar e publicar uma nova versão patch da UI Library;
   - trocar o tarball local do Student pela URL imutável da release;
   - repetir instalação/build do commit exato, integrar em `main` e acompanhar o deploy;

@@ -2,8 +2,8 @@
 
 ## Estado atual
 
-Implementação e validação local concluídas. A publicação da UI Library e o deploy do Student foram
-explicitamente autorizados; o candidate `1.5.1` está em preparação.
+Concluído em produção. A UI Library `1.5.1` foi publicada e o Student foi implantado com os labels
+de cadastro equivalentes ao baseline anterior.
 
 ## Concluído
 
@@ -28,13 +28,18 @@ explicitamente autorizados; o candidate `1.5.1` está em preparação.
 - a comparação de CSS computado confirmou igualdade exata do label com o baseline anterior: cor
   `rgb(107, 107, 107)`, 12 px, peso 600, tracking 0,96 px, line-height 18 px, uppercase e gap de
   12 px até o controle.
+- o release `v1.5.1` passou o workflow completo e publicou tarball/checksum imutáveis; o SHA-256 do
+  tarball é `f6abfa5a4b59bd15104c0ea569f5f3b104d29d4868fa5c1c6398914795af4efe`;
+- o Student integrou o artefato no commit `ddc7ef4`, e o workflow de Hosting `33951606557` passou;
+- `student.langy.space` e `langyspace-student.web.app` servem o mesmo main
+  `index-BlNxU8W6.js` e o mesmo chunk `RegisterStudent-p-8iRGMF.js` do build validado.
 
 Visual gate review: passed — variante e cadastro Student aprovados em 390, 1281 e 2048 px, com
 equivalência exata do label anterior e zero problemas geométricos.
 
 ## Próxima tarefa
 
-T04 — publicar o candidate `1.5.1`, integrar o artefato imutável no Student e comprovar o deploy.
+Nenhuma; épica concluída.
 
 ## Bloqueadores
 
