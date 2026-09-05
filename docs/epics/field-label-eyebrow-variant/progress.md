@@ -2,8 +2,8 @@
 
 ## Estado atual
 
-Implementação e validação local concluídas. A correção está pronta para release, condicionada à
-autorização explícita para publicar a library e implantar o Student.
+Implementação e validação local concluídas. A publicação da UI Library e o deploy do Student foram
+explicitamente autorizados; o candidate `1.5.1` está em preparação.
 
 ## Concluído
 
@@ -34,11 +34,11 @@ equivalência exata do label anterior e zero problemas geométricos.
 
 ## Próxima tarefa
 
-T04 — após autorização explícita, publicar uma versão patch da UI Library e implantar o Student.
+T04 — publicar o candidate `1.5.1`, integrar o artefato imutável no Student e comprovar o deploy.
 
 ## Bloqueadores
 
-Publicação, tag, push e deploy aguardam autorização explícita.
+Nenhum.
 
 ## Descobertas
 
