@@ -21,11 +21,14 @@ export const InputRow = styled.div`
 `
 
 export const Input = styled(TextareaInput)`
+  box-sizing: border-box;
+  height: ${tokens.control.height.lg};
   min-width: 0;
-  min-height: ${tokens.field.height.lg};
+  min-height: ${tokens.control.height.lg};
   max-height: 9rem;
   flex: 1 1 auto;
-  resize: vertical;
+  overflow-y: auto;
+  resize: none;
 `
 
 export const Support = styled.div`

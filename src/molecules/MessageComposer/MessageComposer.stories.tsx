@@ -54,6 +54,25 @@ export const Default: Story = {
   render: () => <ComposerExample />,
 }
 
+export const Growing: Story = {
+  tags: ['visual-review'],
+  render: () => (
+    <NarrowSurface>
+      <MessageComposer
+        helperText="O campo cresce para cima enquanto você escreve."
+        onSubmit={() => undefined}
+        onValueChange={() => undefined}
+        submitIcon={sendIcon}
+        submitLabel="Enviar mensagem"
+        textareaLabel="Mensagem com várias linhas"
+        value={
+          'Posso tirar uma dúvida?\nRevisei a lição de hoje\ne anotei este exemplo.'
+        }
+      />
+    </NarrowSurface>
+  ),
+}
+
 export const States: Story = {
   tags: ['visual-review'],
   render: () => (

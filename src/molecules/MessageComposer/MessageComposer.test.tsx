@@ -32,7 +32,7 @@ describe('MessageComposer', () => {
     const input = screen.getByRole('textbox', { name: 'Mensagem' })
     const submit = screen.getByRole('button', { name: 'Enviar mensagem' })
 
-    expect(submit).toBeDisabled()
+    expect(submit).toBeEnabled()
     await user.type(input, 'Posso mandar uma dúvida?')
     expect(input).toHaveValue('Posso mandar uma dúvida?')
     expect(screen.getByText('24/1000')).toBeInTheDocument()
@@ -44,7 +44,31 @@ describe('MessageComposer', () => {
     expect(onSubmit).toHaveBeenCalledTimes(1)
   })
 
-  it('blocks empty, over-limit, disabled and loading submissions', async () => {
+  it('focuses the textarea instead of submitting an empty message', async () => {
+    const user = userEvent.setup()
+    const onSubmit = vi.fn()
+    render(
+      <MessageComposer
+        onSubmit={onSubmit}
+        onValueChange={() => undefined}
+        submitIcon={submitIcon}
+        submitLabel="Enviar mensagem"
+        textareaLabel="Mensagem"
+        value="   "
+      />,
+    )
+
+    const input = screen.getByRole('textbox', { name: 'Mensagem' })
+    const submit = screen.getByRole('button', { name: 'Enviar mensagem' })
+
+    expect(submit).toBeEnabled()
+    await user.click(submit)
+
+    expect(input).toHaveFocus()
+    expect(onSubmit).not.toHaveBeenCalled()
+  })
+
+  it('focuses an over-limit textarea instead of submitting', async () => {
     const user = userEvent.setup()
     const onSubmit = vi.fn()
     const baseProps = {
@@ -54,31 +78,75 @@ describe('MessageComposer', () => {
       submitLabel: 'Enviar mensagem',
       textareaLabel: 'Mensagem',
     }
-    const { rerender } = render(<MessageComposer {...baseProps} value="   " />)
+    render(<MessageComposer {...baseProps} maxLength={1} value="AB" />)
 
-    let submit = screen.getByRole('button', { name: 'Enviar mensagem' })
-    expect(submit).toBeDisabled()
+    const input = screen.getByRole('textbox', { name: 'Mensagem' })
+    const submit = screen.getByRole('button', { name: 'Enviar mensagem' })
 
-    rerender(<MessageComposer {...baseProps} maxLength={1} value="AB" />)
-    submit = screen.getByRole('button', { name: 'Enviar mensagem' })
-    expect(submit).toBeDisabled()
-    expect(screen.getByRole('textbox', { name: 'Mensagem' })).toHaveAttribute(
-      'aria-invalid',
-      'true',
-    )
+    expect(submit).toBeEnabled()
+    expect(input).toHaveAttribute('aria-invalid', 'true')
     expect(screen.getByText('2/1')).toBeVisible()
+    await user.click(submit)
 
-    rerender(<MessageComposer {...baseProps} disabled value="A" />)
+    expect(input).toHaveFocus()
+    expect(onSubmit).not.toHaveBeenCalled()
+  })
+
+  it('blocks disabled and loading submissions', async () => {
+    const user = userEvent.setup()
+    const onSubmit = vi.fn()
+    const baseProps = {
+      onSubmit,
+      onValueChange: vi.fn(),
+      submitIcon,
+      submitLabel: 'Enviar mensagem',
+      textareaLabel: 'Mensagem',
+    }
+    const { rerender } = render(
+      <MessageComposer {...baseProps} disabled value="A" />,
+    )
+
     expect(screen.getByRole('textbox', { name: 'Mensagem' })).toBeDisabled()
 
     rerender(<MessageComposer {...baseProps} isSubmitting value="A" />)
-    submit = screen.getByRole('button', { name: 'Enviar mensagem' })
+    const submit = screen.getByRole('button', { name: 'Enviar mensagem' })
     expect(submit).toBeDisabled()
     expect(submit).toHaveAttribute('aria-busy', 'true')
     expect(submit.closest('form')).toHaveAttribute('aria-busy', 'true')
 
     await user.click(submit)
     expect(onSubmit).not.toHaveBeenCalled()
+  })
+
+  it('grows and shrinks with its controlled content', () => {
+    const baseProps = {
+      onSubmit: () => undefined,
+      onValueChange: () => undefined,
+      submitIcon,
+      submitLabel: 'Enviar mensagem',
+      textareaLabel: 'Mensagem',
+    }
+    const { rerender } = render(
+      <MessageComposer {...baseProps} value="Uma linha" />,
+    )
+    const input = screen.getByRole('textbox', {
+      name: 'Mensagem',
+    }) as HTMLTextAreaElement
+    let scrollHeight = 96
+
+    Object.defineProperty(input, 'scrollHeight', {
+      configurable: true,
+      get: () => scrollHeight,
+    })
+
+    rerender(
+      <MessageComposer {...baseProps} value={'Linha 1\nLinha 2\nLinha 3'} />,
+    )
+    expect(input.style.height).toBe('96px')
+
+    scrollHeight = 48
+    rerender(<MessageComposer {...baseProps} value="Uma linha novamente" />)
+    expect(input.style.height).toBe('48px')
   })
 
   it('associates error, helper and counter while preserving form props and ref', () => {
