@@ -2,10 +2,20 @@
 
 ## Decide ownership before writing code
 
-1. Keep the component in the product when its semantics, data or behavior belong to one domain.
-2. Add a closed semantic prop when real callsites need another state of the same component.
-3. Converge accidental visual differences to an existing recipe instead of preserving them.
-4. Promote a new public component only when composition becomes simpler in its consumers.
+1. Keep route-level pages, screens, views and containers in the product. The product owns routing,
+   data fetching, domain state, business rules and feature orchestration.
+2. Promote a visual or interactive unit when it has a stable contract reusable across products, or
+   when an explicit platform requirement establishes that shared contract. Size is not the
+   boundary: `Button`, `SearchInput`, `Card`, `Drawer`, a complete `Chat` section and `Calendar` can
+   all belong here.
+3. For a large shared component, inject product data and actions through semantic props, slots or
+   callbacks. Do not make it aware of product routes, Firebase, services, permission systems or
+   lifecycle rules; pass only the UI capabilities it needs.
+4. Add a closed semantic prop when real callsites need another state of the same component.
+5. Converge accidental visual differences to an existing recipe instead of preserving them.
+6. Promote a new public component only when adoption creates one shared owner and makes consumers
+   simpler. Do not create generic shared views such as `CrudPage` or `OperationalWorkspace` merely
+   to compose library components.
 
 `Pressable` is the boundary for product-owned controls. It is not a shortcut for copying Button
 geometry. Public components do not accept free `color`, `radius`, `spacing`, `padding` or `height`
@@ -25,15 +35,18 @@ A candidate is accepted only when the change proves all of the following:
 - layout evidence at global widths and declared component boundaries;
 - migration, SemVer and rollback plan.
 
-Failure in an essential item is a valid no-go: the component remains local. Product organisms and
-business rules never enter the package merely because their markup repeats.
+Failure in an essential item is a valid no-go: the component remains local. Route-level product
+views and business rules never enter the package merely because their markup repeats. Conversely,
+do not reject a reusable component merely because it is large or would be called an organism; its
+ownership and stable cross-product contract decide the boundary.
 
 ## Component shape
 
 Use the lowest layer that owns the behavior:
 
 ```text
-foundations -> primitives/internal -> atoms -> molecules -> product compositions
+foundations -> primitives/internal -> atoms/molecules -> shared compound components
+                                                     -> product pages and orchestration stay local
 ```
 
 Each public owner uses its explicit name in tests and stories. `index.tsx` remains only the concise

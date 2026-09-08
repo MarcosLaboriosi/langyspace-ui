@@ -72,6 +72,25 @@ describe('public component manifest', () => {
     }
   })
 
+  it('keeps inventoried props and documentation references valid', async () => {
+    for (const contractValue of publicComponentContracts) {
+      const contract: ComponentContract = contractValue
+      if (!contract.reference) continue
+
+      const { propsPath, documentation, consumers } = contract.reference
+      await expect(access(resolve(root, propsPath))).resolves.toBeUndefined()
+      const markdown = readFileSync(resolve(root, documentation.path), 'utf8')
+      const headings = [...markdown.matchAll(/^#{1,6} (.+)$/gm)].map(
+        ([, heading]) => heading.toLowerCase().replaceAll(' ', '-'),
+      )
+      expect(headings).toContain(documentation.anchor)
+      for (const consumer of consumers) {
+        expect(consumer.repository).toMatch(/^langyspace(?:-[a-z]+)?$/)
+        expect(consumer.path).toMatch(/^src\/.+\.tsx$/)
+      }
+    }
+  })
+
   it('keeps quality tooling outside the published package files', () => {
     const packageJson = JSON.parse(
       readFileSync(resolve(root, 'package.json'), 'utf8'),

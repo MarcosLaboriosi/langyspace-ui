@@ -24,6 +24,12 @@
 
 ## Library contracts
 
+- Product route-level pages, screens, views, and containers stay in their consumer repositories.
+  Public components may be small or large: accept them when they express a stable visual or
+  interaction contract reusable across products, including compound units such as `Chat` or
+  `Calendar`. Consumers keep routing, fetching, domain state, business rules, and orchestration and
+  inject data and actions through semantic props, slots, or callbacks. Judge ownership and reuse,
+  not line count or atomic-design labels.
 - Prefer semantic props and tokens over application-specific conditionals or one-off CSS.
 - Preserve accessibility across interaction states, keyboard/focus behavior, labels, and disabled or
   loading variants.

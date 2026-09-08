@@ -681,6 +681,26 @@ interações e axe em Chromium; `pnpm run test:layout` constrói o catálogo, bl
 audita cada story em movimento normal/reduzido nas larguras globais e boundaries declaradas por
 metadata.
 
+### Consulta por componente
+
+```bash
+node scripts/query-component-reference.mjs SearchInput
+node scripts/query-component-reference.mjs SearchInput --workspace ..
+```
+
+A consulta lê `quality/component-manifest.ts` e retorna somente o export solicitado, implementação,
+props, âncora da documentação, story, teste e exemplos registrados. SearchInput, ControlledField e
+OperationalList possuem referências iniciais. `not_inventoried` indica referências ainda não
+inventariadas; `no_example_recorded` indica uma lista de exemplos vazia. Esses estados não afirmam
+ausência de uso nos produtos. Nome desconhecido termina com erro, sem imprimir o catálogo completo.
+
+Sem `--workspace`, a consulta não lê repositórios irmãos. Com a pasta que contém os checkouts,
+confere import de runtime e uso JSX de cada exemplo e lê a dependência declarada no `package.json`
+do consumidor. `declaredVersion` extrai a tag do tarball GitHub quando presente; outros formatos
+mantêm `declaredDependency` e versão exata desconhecida. Isso não comprova pacote instalado,
+build ou deploy. Caminho, dependência ou uso ausente termina com erro. Exemplos são pontos de
+entrada para leitura; mudanças compartilhadas ainda exigem localizar todos os usos afetados.
+
 ### Audit arquitetural
 
 O package publica o mesmo engine usado pelos cinco produtos. Cada consumidor mantém somente um

@@ -8,6 +8,12 @@ export interface ComponentContract {
   interactive: boolean
   layer: ComponentLayer
   ownerPath: string
+  reference?: {
+    propsPath: string
+    documentation: { path: string; anchor: string }
+    // Missing reference means not inventoried; an empty list means no example recorded.
+    consumers: readonly { repository: string; path: string }[]
+  }
   runtimeMarker: string
   ssrSmoke: Coverage
   story: Coverage & { path: string; title: string }
@@ -251,6 +257,16 @@ export const publicComponentContracts = [
     interactive: true,
     layer: 'molecule',
     ownerPath: 'src/molecules/ControlledField/index.tsx',
+    reference: {
+      propsPath: 'src/molecules/ControlledField/types.ts',
+      documentation: { path: 'README.md', anchor: 'fields-e-busca' },
+      consumers: [
+        {
+          repository: 'langyspace-teacher',
+          path: 'src/pages/RegisterTeacher/sections/DetailsStep/index.tsx',
+        },
+      ],
+    },
     runtimeMarker: 'lsui-sc-field-root',
     ssrSmoke: complete,
     story: {
@@ -460,6 +476,16 @@ export const publicComponentContracts = [
     interactive: true,
     layer: 'molecule',
     ownerPath: 'src/molecules/OperationalList/index.tsx',
+    reference: {
+      propsPath: 'src/molecules/OperationalList/types.ts',
+      documentation: { path: 'README.md', anchor: 'listas-operacionais' },
+      consumers: [
+        {
+          repository: 'langyspace-admin',
+          path: 'src/pages/AdminPortal/LeadCohortPage/index.tsx',
+        },
+      ],
+    },
     runtimeMarker: 'lsui-sc-operational-list',
     ssrSmoke: complete,
     story: {
@@ -479,6 +505,16 @@ export const publicComponentContracts = [
     interactive: true,
     layer: 'molecule',
     ownerPath: 'src/molecules/SearchInput/index.tsx',
+    reference: {
+      propsPath: 'src/molecules/SearchInput/types.ts',
+      documentation: { path: 'README.md', anchor: 'fields-e-busca' },
+      consumers: [
+        {
+          repository: 'langyspace-admin',
+          path: 'src/pages/AdminPortal/LeadCohortPage/index.tsx',
+        },
+      ],
+    },
     runtimeMarker: 'lsui-sc-search-input',
     ssrSmoke: complete,
     story: {
