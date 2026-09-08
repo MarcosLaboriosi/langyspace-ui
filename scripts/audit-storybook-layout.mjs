@@ -1,7 +1,11 @@
 import { mkdir, rm, writeFile } from 'node:fs/promises'
 import { resolve } from 'node:path'
 import { chromium } from 'playwright'
-import { auditConfig, widthsForStory } from './layout-audit/config.mjs'
+import {
+  auditConfig,
+  heightsForStory,
+  widthsForStory,
+} from './layout-audit/config.mjs'
 import { inspectStory } from './layout-audit/rules.mjs'
 import { startStaticStorybook } from './layout-audit/server.mjs'
 
@@ -39,70 +43,78 @@ try {
 
   for (const story of stories) {
     for (const width of widthsForStory(story.tags)) {
-      for (const motion of auditConfig.motions) {
-        const page = await browser.newPage({
-          viewport: { height: auditConfig.height, width },
-        })
-        const pageErrors = []
-        const scenario = { motion, storyId: story.id, width }
+      for (const height of heightsForStory(story.tags)) {
+        for (const motion of auditConfig.motions) {
+          const page = await browser.newPage({
+            viewport: { height, width },
+          })
+          const pageErrors = []
+          const scenario = { height, motion, storyId: story.id, width }
 
-        page.on('pageerror', (error) => pageErrors.push(error.message))
-        await page.emulateMedia({
-          reducedMotion: motion === 'reduced' ? 'reduce' : 'no-preference',
-        })
-        await page.route('**/*', async (route) => {
-          if (route.request().url().startsWith(server.baseUrl)) {
-            await route.continue()
-            return
+          page.on('pageerror', (error) => pageErrors.push(error.message))
+          await page.emulateMedia({
+            reducedMotion: motion === 'reduced' ? 'reduce' : 'no-preference',
+          })
+          await page.route('**/*', async (route) => {
+            if (route.request().url().startsWith(server.baseUrl)) {
+              await route.continue()
+              return
+            }
+
+            await route.abort('blockedbyclient')
+          })
+
+          await page.goto(
+            `${server.baseUrl}/iframe.html?id=${story.id}&viewMode=story`,
+            {
+              timeout: auditConfig.timeoutMs,
+              waitUntil: 'domcontentloaded',
+            },
+          )
+          const storyRoot = page.locator('#storybook-root')
+          await storyRoot.waitFor({ timeout: auditConfig.timeoutMs })
+          await storyRoot
+            .locator(':scope > *')
+            .first()
+            .waitFor({ state: 'visible', timeout: auditConfig.timeoutMs })
+          await page.evaluate(() => document.fonts.ready)
+
+          const inspection = await inspectStory(
+            page,
+            scenario,
+            auditConfig.tolerance,
+          )
+          const issues = [
+            ...inspection.issues,
+            ...pageErrors.map((message) => ({
+              ...scenario,
+              message,
+              rule: 'render/page-error',
+            })),
+          ]
+          const shouldCapture =
+            issues.length > 0 ||
+            (captureScreenshots &&
+              motion === 'normal' &&
+              story.tags.includes('visual-review') &&
+              (auditConfig.screenshotWidths.has(width) ||
+                story.tags.includes('messaging-boundary')))
+
+          if (shouldCapture) {
+            const heightSuffix =
+              height === auditConfig.height ? '' : `-h${height}`
+            await page.screenshot({
+              fullPage: true,
+              path: resolve(
+                artifacts,
+                `${story.id}-${motion}-${width}${heightSuffix}.png`,
+              ),
+            })
           }
 
-          await route.abort('blockedbyclient')
-        })
-
-        await page.goto(
-          `${server.baseUrl}/iframe.html?id=${story.id}&viewMode=story`,
-          {
-            timeout: auditConfig.timeoutMs,
-            waitUntil: 'domcontentloaded',
-          },
-        )
-        const storyRoot = page.locator('#storybook-root')
-        await storyRoot.waitFor({ timeout: auditConfig.timeoutMs })
-        await storyRoot
-          .locator(':scope > *')
-          .first()
-          .waitFor({ state: 'visible', timeout: auditConfig.timeoutMs })
-        await page.evaluate(() => document.fonts.ready)
-
-        const inspection = await inspectStory(
-          page,
-          scenario,
-          auditConfig.tolerance,
-        )
-        const issues = [
-          ...inspection.issues,
-          ...pageErrors.map((message) => ({
-            ...scenario,
-            message,
-            rule: 'render/page-error',
-          })),
-        ]
-        const shouldCapture =
-          issues.length > 0 ||
-          (captureScreenshots &&
-            motion === 'normal' &&
-            story.tags.includes('visual-review') &&
-            auditConfig.screenshotWidths.has(width))
-
-        if (shouldCapture) {
-          await page.screenshot({
-            fullPage: true,
-            path: resolve(artifacts, `${story.id}-${motion}-${width}.png`),
-          })
+          results.push({ ...scenario, ...inspection, issues })
+          await page.close()
         }
-
-        results.push({ ...scenario, ...inspection, issues })
-        await page.close()
       }
     }
   }

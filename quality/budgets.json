@@ -9,14 +9,14 @@
     "actions": 3500,
     "fields": 5600,
     "identity": 1900,
-    "library": 18600,
-    "molecules": 16500
+    "library": 20000,
+    "molecules": 18000
   },
   "rawBytes": {
     "actions": 15000,
     "fields": 25000,
     "identity": 5100,
-    "library": 84500,
-    "molecules": 73500
+    "library": 90000,
+    "molecules": 80000
   }
 }

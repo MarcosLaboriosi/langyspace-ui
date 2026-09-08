@@ -96,6 +96,10 @@ export type {
 } from './molecules/MessageBubble/types'
 export { MessageComposer } from './molecules/MessageComposer'
 export type { MessageComposerProps } from './molecules/MessageComposer/types'
+export { MessageThread } from './molecules/MessageThread'
+export type { MessageThreadProps } from './molecules/MessageThread/types'
+export { MessageThreadHeader } from './molecules/MessageThreadHeader'
+export type { MessageThreadHeaderProps } from './molecules/MessageThreadHeader/types'
 export { OperationalList } from './molecules/OperationalList'
 export type {
   OperationalListAlign,

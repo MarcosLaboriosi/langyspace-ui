@@ -9,6 +9,8 @@ export {
   LoadingState,
   MessageBubble,
   MessageComposer,
+  MessageThread,
+  MessageThreadHeader,
   OperationalList,
   SectionHeader,
   SegmentedControl,

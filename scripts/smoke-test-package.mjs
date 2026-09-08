@@ -78,7 +78,7 @@ async function writeConsumer(packageSpec) {
   )
   await writeFile(
     join(consumerDirectory, 'src', 'main.tsx'),
-    `import { ActionLink, ActionMenu, AuthNotice, AuthTokenDigits, Avatar, Button, CompoundControl, ControlledField, Dialog, Drawer, EmptyState, FieldRoot, FilterPills, IconButton, LoadingState, MessageBubble, MessageComposer, OperationalList, Pressable, SearchInput, SectionHeader, SegmentedControl, SelectInput, Spinner, StatePanel, StatusChip, TextareaInput, TextInput } from '@langyspace/ui'
+    `import { ActionLink, ActionMenu, AuthNotice, AuthTokenDigits, Avatar, Button, CompoundControl, ControlledField, Dialog, Drawer, EmptyState, FieldRoot, FilterPills, IconButton, LoadingState, MessageBubble, MessageComposer, MessageThread, MessageThreadHeader, OperationalList, Pressable, SearchInput, SectionHeader, SegmentedControl, SelectInput, Spinner, StatePanel, StatusChip, TextareaInput, TextInput } from '@langyspace/ui'
 import type { AuditConfig } from '@langyspace/ui/audit'
 import { createRoot } from 'react-dom/client'
 import { FormProvider, useForm } from 'react-hook-form'
@@ -113,6 +113,7 @@ createRoot(document.getElementById('root')!).render(
     <StatePanel state="error" title="Package error state passed" />
     <MessageBubble side="outgoing" status="sent" statusLabel="Sent" timestamp="10:30">Package message passed</MessageBubble>
     <MessageComposer onSubmit={() => undefined} onValueChange={() => undefined} submitIcon={<span aria-hidden="true">+</span>} submitLabel="Send message" textareaLabel="Message" value="Package composer passed" />
+    <MessageThread aria-label="Package thread" footer={<span>Package footer passed</span>} header={<MessageThreadHeader initials="LS" title="Package participant passed" />} viewportLabel="Package message history"><span>Package thread passed</span></MessageThread>
     <FieldRoot label="Name"><TextInput defaultValue="Maria" /></FieldRoot>
     <PackageForm />
     <FieldRoot label="Level"><SelectInput defaultValue="B1"><option>B1</option></SelectInput></FieldRoot>

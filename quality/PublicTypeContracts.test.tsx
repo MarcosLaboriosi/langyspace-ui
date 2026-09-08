@@ -7,6 +7,8 @@ import type {
   DrawerSize,
   MessageBubbleProps,
   MessageComposerProps,
+  MessageThreadHeaderProps,
+  MessageThreadProps,
   OperationalListColumn,
   OperationalListItemAction,
   OperationalListPrimaryColumn,
@@ -40,6 +42,17 @@ describe('public type contracts', () => {
       textareaLabel: 'Mensagem para a professora',
       value: '',
     }
+    const participantHeader: MessageThreadHeaderProps = {
+      initials: 'MF',
+      title: 'Maria Fernanda',
+    }
+    const thread: MessageThreadProps = {
+      children: <div role="log">Mensagens</div>,
+      footer: <span>Composer</span>,
+      header: <span>Identidade</span>,
+      onViewportScroll: () => undefined,
+      viewportLabel: 'Histórico da conversa',
+    }
     // @ts-expect-error delivery status requires consumer-owned accessible copy
     const missingStatusLabel: MessageBubbleProps = {
       children: 'Tentando enviar',
@@ -55,6 +68,8 @@ describe('public type contracts', () => {
 
     expect(deliveredMessage.statusLabel).toBe('Enviada')
     expect(composer.onSubmit).toBeTypeOf('function')
+    expect(participantHeader.title).toBe('Maria Fernanda')
+    expect(thread.viewportLabel).toBe('Histórico da conversa')
     expect(missingStatusLabel.status).toBe('sending')
     expect(missingStatus.statusLabel).toBe('Enviada')
   })

@@ -25,6 +25,8 @@ const {
   LoadingState,
   MessageBubble,
   MessageComposer,
+  MessageThread,
+  MessageThreadHeader,
   OperationalList,
   Pressable,
   SearchInput,
@@ -89,6 +91,19 @@ try {
           textareaLabel: 'Message',
           value: 'Composer SSR',
         }),
+        createElement(
+          MessageThread,
+          {
+            'aria-label': 'SSR conversation',
+            footer: createElement('span', null, 'Footer SSR'),
+            header: createElement(MessageThreadHeader, {
+              initials: 'LS',
+              title: 'Participant SSR',
+            }),
+            viewportLabel: 'Message history SSR',
+          },
+          createElement('span', null, 'Thread SSR'),
+        ),
         createElement(
           FieldRoot,
           { label: 'Name' },
@@ -238,6 +253,8 @@ for (const componentId of [
   'lsui-sc-filter-pills',
   'lsui-sc-message-bubble',
   'lsui-sc-message-composer',
+  'lsui-sc-message-thread',
+  'lsui-sc-message-thread-header',
   'lsui-sc-operational-list',
   'lsui-sc-compound-control',
   'lsui-sc-search-input',
