@@ -101,7 +101,7 @@ export const States: Story = {
         onSubmit={() => undefined}
         onValueChange={() => undefined}
         submitIcon={sendIcon}
-        submitLabel="Enviando mensagem"
+        submitLabel="Enviar mensagem"
         textareaLabel="Composer enviando"
         value="Até a aula!"
       />

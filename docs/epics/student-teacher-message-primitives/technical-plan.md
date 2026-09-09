@@ -33,9 +33,10 @@ src/molecules/MessageComposer/
 `timestamp`, `dateTime` e uma união discriminada que exige `statusLabel` quando `status` existe.
 
 `MessageComposerProps` estende props de `form`, exceto children/onSubmit, com controlled value,
-callbacks sem evento, copy/ícone fornecidos, limite, disabled/loading e atributos essenciais da
-textarea. O componente previne submit inválido, mas não altera o conteúdo nem executa regra de
-produto.
+callbacks sem evento, copy/ícone fornecidos, limite, disabled, sinalização de envio pendente e
+atributos essenciais da textarea. O componente previne submit inválido, mas não altera o conteúdo
+nem executa regra de produto. Como contrato específico de conversa, uma mensagem pendente mantém o
+controle utilizável e o ícone estável; o status visual pertence à bolha otimista.
 
 ## Visual
 

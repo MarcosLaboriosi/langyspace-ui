@@ -42,7 +42,6 @@ export const MessageComposer = forwardRef<
   const helperId = `${supportId}-helper`
   const counterId = `${supportId}-counter`
   const overLimit = value.length > maxLength
-  const unavailable = disabled || isSubmitting
   const isEmpty = value.trim().length === 0
   const describedBy = [
     error ? errorId : null,
@@ -62,7 +61,7 @@ export const MessageComposer = forwardRef<
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    if (unavailable) return
+    if (disabled) return
     if (isEmpty || overLimit) {
       inputRef.current?.focus()
       return
@@ -87,7 +86,7 @@ export const MessageComposer = forwardRef<
           aria-label={textareaLabel}
           autoComplete={autoComplete}
           autoFocus={autoFocus}
-          disabled={disabled || isSubmitting}
+          disabled={disabled}
           maxLength={maxLength}
           name={name}
           onChange={(event) => onValueChange(event.target.value)}
@@ -97,8 +96,7 @@ export const MessageComposer = forwardRef<
         />
         <IconButton
           aria-label={submitLabel}
-          disabled={unavailable}
-          isLoading={isSubmitting}
+          disabled={disabled}
           shape="rounded"
           size="lg"
           type="submit"

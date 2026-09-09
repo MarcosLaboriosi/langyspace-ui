@@ -41,10 +41,17 @@ disponível para os portais consumidores.
   checksum publicado, conteúdo extraído e package smoke externo passaram;
 - o candidate local e o asset remoto têm metadados de archive diferentes, mas o conteúdo extraído
   é idêntico.
+- correção reaberta para `1.6.1`: `isSubmitting` passa a sinalizar somente `aria-busy` no form; o
+  composer não mostra spinner nem bloqueia textarea/botão porque o status pertence à bolha.
+- teste focado do `MessageComposer` passou com 6 casos; o gate `validate:ui` passou arquitetura,
+  lint, formato, tipos, 257 testes, cobertura, build, API com 31 values/86 types/108 declarations,
+  budgets e package smoke;
+- auditoria visual passou 1.096 cenários de 123 stories; `MessageComposer/States` e `Stress` foram
+  inspecionados em 390 e 2048 px, confirmando o ícone estável no estado pendente.
 
 ## Próxima entrega
 
-T01 encerrada neste repositório. Continuar pela T02.1 da épica principal no repositório Teacher.
+Publicar a correção `1.6.1` e atualizar Student e Teacher pela T06 da épica principal.
 
 ## Bloqueadores
 

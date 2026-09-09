@@ -16,9 +16,10 @@
 - copy e ícone vêm do consumer: `textareaLabel`, `submitLabel`, `submitIcon`, `placeholder`,
   `helperText` e `error`;
 - aceita `maxLength`, default 1.000, e mostra contador;
-- bloqueia submit para valor vazio/whitespace, acima do limite, disabled ou loading;
+- bloqueia submit para valor vazio/whitespace, acima do limite ou disabled;
 - preserva texto multiline; Enter continua nativo da textarea e o botão envia pelo teclado;
-- loading bloqueia textarea/botão, marca o form busy e preserva o nome acessível;
+- envio pendente marca o form busy, mas preserva textarea, botão, ícone e nome acessível para o
+  próximo envio otimista;
 - erro é `role=alert` e textarea recebe `aria-invalid`/`aria-describedby`;
 - preserva props nativas e ref de `<form>`;
 - não limpa valor, faz trim, retry, persistência ou chamada de rede.
@@ -35,7 +36,8 @@
 ## Critérios de aceite
 
 - tipos recusam `status` sem `statusLabel` e `statusLabel` sem `status`;
-- submit ocorre uma vez por ação e não ocorre nos quatro estados bloqueados;
+- submit ocorre uma vez por ação e não ocorre nos três estados bloqueados; envio pendente continua
+  aceitando uma nova ação;
 - helper/error/counter formam uma descrição acessível estável;
 - stories cobrem todas as variantes previstas e o audit não encontra overflow;
 - o pacote instalado por tarball importa, prerenderiza e inclui os dois markers.

@@ -92,7 +92,7 @@ describe('MessageComposer', () => {
     expect(onSubmit).not.toHaveBeenCalled()
   })
 
-  it('blocks disabled and loading submissions', async () => {
+  it('blocks disabled submissions but keeps a pending composer interactive without a spinner', async () => {
     const user = userEvent.setup()
     const onSubmit = vi.fn()
     const baseProps = {
@@ -109,13 +109,18 @@ describe('MessageComposer', () => {
     expect(screen.getByRole('textbox', { name: 'Mensagem' })).toBeDisabled()
 
     rerender(<MessageComposer {...baseProps} isSubmitting value="A" />)
+    const input = screen.getByRole('textbox', { name: 'Mensagem' })
     const submit = screen.getByRole('button', { name: 'Enviar mensagem' })
-    expect(submit).toBeDisabled()
-    expect(submit).toHaveAttribute('aria-busy', 'true')
+
+    expect(input).toBeEnabled()
+    expect(submit).toBeEnabled()
+    expect(submit).not.toHaveAttribute('aria-busy')
+    expect(submit.querySelector('.lsui-sc-spinner')).not.toBeInTheDocument()
+    expect(submit).toHaveTextContent('↑')
     expect(submit.closest('form')).toHaveAttribute('aria-busy', 'true')
 
     await user.click(submit)
-    expect(onSubmit).not.toHaveBeenCalled()
+    expect(onSubmit).toHaveBeenCalledTimes(1)
   })
 
   it('grows and shrinks with its controlled content', () => {
