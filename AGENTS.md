@@ -21,6 +21,14 @@
   `not applicable` with a concrete reason, or `blocked` with the failing surface.
 - Medium/large work uses reviewed, resumable `docs/epics/<name>/` documents and one small task at a
   time. Tiny isolated changes still require inspection, focused validation, and diff review.
+- After dependency-safe validation, each implementation task/subtask includes a scoped commit, push
+  to `main`, monitoring the production workflow, and exact-target verification. Read-only
+  investigations stay read-only; destructive data/provider changes and external messages require
+  case-level scope. Follow explicit task limits.
+- After the push and exact-target verification, update the canonical local checkout: finish with
+  `HEAD == main == origin/main` and a clean worktree. If it contains unrelated work, first
+  preserve that exact state in a named recovery branch and persistent worktree, verify the snapshot,
+  then align the local main. Never leave a completed delivery with a silently stale local main.
 
 ## Library contracts
 
