@@ -68,6 +68,22 @@ describe('MessageComposer', () => {
     expect(onSubmit).not.toHaveBeenCalled()
   })
 
+  it('submits with Enter and keeps Shift+Enter for a new line', async () => {
+    const user = userEvent.setup()
+    const onSubmit = vi.fn()
+    render(<ControlledComposer onSubmit={onSubmit} />)
+
+    const input = screen.getByRole('textbox', { name: 'Mensagem' })
+
+    await user.type(input, 'Primeira linha{Enter}')
+    expect(onSubmit).toHaveBeenCalledTimes(1)
+    expect(input).toHaveValue('Primeira linha')
+
+    await user.keyboard('{Shift>}{Enter}{/Shift}Segunda linha')
+    expect(onSubmit).toHaveBeenCalledTimes(1)
+    expect(input).toHaveValue('Primeira linha\nSegunda linha')
+  })
+
   it('focuses an over-limit textarea instead of submitting', async () => {
     const user = userEvent.setup()
     const onSubmit = vi.fn()
@@ -137,6 +153,7 @@ describe('MessageComposer', () => {
     const input = screen.getByRole('textbox', {
       name: 'Mensagem',
     }) as HTMLTextAreaElement
+    expect(getComputedStyle(input).scrollbarWidth).toBe('none')
     let scrollHeight = 96
 
     Object.defineProperty(input, 'scrollHeight', {

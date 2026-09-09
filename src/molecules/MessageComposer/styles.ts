@@ -29,6 +29,14 @@ export const Input = styled(TextareaInput)`
   flex: 1 1 auto;
   overflow-y: auto;
   resize: none;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
+  }
 `
 
 export const Support = styled.div`

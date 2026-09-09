@@ -4,6 +4,7 @@ import {
   useLayoutEffect,
   useRef,
   type FormEvent,
+  type KeyboardEvent,
 } from 'react'
 import { IconButton } from '../../atoms/IconButton'
 import * as Styled from './styles'
@@ -70,6 +71,18 @@ export const MessageComposer = forwardRef<
     onSubmit()
   }
 
+  const handleKeyDown = (event: KeyboardEvent<HTMLTextAreaElement>) => {
+    if (
+      event.key !== 'Enter' ||
+      event.shiftKey ||
+      event.nativeEvent.isComposing
+    )
+      return
+
+    event.preventDefault()
+    event.currentTarget.form?.requestSubmit()
+  }
+
   return (
     <Styled.Form
       {...formProps}
@@ -90,6 +103,7 @@ export const MessageComposer = forwardRef<
           maxLength={maxLength}
           name={name}
           onChange={(event) => onValueChange(event.target.value)}
+          onKeyDown={handleKeyDown}
           placeholder={placeholder}
           rows={rows}
           value={value}
