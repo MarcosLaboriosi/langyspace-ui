@@ -70,7 +70,7 @@ jobs:
 
       - name: Validate behavior, accessibility and coverage
         run: |
-          pnpm test
+          pnpm run test:storybook
           pnpm run test:coverage
 
   package:

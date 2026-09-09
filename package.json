@@ -48,7 +48,7 @@
     "test:layout": "pnpm run build:storybook && node scripts/audit-storybook-layout.mjs",
     "test:package": "node scripts/smoke-test-package.mjs",
     "typecheck": "tsc --noEmit -p tsconfig.json",
-    "validate:ui": "pnpm run test:button-system && pnpm run lint && pnpm run format:check && pnpm run typecheck && pnpm test && pnpm run test:coverage && pnpm run build && pnpm run check:api && pnpm run test:bundle && pnpm run test:package && LAYOUT_AUDIT_SCREENSHOTS=1 pnpm run test:layout",
+    "validate:ui": "pnpm run test:button-system && pnpm run lint && pnpm run format:check && pnpm run typecheck && pnpm run test:storybook && pnpm run test:coverage && pnpm run build && pnpm run check:api && pnpm run test:bundle && pnpm run test:package && LAYOUT_AUDIT_SCREENSHOTS=1 pnpm run test:layout",
     "write:api": "node scripts/check-public-api.mjs --write"
   },
   "peerDependencies": {
