@@ -145,3 +145,10 @@ export { Pressable } from './primitives/Pressable'
 export type { PressableProps } from './primitives/Pressable/types'
 export { Spinner } from './primitives/Spinner'
 export type { SpinnerProps, SpinnerSize } from './primitives/Spinner/types'
+export { AvailabilityCalendar } from './molecules/AvailabilityCalendar'
+export type {
+  AvailabilityCalendarDay,
+  AvailabilityCalendarProps,
+  AvailabilityCalendarSlot,
+  AvailabilityCalendarStatus,
+} from './molecules/AvailabilityCalendar'

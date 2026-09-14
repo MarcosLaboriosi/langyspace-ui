@@ -12,6 +12,7 @@ const {
   AuthTokenDigits,
   ActionLink,
   ActionMenu,
+  AvailabilityCalendar,
   Avatar,
   Button,
   CompoundControl,
@@ -73,6 +74,19 @@ try {
         createElement(EmptyState, { title: 'Empty' }),
         createElement(LoadingState, { title: 'Loading' }),
         createElement(StatePanel, { state: 'error', title: 'Error' }),
+        createElement(AvailabilityCalendar, {
+          label: 'Calendar SSR',
+          days: [
+            {
+              id: 'monday',
+              label: 'Monday',
+              dateLabel: '14/09/2026',
+              slots: [{ id: '09', label: '09:00', available: true }],
+            },
+          ],
+          selectedSlotIds: ['09'],
+          onToggleSlot: () => undefined,
+        }),
         createElement(
           MessageBubble,
           {
@@ -248,6 +262,7 @@ for (const componentId of [
   'lsui-sc-action-menu',
   'lsui-sc-auth-notice',
   'lsui-sc-auth-token-digits',
+  'lsui-sc-availability-calendar',
   'lsui-sc-avatar',
   'lsui-sc-field-root',
   'lsui-sc-filter-pills',

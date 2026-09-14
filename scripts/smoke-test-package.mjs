@@ -78,7 +78,7 @@ async function writeConsumer(packageSpec) {
   )
   await writeFile(
     join(consumerDirectory, 'src', 'main.tsx'),
-    `import { ActionLink, ActionMenu, AuthNotice, AuthTokenDigits, Avatar, Button, CompoundControl, ControlledField, Dialog, Drawer, EmptyState, FieldRoot, FilterPills, IconButton, LoadingState, MessageBubble, MessageComposer, MessageThread, MessageThreadHeader, OperationalList, Pressable, SearchInput, SectionHeader, SegmentedControl, SelectInput, Spinner, StatePanel, StatusChip, TextareaInput, TextInput } from '@langyspace/ui'
+    `import { ActionLink, ActionMenu, AuthNotice, AuthTokenDigits, AvailabilityCalendar, Avatar, Button, CompoundControl, ControlledField, Dialog, Drawer, EmptyState, FieldRoot, FilterPills, IconButton, LoadingState, MessageBubble, MessageComposer, MessageThread, MessageThreadHeader, OperationalList, Pressable, SearchInput, SectionHeader, SegmentedControl, SelectInput, Spinner, StatePanel, StatusChip, TextareaInput, TextInput } from '@langyspace/ui'
 import type { AuditConfig } from '@langyspace/ui/audit'
 import { createRoot } from 'react-dom/client'
 import { FormProvider, useForm } from 'react-hook-form'
@@ -111,6 +111,7 @@ createRoot(document.getElementById('root')!).render(
     <EmptyState title="Package empty state passed" />
     <LoadingState title="Package loading state passed" />
     <StatePanel state="error" title="Package error state passed" />
+    <AvailabilityCalendar label="Package calendar passed" days={[{ id: 'monday', label: 'Monday', dateLabel: '14/09/2026', slots: [{ id: '09', label: '09:00', available: true }] }]} selectedSlotIds={['09']} onToggleSlot={() => undefined} />
     <MessageBubble side="outgoing" status="sent" statusLabel="Sent" timestamp="10:30">Package message passed</MessageBubble>
     <MessageComposer onSubmit={() => undefined} onValueChange={() => undefined} submitIcon={<span aria-hidden="true">+</span>} submitLabel="Send message" textareaLabel="Message" value="Package composer passed" />
     <MessageThread aria-label="Package thread" footer={<span>Package footer passed</span>} header={<MessageThreadHeader initials="LS" title="Package participant passed" />} viewportLabel="Package message history"><span>Package thread passed</span></MessageThread>
@@ -315,6 +316,7 @@ try {
     'lsui-sc-action-menu',
     'lsui-sc-auth-notice',
     'lsui-sc-auth-token-digits',
+    'lsui-sc-availability-calendar',
     'lsui-sc-field-root',
     'lsui-sc-filter-pills',
     'lsui-sc-compound-control',

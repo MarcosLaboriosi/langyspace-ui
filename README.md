@@ -630,6 +630,44 @@ existem. O slot de ícone é o helper interno `IconSlot`: envolve um nó opciona
 nos produtos. Tokens são públicos para composições locais que precisem respeitar as mesmas
 foundations; recipes e estilos continuam privados.
 
+## AvailabilityCalendar
+
+Calendário controlado de horários datados: colunas por dia em containers amplos e
+listas diárias em containers estreitos. O consumidor fornece dias, rótulos,
+disponibilidade, motivo de indisponibilidade e a seleção. Regras de compatibilidade,
+limites de seleção, navegação entre semanas e confirmação ficam no aplicativo.
+
+```tsx
+<AvailabilityCalendar
+  label="Escolha os horários"
+  days={[
+    {
+      id: '2026-09-14',
+      label: 'Segunda',
+      dateLabel: '14/09/2026',
+      slots: [
+        { id: 'slot-09', label: '09:00', available: true },
+        {
+          id: 'slot-10',
+          label: '10:00',
+          available: false,
+          unavailableReason: 'Sem disponibilidade compatível',
+        },
+      ],
+    },
+  ]}
+  selectedSlotIds={selectedIds}
+  onToggleSlot={toggleSlot}
+  selectionLabel={`${selectedIds.length} horários selecionados`}
+/>
+```
+
+IDs de dias e horários devem ser únicos e estáveis. Botões usam Tab, Enter e Espaço
+nativos e `aria-pressed`. Horários indisponíveis não selecionados são desabilitados
+com motivo visível e acessível; horários selecionados continuam removíveis quando
+a disponibilidade muda. `status="loading" | "empty" | "error"` substitui a seleção
+por StatePanel; `statusMessage` e `statusAction` permitem compor mensagem e retry.
+
 ## Pressable
 
 Use `Pressable` quando a superfície é um controle específico — tab, card clicável, opção de quiz,

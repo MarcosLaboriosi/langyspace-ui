@@ -25,6 +25,30 @@ const complete = { status: 'complete' } as const
 export const publicComponentContracts = [
   {
     browserSmoke: complete,
+    exportName: 'AvailabilityCalendar',
+    interactive: true,
+    layer: 'molecule',
+    ownerPath: 'src/molecules/AvailabilityCalendar/index.tsx',
+    runtimeMarker: 'lsui-sc-availability-calendar',
+    ssrSmoke: complete,
+    story: {
+      ...complete,
+      path: 'src/molecules/AvailabilityCalendar/AvailabilityCalendar.stories.tsx',
+      title: 'Molecules/Scheduling/AvailabilityCalendar',
+    },
+    test: {
+      ...complete,
+      path: 'src/molecules/AvailabilityCalendar/AvailabilityCalendar.test.tsx',
+    },
+    reference: {
+      propsPath: 'src/molecules/AvailabilityCalendar/types.ts',
+      documentation: { path: 'README.md', anchor: 'availabilitycalendar' },
+      consumers: [],
+    },
+    visual: true,
+  },
+  {
+    browserSmoke: complete,
     exportName: 'ActionLink',
     interactive: true,
     layer: 'atom',
