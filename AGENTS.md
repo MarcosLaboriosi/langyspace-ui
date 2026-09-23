@@ -15,17 +15,25 @@
 - Classify rendered impact before acting: `direct` changes UI/copy/layout/interaction; `indirect`
   changes component contracts or behavior that can alter rendering; `none` has no plausible
   rendered effect.
-- Direct/indirect work identifies component variants, states, content extremes, and widths, adds
-  story/audit coverage, runs `pnpm run validate:ui`, and includes screenshot inspection.
-- Every final handoff contains exactly one verdict: `Visual gate review: passed` with evidence,
-  `not applicable` with a concrete reason, or `blocked` with the failing surface.
+- Direct/indirect work identifies component variants, states, content extremes, and widths and adds
+  focused story/test coverage. Run the smallest local check that adds evidence; CI owns
+  `pnpm run validate:ui`, broad Storybook/layout audits, and full suites. The product owner performs
+  visual review.
+- Every final handoff contains exactly one verdict: `Visual gate review: pending human` for rendered
+  changes, `accepted by human`, `not applicable` with a concrete reason, or `blocked` with the
+  failing surface.
 - Medium/large work uses reviewed, resumable `docs/epics/<name>/` documents and one small task at a
   time. Tiny isolated changes still require inspection, focused validation, and diff review.
-- After dependency-safe validation, each implementation task/subtask includes a scoped commit, push
-  to `main`, monitoring the production workflow, and exact-target verification. Read-only
-  investigations stay read-only; destructive data/provider changes and external messages require
-  case-level scope. Follow explicit task limits.
-- After the push and exact-target verification, update the canonical local checkout: finish with
+- Internal subtasks do not require individual pushes. Finish the smallest coherent user delivery,
+  run at most two focused local checks (three only for high-risk changes), create a scoped commit,
+  and push once to `main`. Reuse successful evidence while relevant inputs are unchanged; after a
+  failure, rerun only the failed check. After pushing, do not poll, watch, or inspect CI/release logs
+  unless the user explicitly asks or a failure is reported. Report the commit and that delivery was
+  initiated without claiming publication completion.
+- Use one agent by default. For explicitly parallel work, give each subagent a bounded,
+  self-contained brief with minimal history; subagents do not run full gates or monitor CI. Collect
+  each result once instead of polling.
+- After the push, update the canonical local checkout: finish with
   `HEAD == main == origin/main` and a clean worktree. If it contains unrelated work, first
   preserve that exact state in a named recovery branch and persistent worktree, verify the snapshot,
   then align the local main. Never leave a completed delivery with a silently stale local main.
@@ -57,5 +65,5 @@ load it for simple read-only answers or isolated documentation.
 
 - Focused checks: `pnpm run typecheck`, `pnpm run test:unit`, `pnpm run test:storybook`
 - API/package: `pnpm run check:api`, `pnpm run test:bundle`, `pnpm run test:package`
-- Mandatory direct/indirect UI gate: `pnpm run validate:ui`
+- CI-owned direct/indirect UI gate: `pnpm run validate:ui`
 - Storybook: `pnpm run storybook`, `pnpm run build:storybook`
